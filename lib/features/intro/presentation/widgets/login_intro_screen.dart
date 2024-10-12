@@ -11,14 +11,6 @@ class LoginIntroScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        foregroundColor: Colours.white_text_color,
-        title: Text(
-          Strings.welcome_intro_appbar_text,
-          style: Styles.appbar_text_style,
-        ),
-        backgroundColor: Colours.app_bar_color,
-      ),
       body: Wrap(
         children: [
           Container(
@@ -27,7 +19,7 @@ class LoginIntroScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const SizedBox(
-                  height: 20,
+                  height: 80,
                 ),
                 Center(
                     child: Text(
@@ -35,7 +27,7 @@ class LoginIntroScreen extends StatelessWidget {
                   style: Styles.title_text_style,
                 )),
                 const SizedBox(
-                  height: 50,
+                  height: 70,
                 ),
                 Text(
                   Strings.intro_login_enter_login_text,
