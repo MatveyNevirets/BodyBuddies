@@ -1,21 +1,15 @@
-import 'package:body_buddies/core/colors/colors.dart';
-import 'package:body_buddies/core/strings/strings.dart';
-import 'package:body_buddies/core/styles/styles.dart';
-import 'package:body_buddies/core/widgets/base_button.dart';
 import 'package:flutter/material.dart';
 
-class LoginIntroScreen extends StatelessWidget {
+import '../../../../core/colors/colors.dart';
+import '../../../../core/strings/strings.dart';
+import '../../../../core/styles/styles.dart';
+import '../../../../core/widgets/base_button.dart';
 
-  final VoidCallback onRegistration;
-
-  TextEditingController loginController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
-
-  LoginIntroScreen({super.key, required this.onRegistration});
-
+class RegistrationFormScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(backgroundColor: Colors.white.withAlpha(0),),
       body: Wrap(
         children: [
           Container(
@@ -23,29 +17,25 @@ class LoginIntroScreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const SizedBox(
-                  height: 80,
-                ),
                 Center(
                     child: Text(
-                  Strings.intro_login_title_text,
+                  Strings.registration_text,
                   style: Styles.title_text_style,
                 )),
                 const SizedBox(
-                  height: 70,
+                  height: 50,
                 ),
                 Text(
-                  Strings.intro_login_enter_login_text,
+                  Strings.enter_your_email,
                   style: Styles.medium_text_style,
                 ),
                 const SizedBox(
                   height: 10,
                 ),
                 TextField(
-                  controller: loginController,
                   cursorColor: Colours.app_bar_color.withAlpha(200),
                   decoration: InputDecoration(
-                    hintText: Strings.hint_email_or_nickname,
+                    hintText: Strings.hint_email,
                     hintStyle: Styles.hint_text_style,
                     focusedBorder: const OutlineInputBorder(
                       borderSide: BorderSide(
@@ -60,15 +50,38 @@ class LoginIntroScreen extends StatelessWidget {
                   height: 30,
                 ),
                 Text(
-                  Strings.intro_login_enter_password_text,
+                  Strings.imagine_your_nickname,
                   style: Styles.medium_text_style,
                 ),
                 const SizedBox(
                   height: 10,
                 ),
                 TextField(
+                  cursorColor: Colours.app_bar_color.withAlpha(200),
+                  decoration: InputDecoration(
+                    hintText: Strings.hint_nickname,
+                    hintStyle: Styles.hint_text_style,
+                    focusedBorder: const OutlineInputBorder(
+                      borderSide: BorderSide(
+                        width: 2,
+                        color: Colours.app_bar_color,
+                      ),
+                    ),
+                    border: const OutlineInputBorder(),
+                  ),
+                ),
+                SizedBox(
+                  height: 30,
+                ),
+                Text(
+                  Strings.imagine_your_password,
+                  style: Styles.medium_text_style,
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                TextField(
                   obscureText: true,
-                  controller: passwordController,
                   cursorColor: Colours.app_bar_color.withAlpha(200),
                   decoration: InputDecoration(
                     hintText: Strings.hint_password,
@@ -83,29 +96,16 @@ class LoginIntroScreen extends StatelessWidget {
                   ),
                 ),
                 SizedBox(
-                  height: 50,
-                ),
-                Center(
-                  child: Container(
-                    width: 250,
-                    child: BaseButton(
-                        onClick: () => print("Do Someth.."),
-                        buttonText: Strings.button_login_text,
-                        icon: null,
-                        isElevated: true),
-                  ),
-                ),
-                SizedBox(
                   height: 30,
                 ),
                 Center(
                   child: Container(
                     width: 250,
                     child: BaseButton(
-                        onClick: () => onRegistration.call(),
+                        onClick: () => print("Do Someth.."),
                         buttonText: Strings.registration_text,
                         icon: null,
-                        isElevated: false),
+                        isElevated: true),
                   ),
                 ),
                 SizedBox(
