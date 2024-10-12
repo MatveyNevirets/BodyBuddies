@@ -1,5 +1,6 @@
 import 'package:body_buddies/core/strings/strings.dart';
 import 'package:body_buddies/features/intro/presentation/bloc/intro_bloc.dart';
+import 'package:body_buddies/features/intro/presentation/widgets/collect_characteristics_screen.dart';
 import 'package:body_buddies/features/intro/presentation/widgets/login_intro_screen.dart';
 import 'package:body_buddies/features/intro/presentation/widgets/registration_form_intro_screen.dart';
 import 'package:flutter/material.dart';
@@ -23,7 +24,13 @@ class IntroScreen extends StatelessWidget {
                   break;
 
                 case "intro/registration":
-                  builder = (BuildContext context) => RegistrationFormScreen();
+                  builder = (BuildContext context) => RegistrationFormScreen(onSuccesRegisration: () {
+                    Navigator.of(context).pushReplacementNamed("intro/collect_characteristics");
+                  },);
+                  break;
+
+                case "intro/collect_characteristics":
+                  builder = (BuildContext context) => CollectCharacteristicScreen();
                   break;
 
                 default:

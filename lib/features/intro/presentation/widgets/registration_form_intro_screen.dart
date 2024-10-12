@@ -6,6 +6,11 @@ import '../../../../core/styles/styles.dart';
 import '../../../../core/widgets/base_button.dart';
 
 class RegistrationFormScreen extends StatelessWidget {
+
+  final VoidCallback onSuccesRegisration;
+
+  RegistrationFormScreen({super.key, required this.onSuccesRegisration});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -102,7 +107,7 @@ class RegistrationFormScreen extends StatelessWidget {
                   child: Container(
                     width: 250,
                     child: BaseButton(
-                        onClick: () => print("Do Someth.."),
+                        onClick: () => onSuccesRegisration.call(),
                         buttonText: Strings.registration_text,
                         icon: null,
                         isElevated: true),

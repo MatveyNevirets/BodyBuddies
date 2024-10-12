@@ -1,18 +1,12 @@
-import 'package:body_buddies/core/colors/colors.dart';
-import 'package:body_buddies/core/strings/strings.dart';
-import 'package:body_buddies/core/styles/styles.dart';
-import 'package:body_buddies/core/widgets/base_button.dart';
 import 'package:flutter/material.dart';
 
-class LoginIntroScreen extends StatelessWidget {
+import '../../../../core/colors/colors.dart';
+import '../../../../core/strings/strings.dart';
+import '../../../../core/styles/styles.dart';
+import '../../../../core/widgets/base_button.dart';
 
-  final VoidCallback onRegistration;
-
-  TextEditingController loginController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
-
-  LoginIntroScreen({super.key, required this.onRegistration});
-
+class CollectCharacteristicScreen extends StatelessWidget
+{
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,9 +22,9 @@ class LoginIntroScreen extends StatelessWidget {
                 ),
                 Center(
                     child: Text(
-                  Strings.intro_login_title_text,
-                  style: Styles.title_text_style,
-                )),
+                      Strings.intro_login_title_text,
+                      style: Styles.title_text_style,
+                    )),
                 const SizedBox(
                   height: 70,
                 ),
@@ -42,10 +36,9 @@ class LoginIntroScreen extends StatelessWidget {
                   height: 10,
                 ),
                 TextField(
-                  controller: loginController,
                   cursorColor: Colours.app_bar_color.withAlpha(200),
                   decoration: InputDecoration(
-                    hintText: Strings.hint_email_or_nickname,
+                    hintText: Strings.hint_email,
                     hintStyle: Styles.hint_text_style,
                     focusedBorder: const OutlineInputBorder(
                       borderSide: BorderSide(
@@ -68,7 +61,6 @@ class LoginIntroScreen extends StatelessWidget {
                 ),
                 TextField(
                   obscureText: true,
-                  controller: passwordController,
                   cursorColor: Colours.app_bar_color.withAlpha(200),
                   decoration: InputDecoration(
                     hintText: Strings.hint_password,
@@ -102,7 +94,7 @@ class LoginIntroScreen extends StatelessWidget {
                   child: Container(
                     width: 250,
                     child: BaseButton(
-                        onClick: () => onRegistration.call(),
+                        onClick: () => print("Do Someth.."),
                         buttonText: Strings.registration_text,
                         icon: null,
                         isElevated: false),

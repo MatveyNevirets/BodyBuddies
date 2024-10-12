@@ -14,7 +14,7 @@ abstract class Strings {
 
   static const intro_login_title_text = "Войдите в аккаунт";
 
-  static const intro_login_enter_login_text = "Введите почту или никнейм";
+  static const intro_enter_login_text = "Введите почту или никнейм";
   static const intro_login_enter_password_text = "Введите ваш пароль";
 
   static const button_login_text = "Войти";
