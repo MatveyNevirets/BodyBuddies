@@ -42,6 +42,7 @@ class LoginIntroScreen extends StatelessWidget {
                   height: 10,
                 ),
                 TextField(
+                  maxLength: 30,
                   controller: loginController,
                   cursorColor: Colours.app_bar_color.withAlpha(200),
                   decoration: InputDecoration(
@@ -57,7 +58,7 @@ class LoginIntroScreen extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(
-                  height: 30,
+                  height: 20,
                 ),
                 Text(
                   Strings.intro_login_enter_password_text,

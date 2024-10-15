@@ -38,6 +38,7 @@ class RegistrationFormScreen extends StatelessWidget {
                   height: 10,
                 ),
                 TextField(
+                  maxLength: 30,
                   cursorColor: Colours.app_bar_color.withAlpha(200),
                   decoration: InputDecoration(
                     hintText: Strings.hint_email,
@@ -52,7 +53,7 @@ class RegistrationFormScreen extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(
-                  height: 30,
+                  height: 10,
                 ),
                 Text(
                   Strings.imagine_your_nickname,
@@ -62,6 +63,7 @@ class RegistrationFormScreen extends StatelessWidget {
                   height: 10,
                 ),
                 TextField(
+                  maxLength: 30,
                   cursorColor: Colours.app_bar_color.withAlpha(200),
                   decoration: InputDecoration(
                     hintText: Strings.hint_nickname,
@@ -76,7 +78,7 @@ class RegistrationFormScreen extends StatelessWidget {
                   ),
                 ),
                 SizedBox(
-                  height: 30,
+                  height: 10,
                 ),
                 Text(
                   Strings.imagine_your_password,
@@ -101,7 +103,7 @@ class RegistrationFormScreen extends StatelessWidget {
                   ),
                 ),
                 SizedBox(
-                  height: 30,
+                  height: 35,
                 ),
                 Center(
                   child: Container(
@@ -114,7 +116,7 @@ class RegistrationFormScreen extends StatelessWidget {
                   ),
                 ),
                 SizedBox(
-                  height: 40,
+                  height: 35,
                 ),
                 Center(
                   child: Text(

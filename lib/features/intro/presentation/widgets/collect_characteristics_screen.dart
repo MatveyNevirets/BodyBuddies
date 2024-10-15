@@ -5,10 +5,31 @@ import '../../../../core/strings/strings.dart';
 import '../../../../core/styles/styles.dart';
 import '../../../../core/widgets/base_button.dart';
 
-class CollectCharacteristicScreen extends StatelessWidget
-{
+class CollectCharacteristicScreen extends StatelessWidget {
+  TextEditingController weightController = TextEditingController();
+  TextEditingController heightController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
+    void collectData() {
+      print(weightController.text);
+      try {
+        if (double.parse(heightController.text) > 250 ||
+            double.parse(heightController.text) < 120 ||
+            double.parse(weightController.text) < 25 ||
+            double.parse(weightController.text) > 400) {
+          ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text(Strings.error_weight_or_height)));
+        } else {
+          print("Good");
+        }
+      } catch (e) {
+        ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text(Strings.use_dot_please)));
+      }
+
+    }
+
     return Scaffold(
       body: Wrap(
         children: [
@@ -22,23 +43,25 @@ class CollectCharacteristicScreen extends StatelessWidget
                 ),
                 Center(
                     child: Text(
-                      Strings.intro_login_title_text,
-                      style: Styles.title_text_style,
-                    )),
+                  Strings.collect_data,
+                  style: Styles.title_text_style,
+                )),
                 const SizedBox(
                   height: 70,
                 ),
                 Text(
-                  Strings.intro_enter_login_text,
+                  Strings.your_height,
                   style: Styles.medium_text_style,
                 ),
                 const SizedBox(
                   height: 10,
                 ),
                 TextField(
+                  keyboardType: TextInputType.number,
+                  controller: heightController,
                   cursorColor: Colours.app_bar_color.withAlpha(200),
                   decoration: InputDecoration(
-                    hintText: Strings.hint_email,
+                    hintText: Strings.youe_height_hint,
                     hintStyle: Styles.hint_text_style,
                     focusedBorder: const OutlineInputBorder(
                       borderSide: BorderSide(
@@ -53,17 +76,18 @@ class CollectCharacteristicScreen extends StatelessWidget
                   height: 30,
                 ),
                 Text(
-                  Strings.intro_login_enter_password_text,
+                  Strings.your_weight,
                   style: Styles.medium_text_style,
                 ),
                 const SizedBox(
                   height: 10,
                 ),
                 TextField(
-                  obscureText: true,
+                  keyboardType: TextInputType.number,
+                  controller: weightController,
                   cursorColor: Colours.app_bar_color.withAlpha(200),
                   decoration: InputDecoration(
-                    hintText: Strings.hint_password,
+                    hintText: Strings.your_weight_hint,
                     hintStyle: Styles.hint_text_style,
                     focusedBorder: const OutlineInputBorder(
                       borderSide: BorderSide(
@@ -75,33 +99,20 @@ class CollectCharacteristicScreen extends StatelessWidget
                   ),
                 ),
                 SizedBox(
-                  height: 50,
+                  height: 70,
                 ),
                 Center(
                   child: Container(
                     width: 250,
                     child: BaseButton(
-                        onClick: () => print("Do Someth.."),
-                        buttonText: Strings.button_login_text,
+                        onClick: () => collectData(),
+                        buttonText: Strings.button_done_text,
                         icon: null,
                         isElevated: true),
                   ),
                 ),
                 SizedBox(
-                  height: 30,
-                ),
-                Center(
-                  child: Container(
-                    width: 250,
-                    child: BaseButton(
-                        onClick: () => print("Do Someth.."),
-                        buttonText: Strings.registration_text,
-                        icon: null,
-                        isElevated: false),
-                  ),
-                ),
-                SizedBox(
-                  height: 40,
+                  height: 100,
                 ),
                 Center(
                   child: Text(

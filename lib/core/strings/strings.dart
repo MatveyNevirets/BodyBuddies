@@ -34,5 +34,17 @@ abstract class Strings {
   static const hint_password = "Пароль";
   static const hint_email_or_nickname = "Почта или никнейм";
 
+  static const collect_data = "Сбор информации";
+
+  static const your_weight = "Ваш вес (кг)";
+  static const your_height = "Ваш рост (см)";
+
+  static const your_weight_hint = "Вес";
+  static const youe_height_hint = "Рост";
+
+  static const error_weight_or_height = "Недопустимый вес или рост!";
+
+  static const use_dot_please = "Используйте точку, а не запятую!";
+
 ///////////////////////////////
 }
