@@ -9,6 +9,9 @@ class CollectCharacteristicScreen extends StatelessWidget {
   TextEditingController weightController = TextEditingController();
   TextEditingController heightController = TextEditingController();
 
+  final VoidCallback onSuccessCollect;
+  CollectCharacteristicScreen({super.key, required this.onSuccessCollect});
+
   @override
   Widget build(BuildContext context) {
     void collectData() {
@@ -21,6 +24,7 @@ class CollectCharacteristicScreen extends StatelessWidget {
           ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(content: Text(Strings.error_weight_or_height)));
         } else {
+          onSuccessCollect.call();
           print("Good");
         }
       } catch (e) {
