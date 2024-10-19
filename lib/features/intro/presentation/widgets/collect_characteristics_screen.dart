@@ -63,14 +63,14 @@ class CollectCharacteristicScreen extends StatelessWidget {
                 TextField(
                   keyboardType: TextInputType.number,
                   controller: heightController,
-                  cursorColor: Colours.app_bar_color.withAlpha(200),
+                  cursorColor: Colours.bottom_bar_icons_color.withAlpha(200),
                   decoration: InputDecoration(
                     hintText: Strings.youe_height_hint,
                     hintStyle: Styles.hint_text_style,
                     focusedBorder: const OutlineInputBorder(
                       borderSide: BorderSide(
                         width: 2,
-                        color: Colours.app_bar_color,
+                        color: Colours.bottom_bar_icons_color,
                       ),
                     ),
                     border: const OutlineInputBorder(),
@@ -89,14 +89,14 @@ class CollectCharacteristicScreen extends StatelessWidget {
                 TextField(
                   keyboardType: TextInputType.number,
                   controller: weightController,
-                  cursorColor: Colours.app_bar_color.withAlpha(200),
+                  cursorColor: Colours.bottom_bar_icons_color.withAlpha(200),
                   decoration: InputDecoration(
                     hintText: Strings.your_weight_hint,
                     hintStyle: Styles.hint_text_style,
                     focusedBorder: const OutlineInputBorder(
                       borderSide: BorderSide(
                         width: 2,
-                        color: Colours.app_bar_color,
+                        color: Colours.bottom_bar_icons_color,
                       ),
                     ),
                     border: const OutlineInputBorder(),

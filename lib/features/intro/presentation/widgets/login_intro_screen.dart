@@ -44,14 +44,14 @@ class LoginIntroScreen extends StatelessWidget {
                 TextField(
                   maxLength: 30,
                   controller: loginController,
-                  cursorColor: Colours.app_bar_color.withAlpha(200),
+                  cursorColor: Colours.bottom_bar_icons_color.withAlpha(200),
                   decoration: InputDecoration(
                     hintText: Strings.hint_email_or_nickname,
                     hintStyle: Styles.hint_text_style,
                     focusedBorder: const OutlineInputBorder(
                       borderSide: BorderSide(
                         width: 2,
-                        color: Colours.app_bar_color,
+                        color: Colours.bottom_bar_icons_color,
                       ),
                     ),
                     border: const OutlineInputBorder(),
@@ -70,14 +70,14 @@ class LoginIntroScreen extends StatelessWidget {
                 TextField(
                   obscureText: true,
                   controller: passwordController,
-                  cursorColor: Colours.app_bar_color.withAlpha(200),
+                  cursorColor: Colours.bottom_bar_icons_color.withAlpha(200),
                   decoration: InputDecoration(
                     hintText: Strings.hint_password,
                     hintStyle: Styles.hint_text_style,
                     focusedBorder: const OutlineInputBorder(
                       borderSide: BorderSide(
                         width: 2,
-                        color: Colours.app_bar_color,
+                        color: Colours.bottom_bar_icons_color,
                       ),
                     ),
                     border: const OutlineInputBorder(),

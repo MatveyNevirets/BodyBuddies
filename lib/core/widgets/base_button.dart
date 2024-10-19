@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 class BaseButton extends StatelessWidget {
   final VoidCallback onClick;
   final String buttonText;
+  final Color? backgroundColor;
+  final Color? textColor;
 
   bool isElevated = true;
 
@@ -15,6 +17,8 @@ class BaseButton extends StatelessWidget {
       {required this.onClick,
       required this.buttonText,
       required this.icon,
+        required this.backgroundColor,
+        required this.textColor,
       required this.isElevated});
 
   @override
@@ -30,7 +34,7 @@ class BaseButton extends StatelessWidget {
                 buttonText,
                 style: Styles.base_text_button_style,
               ),
-              SizedBox(
+              const SizedBox(
                 width: 20,
               ),
               Icon(
@@ -60,9 +64,12 @@ class BaseButton extends StatelessWidget {
             children: [
               Text(
                 buttonText,
-                style: Styles.outlined_button_text_style,
+                style: TextStyle(
+                    fontSize: 12,
+                    color: textColor ?? Colours.base_button_color,
+                    fontWeight: FontWeight.w500),
               ),
-              SizedBox(
+              const SizedBox(
                 width: 20,
               ),
               Icon(
@@ -78,9 +85,14 @@ class BaseButton extends StatelessWidget {
           onPressed: onClick,
           child: Text(
             buttonText,
-            style: Styles.outlined_button_text_style,
+            style: TextStyle(
+                fontSize: 12,
+                color: textColor ?? Colours.base_button_color,
+                fontWeight: FontWeight.w500),
           ),
-          style: Styles.base_outlined_button_style,
+          style: ButtonStyle(
+              side: WidgetStatePropertyAll(BorderSide(
+                  color: backgroundColor ?? Colours.base_button_color, width: 1.5, style: BorderStyle.solid))),
         );
       }
     }

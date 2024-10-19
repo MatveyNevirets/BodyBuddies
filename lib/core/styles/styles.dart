@@ -10,16 +10,33 @@ abstract class Styles {
   ///elevations//////
   static const double base_elevation = 8;
 
+  ///Sized/boxes//////
+  static const double height_of_text_to_widget = 10;
+  static const double big_height_of_text_to_widget = 45;
+
   ///text//styles/////////
   static const appbar_text_style = TextStyle(
       fontSize: 24,
-      color: Colours.white_text_color,
+      color: Colours.black_text_color,
       fontWeight: FontWeight.bold);
   static const body_text_style = TextStyle(
       fontSize: 21,
       color: Colours.black_text_color,
       fontWeight: FontWeight.w500);
 
+  ////dark///boxes//////
+
+  static const medium_dark_boxes_text = TextStyle(
+      fontSize: 18,
+      color: Colours.white_text_color,
+      fontWeight: FontWeight.w500);
+
+  static const small_dark_boxes_text = TextStyle(
+      fontSize: 12,
+      color: Colours.grey_text_color,
+      fontWeight: FontWeight.w400);
+
+  ////dark///boxes//////
   static const title_text_style = TextStyle(
       fontSize: 24,
       color: Colours.black_text_color,
@@ -53,6 +70,7 @@ abstract class Styles {
 
   static const base_text_button_style =
       TextStyle(color: Colours.base_button_text_color);
+
 
 
 }

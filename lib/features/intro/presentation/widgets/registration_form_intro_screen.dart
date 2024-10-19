@@ -39,14 +39,14 @@ class RegistrationFormScreen extends StatelessWidget {
                 ),
                 TextField(
                   maxLength: 30,
-                  cursorColor: Colours.app_bar_color.withAlpha(200),
+                  cursorColor: Colours.bottom_bar_icons_color.withAlpha(200),
                   decoration: InputDecoration(
                     hintText: Strings.hint_email,
                     hintStyle: Styles.hint_text_style,
                     focusedBorder: const OutlineInputBorder(
                       borderSide: BorderSide(
                         width: 2,
-                        color: Colours.app_bar_color,
+                        color: Colours.bottom_bar_icons_color,
                       ),
                     ),
                     border: const OutlineInputBorder(),
@@ -64,14 +64,14 @@ class RegistrationFormScreen extends StatelessWidget {
                 ),
                 TextField(
                   maxLength: 30,
-                  cursorColor: Colours.app_bar_color.withAlpha(200),
+                  cursorColor: Colours.bottom_bar_icons_color.withAlpha(200),
                   decoration: InputDecoration(
                     hintText: Strings.hint_nickname,
                     hintStyle: Styles.hint_text_style,
                     focusedBorder: const OutlineInputBorder(
                       borderSide: BorderSide(
                         width: 2,
-                        color: Colours.app_bar_color,
+                        color: Colours.bottom_bar_icons_color,
                       ),
                     ),
                     border: const OutlineInputBorder(),
@@ -89,14 +89,14 @@ class RegistrationFormScreen extends StatelessWidget {
                 ),
                 TextField(
                   obscureText: true,
-                  cursorColor: Colours.app_bar_color.withAlpha(200),
+                  cursorColor: Colours.bottom_bar_icons_color.withAlpha(200),
                   decoration: InputDecoration(
                     hintText: Strings.hint_password,
                     hintStyle: Styles.hint_text_style,
                     focusedBorder: const OutlineInputBorder(
                       borderSide: BorderSide(
                         width: 2,
-                        color: Colours.app_bar_color,
+                        color: Colours.bottom_bar_icons_color,
                       ),
                     ),
                     border: const OutlineInputBorder(),
