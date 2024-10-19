@@ -30,7 +30,9 @@ class IntroScreen extends StatelessWidget {
                   break;
 
                 case "intro/collect_characteristics":
-                  builder = (BuildContext context) => CollectCharacteristicScreen();
+                  builder = (BuildContext _) => CollectCharacteristicScreen(onSuccessCollect: () {
+                    Navigator.of(context).pop();
+                  },);
                   break;
 
                 default:
