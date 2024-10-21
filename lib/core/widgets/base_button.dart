@@ -1,6 +1,6 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:body_buddies/core/colors/colors.dart';
-import 'package:body_buddies/core/styles/styles.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class BaseButton extends StatelessWidget {
@@ -15,7 +15,7 @@ class BaseButton extends StatelessWidget {
   final IconData? icon;
 
   BaseButton(
-      {required this.onClick,
+      {super.key, required this.onClick,
       required this.buttonText,
       required this.icon,
       required this.isElevated,
@@ -28,7 +28,7 @@ class BaseButton extends StatelessWidget {
       if (icon != null) {
         return ElevatedButton(
           onPressed: onClick,
-          style: ButtonStyle(//TODO: Раскидать по константам стиля
+          style: ButtonStyle(
               backgroundColor: WidgetStatePropertyAll(
                   backgroundColor ?? Colours.base_button_color)),
           child: Row(

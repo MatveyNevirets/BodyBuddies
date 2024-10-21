@@ -1,3 +1,5 @@
+// ignore_for_file: sized_box_for_whitespace
+
 import 'package:flutter/material.dart';
 
 import '../../../../core/colors/colors.dart';
@@ -9,7 +11,7 @@ class RegistrationFormScreen extends StatelessWidget {
 
   final VoidCallback onSuccesRegisration;
 
-  RegistrationFormScreen({super.key, required this.onSuccesRegisration});
+  const RegistrationFormScreen({super.key, required this.onSuccesRegisration});
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +24,7 @@ class RegistrationFormScreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Center(
+                const Center(
                     child: Text(
                   Strings.registration_text,
                   style: Styles.title_text_style,
@@ -30,7 +32,7 @@ class RegistrationFormScreen extends StatelessWidget {
                 const SizedBox(
                   height: 50,
                 ),
-                Text(
+                const Text(
                   Strings.enter_your_email,
                   style: Styles.medium_text_style,
                 ),
@@ -40,22 +42,22 @@ class RegistrationFormScreen extends StatelessWidget {
                 TextField(
                   maxLength: 30,
                   cursorColor: Colours.bottom_bar_icons_color.withAlpha(200),
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     hintText: Strings.hint_email,
                     hintStyle: Styles.hint_text_style,
-                    focusedBorder: const OutlineInputBorder(
+                    focusedBorder: OutlineInputBorder(
                       borderSide: BorderSide(
                         width: 2,
                         color: Colours.bottom_bar_icons_color,
                       ),
                     ),
-                    border: const OutlineInputBorder(),
+                    border: OutlineInputBorder(),
                   ),
                 ),
                 const SizedBox(
                   height: 10,
                 ),
-                Text(
+                const Text(
                   Strings.imagine_your_nickname,
                   style: Styles.medium_text_style,
                 ),
@@ -65,44 +67,44 @@ class RegistrationFormScreen extends StatelessWidget {
                 TextField(
                   maxLength: 30,
                   cursorColor: Colours.bottom_bar_icons_color.withAlpha(200),
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     hintText: Strings.hint_nickname,
                     hintStyle: Styles.hint_text_style,
-                    focusedBorder: const OutlineInputBorder(
+                    focusedBorder: OutlineInputBorder(
                       borderSide: BorderSide(
                         width: 2,
                         color: Colours.bottom_bar_icons_color,
                       ),
                     ),
-                    border: const OutlineInputBorder(),
+                    border: OutlineInputBorder(),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
-                Text(
+                const Text(
                   Strings.imagine_your_password,
                   style: Styles.medium_text_style,
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 TextField(
                   obscureText: true,
                   cursorColor: Colours.bottom_bar_icons_color.withAlpha(200),
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     hintText: Strings.hint_password,
                     hintStyle: Styles.hint_text_style,
-                    focusedBorder: const OutlineInputBorder(
+                    focusedBorder: OutlineInputBorder(
                       borderSide: BorderSide(
                         width: 2,
                         color: Colours.bottom_bar_icons_color,
                       ),
                     ),
-                    border: const OutlineInputBorder(),
+                    border: OutlineInputBorder(),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 35,
                 ),
                 Center(
@@ -115,10 +117,10 @@ class RegistrationFormScreen extends StatelessWidget {
                         isElevated: true),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 35,
                 ),
-                Center(
+                const Center(
                   child: Text(
                     Strings.intro_login_mini_info_text,
                     style: Styles.mini_info_text_style,

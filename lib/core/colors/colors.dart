@@ -1,13 +1,17 @@
-import 'dart:ui';
+
+// ignore_for_file: constant_identifier_names, duplicate_ignore
 
 import 'package:flutter/material.dart';
 
 abstract class Colours
 {
   ///bars/////
+  // ignore: constant_identifier_names
   static const Color bottom_bar_icons_color = Color.fromARGB(255, 55, 161, 227);
+  // ignore: constant_identifier_names
   static const Color bottom_bar_background_color = Color.fromARGB(
       255, 250, 250, 250);
+  // ignore: constant_identifier_names
   static const Color system_bottom_bar_background_color = Color.fromARGB(
       255, 255, 255, 255);
 

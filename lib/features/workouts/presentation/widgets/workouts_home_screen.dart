@@ -4,8 +4,11 @@ import 'package:body_buddies/core/widgets/base_button.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../core/icons/flutter-icons-ef864561/bottom_icons_icons.dart';
+import '../../../../core/strings/strings.dart';
 
 class WorkoutsHomeScreen extends StatelessWidget {
+  const WorkoutsHomeScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -13,8 +16,8 @@ class WorkoutsHomeScreen extends StatelessWidget {
       child: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: [//TODO: Распределить текст
-            const Text("Твои программы", style: Styles.appbar_text_style),
+          children: [
+            const Text(Strings.your_programs_string, style: Styles.appbar_text_style),
             const SizedBox(
               height: Styles.height_of_text_to_widget,
             ),
@@ -39,18 +42,18 @@ class WorkoutsHomeScreen extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              "Название программы",
+                              "Название программы", //TODO: В БУДУЮЩЕМ ЗДЕСЬ ОПИРАЕТСЯ ВСЁ НА ДАННЫЕ ПОЛЬЗОВАТЕЛЯ
                               style: Styles.medium_dark_boxes_text,
                             ),
                             Text(
-                              "Понедельник",
+                              "Понедельник", //TODO: В БУДУЮЩЕМ ЗДЕСЬ ОПИРАЕТСЯ ВСЁ НА ДАННЫЕ ПОЛЬЗОВАТЕЛЯ
                               style: Styles.small_dark_boxes_text,
                             ),
                             SizedBox(
                               height: Styles.big_height_of_text_to_widget,
                             ),
                             Text(
-                              "Грудь, бицепс",
+                              "Грудь, бицепс", //TODO: В БУДУЮЩЕМ ЗДЕСЬ ОПИРАЕТСЯ ВСЁ НА ДАННЫЕ ПОЛЬЗОВАТЕЛЯ
                               style: Styles.medium_dark_boxes_text,
                             )
                           ],
@@ -71,7 +74,7 @@ class WorkoutsHomeScreen extends StatelessWidget {
                             const SizedBox(height: 18),
                             BaseButton(
                               onClick: () {},
-                              buttonText: "Начать",
+                              buttonText: Strings.start,
                               icon: null,
                               isElevated: true,
                               backgroundColor: Colours.white_text_color,

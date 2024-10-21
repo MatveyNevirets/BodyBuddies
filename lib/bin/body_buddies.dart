@@ -18,15 +18,15 @@ class BodyBuddiesApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData(appBarTheme: AppBarTheme(
-        systemOverlayStyle: const SystemUiOverlayStyle(
+      theme: ThemeData(appBarTheme: const AppBarTheme(
+        systemOverlayStyle: SystemUiOverlayStyle(
             statusBarColor: Colours.bottom_bar_background_color,
             statusBarIconBrightness:  Brightness.dark,
             systemNavigationBarIconBrightness: Brightness.dark,
             systemNavigationBarColor: Colours.bottom_bar_background_color
         ),
         backgroundColor: Colors.transparent,
-        actionsIconTheme: const IconThemeData(color: Colours.black_text_color),
+        actionsIconTheme: IconThemeData(color: Colours.black_text_color),
       )),
       debugShowCheckedModeBanner: false,
       routes: {

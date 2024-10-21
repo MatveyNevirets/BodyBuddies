@@ -2,6 +2,8 @@ import 'package:body_buddies/features/workouts/presentation/widgets/workouts_hom
 import 'package:flutter/material.dart';
 
 class WorkoutsScreen extends StatelessWidget {
+  const WorkoutsScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Navigator(
@@ -12,7 +14,7 @@ class WorkoutsScreen extends StatelessWidget {
 
         switch(setting.name) {
           case "workouts/home":
-            builder = (BuildContext context) => WorkoutsHomeScreen();
+            builder = (BuildContext context) => const WorkoutsHomeScreen();
             break;
 
           default:

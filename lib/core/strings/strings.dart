@@ -1,3 +1,5 @@
+// ignore_for_file: constant_identifier_names
+
 abstract class Strings {
   static const navigator_exception =
       "Navigator error! Check your settings.name!";
@@ -45,6 +47,20 @@ abstract class Strings {
   static const error_weight_or_height = "Недопустимый вес или рост!";
 
   static const use_dot_please = "Используйте точку, а не запятую!";
+
+  static var news_appbar_string = "Новости";
+
+  static var chats_appbar_string = "Чаты";
+
+  static var workouts_appbar = "Тренировки";
+
+  static var profile_string =  "Профиль";
+
+  static const String your_programs_string = "Твои программы";
+
+  static const String start = "Начать";
+  
+  
 
 ///////////////////////////////
 }
