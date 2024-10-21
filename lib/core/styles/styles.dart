@@ -7,7 +7,8 @@ import '../colors/colors.dart';
 
 abstract class Styles {
   ///margins/////
-  static const base_magrin_size = EdgeInsets.all(16);
+  static const base_margin_size = EdgeInsets.all(16);
+  static double base_margin_size_double = 16;
 
   ///elevations//////
   static const double base_elevation = 8;

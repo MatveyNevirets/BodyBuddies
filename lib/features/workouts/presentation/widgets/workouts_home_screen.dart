@@ -1,10 +1,9 @@
-import 'package:body_buddies/core/colors/colors.dart';
-import 'package:body_buddies/core/styles/styles.dart';
-import 'package:body_buddies/core/widgets/base_button.dart';
+import 'package:body_buddies/core/strings/strings.dart';
+import 'package:body_buddies/core/widgets/features_cards/workouts_feature_card.dart';
+import 'package:body_buddies/features/workouts/presentation/widgets/water_indicator_widget/water_indicator_widget.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../core/icons/flutter-icons-ef864561/bottom_icons_icons.dart';
-import '../../../../core/strings/strings.dart';
+import '../../../../core/styles/styles.dart';
 
 class WorkoutsHomeScreen extends StatelessWidget {
   const WorkoutsHomeScreen({super.key});
@@ -12,85 +11,25 @@ class WorkoutsHomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: Styles.base_magrin_size,
-      child: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Text(Strings.your_programs_string, style: Styles.appbar_text_style),
-            const SizedBox(
-              height: Styles.height_of_text_to_widget,
-            ),
-            Container(
-              height: 150,
-              width: double.maxFinite,
-              decoration: BoxDecoration(
-                  gradient: const LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    colors: Colours.blueContainerGradientColors,
-                  ),
-                  borderRadius: BorderRadius.circular(8)),
-              child: Wrap(
-                children: [
-                  Container(
-                    margin: Styles.base_magrin_size,
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              "Название программы", //TODO: В БУДУЮЩЕМ ЗДЕСЬ ОПИРАЕТСЯ ВСЁ НА ДАННЫЕ ПОЛЬЗОВАТЕЛЯ
-                              style: Styles.medium_dark_boxes_text,
-                            ),
-                            Text(
-                              "Понедельник", //TODO: В БУДУЮЩЕМ ЗДЕСЬ ОПИРАЕТСЯ ВСЁ НА ДАННЫЕ ПОЛЬЗОВАТЕЛЯ
-                              style: Styles.small_dark_boxes_text,
-                            ),
-                            SizedBox(
-                              height: Styles.big_height_of_text_to_widget,
-                            ),
-                            Text(
-                              "Грудь, бицепс", //TODO: В БУДУЮЩЕМ ЗДЕСЬ ОПИРАЕТСЯ ВСЁ НА ДАННЫЕ ПОЛЬЗОВАТЕЛЯ
-                              style: Styles.medium_dark_boxes_text,
-                            )
-                          ],
-                        ),
-                        const SizedBox(
-                          width: 8,
-                        ),
-                        Column(
-                          children: [
-                            const SizedBox(
-                              height: 8,
-                            ),
-                            const Icon(
-                              BottomIcons.dumbbell,
-                              size: 40,
-                              color: Colours.white_text_color,
-                            ),
-                            const SizedBox(height: 18),
-                            BaseButton(
-                              onClick: () {},
-                              buttonText: Strings.start,
-                              icon: null,
-                              isElevated: true,
-                              backgroundColor: Colours.white_text_color,
-                              color: Colours.bottom_bar_icons_color,
-                            )
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
+        margin: Styles.base_margin_size,
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Text(Strings.your_programs_string, style: Styles.appbar_text_style),
+              const SizedBox(height: Styles.height_of_text_to_widget,),
+              WorkoutFeatureCard(),
+              SizedBox(
+                height: Styles.big_height_of_text_to_widget / 1.5,
               ),
-            )
-          ],
-        ),
-      ),
-    );
+              Text(Strings.diet, style: Styles.appbar_text_style),
+              const SizedBox(height: Styles.height_of_text_to_widget,),
+              Center(
+                child: WaterIndicatorWidget(),
+              ),
+
+            ],
+          ),
+        ));
   }
 }

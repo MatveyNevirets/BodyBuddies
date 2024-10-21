@@ -14,7 +14,7 @@ class WorkoutsScreen extends StatelessWidget {
 
         switch(setting.name) {
           case "workouts/home":
-            builder = (BuildContext context) => const WorkoutsHomeScreen();
+            builder = (BuildContext context) => WorkoutsHomeScreen();
             break;
 
           default:

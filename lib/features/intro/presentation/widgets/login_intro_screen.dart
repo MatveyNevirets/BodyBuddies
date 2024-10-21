@@ -22,7 +22,7 @@ class LoginIntroScreen extends StatelessWidget {
       body: Wrap(
         children: [
           Container(
-            margin: Styles.base_magrin_size,
+            margin: Styles.base_margin_size,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
