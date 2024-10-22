@@ -74,6 +74,10 @@ abstract class Styles {
   static const base_text_button_style =
       TextStyle(color: Colours.base_button_text_color);
 
+  static var nutrition_text_style = TextStyle(fontFamily: 'AqumTwo');
+
+  static double nutrition_button_elevate = 72;
+
 
 
 }

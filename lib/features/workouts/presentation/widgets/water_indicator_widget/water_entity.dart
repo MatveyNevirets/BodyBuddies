@@ -1,9 +1,9 @@
+import 'package:body_buddies/features/workouts/presentation/bloc/water_cups_bloc/water_cups_bloc.dart';
 import 'package:body_buddies/features/workouts/presentation/widgets/water_indicator_widget/water_indicator_widget.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class WaterEntity extends StatefulWidget {
-
-  bool isDone = false;
   int index;
 
   WaterEntity(this.index);
@@ -13,33 +13,61 @@ class WaterEntity extends StatefulWidget {
 }
 
 class _WaterEntityState extends State<WaterEntity> {
+  bool isDone = false;
 
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
+  setDone(bool isTrue) {
+    isDone = isTrue;
   }
 
-  void changeNewState() {
-    setState(() {
-      widget.isDone = !widget.isDone;
-    });
+  bool _buildState(WaterCupsState state) {
+    return state is ActivatedCupState || state is DeactivatedCupState;
   }
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: changeNewState,
-      child: Stack(children: [
-        Image.network("https://w7.pngwing.com/pngs/55/817/png-transparent-clear-glass-cup-with-water-cup-glass-drinking-water-champagne-glass-glass-tumbler-drinking-thumbnail.png", height: 50, width: 50,),
-        doneIcon(),
-      ], alignment: Alignment.bottomRight,),
+    return BlocProvider(
+      create: (BuildContext context) {
+        return WaterCupsBloc();
+      },
+      child: BlocBuilder<WaterCupsBloc, WaterCupsState>(
+        builder: (context, state) {
+          return buildCup(context, state);
+        },
+        buildWhen: (previous, current) => _buildState(current),
+      ),
     );
   }
 
-  Widget doneIcon() {
-    if(widget.isDone) {
-      return Image.network("https://cdn-icons-png.flaticon.com/512/2550/2550322.png", height: 10, width: 10,);
+  Widget buildCup(BuildContext context, WaterCupsState state) {
+    return GestureDetector(
+      onTap: () {
+        context.read<WaterCupsBloc>().add(isDone
+            ? DeactivatingCupEvent(widget.index)
+            : ActivatingCupEvent(widget.index));
+        setDone(isDone = !isDone);
+        print(widget.index);
+      },
+      child: Stack(
+        children: [
+          Image(
+            image: AssetImage("lib/assets/images/water_cup.jpg"),
+            height: 50,
+            width: 50,
+          ),
+          doneIcon(state),
+        ],
+        alignment: Alignment.bottomRight,
+      ),
+    );
+  }
+
+  Widget doneIcon(WaterCupsState state) {
+    if (state is ActivatedCupState) {
+      return Image(
+        image: AssetImage("lib/assets/images/Check.png"),
+        height: 10,
+        width: 10,
+      );
     } else {
       return SizedBox();
     }

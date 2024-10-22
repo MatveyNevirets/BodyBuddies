@@ -1,10 +1,11 @@
 import 'package:flutter/cupertino.dart';
 
-import '../../colors/colors.dart';
-import '../../icons/flutter-icons-ef864561/bottom_icons_icons.dart';
-import '../../strings/strings.dart';
-import '../../styles/styles.dart';
-import '../base_button.dart';
+import '../../../../../../assets/icons/flutter-icons-ef864561/bottom_icons_icons.dart';
+import '../../../../../../core/colors/colors.dart';
+
+import '../../../../../../core/strings/strings.dart';
+import '../../../../../../core/styles/styles.dart';
+import '../../../../../../core/widgets/base_button.dart';
 
 class WorkoutFeatureCard extends StatelessWidget {
   @override
@@ -49,9 +50,7 @@ class WorkoutFeatureCard extends StatelessWidget {
                     )
                   ],
                 ),
-                const SizedBox(
-                  width: 8,
-                ),
+                Expanded(child: SizedBox()),
                 Column(
                   children: [
                     const SizedBox(

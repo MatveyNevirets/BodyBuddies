@@ -20,8 +20,10 @@ abstract class Colours
   static const Color white_text_color = Colors.white;
   static const Color grey_text_color = Color.fromARGB(255, 237, 237, 237);
   static const Color black_text_color = Color.fromARGB(255, 50, 50, 50);
-
+  static const Color green_text_color = Color.fromARGB(255, 9, 222, 9);
   static const Color hint_form_text_color = Color.fromARGB(189, 0, 0, 0);
+
+  static const Color invisible_color = Color.fromARGB(0,0,0,0);
 
   /////buttons/////
   static const Color base_button_color = Color.fromARGB(255, 107, 169, 232);
@@ -36,6 +38,12 @@ abstract class Colours
     Color.fromARGB(255, 4, 180, 255),
     Color.fromARGB(255, 49, 52, 253),
   ];
+
+  static const List<Color> greenContainerGradientColors = [
+    Color.fromARGB(255, 41, 228, 54),
+    Color.fromARGB(255, 57, 170, 31),
+  ];
+
 
   static const List<Color> appBarGradientColors = [
     Color.fromARGB(255, 4, 217, 255),

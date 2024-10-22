@@ -1,5 +1,5 @@
 import 'package:body_buddies/core/colors/colors.dart';
-import 'package:body_buddies/core/icons/flutter-icons-ef864561/bottom_icons_icons.dart';
+import 'package:body_buddies/assets/icons/flutter-icons-ef864561/bottom_icons_icons.dart';
 import 'package:body_buddies/core/styles/styles.dart';
 import 'package:body_buddies/core/widgets/base_bottom_navigation_bar_item.dart';
 import 'package:body_buddies/features/home/presentation/widgets/body_home_data.dart';
