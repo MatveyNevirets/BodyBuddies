@@ -10,11 +10,17 @@ class StylisedButton extends StatelessWidget {
   final Color? color;
   final double? elevation;
   final String title;
+  final Size? buttonSize;
+  final TextStyle? textStyle;
+  final CrossAxisAlignment? crossAxisAlignment;
   String? subTitle;
 
-  final VoidCallback onPressed;
+  final VoidCallback? onPressed;
 
   StylisedButton(
+    this.buttonSize,
+    this.crossAxisAlignment,
+    this.textStyle,
     this.isElevated,
     this.backgroundColor,
     this.color,
@@ -29,16 +35,6 @@ class StylisedButton extends StatelessWidget {
     if (isElevated && subTitle != null) {
       return ElevatedButton(
         onPressed: onPressed,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              title,
-              style: Styles.nutrition_text_style,
-            ),
-            Text(subTitle!, style: Styles.nutrition_text_style),
-          ],
-        ),
         style: ButtonStyle(
           backgroundColor: WidgetStatePropertyAll(
               backgroundColor ?? Colours.white_text_color),
@@ -46,7 +42,7 @@ class StylisedButton extends StatelessWidget {
               WidgetStatePropertyAll(color ?? Colours.green_text_color),
           elevation: WidgetStatePropertyAll(elevation ?? 8),
           minimumSize: WidgetStatePropertyAll(
-            Size(163, 72 / 1.25),
+            buttonSize ?? Size(163, 72 / 1.25),
           ),
           shape: WidgetStatePropertyAll(
             RoundedRectangleBorder(
@@ -54,19 +50,20 @@ class StylisedButton extends StatelessWidget {
             ),
           ),
         ),
+        child: Column(
+          crossAxisAlignment: crossAxisAlignment ?? CrossAxisAlignment.start,
+          children: [
+            Text(
+              title,
+              style: textStyle ?? Styles.nutrition_text_style,
+            ),
+            Text(subTitle!, style: textStyle ?? Styles.nutrition_text_style),
+          ],
+        ),
       );
     } else if (isElevated && subTitle == null) {
       return ElevatedButton(
         onPressed: onPressed,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              title,
-              style: Styles.nutrition_text_style,
-            ),
-          ],
-        ),
         style: ButtonStyle(
           backgroundColor: WidgetStatePropertyAll(
               backgroundColor ?? Colours.white_text_color),
@@ -74,7 +71,7 @@ class StylisedButton extends StatelessWidget {
               WidgetStatePropertyAll(color ?? Colours.green_text_color),
           elevation: WidgetStatePropertyAll(elevation ?? 72),
           minimumSize: WidgetStatePropertyAll(
-            Size(163, 72 / 1.25),
+            buttonSize ?? Size(163, 72 / 1.25),
           ),
           shape: WidgetStatePropertyAll(
             RoundedRectangleBorder(
@@ -82,14 +79,22 @@ class StylisedButton extends StatelessWidget {
             ),
           ),
         ),
+        child: Column(
+          crossAxisAlignment: crossAxisAlignment ?? CrossAxisAlignment.start,
+          children: [
+            Text(
+              title,
+              style: textStyle ?? Styles.nutrition_text_style,
+            ),
+          ],
+        ),
       );
     } else {
       return OutlinedButton(
         onPressed: onPressed,
-        child: Text(title, style: Styles.nutrition_text_style,),
         style: ButtonStyle(
             minimumSize: WidgetStatePropertyAll(
-              Size(90, 50),
+              buttonSize ?? Size(90, 50),
             ),
             shape: WidgetStatePropertyAll(
               RoundedRectangleBorder(
@@ -105,6 +110,10 @@ class StylisedButton extends StatelessWidget {
             foregroundColor:
                 WidgetStatePropertyAll(color ?? Colours.green_text_color),
             elevation: WidgetStatePropertyAll(elevation ?? 72)),
+        child: Text(
+          title,
+          style: textStyle ?? Styles.nutrition_text_style,
+        ),
       );
     }
   }

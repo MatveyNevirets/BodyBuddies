@@ -45,7 +45,6 @@ class _WaterEntityState extends State<WaterEntity> {
             ? DeactivatingCupEvent(widget.index)
             : ActivatingCupEvent(widget.index));
         setDone(isDone = !isDone);
-        print(widget.index);
       },
       child: Stack(
         children: [
