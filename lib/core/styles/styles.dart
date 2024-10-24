@@ -9,6 +9,7 @@ abstract class Styles {
   ///margins/////
   static const base_margin_size = EdgeInsets.all(16);
   static double base_margin_size_double = 16;
+  static double base_padding_size_double = 2;
 
   ///elevations//////
   static const double base_elevation = 8;
@@ -26,6 +27,8 @@ abstract class Styles {
       fontSize: 21,
       color: Colours.black_text_color,
       fontWeight: FontWeight.w500);
+
+  static var workouts_containers_text_style = TextStyle(fontFamily: 'AqumTwo', fontSize: 12, color: Colours.white_text_color);
 
   ////dark///boxes//////
 
@@ -77,7 +80,9 @@ abstract class Styles {
   static var nutrition_text_style = TextStyle(fontFamily: 'AqumTwo', fontSize: 12);
   static var nutrition_symbol_text_style = TextStyle(fontFamily: 'AqumTwo', fontSize: 21);
 
-  static double nutrition_button_elevate = 72;
+  static double nutrition_button_elevate = 20;
+
+  static var workouts_button_text_style = TextStyle(fontFamily: 'AqumTwo', fontSize: 12, color: Colours.workout_text_color);
 
 
 

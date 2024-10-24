@@ -58,7 +58,7 @@ abstract class Strings {
 
   static const String your_programs_string = "Твои программы";
 
-  static const String start = "Начать";
+  static const String start = "Начнём!";
 
   static String diet = "Питание";
   static String useful = "Полезное";

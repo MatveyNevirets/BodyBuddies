@@ -58,4 +58,6 @@ abstract class Colours
     Color.fromARGB(255, 4, 217, 255),
     Color.fromARGB(255, 115, 172, 220),
   ];
+
+  static Color workout_text_color = Color.fromARGB(255, 35, 74, 165);
 }

@@ -1,82 +1,54 @@
+import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/calendar_widget.dart';
+import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workout_button_widget.dart';
+import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workout_container_text.dart';
 import 'package:flutter/cupertino.dart';
 
-import '../../../../../../assets/icons/flutter-icons-ef864561/bottom_icons_icons.dart';
-import '../../../../../../core/colors/colors.dart';
-
-import '../../../../../../core/strings/strings.dart';
 import '../../../../../../core/styles/styles.dart';
-import '../../../../../../core/widgets/base_button.dart';
 
 class WorkoutFeatureCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 150,
-      width: double.maxFinite,
-      decoration: BoxDecoration(
-          gradient: const LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: Colours.blueContainerGradientColors,
-          ),
-          borderRadius: BorderRadius.circular(8)),
-      child: Wrap(
-        children: [
-          Container(
-            margin: Styles.base_margin_size,
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Column(
+    return Wrap(
+      children: [
+        Stack(
+          children: [
+            Image(
+                image:
+                    AssetImage("lib/assets/images/WorkoutsCardBackground.png")),
+            Positioned(
+              child: Container(
+                margin: Styles.base_margin_size * 1.25,
+                child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      "Название программы",
-                      //TODO: В БУДУЮЩЕМ ЗДЕСЬ ОПИРАЕТСЯ ВСЁ НА ДАННЫЕ ПОЛЬЗОВАТЕЛЯ
-                      style: Styles.medium_dark_boxes_text,
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        WorkoutContainerText("Название программы", null),
+                        SizedBox(
+                          height: Styles.height_of_text_to_widget * 4,
+                        ),
+                        WorkoutContainerText("Грудь, бицепс", 12),
+                      ],
                     ),
-                    Text(
-                      "Понедельник",
-                      //TODO: В БУДУЮЩЕМ ЗДЕСЬ ОПИРАЕТСЯ ВСЁ НА ДАННЫЕ ПОЛЬЗОВАТЕЛЯ
-                      style: Styles.small_dark_boxes_text,
+                    Expanded(
+                      child: SizedBox(),
                     ),
-                    SizedBox(
-                      height: Styles.big_height_of_text_to_widget,
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        CalendarWidget(height: 40, width: 40, text: "24.10"),
+                        SizedBox(height: 30,),
+                        WorkoutButtonWidget(() {}, Size(80, 45),),
+                      ],
                     ),
-                    Text(
-                      "Грудь, бицепс",
-                      //TODO: В БУДУЮЩЕМ ЗДЕСЬ ОПИРАЕТСЯ ВСЁ НА ДАННЫЕ ПОЛЬЗОВАТЕЛЯ
-                      style: Styles.medium_dark_boxes_text,
-                    )
                   ],
                 ),
-                Expanded(child: SizedBox()),
-                Column(
-                  children: [
-                    const SizedBox(
-                      height: 8,
-                    ),
-                    const Icon(
-                      BottomIcons.dumbbell,
-                      size: 40,
-                      color: Colours.white_text_color,
-                    ),
-                    const SizedBox(height: 18),
-                    BaseButton(
-                      onClick: () {},
-                      buttonText: Strings.start,
-                      icon: null,
-                      isElevated: true,
-                      backgroundColor: Colours.white_text_color,
-                      color: Colours.bottom_bar_icons_color,
-                    )
-                  ],
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
+              ),
+            )
+          ],
+        )
+      ],
     );
   }
 }

@@ -30,7 +30,7 @@ class BodyBuddiesApp extends StatelessWidget {
       )),
       debugShowCheckedModeBanner: false,
       routes: {
-        "/introduction": (context) => BlocProvider(
+        "/login_page": (context) => BlocProvider(
               create: (BuildContext context) => IntroBloc(),
               child: IntroScreen(),
             ),
@@ -39,7 +39,7 @@ class BodyBuddiesApp extends StatelessWidget {
               child: HomeScreen(),
             )
       },
-      initialRoute: "/introduction",
+      initialRoute: "/",//TODO: ПОТОМ ПОМЕНЯТЬ
     );
   }
 }
