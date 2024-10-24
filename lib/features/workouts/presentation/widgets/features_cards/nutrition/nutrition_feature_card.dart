@@ -37,14 +37,14 @@ class NutritionFeatureCard extends StatelessWidget {
                       children: [
                         StylisedButton(null,null,null,true,Colours.white_text_color, null, Styles.nutrition_button_elevate, Strings.you_need_more, "2200ккал", null),
                         SizedBox(height: Styles.height_of_text_to_widget,),
-                        StylisedButton(null,null,null,false, Colours.invisible_color, Colours.white_text_color, 72, "Дневник", null, () {}),
+                        StylisedButton(null,null,null,false, Colours.invisible_color, Colours.white_text_color, 2, "Дневник", null, () {}),
                       ],
                     ),
                     Expanded(child: SizedBox(),),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
-                        StylisedButton(Size(10,54),null,Styles.nutrition_symbol_text_style,false, Colours.invisible_color, Colours.white_text_color, 72, "+", null, () {}),
+                        StylisedButton(Size(10,54),null,Styles.nutrition_symbol_text_style,false, Colours.invisible_color, Colours.white_text_color, 2, "+", null, () {}),
                         SizedBox(height: Styles.height_of_text_to_widget,),
                         StylisedButton(Size(90,50),CrossAxisAlignment.center,null,true, Colours.white_text_color, null, Styles.nutrition_button_elevate, "Прием", "пищи", null),
                       ],

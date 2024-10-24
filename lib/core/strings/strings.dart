@@ -61,6 +61,7 @@ abstract class Strings {
   static const String start = "Начать";
 
   static String diet = "Питание";
+  static String useful = "Полезное";
 
   static String you_need_more = "Тебе осталось:";
   static String add = "Добавить";

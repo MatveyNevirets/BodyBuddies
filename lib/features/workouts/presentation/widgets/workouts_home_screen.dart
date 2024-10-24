@@ -1,6 +1,7 @@
 import 'package:body_buddies/core/strings/strings.dart';
 import 'package:body_buddies/features/workouts/presentation/bloc/water_cups_bloc/water_cups_bloc.dart';
 import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/nutrition/nutrition_feature_card.dart';
+import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/useful/useful_feature_card.dart';
 import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/workouts_feature_card.dart';
 import 'package:body_buddies/features/workouts/presentation/widgets/water_indicator_widget/water_indicator_widget.dart';
 import 'package:flutter/material.dart';
@@ -34,6 +35,12 @@ class WorkoutsHomeScreen extends StatelessWidget {
                 height: Styles.big_height_of_text_to_widget / 1.5,
               ),
               NutritionFeatureCard(),
+              SizedBox(
+                height: Styles.big_height_of_text_to_widget / 1.5,
+              ),
+              Text(Strings.useful, style: Styles.appbar_text_style),
+              const SizedBox(height: Styles.height_of_text_to_widget,),
+              UsefulFeatureCard(),
             ],
           ),
         ));

@@ -44,6 +44,15 @@ abstract class Colours
     Color.fromARGB(255, 57, 170, 31),
   ];
 
+  static const List<Color> yellowContainerGradientColors = [
+    Color.fromARGB(255, 228, 219, 41),
+    Color.fromARGB(255, 170, 151, 31),
+  ];
+
+  static const List<Color> redContainerGradientColors = [
+    Color.fromARGB(255, 228, 41, 41),
+    Color.fromARGB(255, 170, 31, 31),
+  ];
 
   static const List<Color> appBarGradientColors = [
     Color.fromARGB(255, 4, 217, 255),
