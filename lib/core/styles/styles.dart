@@ -29,6 +29,7 @@ abstract class Styles {
       fontWeight: FontWeight.w500);
 
   static var workouts_containers_text_style = TextStyle(fontFamily: 'AqumTwo', fontSize: 12, color: Colours.white_text_color);
+  static var advices_containers_text_style = TextStyle(fontFamily: 'AqumTwo', fontSize: 14, color: Colours.white_text_color);
 
   ////dark///boxes//////
 

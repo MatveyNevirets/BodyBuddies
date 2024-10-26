@@ -1,4 +1,6 @@
+import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/useful/widgets/useful_mini_card_widget.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 import '../../../../../../core/colors/colors.dart';
 import '../../../../../../core/strings/strings.dart';
@@ -10,91 +12,93 @@ class UsefulFeatureCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Wrap(
       children: [
-        Row(
+        Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Column(
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Container(
-                  height: 160,
-                  width: 160,
-                  decoration: BoxDecoration(
-                      gradient: const LinearGradient(
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter,
-                        colors: Colours.greenContainerGradientColors,
-                      ),
-                      borderRadius: BorderRadius.circular(8)),
-                  child: Wrap(
+                GestureDetector(
+                  child: Stack(
                     children: [
-          Container(alignment: Alignment.center, child: Text("Калькулятор жима"),),
+                      const Image(
+                        image: AssetImage(
+                            "lib/assets/images/bench_press_calculator_background.png"),
+                        height: 160,
+                        width: 160,
+                      ),
+                      Positioned(
+                          left: 23,
+                          top: 115,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                Strings.calculator,
+                                style: Styles.advices_containers_text_style,
+                              ),
+                              Text(
+                                Strings.bench_presses,
+                                style: Styles.advices_containers_text_style,
+                              ),
+                            ],
+                          )),
                     ],
                   ),
                 ),
-                SizedBox(
-                  height: Styles.base_margin_size_double /2,
+                const SizedBox(
+                  width: Styles.height_of_text_to_widget / 2,
                 ),
-                Container(
-                  height: 160,
-                  width: 160,
-                  decoration: BoxDecoration(
-                      gradient: const LinearGradient(
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter,
-                        colors: Colours.blueContainerGradientColors,
-                      ),
-                      borderRadius: BorderRadius.circular(8)),
-                  child: Wrap(
+                GestureDetector(
+                  child: Stack(
                     children: [
-                      Container(alignment: Alignment.center, child: Text("Что-то"),),
+                      const Image(
+                        image: AssetImage(
+                            "lib/assets/images/advice_background.png"),
+                        height: 160,
+                        width: 160,
+                      ),
+                      Positioned(
+                          left: 23,
+                          top: 115,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                Strings.advices,
+                                style: Styles.advices_containers_text_style,
+                              ),
+                              Text(
+                                Strings.beginners,
+                                style: Styles.advices_containers_text_style,
+                              ),
+                            ],
+                          )),
                     ],
                   ),
                 ),
               ],
             ),
             SizedBox(
-              width: Styles.base_margin_size_double/2,
+              height: Styles.base_margin_size_double / 2,
             ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Container(
-                  height: 160,
-                  width: 160,
-                  decoration: BoxDecoration(
-                      gradient: const LinearGradient(
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter,
-                        colors: Colours.yellowContainerGradientColors,
-                      ),
-                      borderRadius: BorderRadius.circular(8)),
-                  child: Wrap(
-                    children: [
-                      Container(alignment: Alignment.center, child: Text("Советы начинающим"),),
-                    ],
+            GestureDetector(
+              child: Stack(
+                children: [
+                  const Image(
+                    image: AssetImage(
+                        "lib/assets/images/done_workouts_background.png"),
                   ),
-                ),
-                SizedBox(
-                  height: Styles.base_margin_size_double/2,
-                ),
-                Container(
-                  height: 160,
-                  width: 160,
-                  decoration: BoxDecoration(
-                      gradient: const LinearGradient(
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter,
-                        colors: Colours.redContainerGradientColors,
-                      ),
-                      borderRadius: BorderRadius.circular(8)),
-                  child: Wrap(
-                    children: [
-                      Container(alignment: Alignment.center, child: Text("Готовые программы тренировок"),),
-                    ],
-                  ),
-                ),
-              ],
-            )
+                  Positioned(
+                      left: 22,
+                      top: 130,
+                      child: Text(
+                        "готовые программы тренировок",
+                        style: Styles.advices_containers_text_style,
+                      )),
+                ],
+              ),
+            ),
           ],
         ),
       ],

@@ -65,6 +65,14 @@ abstract class Strings {
 
   static String you_need_more = "Тебе осталось:";
   static String add = "Добавить";
+
+  static String calculator = "Калькулятор";
+
+  static String bench_presses = "Жима лёжа";
+
+  static String advices = "Советы";
+
+  static String beginners = "Новичкам";
   
   
 

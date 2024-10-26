@@ -15,34 +15,46 @@ class WorkoutsHomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        margin: Styles.base_margin_size,
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Text(Strings.your_programs_string, style: Styles.appbar_text_style),
-              const SizedBox(height: Styles.height_of_text_to_widget,),
-              WorkoutFeatureCard(),
-              SizedBox(
-                height: Styles.big_height_of_text_to_widget / 1.5,
-              ),
-              Text(Strings.diet, style: Styles.appbar_text_style),
-              const SizedBox(height: Styles.height_of_text_to_widget,),
-              Center(
-                child: WaterIndicatorWidget(),
-              ),
-              SizedBox(
-                height: Styles.big_height_of_text_to_widget / 1.5,
-              ),
-              NutritionFeatureCard(),
-              SizedBox(
-                height: Styles.big_height_of_text_to_widget / 1.5,
-              ),
-              Text(Strings.useful, style: Styles.appbar_text_style),
-              const SizedBox(height: Styles.height_of_text_to_widget,),
-              UsefulFeatureCard(),
-            ],
-          ),
-        ));
+      margin: Styles.base_margin_size,
+      child: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Text(Strings.your_programs_string,
+                style: Styles.appbar_text_style),
+            const SizedBox(
+              height: Styles.height_of_text_to_widget,
+            ),
+            WorkoutFeatureCard(),
+            SizedBox(
+              height: Styles.big_height_of_text_to_widget / 1.5,
+            ),
+            Text(Strings.diet, style: Styles.appbar_text_style),
+            const SizedBox(
+              height: Styles.height_of_text_to_widget,
+            ),
+            Center(
+                child: BlocProvider(
+              create: (BuildContext context) {
+                return WaterCupsBloc();
+              },
+              child: WaterIndicatorWidget(),
+            )),
+            SizedBox(
+              height: Styles.big_height_of_text_to_widget / 1.5,
+            ),
+            NutritionFeatureCard(),
+            SizedBox(
+              height: Styles.big_height_of_text_to_widget / 1.5,
+            ),
+            Text(Strings.useful, style: Styles.appbar_text_style),
+            const SizedBox(
+              height: Styles.height_of_text_to_widget,
+            ),
+            UsefulFeatureCard(),
+          ],
+        ),
+      ),
+    );
   }
 }
