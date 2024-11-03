@@ -5,6 +5,7 @@ import '../../../../core/strings/strings.dart';
 import '../../../../core/styles/styles.dart';
 import '../../../../core/widgets/base_button.dart';
 
+// ignore: must_be_immutable
 class CollectCharacteristicScreen extends StatelessWidget {
   TextEditingController weightController = TextEditingController();
   TextEditingController heightController = TextEditingController();
@@ -15,21 +16,19 @@ class CollectCharacteristicScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     void collectData() {
-      print(weightController.text);
       try {
         if (double.parse(heightController.text) > 250 ||
             double.parse(heightController.text) < 120 ||
             double.parse(weightController.text) < 25 ||
             double.parse(weightController.text) > 400) {
           ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text(Strings.error_weight_or_height)));
+              const SnackBar(content: Text(Strings.error_weight_or_height)));
         } else {
           onSuccessCollect.call();
-          print("Good");
         }
       } catch (e) {
         ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text(Strings.use_dot_please)));
+            const SnackBar(content: Text(Strings.use_dot_please)));
       }
 
     }
@@ -38,14 +37,14 @@ class CollectCharacteristicScreen extends StatelessWidget {
       body: Wrap(
         children: [
           Container(
-            margin: Styles.base_magrin_size,
+            margin: Styles.base_margin_size,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const SizedBox(
                   height: 80,
                 ),
-                Center(
+                const Center(
                     child: Text(
                   Strings.collect_data,
                   style: Styles.title_text_style,
@@ -53,7 +52,7 @@ class CollectCharacteristicScreen extends StatelessWidget {
                 const SizedBox(
                   height: 70,
                 ),
-                Text(
+                const Text(
                   Strings.your_height,
                   style: Styles.medium_text_style,
                 ),
@@ -63,23 +62,23 @@ class CollectCharacteristicScreen extends StatelessWidget {
                 TextField(
                   keyboardType: TextInputType.number,
                   controller: heightController,
-                  cursorColor: Colours.app_bar_color.withAlpha(200),
-                  decoration: InputDecoration(
+                  cursorColor: Colours.bottom_bar_icons_color.withAlpha(200),
+                  decoration: const InputDecoration(
                     hintText: Strings.youe_height_hint,
                     hintStyle: Styles.hint_text_style,
-                    focusedBorder: const OutlineInputBorder(
+                    focusedBorder: OutlineInputBorder(
                       borderSide: BorderSide(
                         width: 2,
-                        color: Colours.app_bar_color,
+                        color: Colours.bottom_bar_icons_color,
                       ),
                     ),
-                    border: const OutlineInputBorder(),
+                    border: OutlineInputBorder(),
                   ),
                 ),
                 const SizedBox(
                   height: 30,
                 ),
-                Text(
+                const Text(
                   Strings.your_weight,
                   style: Styles.medium_text_style,
                 ),
@@ -89,24 +88,24 @@ class CollectCharacteristicScreen extends StatelessWidget {
                 TextField(
                   keyboardType: TextInputType.number,
                   controller: weightController,
-                  cursorColor: Colours.app_bar_color.withAlpha(200),
-                  decoration: InputDecoration(
+                  cursorColor: Colours.bottom_bar_icons_color.withAlpha(200),
+                  decoration: const InputDecoration(
                     hintText: Strings.your_weight_hint,
                     hintStyle: Styles.hint_text_style,
-                    focusedBorder: const OutlineInputBorder(
+                    focusedBorder: OutlineInputBorder(
                       borderSide: BorderSide(
                         width: 2,
-                        color: Colours.app_bar_color,
+                        color: Colours.bottom_bar_icons_color,
                       ),
                     ),
-                    border: const OutlineInputBorder(),
+                    border: OutlineInputBorder(),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 70,
                 ),
                 Center(
-                  child: Container(
+                  child: SizedBox(
                     width: 250,
                     child: BaseButton(
                         onClick: () => collectData(),
@@ -115,10 +114,10 @@ class CollectCharacteristicScreen extends StatelessWidget {
                         isElevated: true),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 100,
                 ),
-                Center(
+                const Center(
                   child: Text(
                     Strings.intro_login_mini_info_text,
                     style: Styles.mini_info_text_style,

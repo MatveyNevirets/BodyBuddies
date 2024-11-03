@@ -1,3 +1,5 @@
+// ignore_for_file: use_key_in_widget_constructors
+
 import 'package:body_buddies/core/strings/strings.dart';
 import 'package:body_buddies/features/intro/presentation/bloc/intro_bloc.dart';
 import 'package:body_buddies/features/intro/presentation/widgets/collect_characteristics_screen.dart';
