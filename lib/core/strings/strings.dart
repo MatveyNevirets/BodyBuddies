@@ -48,7 +48,7 @@ abstract class Strings {
 
   static const use_dot_please = "Используйте точку, а не запятую!";
 
-  static var news_appbar_string = "Новости";
+  static var news_appbar_string = "Лента";
 
   static var chats_appbar_string = "Чаты";
 
