@@ -1,3 +1,4 @@
+import 'package:body_buddies/features/news/presentation/widgets/news_screen_navigator.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../core/strings/strings.dart';
@@ -8,7 +9,7 @@ class BodyHomeData {
   int currentTab = 2;
 
   List<Widget> screens = [
-    const Text("Это новостной экран"),
+    NewsScreenNavigator(),
     const Text("Тут будут чаты"),
     const WorkoutsScreen(),
     const Text("Тут будет твой профиль"),

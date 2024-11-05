@@ -15,6 +15,9 @@ abstract class Colours
   static const Color system_bottom_bar_background_color = Color.fromARGB(
       255, 255, 255, 255);
 
+  //News_screen_colors
+  static const Color background_news_card_color = Color.fromARGB(
+      255, 177, 216, 252);
 
   ////text////
   static const Color white_text_color = Colors.white;
@@ -54,9 +57,9 @@ abstract class Colours
     Color.fromARGB(255, 170, 31, 31),
   ];
 
-  static const List<Color> appBarGradientColors = [
-    Color.fromARGB(255, 4, 217, 255),
-    Color.fromARGB(255, 115, 172, 220),
+  static const List<Color> newsCardGradientColor = [
+    Color.fromARGB(255, 103, 181, 230),
+    Color.fromARGB(255, 150, 192, 230),
   ];
 
   static Color workout_text_color = Color.fromARGB(255, 35, 74, 165);
