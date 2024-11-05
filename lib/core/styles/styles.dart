@@ -33,8 +33,8 @@ abstract class Styles {
 
   ////news////////
 
-  static var news_card_header_text_style = TextStyle(fontFamily: 'AqumTwo', fontSize: 18, color: Colours.white_text_color);
-  static var news_card_body_text_style = TextStyle(fontFamily: 'AqumTwo', fontSize: 12, color: Colours.white_text_color);
+  static var news_card_header_text_style = TextStyle(fontFamily: 'AqumTwo', fontSize: 18, color: Colours.black_text_color);
+  static var news_card_body_text_style = TextStyle(fontFamily: 'AqumTwo', fontSize: 12, color: Colours.black_text_color);
 
 
   ////dark///boxes//////

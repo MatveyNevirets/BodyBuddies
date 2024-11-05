@@ -16,8 +16,8 @@ class WorkoutsHomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: Styles.base_margin_size,
-      child: SingleChildScrollView(
-        child: Column(
+      child: ListView(children: [
+        Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const Text(Strings.your_programs_string,
@@ -54,7 +54,7 @@ class WorkoutsHomeScreen extends StatelessWidget {
             UsefulFeatureCard(),
           ],
         ),
-      ),
+      ]),
     );
   }
 }

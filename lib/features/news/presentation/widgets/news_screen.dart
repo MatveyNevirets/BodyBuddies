@@ -18,6 +18,7 @@ class NewsScreen extends StatelessWidget {
             return DefaultCardWidget(
               headerText: fakeDatabase.headerText[index],
               bodyText: fakeDatabase.bodyText[index],
+              imagePath: fakeDatabase.imagesPath[index],
             );
           },
         ),

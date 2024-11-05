@@ -26,6 +26,7 @@ class BodyBuddiesApp extends StatelessWidget {
             systemNavigationBarColor: Colours.bottom_bar_background_color
         ),
         backgroundColor: Colors.transparent,
+        surfaceTintColor: Colors.transparent,
         actionsIconTheme: IconThemeData(color: Colours.black_text_color),
       )),
       debugShowCheckedModeBanner: false,
