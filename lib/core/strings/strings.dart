@@ -73,7 +73,21 @@ abstract class Strings {
   static String advices = "Советы";
 
   static String beginners = "Новичкам";
-  
+
+  ///////////Muscles////////////
+
+  static String abs = "пресс";
+  static String forearms = "предплечья";
+  static String shoulders = "плечи";
+  static String legs = "ноги";
+  static String biceps = "бицепс";
+  static String triceps = "трицепс";
+  static String chest = "грудь";
+  static String back = "спина";
+  static String cardio = "кардио";
+
+  static String empty = "Нет данных";
+
   
 
 ///////////////////////////////
