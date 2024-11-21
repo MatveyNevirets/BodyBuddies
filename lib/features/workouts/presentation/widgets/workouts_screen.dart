@@ -7,27 +7,28 @@ class WorkoutsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Navigator(
-      initialRoute: "workouts/home",
+    return Scaffold(
+      body: Navigator(
+        initialRoute: "workouts/home",
+        onGenerateRoute: (RouteSettings setting) {
+          WidgetBuilder builder;
 
-      onGenerateRoute: (RouteSettings setting) {
-        WidgetBuilder builder;
+          switch (setting.name) {
+            case "workouts/home":
+              builder = (BuildContext context) => WorkoutsHomeScreen();
+              break;
 
-        switch(setting.name) {
-          case "workouts/home":
-            builder = (BuildContext context) => WorkoutsHomeScreen();
-            break;
+            case "workouts/home/workouts_menu/":
+              builder = (BuildContext _) => WorkoutsMenuNavigator();
+              break;
 
-          case "workouts/home/workouts_menu/":
-            builder = (BuildContext context) => WorkoutsMenuNavigator();
-            break;
+            default:
+              throw Exception("Workout routes error: ${setting.name}");
+          }
 
-          default:
-            throw Exception("Workout routes error: ${setting.name}");
-        }
-
-        return MaterialPageRoute(builder: builder, settings: setting);
-      },
+          return MaterialPageRoute(builder: builder, settings: setting);
+        },
+      ),
     );
   }
 }

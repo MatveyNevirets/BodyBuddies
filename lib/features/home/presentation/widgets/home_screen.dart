@@ -13,14 +13,13 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-
   final data = BodyHomeData();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: data.createAppBarWidget(),
-      bottomNavigationBar:
-      BottomNavigationBar(
+      bottomNavigationBar: BottomNavigationBar(
         selectedItemColor: Colours.bottom_bar_icons_color,
         currentIndex: data.currentTab,
         backgroundColor: Colours.bottom_bar_background_color,
@@ -49,5 +48,9 @@ class _HomeScreenState extends State<HomeScreen> {
     setState(() {
       data.currentTab = index;
     });
+  }
+
+  goBack(BuildContext context) {
+    Navigator.of(context).pop();
   }
 }

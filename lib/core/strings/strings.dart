@@ -88,6 +88,14 @@ abstract class Strings {
 
   static String empty = "Нет данных";
 
+  static String monday = "Понедельник";
+  static String tuesday = "Вторник";
+  static String wednesday = "Среда";
+  static String thursday = "Четверг";
+  static String friday = "Пятница";
+  static String sunday = "Суббота";
+  static String saturday = "Воскресенье";
+
   
 
 ///////////////////////////////

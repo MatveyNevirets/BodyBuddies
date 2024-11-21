@@ -12,7 +12,7 @@ class BodyHomeData {
   List<Widget> screens = [
     NewsNavigator(),
    ChatsNavigator(),
-    const WorkoutsScreen(),
+    WorkoutsScreen(),
     const Text("Тут будет твой профиль"),
   ];
 

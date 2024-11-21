@@ -11,7 +11,7 @@ class WorkoutsMenuScreen extends StatelessWidget {
       body: Container(
         margin: Styles.base_margin_size,
         child: ListView.builder(
-            itemCount: FakeWorkoutsDatabase().fakeWorkoutEntities.length,
+            itemCount: FakeWorkoutsDatabase().fakeWorkoutEntities.length-1,
             itemBuilder: (context, index) {
               return FakeWorkoutsDatabase().getWorkout(index);
             }),
