@@ -38,8 +38,8 @@ abstract class Colours
 
 
   static const List<Color> blueContainerGradientColors = [
-    Color.fromARGB(255, 4, 180, 255),
-    Color.fromARGB(255, 49, 52, 253),
+    Color.fromARGB(255, 120, 166, 211),
+    Color.fromARGB(255, 93, 143, 209),
   ];
 
   static const List<Color> greenContainerGradientColors = [

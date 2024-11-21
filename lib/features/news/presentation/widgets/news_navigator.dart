@@ -2,7 +2,7 @@ import 'package:body_buddies/features/news/presentation/widgets/news_screen.dart
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class NewsScreenNavigator extends StatelessWidget
+class NewsNavigator extends StatelessWidget
 {
   @override
   Widget build(BuildContext context) {
