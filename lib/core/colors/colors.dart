@@ -63,4 +63,8 @@ abstract class Colours
   ];
 
   static Color workout_text_color = Color.fromARGB(255, 35, 74, 165);
+
+  static var workout_card_background_color = Color.fromARGB(255, 84, 89, 109);
+
+  static var grey_card_container_workout = Color.fromARGB(255, 166, 170, 198);
 }

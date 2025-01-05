@@ -1,3 +1,4 @@
+import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/widgets/dialog_workout_create_screen.dart';
 import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/widgets/workout_entities/workout_entity_screen.dart';
 import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/workouts_menu_screen.dart';
 import 'package:flutter/material.dart';
@@ -23,6 +24,10 @@ class WorkoutsMenuNavigator extends StatelessWidget {
 
             case "workouts_menu/current_workout/":
               builder = (BuildContext context) => WorkoutEntityScreen();
+              break;
+
+            case "workouts_menu/create_workout/":
+              builder = (BuildContext context) => DialogWorkoutCreateScreen();
               break;
 
             default:

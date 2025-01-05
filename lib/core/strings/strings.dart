@@ -59,6 +59,7 @@ abstract class Strings {
   static const String your_programs_string = "Твои программы";
 
   static const String start = "Начнём!";
+  static const String start2 = "Начать";
 
   static String diet = "Питание";
   static String useful = "Полезное";
@@ -88,13 +89,13 @@ abstract class Strings {
 
   static String empty = "Нет данных";
 
-  static String monday = "Понедельник";
-  static String tuesday = "Вторник";
-  static String wednesday = "Среда";
-  static String thursday = "Четверг";
-  static String friday = "Пятница";
-  static String sunday = "Суббота";
-  static String saturday = "Воскресенье";
+  static String monday = "Пн.";
+  static String tuesday = "Вт.";
+  static String wednesday = "Ср.";
+  static String thursday = "Чт.";
+  static String friday = "Пт.";
+  static String sunday = "Сб.";
+  static String saturday = "Вс.";
 
   
 

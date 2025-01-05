@@ -20,7 +20,7 @@ class BaseButton extends StatelessWidget {
       required this.icon,
       required this.isElevated,
       this.backgroundColor,
-      this.color,});
+      this.color});
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +30,7 @@ class BaseButton extends StatelessWidget {
           onPressed: onClick,
           style: ButtonStyle(
               backgroundColor: WidgetStatePropertyAll(
-                  backgroundColor ?? Colours.base_button_color)),
+                  backgroundColor ?? Colours.base_button_color),),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [

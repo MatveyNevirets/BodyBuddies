@@ -13,7 +13,7 @@ class WorkoutFeatureCard extends StatelessWidget {
   Widget build(BuildContext context) {
 
     void openWorkoutsMenuScreen() =>
-    Navigator.of(context).pushNamed("workouts/home/workouts_menu/");
+    Navigator.of(context).pushNamed("/workouts_menu");
 
     return GestureDetector(
       onTap:() => openWorkoutsMenuScreen(),

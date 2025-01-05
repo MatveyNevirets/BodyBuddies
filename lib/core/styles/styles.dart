@@ -87,6 +87,10 @@ abstract class Styles {
   static var nutrition_text_style = TextStyle(fontFamily: 'AqumTwo', fontSize: 12);
   static var nutrition_symbol_text_style = TextStyle(fontFamily: 'AqumTwo', fontSize: 21);
 
+  static var workout_text_style = TextStyle(fontFamily: 'AqumTwo', fontSize: 21, color: Colours.white_text_color);
+  static var workout_text_style_week_day = TextStyle(fontFamily: 'AqumTwo', fontSize: 14, color: Colours.white_text_color);
+  static var workout_text_style2 = TextStyle(fontFamily: 'AqumTwo', fontSize: 12, color: Colours.white_text_color);
+
   static double nutrition_button_elevate = 20;
 
   static var workouts_button_text_style = TextStyle(fontFamily: 'AqumTwo', fontSize: 12, color: Colours.workout_text_color);
