@@ -4,56 +4,71 @@ import 'package:body_buddies/features/home/presentation/widgets/home_screen.dart
 import 'package:body_buddies/features/intro/presentation/bloc/intro_bloc.dart';
 import 'package:body_buddies/features/intro/presentation/widgets/intro_screen.dart';
 import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/bloc/workouts_menu_bloc.dart';
-import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/widgets/dialog_workout_create_screen.dart';
+import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/domain/fake_workouts_database.dart';
+import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/widgets/dialog_create_entity/bloc/dialog_create_entity_bloc.dart';
+import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/widgets/dialog_create_entity/presentation/dialog_workout_create_screen.dart';
 import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/workouts_menu_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/widgets/workout_entities/workout_entity_screen.dart';
+
 void main() {
-  runApp(const BodyBuddiesApp());
+  runApp(BodyBuddiesApp());
 }
 
 class BodyBuddiesApp extends StatelessWidget {
-  const BodyBuddiesApp({super.key});
+  BodyBuddiesApp({super.key});
+
+  FakeWorkoutsDatabase fakeWorkoutsDatabase = FakeWorkoutsDatabase();
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    WorkoutsMenuScreen workoutsMenuScreen = WorkoutsMenuScreen(
+      fakeDB: fakeWorkoutsDatabase,
+    );
     return MaterialApp(
       theme: ThemeData(
           appBarTheme: const AppBarTheme(
-            systemOverlayStyle: SystemUiOverlayStyle(
-                statusBarColor: Colours.bottom_bar_background_color,
-                statusBarIconBrightness: Brightness.dark,
-                systemNavigationBarIconBrightness: Brightness.dark,
-                systemNavigationBarColor: Colours.bottom_bar_background_color),
-            backgroundColor: Colors.transparent,
-            surfaceTintColor: Colors.transparent,
-            actionsIconTheme: IconThemeData(color: Colours.black_text_color),
-          )),
+        systemOverlayStyle: SystemUiOverlayStyle(
+            statusBarColor: Colours.bottom_bar_background_color,
+            statusBarIconBrightness: Brightness.dark,
+            systemNavigationBarIconBrightness: Brightness.dark,
+            systemNavigationBarColor: Colours.bottom_bar_background_color),
+        backgroundColor: Colors.transparent,
+        surfaceTintColor: Colors.transparent,
+        actionsIconTheme: IconThemeData(color: Colours.black_text_color),
+      )),
       debugShowCheckedModeBanner: false,
       routes: {
-        "/login_page": (context) =>
-            BlocProvider(
+        "/login_page": (context) => BlocProvider(
               create: (BuildContext context) => IntroBloc(),
               child: IntroScreen(),
             ),
-        "/": (context) =>
-            BlocProvider(
+        "/": (context) => BlocProvider(
               create: (BuildContext context) => HomeBloc(),
-              child: HomeScreen(),
+              child: HomeScreen(fakeWorkoutsDatabase: fakeWorkoutsDatabase,),
             ),
-        "/workouts_menu": (context) =>
-            BlocProvider(
+        "/workouts_menu": (context) => BlocProvider(
               create: (BuildContext context) => WorkoutsMenuBloc(),
-              child: WorkoutsMenuScreen(),
+              child: workoutsMenuScreen,
             ),
-      //  "/workouts_menu/create_workout/": (context) =>
-         //   BlocProvider(create: (BuildContext context) =>,
-         //     child: DialogWorkoutCreateScreen(),)
+        "/workouts_menu/create_workout/": (context) => BlocProvider(
+              create: (BuildContext context) => DialogCreateEntityBloc(),
+              child: DialogWorkoutCreateScreen(
+                fakeDB: fakeWorkoutsDatabase,
+                workoutsMenuScreen: workoutsMenuScreen,
+                onWorkoutCreated: () {
+                 // context.read<WorkoutsMenuBloc>().add(AddWorkoutEvent());
+                  Navigator.of(context).pop();
+                },
+              ),
+            ),
+        "workouts_menu/current_workout/": (context) => WorkoutEntityScreen(),
       },
-      initialRoute: "/", //TODO: ПОТОМ ПОМЕНЯТЬ
+      initialRoute: "/",
     );
   }
 }

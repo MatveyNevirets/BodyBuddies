@@ -1,7 +1,7 @@
-import 'package:body_buddies/features/workouts/presentation/bloc/water_cups_bloc/water_cups_bloc.dart';
-import 'package:body_buddies/features/workouts/presentation/widgets/water_indicator_widget/water_indicator_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'bloc/water_cups_bloc/water_cups_bloc.dart';
 
 class WaterEntity extends StatefulWidget {
   int index;

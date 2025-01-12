@@ -1,21 +1,17 @@
 import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/widgets/workout_entities/entity/exercise_entity.dart';
 import 'package:flutter/cupertino.dart';
 
+import '../../../../../../../../../../../core/strings/strings.dart';
+
 class WorkoutEntity {
   String? title;
-  bool mon, tue, wen, thur, fri, sun, sat;
+  int weekday;
 
   bool chest, back, legs, biceps, triceps, forearms, shoulders, abs, cardio;
 
   WorkoutEntity({
     required this.title,
-    this.mon = false,
-    this.tue = false,
-    this.wen = false,
-    this.thur = false,
-    this.fri = false,
-    this.sun = false,
-    this.sat = false,
+    this.weekday = -1,
     this.abs = false,
     this.shoulders = false,
     this.legs = false,

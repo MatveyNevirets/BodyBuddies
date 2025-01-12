@@ -1,6 +1,7 @@
 import 'package:body_buddies/core/strings/strings.dart';
 import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/nutrition/nutrition_feature_card.dart';
 import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/useful/useful_feature_card.dart';
+import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/domain/fake_workouts_database.dart';
 import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/workouts_feature_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -10,7 +11,10 @@ import 'features_cards/water_indicator_widget/bloc/water_cups_bloc/water_cups_bl
 import 'features_cards/water_indicator_widget/water_indicator_widget.dart';
 
 class WorkoutsHomeScreen extends StatelessWidget {
-  const WorkoutsHomeScreen({super.key});
+  const WorkoutsHomeScreen({super.key, required this.fakeWorkoutsDatabase});
+
+  final FakeWorkoutsDatabase fakeWorkoutsDatabase;
+
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +29,7 @@ class WorkoutsHomeScreen extends StatelessWidget {
             const SizedBox(
               height: Styles.height_of_text_to_widget,
             ),
-            WorkoutFeatureCard(),
+            WorkoutFeatureCard(fakeDatabase: fakeWorkoutsDatabase,),
             SizedBox(
               height: Styles.big_height_of_text_to_widget / 1.5,
             ),

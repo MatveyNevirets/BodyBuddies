@@ -24,6 +24,8 @@ abstract class Strings {
 
   static const registration_text = "Зарегестрироваться";
 
+  static const not_full_field_error = "Пожалуйста, заполните все необходимые поля, чтобы продолжить";
+
   static const intro_login_mini_info_text =
       "Внимание! Ваши аккаунты могут быть утеряны!\nВ связи с тем, что это приложение находиться в разработке, ваши аккаунты из-за различных манипуляций могут быть утеряны.\nТем не менее, будет сделано всё, чтобы их сохранить.";
 
@@ -94,8 +96,10 @@ abstract class Strings {
   static String wednesday = "Ср.";
   static String thursday = "Чт.";
   static String friday = "Пт.";
-  static String sunday = "Сб.";
-  static String saturday = "Вс.";
+  static String saturday = "Сб.";
+  static String sunday = "Вс.";
+
+  static String selectWeekday = "Выберите день недели";
 
   
 

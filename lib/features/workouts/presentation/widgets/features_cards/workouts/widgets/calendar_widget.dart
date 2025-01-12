@@ -22,7 +22,7 @@ class CalendarWidget extends StatelessWidget {
         ),
         Positioned(
           top: height / 1.9,
-          left: width / 5.5,
+          left: width / 4.5,
           child: Text(
             text,
             style: TextStyle(

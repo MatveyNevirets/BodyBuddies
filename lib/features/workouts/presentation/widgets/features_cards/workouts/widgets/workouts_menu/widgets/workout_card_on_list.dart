@@ -124,20 +124,20 @@ class WorkoutCardOnList extends StatelessWidget {
   }
 
   String getDayOfWeekOnString() {
-    if (workout.mon) {
+    if (workout.weekday==1) {
       return Strings.monday;
-    } else if (workout.tue) {
+    } else if (workout.weekday==2) {
       return Strings.tuesday;
-    } else if (workout.wen) {
+    } else if (workout.weekday==3) {
       return Strings.wednesday;
-    } else if (workout.thur) {
+    } else if (workout.weekday==4) {
       return Strings.thursday;
-    } else if (workout.fri) {
+    } else if (workout.weekday==5) {
       return Strings.friday;
-    } else if (workout.sun) {
-      return Strings.sunday;
-    } else if (workout.sat) {
+    } else if (workout.weekday==6) {
       return Strings.saturday;
+    } else if (workout.weekday==7) {
+      return Strings.sunday;
     } else {
       return Strings.empty;
     }

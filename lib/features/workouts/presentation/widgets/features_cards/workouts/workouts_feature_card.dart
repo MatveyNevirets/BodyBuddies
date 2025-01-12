@@ -1,29 +1,31 @@
 import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/calendar_widget.dart';
 import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workout_button_widget.dart';
 import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workout_container_text.dart';
+import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/domain/fake_workouts_database.dart';
+import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/widgets/workout_entities/entity/workout_entity.dart';
 import 'package:flutter/cupertino.dart';
 
 import '../../../../../../core/styles/styles.dart';
 
 class WorkoutFeatureCard extends StatelessWidget {
+  final FakeWorkoutsDatabase fakeDatabase;
 
-
+  WorkoutFeatureCard({required this.fakeDatabase});
 
   @override
   Widget build(BuildContext context) {
-
     void openWorkoutsMenuScreen() =>
-    Navigator.of(context).pushNamed("/workouts_menu");
+        Navigator.of(context).pushNamed("/workouts_menu");
 
     return GestureDetector(
-      onTap:() => openWorkoutsMenuScreen(),
+      onTap: () => openWorkoutsMenuScreen(),
       child: Wrap(
         children: [
           Stack(
             children: [
               Image(
-                  image:
-                      AssetImage("lib/assets/images/WorkoutsCardBackground.png")),
+                  image: AssetImage(
+                      "lib/assets/images/WorkoutsCardBackground.png")),
               Positioned(
                 child: Container(
                   margin: Styles.base_margin_size * 1.25,
@@ -33,7 +35,8 @@ class WorkoutFeatureCard extends StatelessWidget {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          WorkoutContainerText("Название программы", null),
+                          WorkoutContainerText(
+                              getTodayWorkout().title.toString(), null),
                           SizedBox(
                             height: Styles.height_of_text_to_widget * 4,
                           ),
@@ -46,9 +49,15 @@ class WorkoutFeatureCard extends StatelessWidget {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
-                          CalendarWidget(height: 40, width: 40, text: "24.10"),
-                          SizedBox(height: 30,),
-                          WorkoutButtonWidget(() {}, Size(80, 45),),
+                          CalendarWidget(
+                              height: 40, width: 40, text: getDate()),
+                          SizedBox(
+                            height: 30,
+                          ),
+                          WorkoutButtonWidget(
+                            () {},
+                            Size(80, 45),
+                          ),
                         ],
                       ),
                     ],
@@ -60,5 +69,25 @@ class WorkoutFeatureCard extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  WorkoutEntity getTodayWorkout() {
+    final thisWeekDay = DateTime.now().weekday;
+
+    for (int i = 0; i < fakeDatabase.fakeWorkoutEntities.length; i++) {
+      if (fakeDatabase.fakeWorkoutEntities[i].weekday == thisWeekDay) {
+        return fakeDatabase.fakeWorkoutEntities[i];
+      }
+    }
+
+    return fakeDatabase.fakeWorkoutEntities[0];
+  }
+
+  String getDate() {
+    final day = DateTime.now().day;
+    final month = DateTime.now().month;
+
+    final date = "$day.${month.toString().padLeft(2, '0')}";
+    return date;
   }
 }

@@ -6,30 +6,30 @@ class FakeWorkoutsDatabase {
   List<WorkoutEntity> fakeWorkoutEntities = [
     WorkoutEntity(
       title: "Легкая",
-      mon: true,
+      weekday: 1,
       chest: true,
       biceps: true,
       forearms: true,
     ),
     WorkoutEntity(
-        title: "Легкая среда", wen: true, back: true, triceps: true, abs: true),
+        title: "Легкая среда",weekday: 2, back: true, triceps: true, abs: true),
     WorkoutEntity(
-        title: "Легкая пятница", fri: true, legs: true, shoulders: true),
+        title: "Легкая пятница", weekday: 5, legs: true, shoulders: true),
     WorkoutEntity(
         title: "Тяжелая жимовая",
-        mon: true,
+       weekday: 4,
         chest: true,
         biceps: true,
         forearms: true),
     WorkoutEntity(
         title: "Тяжелая Тянущая",
-        wen: true,
+        weekday: 3,
         back: true,
         triceps: true,
         abs: true),
     WorkoutEntity(
-        title: "Тяжелый день ног", fri: true, legs: true, shoulders: true),
-    WorkoutEntity(title: "Кардио на выходной", sun: true, cardio: true),
+        title: "Тяжелый день ног", weekday: 7, legs: true, shoulders: true),
+    WorkoutEntity(title: "Кардио на выходной", weekday: 6, cardio: true),
   ];
 
   List<List<ExerciseEntity>> fakeWorkoutExercises = [
@@ -57,6 +57,18 @@ class FakeWorkoutsDatabase {
           reps: 25,
           sets: 4,
           kilograms: 40),
+    ],
+    [
+      ExerciseEntity(
+          title: "Гарик пожизненный на бицеас",
+          isExercise: true,
+          reps: 25,
+          sets: 4),
+      ExerciseEntity(
+          title: "Жим", isExercise: true, reps: 15, sets: 4, kilograms: 55),
+      ExerciseEntity(title: "Да махи", isExercise: true, reps: 13, sets: 4),
+      ExerciseEntity(
+          title: "Присед", isExercise: true, reps: 15, sets: 4, kilograms: 40),
     ],
     [
       ExerciseEntity(

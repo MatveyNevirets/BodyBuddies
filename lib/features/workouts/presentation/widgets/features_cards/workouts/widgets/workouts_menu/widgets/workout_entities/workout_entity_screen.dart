@@ -7,13 +7,15 @@ class WorkoutEntityScreen extends StatelessWidget {
     List<ExerciseEntity> exercises =
         ModalRoute.of(context)!.settings.arguments as List<ExerciseEntity>;
 
-    return ListView.builder(
-        itemCount: exercises.length,
-        itemBuilder: (context, index) {
-          return ListTile(
-            title: Text(exercises[index].title),
-            subtitle: Text(exercises[index].reps.toString()),
-          );
-        });
+    return Scaffold(
+      body: ListView.builder(
+          itemCount: exercises.length,
+          itemBuilder: (context, index) {
+            return ListTile(
+              title: Text(exercises[index].title),
+              subtitle: Text(exercises[index].reps.toString()),
+            );
+          }),
+    );
   }
 }
