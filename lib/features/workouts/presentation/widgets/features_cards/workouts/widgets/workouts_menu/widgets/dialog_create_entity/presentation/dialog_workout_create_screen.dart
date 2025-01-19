@@ -1,7 +1,13 @@
+import 'dart:ui';
+
+import 'package:body_buddies/core/colors/colors.dart';
 import 'package:body_buddies/core/widgets/base_button.dart';
 import 'package:body_buddies/core/widgets/base_snackbar.dart';
+import 'package:body_buddies/features/home/presentation/widgets/body_home_data.dart';
+import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workout_button_widget.dart';
 import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/bloc/workouts_menu_bloc.dart';
 import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/domain/fake_workouts_database.dart';
+import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/widgets/dialog_create_entity/widgets/exercise_card_widget.dart';
 import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/widgets/workout_entities/entity/exercise_entity.dart';
 import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/widgets/workout_entities/entity/new_workout_button.dart';
 import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/widgets/workout_entities/entity/workout_entity.dart';
@@ -10,6 +16,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../../../../../../../core/strings/strings.dart';
+import '../../../../../../../../../../../core/styles/styles.dart';
 import '../../../../workout_container_text.dart';
 
 class DialogWorkoutCreateScreen extends StatefulWidget {
@@ -17,22 +24,10 @@ class DialogWorkoutCreateScreen extends StatefulWidget {
   WorkoutsMenuScreen workoutsMenuScreen;
 
   final VoidCallback onWorkoutCreated;
+  final Size screenSize;
+  final BodyHomeData mainFrontendData;
 
-  DialogWorkoutCreateScreen({required this.fakeDB,
-    required this.workoutsMenuScreen,
-    required this.onWorkoutCreated});
-
-  bool isMon = false,
-      isTue = false,
-      isWed = false,
-      isTh = false,
-      isFri = false,
-      isSat = false,
-      isSun = false;
-
-  String? selectedWeekday;
-
-  List<String> weekdays = [
+  final List<String> daysOfWeek = [
     Strings.monday,
     Strings.tuesday,
     Strings.wednesday,
@@ -42,16 +37,39 @@ class DialogWorkoutCreateScreen extends StatefulWidget {
     Strings.sunday,
   ];
 
+  String? selectedWeekday;
+
+  DialogWorkoutCreateScreen(
+      {super.key,
+      required this.fakeDB,
+      required this.workoutsMenuScreen,
+      required this.onWorkoutCreated,
+      required this.screenSize,
+      required this.mainFrontendData});
+
+  List<Widget> exercises = [
+    ExerciseCardWidget("нощке"),
+    ExerciseCardWidget("Cисяндрики"),
+  ];
+
+  bool isMon = false,
+      isTue = false,
+      isWed = false,
+      isTh = false,
+      isFri = false,
+      isSat = false,
+      isSun = false;
+
   @override
   State<DialogWorkoutCreateScreen> createState() =>
       _DialogWorkoutCreateScreenState();
 }
 
 class _DialogWorkoutCreateScreenState extends State<DialogWorkoutCreateScreen> {
-  TextEditingController controller = TextEditingController();
+  TextEditingController titleTextFieldController = TextEditingController();
 
   void tryToCreateWorkout(BuildContext context) {
-    if (controller.text.toString() != "" &&
+    if (titleTextFieldController.text.toString() != "" &&
         (widget.isMon ||
             widget.isTue ||
             widget.isWed ||
@@ -60,7 +78,7 @@ class _DialogWorkoutCreateScreenState extends State<DialogWorkoutCreateScreen> {
             widget.isSat ||
             widget.isSun)) {
       createWorkoutInDatabase(
-          title: controller.text.toString(),
+          title: titleTextFieldController.text.toString(),
           weekday: getNumberWeekday());
 
       widget.onWorkoutCreated.call();
@@ -125,11 +143,7 @@ class _DialogWorkoutCreateScreenState extends State<DialogWorkoutCreateScreen> {
             reps: 25,
             sets: 4),
         ExerciseEntity(
-            title: "Жим",
-            isExercise: true,
-            reps: 15,
-            sets: 4,
-            kilograms: 55),
+            title: "Жим", isExercise: true, reps: 15, sets: 4, kilograms: 55),
         ExerciseEntity(title: "Да махи", isExercise: true, reps: 13, sets: 4),
         ExerciseEntity(
             title: "Присед",
@@ -144,157 +158,152 @@ class _DialogWorkoutCreateScreenState extends State<DialogWorkoutCreateScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        child: Column(
-          children: [
-            SizedBox(
-              height: 100,
-            ),
-            Text("Название"),
-            Container(
-              margin: EdgeInsets.all(32),
-              child: TextField(
-                controller: controller,
-              ),
-            ),
-            SizedBox(
-              height: 50,
-            ),
-            FormField<String>(
-              builder: (FormFieldState<String> state) {
-                return InputDecorator(
-                  decoration: InputDecoration(
-                    labelText: 'Выберите день недели',
-                    errorText: state.hasError ? state.errorText : null,
-                  ),
-                  isEmpty: widget.selectedWeekday == null,
-                  child: DropdownButtonHideUnderline(
-                    child: DropdownButton<String>(
-                      value: widget.selectedWeekday,
-                      isDense: true,
-                      onChanged: (String? newValue) {
-                        setState(() {
-                          widget.selectedWeekday = newValue;
-                          state.didChange(newValue);
-                        });
-                      },
-                      items: widget.weekdays.map((String day) {
-                        return DropdownMenuItem<String>(
-                          value: day,
-                          child: Text(day),
-                        );
-                      }).toList(),
+      appBar: widget.mainFrontendData
+          .createAppBarWidget(appbarTitle: Strings.creating_appbar),
+      body: ListView(
+        children: [
+          Container(
+              width: widget.screenSize.width,
+              margin: EdgeInsets.all(20),
+              child: Card(
+                elevation: 4,
+                color: Colours.workout_card_background_color,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(8),
+                        color: Colours.workout_card_foreground_color,
+                      ),
+                      width: widget.screenSize.width / 1.5,
+                      margin: EdgeInsets.all(30),
+                      padding: EdgeInsets.all(8),
+                      child: TextField(
+                        cursorColor: Colours.workout_card_background_color,
+                        textAlign: TextAlign.center,
+                        style: Styles.hint_text_style_create_workout,
+                        decoration: InputDecoration(
+                          isDense: true,
+                          hintStyle: Styles.hint_text_style_create_workout,
+                          hintText: Strings.title,
+                          focusedBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(
+                                color: Colours.workout_card_background_color,
+                                width: 3),
+                          ),
+                          enabledBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(
+                                color: Colours.workout_card_background_color,
+                                width: 3),
+                          ),
+                        ),
+                      ),
                     ),
-                  ),
-                );
-              },
-            ),
-
-
-            // Text("День недели"),
-            // Row(
-            //   mainAxisAlignment: MainAxisAlignment.center,
-            //   children: [
-            //     Column(
-            //       children: [
-            //         Text("Пн"),
-            //         Checkbox(
-            //             value: widget.isMon,
-            //             onChanged: (bool? newValue) {
-            //               setState(() {
-            //                 widget.isMon = newValue!;
-            //               });
-            //             })
-            //       ],
-            //     ),
-            //     Column(
-            //       children: [
-            //         Text("Вт"),
-            //         Checkbox(
-            //             value: widget.isTue,
-            //             onChanged: (bool? newValue) {
-            //               setState(() {
-            //                 widget.isTue = newValue!;
-            //               });
-            //             })
-            //       ],
-            //     ),
-            //     Column(
-            //       children: [
-            //         Text("Ср"),
-            //         Checkbox(
-            //             value: widget.isWed,
-            //             onChanged: (bool? newValue) {
-            //               setState(() {
-            //                 widget.isWed = newValue!;
-            //               });
-            //             })
-            //       ],
-            //     ),
-            //   ],
-            // ),
-            // Row(
-            //   mainAxisAlignment: MainAxisAlignment.center,
-            //   children: [
-            //     Column(
-            //       children: [
-            //         Text("Чт"),
-            //         Checkbox(
-            //             value: widget.isTh,
-            //             onChanged: (bool? newValue) {
-            //               setState(() {
-            //                 widget.isTh = newValue!;
-            //               });
-            //             })
-            //       ],
-            //     ),
-            //     Column(
-            //       children: [
-            //         Text("Пт"),
-            //         Checkbox(
-            //             value: widget.isFri,
-            //             onChanged: (bool? newValue) {
-            //               setState(() {
-            //                 widget.isFri = newValue!;
-            //               });
-            //             })
-            //       ],
-            //     ),
-            //     Column(
-            //       children: [
-            //         Text("Сб"),
-            //         Checkbox(
-            //             value: widget.isSat,
-            //             onChanged: (bool? newValue) {
-            //               setState(() {
-            //                 widget.isSat = newValue!;
-            //               });
-            //             })
-            //       ],
-            //     ),
-            //     Column(
-            //       children: [
-            //         Text("Вс"),
-            //         Checkbox(
-            //             value: widget.isSun,
-            //             onChanged: (bool? newValue) {
-            //               setState(() {
-            //                 widget.isSun = newValue!;
-            //               });
-            //             })
-            //       ],
-            //     ),
-            //   ],
-            // ),
-            SizedBox(height: 30,),
-            BaseButton(
-                onClick: () => tryToCreateWorkout(context),
-                buttonText: "Cоздать",
-                icon: null,
-                isElevated: true),
-          ],
-        ),
+                    Container(
+                      padding: EdgeInsets.all(16),
+                      width: widget.screenSize.width / 1.5,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(8),
+                        color: Colours.workout_card_foreground_color,
+                      ),
+                      child: Column(
+                        children: [
+                          Column(
+                            children: widget.exercises,
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          BaseButton(
+                            onClick: () => addExercise(),
+                            buttonText: Strings.add,
+                            icon: null,
+                            buttonSize: Size(widget.screenSize.width / 1.5,
+                                widget.screenSize.height / 15),
+                            isElevated: true,
+                            radius: 8,
+                            backgroundColor:
+                                Colours.workout_card_background_color,
+                            color: Colours.workout_card_foreground_color,
+                          ),
+                        ],
+                      ),
+                    ),
+                    SizedBox(
+                      height: 30,
+                    ),
+                    Container(
+                      padding: EdgeInsets.all(16),
+                      width: widget.screenSize.width / 1.5,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(8),
+                        color: Colours.workout_card_foreground_color,
+                      ),
+                      child: DropdownButtonFormField<String>(
+                        isDense: true,
+                        dropdownColor: Colours.workout_card_foreground_color,
+                        decoration: InputDecoration(
+                          focusedBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Colours.workout_card_foreground_color,
+                            ),
+                          ),
+                          enabledBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Colours.workout_card_foreground_color,
+                            ),
+                          ),
+                        ),
+                        value: widget.selectedWeekday,
+                        hint: Center(
+                            child: Text(
+                          Strings.day,
+                          textAlign: TextAlign.center,
+                          style: Styles.hint_text_style_create_workout,
+                        )),
+                        items: widget.daysOfWeek.map((String day) {
+                          return DropdownMenuItem<String>(
+                            value: day,
+                            child: Center(
+                                child: Text(
+                              day,
+                              style: Styles.hint_text_style_create_workout,
+                            )),
+                          );
+                        }).toList(),
+                        onChanged: (String? newValue) {
+                          setState(() {
+                            widget.selectedWeekday = newValue;
+                          });
+                        },
+                      ),
+                    ),
+                    SizedBox(
+                      height: 30,
+                    ),
+                    BaseButton(
+                      onClick: () {},
+                      buttonText: Strings.button_done_text,
+                      icon: null,
+                      isElevated: true,
+                      radius: 8,
+                      backgroundColor: Colours.workout_card_foreground_color,
+                      color: Colours.workout_card_background_color,
+                      buttonSize: Size(widget.screenSize.width / 1.5,
+                          widget.screenSize.height / 15),
+                    ),
+                    SizedBox(
+                      height: 30,
+                    ),
+                  ],
+                ),
+              )),
+        ],
       ),
     );
   }
+
+  void addExercise() => Navigator.pushNamed(
+      context, "/workouts_menu/create_workout/add_exercise/");
 }

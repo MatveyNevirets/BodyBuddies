@@ -58,7 +58,7 @@ class WorkoutCardOnList extends StatelessWidget {
                           style: Styles.workout_text_style_week_day,
                         ),
                         decoration: BoxDecoration(
-                            color: Colours.grey_card_container_workout,
+                            color: Colours.workout_card_foreground_color,
                             borderRadius: BorderRadius.circular(4)),
                       ),
                     ],
@@ -125,19 +125,19 @@ class WorkoutCardOnList extends StatelessWidget {
 
   String getDayOfWeekOnString() {
     if (workout.weekday==1) {
-      return Strings.monday;
+      return Strings.mon;
     } else if (workout.weekday==2) {
-      return Strings.tuesday;
+      return Strings.tue;
     } else if (workout.weekday==3) {
-      return Strings.wednesday;
+      return Strings.wed;
     } else if (workout.weekday==4) {
-      return Strings.thursday;
+      return Strings.thur;
     } else if (workout.weekday==5) {
-      return Strings.friday;
+      return Strings.fri;
     } else if (workout.weekday==6) {
-      return Strings.saturday;
+      return Strings.sat;
     } else if (workout.weekday==7) {
-      return Strings.sunday;
+      return Strings.sun;
     } else {
       return Strings.empty;
     }

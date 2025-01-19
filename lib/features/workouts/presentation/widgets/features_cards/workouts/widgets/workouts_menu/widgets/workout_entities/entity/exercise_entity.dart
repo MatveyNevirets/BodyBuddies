@@ -10,7 +10,7 @@ class ExerciseEntity {
       isExercise,
       isRest,
       isCardio;
-  int sets, reps, restTime, cardioTime, kilograms;
+  int sets, reps, cardioTime, kilograms;
 
   ExerciseEntity(
       {required this.title,
@@ -23,7 +23,6 @@ class ExerciseEntity {
       this.abs = false,
       this.reps = 0,
       this.sets = 0,
-      this.restTime = 0,
       this.cardioTime = 0,
         this.kilograms=0,
       this.isCardio = false,

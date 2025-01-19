@@ -55,6 +55,7 @@ abstract class Strings {
   static var chats_appbar_string = "Чаты";
 
   static var workouts_appbar = "Тренировки";
+  static var creating_appbar = "Создание";
 
   static var profile_string =  "Профиль";
 
@@ -91,15 +92,29 @@ abstract class Strings {
 
   static String empty = "Нет данных";
 
-  static String monday = "Пн.";
-  static String tuesday = "Вт.";
-  static String wednesday = "Ср.";
-  static String thursday = "Чт.";
-  static String friday = "Пт.";
-  static String saturday = "Сб.";
-  static String sunday = "Вс.";
+  static String mon = "Пн.";
+  static String tue = "Вт.";
+  static String wed = "Ср.";
+  static String thur = "Чт.";
+  static String fri = "Пт.";
+  static String sat = "Сб.";
+  static String sun = "Вс.";
+
+  static String monday = "Понедельник";
+  static String tuesday = "Вторник";
+  static String wednesday = "Среда";
+  static String thursday = "Четверг";
+  static String friday = "Пятница";
+  static String saturday = "Суббота";
+  static String sunday = "Воскресенье";
 
   static String selectWeekday = "Выберите день недели";
+
+  static var title  = "Название";
+
+  static String day = "День";
+
+  static var change_exercise = "Выбор";
 
   
 

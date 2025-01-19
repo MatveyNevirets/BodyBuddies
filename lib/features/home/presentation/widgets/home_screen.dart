@@ -18,22 +18,24 @@ import '../../../workouts/presentation/widgets/features_cards/workouts/workouts_
 import '../../../workouts/presentation/widgets/workouts_home_screen.dart';
 
 class HomeScreen extends StatefulWidget {
-
   final FakeWorkoutsDatabase fakeWorkoutsDatabase;
+  final BodyHomeData mainFrontendData;
 
-  const HomeScreen({super.key, required this.fakeWorkoutsDatabase});
+  const HomeScreen(
+      {super.key,
+      required this.fakeWorkoutsDatabase,
+      required this.mainFrontendData});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final data = BodyHomeData();
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: data.createAppBarWidget(appbarTitle: Strings.workouts_appbar),
+      appBar: widget.mainFrontendData
+          .createAppBarWidget(appbarTitle: Strings.workouts_appbar),
       body: Container(
         margin: Styles.base_margin_size,
         child: ListView(children: [
@@ -45,7 +47,9 @@ class _HomeScreenState extends State<HomeScreen> {
               const SizedBox(
                 height: Styles.height_of_text_to_widget,
               ),
-              WorkoutFeatureCard(fakeDatabase: widget.fakeWorkoutsDatabase,),
+              WorkoutFeatureCard(
+                fakeDatabase: widget.fakeWorkoutsDatabase,
+              ),
               const SizedBox(
                 height: Styles.big_height_of_text_to_widget / 1.5,
               ),
