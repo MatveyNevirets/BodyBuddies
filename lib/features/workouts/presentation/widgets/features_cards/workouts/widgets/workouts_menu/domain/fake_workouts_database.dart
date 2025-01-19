@@ -28,7 +28,7 @@ class FakeWorkoutsDatabase {
         triceps: true,
         abs: true),
     WorkoutEntity(
-        title: "Тяжелый день ног", weekday: 7, legs: true, shoulders: true),
+        title: "Тяжелая на грудь", weekday: 7, legs: true, shoulders: true),
     WorkoutEntity(title: "Кардио на выходной", weekday: 6, cardio: true),
   ];
 

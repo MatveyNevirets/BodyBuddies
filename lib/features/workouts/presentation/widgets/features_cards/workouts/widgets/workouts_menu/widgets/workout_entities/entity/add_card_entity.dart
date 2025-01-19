@@ -8,7 +8,7 @@ class AddCardEntity extends StatelessWidget {
   static final Color borderColor = Colours.workout_card_background_color;
 
   createWorkout(BuildContext context) {
-    Navigator.of(context).pushNamed("/workouts_menu/create_workout/");
+    Navigator.of(context).pushNamed("/workouts_menu/create_workout/", arguments: []);
   }
 
   @override

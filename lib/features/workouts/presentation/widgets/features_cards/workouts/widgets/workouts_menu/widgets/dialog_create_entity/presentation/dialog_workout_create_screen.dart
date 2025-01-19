@@ -47,11 +47,6 @@ class DialogWorkoutCreateScreen extends StatefulWidget {
       required this.screenSize,
       required this.mainFrontendData});
 
-  List<Widget> exercises = [
-    ExerciseCardWidget("нощке"),
-    ExerciseCardWidget("Cисяндрики"),
-  ];
-
   bool isMon = false,
       isTue = false,
       isWed = false,
@@ -157,10 +152,14 @@ class _DialogWorkoutCreateScreenState extends State<DialogWorkoutCreateScreen> {
 
   @override
   Widget build(BuildContext context) {
+    List<ExerciseEntity> exercises = [
+      ExerciseEntity(title: "title")
+    ];
+    // ModalRoute.of(context)!.settings.arguments as List<ExerciseEntity>
     return Scaffold(
       appBar: widget.mainFrontendData
           .createAppBarWidget(appbarTitle: Strings.creating_appbar),
-      body: ListView(
+      body: Wrap(
         children: [
           Container(
               width: widget.screenSize.width,
@@ -209,8 +208,12 @@ class _DialogWorkoutCreateScreenState extends State<DialogWorkoutCreateScreen> {
                       ),
                       child: Column(
                         children: [
-                          Column(
-                            children: widget.exercises,
+                          SizedBox(
+                            height: widget.screenSize.height/4,
+                            child:
+                                ListView.builder(itemCount: exercises.length, itemBuilder: (context, index) {
+                              return Text(exercises[index].title);
+                            }),
                           ),
                           SizedBox(
                             height: 10,

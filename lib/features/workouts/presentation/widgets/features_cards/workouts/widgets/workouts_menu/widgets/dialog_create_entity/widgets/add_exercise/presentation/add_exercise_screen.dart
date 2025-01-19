@@ -1,4 +1,5 @@
 import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/domain/exercises_database.dart';
+import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/widgets/dialog_create_entity/presentation/dialog_workout_create_screen.dart';
 import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/widgets/workout_entities/entity/exercise_entity.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -18,7 +19,6 @@ class AddExerciseScreen extends StatefulWidget {
 
 class _AddExerciseScreenState extends State<AddExerciseScreen> {
   final Exercises exercises = Exercises();
-
   List<ExerciseEntity> filteredExercises = [];
 
   final searchTextFieldController = TextEditingController();
@@ -34,34 +34,43 @@ class _AddExerciseScreenState extends State<AddExerciseScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: widget.mainFrontendData
-            .createAppBarWidget(appbarTitle: Strings.change_exercise),
-        body: Container(
-            margin: EdgeInsets.all(16),
-            child: Column(
-              children: [
-                TextField(
-                  controller: searchTextFieldController,
-                  decoration: InputDecoration(hintText: "Поиск"),
-                ),
-                Container(
-                  child: Expanded(
-                    child: filteredExercises.isNotEmpty
-                        ? ListView.builder(
-                            itemCount: filteredExercises.length,
-                            itemBuilder: (context, index) {
-                              return Card(
-                                color: Colours.workout_card_foreground_color,
-                                child: ListTile(
-                                  title: Text(filteredExercises[index].title),
-                                ),
-                              );
-                            })
-                        : Text("Нема дата"),
-                  ),
-                ),
-              ],
-            )));
+      appBar: widget.mainFrontendData
+          .createAppBarWidget(appbarTitle: Strings.change_exercise),
+      body: Container(
+        margin: EdgeInsets.all(16),
+        child: Column(
+          children: [
+            TextField(
+              controller: searchTextFieldController,
+              decoration: InputDecoration(hintText: "Поиск"),
+            ),
+            Container(
+              child: Expanded(
+                child: filteredExercises.isNotEmpty
+                    ? ListView.builder(
+                        itemCount: filteredExercises.length,
+                        itemBuilder: (context, index) {
+                          return GestureDetector(
+                            onTap: () => addExercise(context),
+                            child: Card(
+                              color: Colours.workout_card_foreground_color,
+                              child: ListTile(
+                                title: Text(filteredExercises[index].title),
+                              ),
+                            ),
+                          );
+                        })
+                    : Text("Нема дата"),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  void addExercise(BuildContext context) {
+    Navigator.pop(context, );
   }
 
   void searchExercises() {
