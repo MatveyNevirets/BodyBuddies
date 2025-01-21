@@ -6,7 +6,7 @@ import 'package:body_buddies/features/intro/presentation/bloc/intro_bloc.dart';
 import 'package:body_buddies/features/intro/presentation/widgets/intro_screen.dart';
 import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/bloc/workouts_menu_bloc.dart';
 import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/domain/fake_workouts_database.dart';
-import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/widgets/dialog_create_entity/bloc/dialog_create_entity_bloc.dart';
+import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/widgets/dialog_create_entity/bloc/dialog_create_entity_cubit.dart';
 import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/widgets/dialog_create_entity/presentation/dialog_workout_create_screen.dart';
 import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/widgets/dialog_create_entity/widgets/add_exercise/bloc/add_exercise_bloc.dart';
 import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/widgets/dialog_create_entity/widgets/add_exercise/presentation/add_exercise_screen.dart';
@@ -35,7 +35,6 @@ class BodyBuddiesApp extends StatelessWidget {
         MediaQuery.sizeOf(context).width, MediaQuery.sizeOf(context).height);
 
     WorkoutsMenuScreen workoutsMenuScreen = WorkoutsMenuScreen(
-      fakeDB: fakeWorkoutsDatabase,
       mainFrontendData: mainFrontendData,
     );
     return MaterialApp(
@@ -64,11 +63,11 @@ class BodyBuddiesApp extends StatelessWidget {
               ),
             ),
         "/workouts_menu": (context) => BlocProvider(
-              create: (BuildContext context) => WorkoutsMenuBloc(),
+              create: (BuildContext context) => WorkoutsMenuBloc(fakeWorkoutsDatabase),
               child: workoutsMenuScreen,
             ),
         "/workouts_menu/create_workout/": (context) => BlocProvider(
-              create: (BuildContext context) => DialogCreateEntityBloc(),
+              create: (BuildContext context) => DialogCreateEntityCubit(),
               child: DialogWorkoutCreateScreen(
                 fakeDB: fakeWorkoutsDatabase,
                 workoutsMenuScreen: workoutsMenuScreen,

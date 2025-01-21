@@ -51,7 +51,7 @@ class _AddExerciseScreenState extends State<AddExerciseScreen> {
                         itemCount: filteredExercises.length,
                         itemBuilder: (context, index) {
                           return GestureDetector(
-                            onTap: () => addExercise(context),
+                            onTap: () => addExercise(context, index),
                             child: Card(
                               color: Colours.workout_card_foreground_color,
                               child: ListTile(
@@ -69,8 +69,8 @@ class _AddExerciseScreenState extends State<AddExerciseScreen> {
     );
   }
 
-  void addExercise(BuildContext context) {
-    Navigator.pop(context, );
+  void addExercise(BuildContext context, int index) {
+    Navigator.of(context).pop(filteredExercises[index]);
   }
 
   void searchExercises() {

@@ -7,8 +7,12 @@ import '../../../../../../../../../../../core/colors/colors.dart';
 class AddCardEntity extends StatelessWidget {
   static final Color borderColor = Colours.workout_card_background_color;
 
+  BuildContext workoutsMenuContext;
+
+  AddCardEntity(this.workoutsMenuContext);
+
   createWorkout(BuildContext context) {
-    Navigator.of(context).pushNamed("/workouts_menu/create_workout/", arguments: []);
+    Navigator.of(context).pushNamed("/workouts_menu/create_workout/", arguments: workoutsMenuContext);
   }
 
   @override

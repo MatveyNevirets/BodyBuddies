@@ -5,4 +5,6 @@ sealed class WorkoutsMenuEvent {
 }
 
 class AddWorkoutEvent extends WorkoutsMenuEvent {
+  final FakeWorkoutsDatabase database;
+  AddWorkoutEvent(this.database);
 }

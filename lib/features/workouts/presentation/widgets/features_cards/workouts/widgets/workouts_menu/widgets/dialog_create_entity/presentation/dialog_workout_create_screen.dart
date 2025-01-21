@@ -7,6 +7,7 @@ import 'package:body_buddies/features/home/presentation/widgets/body_home_data.d
 import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workout_button_widget.dart';
 import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/bloc/workouts_menu_bloc.dart';
 import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/domain/fake_workouts_database.dart';
+import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/widgets/dialog_create_entity/bloc/dialog_create_entity_cubit.dart';
 import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/widgets/dialog_create_entity/widgets/exercise_card_widget.dart';
 import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/widgets/workout_entities/entity/exercise_entity.dart';
 import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/widgets/workout_entities/entity/new_workout_button.dart';
@@ -63,7 +64,21 @@ class DialogWorkoutCreateScreen extends StatefulWidget {
 class _DialogWorkoutCreateScreenState extends State<DialogWorkoutCreateScreen> {
   TextEditingController titleTextFieldController = TextEditingController();
 
+  List<ExerciseEntity> exercises = [];
+
   void tryToCreateWorkout(BuildContext context) {
+    print(widget.selectedWeekday);
+
+    widget.isMon = widget.selectedWeekday == Strings.monday ? true : false;
+    widget.isTue = widget.selectedWeekday == Strings.tuesday ? true : false;
+    widget.isWed = widget.selectedWeekday == Strings.wednesday ? true : false;
+    widget.isTh = widget.selectedWeekday == Strings.thursday ? true : false;
+    widget.isFri = widget.selectedWeekday == Strings.friday ? true : false;
+    widget.isSat = widget.selectedWeekday == Strings.saturday ? true : false;
+    widget.isSun = widget.selectedWeekday == Strings.sunday ? true : false;
+
+    print(titleTextFieldController.text.toString());
+
     if (titleTextFieldController.text.toString() != "" &&
         (widget.isMon ||
             widget.isTue ||
@@ -72,7 +87,9 @@ class _DialogWorkoutCreateScreenState extends State<DialogWorkoutCreateScreen> {
             widget.isFri ||
             widget.isSat ||
             widget.isSun)) {
+      print(widget.isMon);
       createWorkoutInDatabase(
+          context: context,
           title: titleTextFieldController.text.toString(),
           weekday: getNumberWeekday());
 
@@ -103,6 +120,7 @@ class _DialogWorkoutCreateScreenState extends State<DialogWorkoutCreateScreen> {
   }
 
   createWorkoutInDatabase({
+    required BuildContext context,
     required String title,
     int weekday = -1,
     bool abs = false,
@@ -115,47 +133,35 @@ class _DialogWorkoutCreateScreenState extends State<DialogWorkoutCreateScreen> {
     bool chest = false,
     bool cardio = false,
   }) {
-    print(widget.fakeDB.fakeWorkoutEntities.length);
-    widget.fakeDB.fakeWorkoutEntities.add(
-      WorkoutEntity(
-          title: title,
-          weekday: weekday,
-          abs: abs,
-          shoulders: shoulders,
-          legs: legs,
-          triceps: triceps,
-          biceps: biceps,
-          back: back,
-          forearms: forearms,
-          chest: chest,
-          cardio: cardio),
-    );
-    widget.fakeDB.fakeWorkoutExercises.add(
-      [
-        ExerciseEntity(
-            title: "Гарик пожизненный на бицеас",
-            isExercise: true,
-            reps: 25,
-            sets: 4),
-        ExerciseEntity(
-            title: "Жим", isExercise: true, reps: 15, sets: 4, kilograms: 55),
-        ExerciseEntity(title: "Да махи", isExercise: true, reps: 13, sets: 4),
-        ExerciseEntity(
-            title: "Присед",
-            isExercise: true,
-            reps: 15,
-            sets: 4,
-            kilograms: 40),
-      ],
-    );
+    try {
+      print(widget.fakeDB.fakeWorkoutEntities.length);
+      widget.fakeDB.fakeWorkoutEntities.add(
+        WorkoutEntity(
+            title: title,
+            weekday: weekday,
+            abs: abs,
+            shoulders: shoulders,
+            legs: legs,
+            triceps: triceps,
+            biceps: biceps,
+            back: back,
+            forearms: forearms,
+            chest: chest,
+            cardio: cardio),
+      );
+      widget.fakeDB.fakeWorkoutExercises.add(exercises);
+      print(widget.fakeDB.fakeWorkoutEntities.length);
+      context.read<WorkoutsMenuBloc>().add(AddWorkoutEvent(widget.fakeDB));
+    } catch (e) {
+      print("Handled error: $e");
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    List<ExerciseEntity> exercises = [
-      ExerciseEntity(title: "title")
-    ];
-    // ModalRoute.of(context)!.settings.arguments as List<ExerciseEntity>
+    final BuildContext workoutsMenuContext =
+        ModalRoute.of(context)!.settings.arguments as BuildContext;
+
     return Scaffold(
       appBar: widget.mainFrontendData
           .createAppBarWidget(appbarTitle: Strings.creating_appbar),
@@ -179,6 +185,7 @@ class _DialogWorkoutCreateScreenState extends State<DialogWorkoutCreateScreen> {
                       margin: EdgeInsets.all(30),
                       padding: EdgeInsets.all(8),
                       child: TextField(
+                        controller: titleTextFieldController,
                         cursorColor: Colours.workout_card_background_color,
                         textAlign: TextAlign.center,
                         style: Styles.hint_text_style_create_workout,
@@ -209,11 +216,20 @@ class _DialogWorkoutCreateScreenState extends State<DialogWorkoutCreateScreen> {
                       child: Column(
                         children: [
                           SizedBox(
-                            height: widget.screenSize.height/4,
-                            child:
-                                ListView.builder(itemCount: exercises.length, itemBuilder: (context, index) {
-                              return Text(exercises[index].title);
-                            }),
+                            height: widget.screenSize.height / 4,
+                            child: BlocBuilder<DialogCreateEntityCubit,
+                                List<ExerciseEntity>>(
+                              builder: (context, exercises) {
+
+                                this.exercises = exercises;
+
+                                return ListView.builder(
+                                    itemCount: exercises.length,
+                                    itemBuilder: (context, index) {
+                                      return Text(exercises[index].title);
+                                    });
+                              },
+                            ),
                           ),
                           SizedBox(
                             height: 10,
@@ -286,7 +302,7 @@ class _DialogWorkoutCreateScreenState extends State<DialogWorkoutCreateScreen> {
                       height: 30,
                     ),
                     BaseButton(
-                      onClick: () {},
+                      onClick: () => tryToCreateWorkout(workoutsMenuContext),
                       buttonText: Strings.button_done_text,
                       icon: null,
                       isElevated: true,
@@ -307,6 +323,13 @@ class _DialogWorkoutCreateScreenState extends State<DialogWorkoutCreateScreen> {
     );
   }
 
-  void addExercise() => Navigator.pushNamed(
-      context, "/workouts_menu/create_workout/add_exercise/");
+  void addExercise() async {
+    final selectedExercise = await Navigator.pushNamed(
+        context, "/workouts_menu/create_workout/add_exercise/");
+    if (selectedExercise != null) {
+      context
+          .read<DialogCreateEntityCubit>()
+          .addItem(selectedExercise as ExerciseEntity);
+    }
+  }
 }

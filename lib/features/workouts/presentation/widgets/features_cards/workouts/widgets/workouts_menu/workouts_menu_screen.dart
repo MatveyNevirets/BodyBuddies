@@ -12,10 +12,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../../../../../core/strings/strings.dart';
 
 class WorkoutsMenuScreen extends StatelessWidget {
-  FakeWorkoutsDatabase fakeDB;
   late final BodyHomeData mainFrontendData;
 
-  WorkoutsMenuScreen({required this.fakeDB, required this.mainFrontendData});
+  WorkoutsMenuScreen({required this.mainFrontendData});
 
   @override
   Widget build(BuildContext context) {
@@ -27,11 +26,11 @@ class WorkoutsMenuScreen extends StatelessWidget {
           body: Container(
             margin: Styles.base_margin_size,
             child: ListView.builder(
-                itemCount: fakeDB.fakeWorkoutEntities.length + 1,
+                itemCount: state.database.fakeWorkoutEntities.length + 1,
                 itemBuilder: (context, index) {
                   return index == 0
-                      ? AddCardEntity()
-                      : fakeDB.getWorkout(index - 1);
+                      ? AddCardEntity(context)
+                      : state.database.getWorkout(index - 1);
                 }),
           ),
         );
