@@ -13,7 +13,6 @@ import '../../../../core/strings/strings.dart';
 import '../../../workouts/presentation/widgets/features_cards/nutrition/nutrition_feature_card.dart';
 import '../../../workouts/presentation/widgets/features_cards/useful/useful_feature_card.dart';
 import '../../../workouts/presentation/widgets/features_cards/water_indicator_widget/water_indicator_widget.dart';
-import '../../../workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/workouts_menu_navigator.dart';
 import '../../../workouts/presentation/widgets/features_cards/workouts/workouts_feature_card.dart';
 import '../../../workouts/presentation/widgets/workouts_home_screen.dart';
 

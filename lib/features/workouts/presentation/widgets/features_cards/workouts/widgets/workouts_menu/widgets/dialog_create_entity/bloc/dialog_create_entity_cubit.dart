@@ -9,4 +9,15 @@ class DialogCreateEntityCubit extends Cubit<List<ExerciseEntity>> {
     final List<ExerciseEntity> updatedList = List.from(state)..add(entity);
     emit(updatedList);
   }
+
+  void updateItem(int index, ExerciseEntity entity) {
+    final updatedList = List<ExerciseEntity>.from(state);
+    updatedList[index] = entity;
+    emit(updatedList);
+  }
+
+  void removeItem(int index) {
+    final List<ExerciseEntity> updatedList = List.from(state)..removeAt(index);
+    emit(updatedList);
+  }
 }

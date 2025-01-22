@@ -62,9 +62,19 @@ class DialogWorkoutCreateScreen extends StatefulWidget {
 }
 
 class _DialogWorkoutCreateScreenState extends State<DialogWorkoutCreateScreen> {
-  TextEditingController titleTextFieldController = TextEditingController();
+  final titleTextFieldController = TextEditingController();
 
-  List<ExerciseEntity> exercises = [];
+  List<ExerciseEntity> _exercises = [];
+
+  List<TextEditingController> weightControllers = [];
+  List<TextEditingController> repsControllers = [];
+  List<TextEditingController> setsControllers = [];
+
+  void addControllers() {
+    weightControllers.add(TextEditingController());
+    repsControllers.add(TextEditingController());
+    setsControllers.add(TextEditingController());
+  }
 
   void tryToCreateWorkout(BuildContext context) {
     print(widget.selectedWeekday);
@@ -88,6 +98,7 @@ class _DialogWorkoutCreateScreenState extends State<DialogWorkoutCreateScreen> {
             widget.isSat ||
             widget.isSun)) {
       print(widget.isMon);
+
       createWorkoutInDatabase(
           context: context,
           title: titleTextFieldController.text.toString(),
@@ -149,7 +160,7 @@ class _DialogWorkoutCreateScreenState extends State<DialogWorkoutCreateScreen> {
             chest: chest,
             cardio: cardio),
       );
-      widget.fakeDB.fakeWorkoutExercises.add(exercises);
+      widget.fakeDB.fakeWorkoutExercises.add(_exercises);
       print(widget.fakeDB.fakeWorkoutEntities.length);
       context.read<WorkoutsMenuBloc>().add(AddWorkoutEvent(widget.fakeDB));
     } catch (e) {
@@ -169,7 +180,7 @@ class _DialogWorkoutCreateScreenState extends State<DialogWorkoutCreateScreen> {
         children: [
           Container(
               width: widget.screenSize.width,
-              margin: EdgeInsets.all(20),
+              margin: const EdgeInsets.all(20),
               child: Card(
                 elevation: 4,
                 color: Colours.workout_card_background_color,
@@ -182,8 +193,8 @@ class _DialogWorkoutCreateScreenState extends State<DialogWorkoutCreateScreen> {
                         color: Colours.workout_card_foreground_color,
                       ),
                       width: widget.screenSize.width / 1.5,
-                      margin: EdgeInsets.all(30),
-                      padding: EdgeInsets.all(8),
+                      margin: const EdgeInsets.all(30),
+                      padding: const EdgeInsets.all(8),
                       child: TextField(
                         controller: titleTextFieldController,
                         cursorColor: Colours.workout_card_background_color,
@@ -207,7 +218,7 @@ class _DialogWorkoutCreateScreenState extends State<DialogWorkoutCreateScreen> {
                       ),
                     ),
                     Container(
-                      padding: EdgeInsets.all(16),
+                      padding: const EdgeInsets.all(16),
                       width: widget.screenSize.width / 1.5,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(8),
@@ -220,18 +231,74 @@ class _DialogWorkoutCreateScreenState extends State<DialogWorkoutCreateScreen> {
                             child: BlocBuilder<DialogCreateEntityCubit,
                                 List<ExerciseEntity>>(
                               builder: (context, exercises) {
-
-                                this.exercises = exercises;
+                                this._exercises = exercises;
 
                                 return ListView.builder(
                                     itemCount: exercises.length,
                                     itemBuilder: (context, index) {
-                                      return Text(exercises[index].title);
+                                      addControllers();
+
+                                      final weightController =
+                                          weightControllers[index];
+                                      final setsController =
+                                          setsControllers[index];
+                                      final repsController =
+                                          repsControllers[index];
+
+                                      return Wrap(
+                                        children: [
+                                          Text(exercises[index].title),
+                                          TextField(
+                                            keyboardType: TextInputType.number,
+                                            controller: weightController,
+                                            decoration: InputDecoration(
+                                              hintText: "kg",
+                                            ),
+                                            onChanged: (value) {
+                                              exercises[index].kilograms =
+                                                  int.parse(value);
+                                              updateExercise(
+                                                  index, exercises[index]);
+                                            },
+                                          ),
+                                          TextField(
+                                            keyboardType: TextInputType.number,
+                                            controller: setsController,
+                                            decoration: InputDecoration(
+                                              hintText: "sets",
+                                            ),
+                                            onChanged: (value) {
+                                              exercises[index].sets =
+                                                  int.parse(value);
+                                              updateExercise(
+                                                  index, exercises[index]);
+                                            },
+                                          ),
+                                          TextField(
+                                            keyboardType: TextInputType.number,
+                                            controller: repsController,
+                                            decoration: InputDecoration(
+                                              hintText: "reps",
+                                            ),
+                                            onChanged: (value) {
+                                              exercises[index].reps =
+                                                  int.parse(value);
+                                              updateExercise(
+                                                  index, exercises[index]);
+                                            },
+                                          ),
+                                          ElevatedButton(
+                                            onPressed: () =>
+                                                removeExercise(index),
+                                            child: Text("X"),
+                                          ),
+                                        ],
+                                      );
                                     });
                               },
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 10,
                           ),
                           BaseButton(
@@ -249,11 +316,11 @@ class _DialogWorkoutCreateScreenState extends State<DialogWorkoutCreateScreen> {
                         ],
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 30,
                     ),
                     Container(
-                      padding: EdgeInsets.all(16),
+                      padding: const EdgeInsets.all(16),
                       width: widget.screenSize.width / 1.5,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(8),
@@ -298,7 +365,7 @@ class _DialogWorkoutCreateScreenState extends State<DialogWorkoutCreateScreen> {
                         },
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 30,
                     ),
                     BaseButton(
@@ -312,7 +379,7 @@ class _DialogWorkoutCreateScreenState extends State<DialogWorkoutCreateScreen> {
                       buttonSize: Size(widget.screenSize.width / 1.5,
                           widget.screenSize.height / 15),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 30,
                     ),
                   ],
@@ -331,5 +398,13 @@ class _DialogWorkoutCreateScreenState extends State<DialogWorkoutCreateScreen> {
           .read<DialogCreateEntityCubit>()
           .addItem(selectedExercise as ExerciseEntity);
     }
+  }
+
+  void updateExercise(int index, ExerciseEntity exercise) {
+    _exercises[index] = exercise;
+  }
+
+  void removeExercise(int index) {
+    context.read<DialogCreateEntityCubit>().removeItem(index);
   }
 }

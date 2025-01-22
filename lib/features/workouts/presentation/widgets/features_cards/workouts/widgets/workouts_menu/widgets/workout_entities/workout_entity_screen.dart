@@ -11,9 +11,13 @@ class WorkoutEntityScreen extends StatelessWidget {
       body: ListView.builder(
           itemCount: exercises.length,
           itemBuilder: (context, index) {
-            return ListTile(
-              title: Text(exercises[index].title),
-              subtitle: Text(exercises[index].reps.toString()),
+            return Column(
+              children: [
+               Text(exercises[index].title),
+                  Text(exercises[index].kilograms.toString()),
+                  Text(exercises[index].sets.toString()),
+                  Text(exercises[index].reps.toString()),
+              ],
             );
           }),
     );
