@@ -7,8 +7,6 @@ import 'package:body_buddies/features/home/presentation/widgets/body_home_data.d
 import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workout_button_widget.dart';
 import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/bloc/workouts_menu_bloc.dart';
 import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/domain/fake_workouts_database.dart';
-import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/widgets/dialog_create_entity/bloc/dialog_create_entity_cubit.dart';
-import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/widgets/dialog_create_entity/widgets/exercise_card_widget.dart';
 import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/widgets/workout_entities/entity/exercise_entity.dart';
 import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/widgets/workout_entities/entity/new_workout_button.dart';
 import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/widgets/workout_entities/entity/workout_entity.dart';
@@ -19,6 +17,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../../../../../../../../core/strings/strings.dart';
 import '../../../../../../../../../../../core/styles/styles.dart';
 import '../../../../workout_container_text.dart';
+import '../bloc/workout_create_entity_cubit.dart';
 
 class DialogWorkoutCreateScreen extends StatefulWidget {
   FakeWorkoutsDatabase fakeDB;
@@ -87,8 +86,6 @@ class _DialogWorkoutCreateScreenState extends State<DialogWorkoutCreateScreen> {
     widget.isSat = widget.selectedWeekday == Strings.saturday ? true : false;
     widget.isSun = widget.selectedWeekday == Strings.sunday ? true : false;
 
-    print(titleTextFieldController.text.toString());
-
     if (titleTextFieldController.text.toString() != "" &&
         (widget.isMon ||
             widget.isTue ||
@@ -96,16 +93,14 @@ class _DialogWorkoutCreateScreenState extends State<DialogWorkoutCreateScreen> {
             widget.isTh ||
             widget.isFri ||
             widget.isSat ||
-            widget.isSun)) {
-      print(widget.isMon);
-
+            widget.isSun) &&
+        _exercises.length != 0) {
       createWorkoutInDatabase(
           context: context,
           title: titleTextFieldController.text.toString(),
           weekday: getNumberWeekday());
 
       widget.onWorkoutCreated.call();
-      print("Send");
     } else {
       showSnackBar(context, Strings.not_full_field_error);
     }

@@ -1,5 +1,7 @@
+import 'dart:async';
+
+import 'package:body_buddies/core/widgets/base_button.dart';
 import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/domain/exercises_database.dart';
-import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/widgets/dialog_create_entity/presentation/dialog_workout_create_screen.dart';
 import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/widgets/workout_entities/entity/exercise_entity.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -11,14 +13,16 @@ import '../../../../../../../../../../../../home/presentation/widgets/body_home_
 class AddExerciseScreen extends StatefulWidget {
   final BodyHomeData mainFrontendData;
 
-  AddExerciseScreen({super.key, required this.mainFrontendData});
+  Exercises exercises;
+
+  AddExerciseScreen(
+      {super.key, required this.mainFrontendData, required this.exercises});
 
   @override
   State<AddExerciseScreen> createState() => _AddExerciseScreenState();
 }
 
 class _AddExerciseScreenState extends State<AddExerciseScreen> {
-  final Exercises exercises = Exercises();
   List<ExerciseEntity> filteredExercises = [];
 
   final searchTextFieldController = TextEditingController();
@@ -63,6 +67,11 @@ class _AddExerciseScreenState extends State<AddExerciseScreen> {
                     : Text("Нема дата"),
               ),
             ),
+            BaseButton(
+                onClick: () => addYourExercise(context),
+                buttonText: "Добавить свое",
+                icon: null,
+                isElevated: true),
           ],
         ),
       ),
@@ -78,12 +87,27 @@ class _AddExerciseScreenState extends State<AddExerciseScreen> {
         searchTextFieldController.text.toLowerCase().replaceAll(" ", "");
 
     if (query.isNotEmpty) {
-      filteredExercises = exercises.exercises.where((ExerciseEntity entity) {
+      filteredExercises =
+          widget.exercises.exercises.where((ExerciseEntity entity) {
         return entity.title.toLowerCase().replaceAll(" ", "").contains(query);
       }).toList();
     } else if (query.isEmpty) {
-      filteredExercises = exercises.exercises;
+      filteredExercises = widget.exercises.exercises;
     }
     setState(() {});
+  }
+
+  void addYourExercise(BuildContext context) {
+    final createdExercises = Navigator.of(context).pushNamed(
+        "/workouts_menu/create_workout/add_exercise/add_your_exercise/");
+
+    createdExercises
+        .whenComplete(complete(context) as FutureOr<void> Function());
+  }
+
+  Future<void> complete(BuildContext context) async {
+    setState(() {
+      widget.exercises = ModalRoute.of(context)?.settings.arguments as Exercises;
+    });
   }
 }
