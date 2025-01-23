@@ -37,7 +37,7 @@ class WorkoutCardOnList extends StatelessWidget {
             children: [
               Image(
                 image: AssetImage(
-                  "lib/assets/images/calendar.png",
+                  "lib/assets/images/workout_image.png",
                 ),
                 height: MediaQuery.sizeOf(context).height / 7,
                 width: MediaQuery.sizeOf(context).height / 7,

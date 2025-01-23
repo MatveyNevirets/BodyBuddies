@@ -116,6 +116,15 @@ abstract class Strings {
 
   static var change_exercise = "Выбор";
 
+  static var weight = "Вес";
+  static var reps = "Повторения";
+  static var sets = "Подходы";
+
+  static var search = "Поиск";
+
+  static var add_yourself = "Добавить свое";
+
+
   
 
 ///////////////////////////////

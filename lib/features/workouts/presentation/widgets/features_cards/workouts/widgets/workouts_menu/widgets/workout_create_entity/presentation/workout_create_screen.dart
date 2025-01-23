@@ -175,7 +175,7 @@ class _DialogWorkoutCreateScreenState extends State<DialogWorkoutCreateScreen> {
         children: [
           Container(
               width: widget.screenSize.width,
-              margin: const EdgeInsets.all(20),
+              margin: const EdgeInsets.symmetric(vertical: 24, horizontal: 16),
               child: Card(
                 elevation: 4,
                 color: Colours.workout_card_background_color,
@@ -228,68 +228,7 @@ class _DialogWorkoutCreateScreenState extends State<DialogWorkoutCreateScreen> {
                               builder: (context, exercises) {
                                 this._exercises = exercises;
 
-                                return ListView.builder(
-                                    itemCount: exercises.length,
-                                    itemBuilder: (context, index) {
-                                      addControllers();
-
-                                      final weightController =
-                                          weightControllers[index];
-                                      final setsController =
-                                          setsControllers[index];
-                                      final repsController =
-                                          repsControllers[index];
-
-                                      return Wrap(
-                                        children: [
-                                          Text(exercises[index].title),
-                                          TextField(
-                                            keyboardType: TextInputType.number,
-                                            controller: weightController,
-                                            decoration: InputDecoration(
-                                              hintText: "kg",
-                                            ),
-                                            onChanged: (value) {
-                                              exercises[index].kilograms =
-                                                  int.parse(value);
-                                              updateExercise(
-                                                  index, exercises[index]);
-                                            },
-                                          ),
-                                          TextField(
-                                            keyboardType: TextInputType.number,
-                                            controller: setsController,
-                                            decoration: InputDecoration(
-                                              hintText: "sets",
-                                            ),
-                                            onChanged: (value) {
-                                              exercises[index].sets =
-                                                  int.parse(value);
-                                              updateExercise(
-                                                  index, exercises[index]);
-                                            },
-                                          ),
-                                          TextField(
-                                            keyboardType: TextInputType.number,
-                                            controller: repsController,
-                                            decoration: InputDecoration(
-                                              hintText: "reps",
-                                            ),
-                                            onChanged: (value) {
-                                              exercises[index].reps =
-                                                  int.parse(value);
-                                              updateExercise(
-                                                  index, exercises[index]);
-                                            },
-                                          ),
-                                          ElevatedButton(
-                                            onPressed: () =>
-                                                removeExercise(index),
-                                            child: Text("X"),
-                                          ),
-                                        ],
-                                      );
-                                    });
+                                return buildExerciseCard(exercises);
                               },
                             ),
                           ),
@@ -385,6 +324,175 @@ class _DialogWorkoutCreateScreenState extends State<DialogWorkoutCreateScreen> {
     );
   }
 
+  ListView buildExerciseCard(List<ExerciseEntity> exercises) {
+    return ListView.builder(
+        itemCount: exercises.length,
+        itemBuilder: (context, index) {
+          addControllers();
+
+          final weightController = weightControllers[index];
+          final setsController = setsControllers[index];
+          final repsController = repsControllers[index];
+
+          return Column(
+            children: [
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(8),
+                  color: Colours.workout_card_background_color,
+                ),
+                padding: EdgeInsets.all(8),
+                child: Column(
+                  children: [
+                    Row(
+                      children: [
+                        Image(
+                          image:
+                              AssetImage("lib/assets/images/workout_image.png"),
+                          height: widget.screenSize.height / 18,
+                        ),
+                        Expanded(
+                          child: Container(
+                              decoration: BoxDecoration(
+                                  color: Colours.workout_card_foreground_color,
+                                  borderRadius: BorderRadius.circular(4)),
+                              margin: EdgeInsets.all(8),
+                              padding: EdgeInsets.symmetric(
+                                  vertical: 6, horizontal: 4),
+                              height: widget.screenSize.height / 25,
+                              child: Text(
+                                textAlign: TextAlign.center,
+                                truncateText(exercises[index].title, 13),
+                                style: Styles.hint_text_field_fill_workout,
+                              )),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 8),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Container(
+                          width: widget.screenSize.width / 7,
+                          height: 30,
+                          padding: EdgeInsets.all(2),
+                          decoration: BoxDecoration(
+                              color: Colours.workout_card_foreground_color,
+                              borderRadius: BorderRadius.circular(4)),
+                          child: TextField(
+                            onChanged: (value) {
+                              exercises[index].kilograms = int.parse(value);
+                              updateExercise(index, exercises[index]);
+                            },
+                            keyboardType: TextInputType.number,
+                            maxLength: 4,
+                            buildCounter: null,
+                            style: Styles.hint_text_field_fill_workout,
+                            cursorColor: Colours.workout_card_background_color,
+                            decoration: InputDecoration(
+                              enabledBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(
+                                      width: 2,
+                                      color: Colours
+                                          .workout_card_background_color)),
+                              focusedBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(
+                                      width: 2,
+                                      color: Colours
+                                          .workout_card_background_color)),
+                              hintText: Strings.weight,
+                              hintStyle: Styles.hint_text_field_fill_workout,
+                              contentPadding: EdgeInsets.only(bottom: 16),
+                              counterText: '',
+                            ),
+                          ),
+                        ),
+                        SizedBox(width: 8),
+                        Container(
+                          width: widget.screenSize.width / 7,
+                          height: 30,
+                          padding: EdgeInsets.all(2),
+                          decoration: BoxDecoration(
+                              color: Colours.workout_card_foreground_color,
+                              borderRadius: BorderRadius.circular(4)),
+                          child: TextField(
+                            onChanged: (value) {
+                              exercises[index].sets = int.parse(value);
+                              updateExercise(index, exercises[index]);
+                            },
+                            maxLength: 4,
+                            buildCounter: null,
+                            keyboardType: TextInputType.number,
+                            style: Styles.hint_text_field_fill_workout,
+                            cursorColor: Colours.workout_card_background_color,
+                            decoration: InputDecoration(
+                              enabledBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(
+                                      width: 2,
+                                      color: Colours
+                                          .workout_card_background_color)),
+                              focusedBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(
+                                      width: 2,
+                                      color: Colours
+                                          .workout_card_background_color)),
+                              hintText: Strings.sets,
+                              hintStyle: Styles.hint_text_field_fill_workout,
+                              contentPadding: EdgeInsets.only(bottom: 16),
+                              counterText: '',
+                            ),
+                          ),
+                        ),
+                        SizedBox(width: 8),
+                        Container(
+                          width: widget.screenSize.width / 7,
+                          height: 30,
+                          padding: EdgeInsets.all(2),
+                          decoration: BoxDecoration(
+                              color: Colours.workout_card_foreground_color,
+                              borderRadius: BorderRadius.circular(4)),
+                          child: TextField(
+                            onChanged: (value) {
+                              exercises[index].reps = int.parse(value);
+                              updateExercise(index, exercises[index]);
+                            },
+                            maxLength: 4,
+                            buildCounter: null,
+                            keyboardType: TextInputType.number,
+                            style: Styles.hint_text_field_fill_workout,
+                            cursorColor: Colours.workout_card_background_color,
+                            decoration: InputDecoration(
+                              enabledBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(
+                                      width: 2,
+                                      color: Colours
+                                          .workout_card_background_color)),
+                              focusedBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(
+                                      width: 2,
+                                      color: Colours
+                                          .workout_card_background_color)),
+                              hintText: Strings.reps,
+                              hintStyle: Styles.hint_text_field_fill_workout,
+                              contentPadding: EdgeInsets.only(bottom: 16),
+                              counterText: '',
+                            ),
+                          ),
+                        ),
+                        SizedBox(width: 8),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+              SizedBox(
+                height: 12,
+              ),
+            ],
+          );
+        });
+  }
+
   void addExercise() async {
     final selectedExercise = await Navigator.pushNamed(
         context, "/workouts_menu/create_workout/add_exercise/");
@@ -401,5 +509,13 @@ class _DialogWorkoutCreateScreenState extends State<DialogWorkoutCreateScreen> {
 
   void removeExercise(int index) {
     context.read<DialogCreateEntityCubit>().removeItem(index);
+  }
+}
+
+String truncateText(String text, int maxLength) {
+  if (text.length <= maxLength) {
+    return text;
+  } else {
+    return text.substring(0, maxLength) + '...';
   }
 }

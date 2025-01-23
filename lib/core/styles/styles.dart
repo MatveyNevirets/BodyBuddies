@@ -29,7 +29,17 @@ abstract class Styles {
       fontWeight: FontWeight.w500);
 
   static var hint_text_style_create_workout = TextStyle(
-      fontFamily: 'AqumTwo', fontSize: 16, color: Colours.workout_card_background_color);
+      fontFamily: 'AqumTwo',
+      fontSize: 16,
+      color: Colours.workout_card_background_color);
+  static var hint_text_style_create_exercise = TextStyle(
+      fontFamily: 'AqumTwo',
+      fontSize: 16,
+      color: Colours.workout_card_foreground_color);
+  static var hint_text_field_fill_workout = TextStyle(
+      fontFamily: 'AqumTwo',
+      fontSize: 12,
+      color: Colours.workout_card_background_color);
 
   static var workouts_containers_text_style = TextStyle(
       fontFamily: 'AqumTwo', fontSize: 12, color: Colours.white_text_color);
@@ -58,7 +68,8 @@ abstract class Styles {
   ////dark///boxes//////
   static const title_text_style = TextStyle(
       fontSize: 24,
-      color: Colours.black_text_color,
+      fontFamily: 'AqumTwo',
+      color: Colours.workout_card_background_color,
       fontWeight: FontWeight.w500);
   static const medium_text_style = TextStyle(
       fontSize: 18,
@@ -99,10 +110,20 @@ abstract class Styles {
       TextStyle(fontFamily: 'AqumTwo', fontSize: 21);
 
   static var workout_text_style = TextStyle(
-      fontFamily: 'AqumTwo', fontSize: 21, color: Colours.white_text_color);
+      fontFamily: 'AqumTwo',
+      fontSize: 21,
+      color: Colours.workout_card_foreground_color);
+  static var add_exercise_text_style = TextStyle(
+      fontFamily: 'AqumTwo',
+      fontSize: 18,
+      color: Colours.workout_card_foreground_color);
   static var workout_text_style_week_day = TextStyle(
       fontFamily: 'AqumTwo',
       fontSize: 14,
+      color: Colours.workout_card_background_color);
+  static var workout_text_style_background_24 = TextStyle(
+      fontFamily: 'AqumTwo',
+      fontSize: 24,
       color: Colours.workout_card_background_color);
   static var workout_text_style2 = TextStyle(
       fontFamily: 'AqumTwo', fontSize: 12, color: Colours.white_text_color);
