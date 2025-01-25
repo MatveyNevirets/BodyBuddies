@@ -2,6 +2,7 @@ import 'package:body_buddies/features/workouts/presentation/widgets/features_car
 
 class Exercises {
   List<ExerciseEntity> exercises = [
+    ExerciseEntity(title: "Отдых", isRest: true),
     ExerciseEntity(title: "Жим лежа", chest: true, isExercise: true),
     ExerciseEntity(title: "Подъемы на бицепс", biceps: true, isExercise: true),
     ExerciseEntity(title: "Приседания", legs: true, isExercise: true),

@@ -11,14 +11,48 @@ class WorkoutEntityScreen extends StatelessWidget {
       body: ListView.builder(
           itemCount: exercises.length,
           itemBuilder: (context, index) {
-            return Column(
-              children: [
-               Text(exercises[index].title),
-                  Text(exercises[index].kilograms.toString()),
-                  Text(exercises[index].sets.toString()),
-                  Text(exercises[index].reps.toString()),
-              ],
-            );
+            if (exercises[index].isExercise) {
+              return Column(
+                children: [
+                  Text(exercises[index].title),
+                  Text("kg: ${exercises[index].kilograms.toString()}"),
+                  Text("sets: ${exercises[index].sets.toString()}"),
+                  Text("reps: ${exercises[index].reps.toString()}"),
+                  SizedBox(
+                    height: 30,
+                  ),
+                ],
+              );
+            } else if (exercises[index].isRest) {
+              return Column(
+                children: [
+                  Center(
+                    child: Text(
+                        "restTime: ${exercises[index].restTimeInMinutes.toString()}:${exercises[index].restTimeInSeconds.toString()}"),
+                  ),
+                  SizedBox(
+                    height: 30,
+                  ),
+                ],
+              );
+            } else if (exercises[index].isTimerExercise) {
+              return Column(
+                children: [
+                  Center(
+                    child: Column(
+                      children: [
+                        Text("Exercise: ${exercises[index].title}"),
+                        Text(
+                            "ExerciseTime: ${exercises[index].timerTimeMinutes.toString()}:${exercises[index].timerTimeSeconds.toString()}"),
+                      ],
+                    ),
+                  ),
+                  SizedBox(
+                    height: 30,
+                  ),
+                ],
+              );
+            }
           }),
     );
   }

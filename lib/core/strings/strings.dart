@@ -20,11 +20,12 @@ abstract class Strings {
   static const intro_login_enter_password_text = "Введите ваш пароль";
 
   static const button_login_text = "Войти";
-  static const button_done_text = "Готово";
+  static const done = "Готово";
 
   static const registration_text = "Зарегестрироваться";
 
-  static const not_full_field_error = "Пожалуйста, заполните все необходимые поля, чтобы продолжить";
+  static const not_full_field_error =
+      "Пожалуйста, заполните все необходимые поля, чтобы продолжить";
 
   static const intro_login_mini_info_text =
       "Внимание! Ваши аккаунты могут быть утеряны!\nВ связи с тем, что это приложение находиться в разработке, ваши аккаунты из-за различных манипуляций могут быть утеряны.\nТем не менее, будет сделано всё, чтобы их сохранить.";
@@ -57,7 +58,7 @@ abstract class Strings {
   static var workouts_appbar = "Тренировки";
   static var creating_appbar = "Создание";
 
-  static var profile_string =  "Профиль";
+  static var profile_string = "Профиль";
 
   static const String your_programs_string = "Твои программы";
 
@@ -110,7 +111,7 @@ abstract class Strings {
 
   static String selectWeekday = "Выберите день недели";
 
-  static var title  = "Название";
+  static var title = "Название";
 
   static String day = "День";
 
@@ -124,8 +125,15 @@ abstract class Strings {
 
   static var add_yourself = "Добавить свое";
 
+  static var error = "ОШИБКА";
 
-  
+  static var skip = "Пропустить";
+
+  static var seconds = "Секунды";
+
+  static var minutes = "Минуты";
+
+  static String not_correct_data = "Введите данные в корректном формате";
 
 ///////////////////////////////
 }

@@ -9,8 +9,14 @@ class ExerciseEntity {
       abs,
       isExercise,
       isRest,
-      isCardio;
-  int sets, reps, cardioTime, kilograms;
+      isTimerExercise;
+  int sets,
+      reps,
+      timerTimeSeconds,
+      timerTimeMinutes,
+      restTimeInSeconds,
+      restTimeInMinutes,
+      kilograms;
 
   ExerciseEntity(
       {required this.title,
@@ -23,9 +29,12 @@ class ExerciseEntity {
       this.abs = false,
       this.reps = 0,
       this.sets = 0,
-      this.cardioTime = 0,
-        this.kilograms=0,
-      this.isCardio = false,
+      this.timerTimeSeconds = 0,
+      this.timerTimeMinutes = 0,
+      this.kilograms = 0,
+      this.restTimeInMinutes = 0,
+      this.restTimeInSeconds = 0,
+      this.isTimerExercise = false,
       this.isRest = false,
       this.isExercise = false});
 }
