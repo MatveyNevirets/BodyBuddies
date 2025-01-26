@@ -103,7 +103,7 @@ class BodyBuddiesApp extends StatelessWidget {
                   ),
                 ),
         "workouts_menu/current_workout/": (context) => WorkoutEntityScreen(),
-        "run_workout/": (context) => RunWorkoutScreen(),
+        "/run_workout/": (context) => RunWorkoutScreen(),
       },
       initialRoute: "/",
     );

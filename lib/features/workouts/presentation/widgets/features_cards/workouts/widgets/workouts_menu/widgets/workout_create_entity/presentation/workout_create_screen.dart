@@ -334,10 +334,6 @@ class _DialogWorkoutCreateScreenState extends State<DialogWorkoutCreateScreen> {
           if (exercises[index].isExercise) {
             addControllers();
 
-            final weightController = weightControllers[index];
-            final setsController = setsControllers[index];
-            final repsController = repsControllers[index];
-
             return buildExerciseItem(
                 widget.screenSize, exercises, index, _exercises);
           } else if (exercises[index].isRest) {

@@ -121,6 +121,10 @@ abstract class Styles {
       fontFamily: 'AqumTwo',
       fontSize: 14,
       color: Colours.workout_card_background_color);
+  static var workout_exercise_card_style = TextStyle(
+      fontFamily: 'AqumTwo',
+      fontSize: 12,
+      color: Colours.workout_card_foreground_color);
   static var workout_text_style_background_24 = TextStyle(
       fontFamily: 'AqumTwo',
       fontSize: 24,

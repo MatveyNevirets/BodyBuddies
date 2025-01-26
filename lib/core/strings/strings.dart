@@ -135,5 +135,7 @@ abstract class Strings {
 
   static String not_correct_data = "Введите данные в корректном формате";
 
+  static String rest_of_sets = "Отдых между подходами";
+
 ///////////////////////////////
 }
