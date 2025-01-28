@@ -12,12 +12,13 @@ import '../../../../../../../../../core/strings/strings.dart';
 
 class WorkoutCardOnList extends StatelessWidget {
   WorkoutEntity workout;
-  List<ExerciseEntity> exercises;
 
-  WorkoutCardOnList({required this.workout, required this.exercises});
+  WorkoutCardOnList({required this.workout});
 
   @override
   Widget build(BuildContext context) {
+    List<ExerciseEntity> exercises = workout.exercises;
+
     openWorkout() {
       Navigator.of(context)
           .pushNamed("workouts_menu/current_workout/", arguments: exercises);
@@ -85,7 +86,7 @@ class WorkoutCardOnList extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       NewWorkoutButton(
-                          () => runCurrentWorkout(context),
+                          () => runCurrentWorkout(context, exercises),
                           Size(MediaQuery.sizeOf(context).width / 5,
                               MediaQuery.sizeOf(context).width / 10)),
                     ],
@@ -101,6 +102,7 @@ class WorkoutCardOnList extends StatelessWidget {
 
   void runCurrentWorkout(
     BuildContext context,
+    List<ExerciseEntity> exercises,
   ) {
     Navigator.of(context).pushNamed("run_workout/", arguments: exercises);
   }

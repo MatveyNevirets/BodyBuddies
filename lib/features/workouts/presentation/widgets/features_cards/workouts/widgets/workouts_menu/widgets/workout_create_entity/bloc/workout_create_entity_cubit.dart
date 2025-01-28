@@ -5,6 +5,10 @@ import 'package:meta/meta.dart';
 class DialogCreateEntityCubit extends Cubit<List<ExerciseEntity>> {
   DialogCreateEntityCubit() : super([]);
 
+  void resetExercises() {
+    emit([]);
+  }
+
   void addItem(ExerciseEntity entity) {
     final List<ExerciseEntity> updatedList = List.from(state)..add(entity);
     emit(updatedList);

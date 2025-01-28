@@ -9,8 +9,11 @@ class WorkoutEntity {
 
   bool chest, back, legs, biceps, triceps, forearms, shoulders, abs, cardio;
 
+  List<ExerciseEntity> exercises = [];
+
   WorkoutEntity({
     required this.title,
+    required this.exercises,
     this.weekday = -1,
     this.abs = false,
     this.shoulders = false,

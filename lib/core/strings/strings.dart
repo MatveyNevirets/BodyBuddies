@@ -137,5 +137,7 @@ abstract class Strings {
 
   static String rest_of_sets = "Отдых между подходами";
 
+  static var filling = "Заполнение";
+
 ///////////////////////////////
 }

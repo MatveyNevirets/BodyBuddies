@@ -16,8 +16,13 @@ class WorkoutsMenuScreen extends StatelessWidget {
 
   WorkoutsMenuScreen({required this.mainFrontendData});
 
+  BuildContext? context;
+
   @override
   Widget build(BuildContext context) {
+
+    this.context = context;
+
     return BlocBuilder<WorkoutsMenuBloc, WorkoutsMenuState>(
       builder: (context, state) {
         return Scaffold(
@@ -30,7 +35,9 @@ class WorkoutsMenuScreen extends StatelessWidget {
                 itemBuilder: (context, index) {
                   return index == 0
                       ? AddCardEntity(context)
-                      : state.database.getWorkout(index - 1);
+                      : WorkoutCardOnList(
+                          workout: state.database.getWorkout(index - 1),
+                        );
                 }),
           ),
         );

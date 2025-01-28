@@ -26,6 +26,8 @@ class DialogWorkoutCreateScreen extends StatefulWidget {
   FakeWorkoutsDatabase fakeDB;
   WorkoutsMenuScreen workoutsMenuScreen;
 
+  List<ExerciseEntity> _exercises = [];
+
   final VoidCallback onWorkoutCreated;
   final Size screenSize;
   final BodyHomeData mainFrontendData;
@@ -66,21 +68,7 @@ class DialogWorkoutCreateScreen extends StatefulWidget {
 class _DialogWorkoutCreateScreenState extends State<DialogWorkoutCreateScreen> {
   final titleTextFieldController = TextEditingController();
 
-  List<ExerciseEntity> _exercises = [];
-
-  List<TextEditingController> weightControllers = [];
-  List<TextEditingController> repsControllers = [];
-  List<TextEditingController> setsControllers = [];
-
-  void addControllers() {
-    weightControllers.add(TextEditingController());
-    repsControllers.add(TextEditingController());
-    setsControllers.add(TextEditingController());
-  }
-
-  void tryToCreateWorkout(BuildContext context) {
-    print(widget.selectedWeekday);
-
+  void tryToCreateWorkout(BuildContext context, BuildContext thisContext) {
     widget.isMon = widget.selectedWeekday == Strings.monday ? true : false;
     widget.isTue = widget.selectedWeekday == Strings.tuesday ? true : false;
     widget.isWed = widget.selectedWeekday == Strings.wednesday ? true : false;
@@ -97,11 +85,12 @@ class _DialogWorkoutCreateScreenState extends State<DialogWorkoutCreateScreen> {
             widget.isFri ||
             widget.isSat ||
             widget.isSun) &&
-        _exercises.length != 0) {
+        widget._exercises.length != 0) {
       createWorkoutInDatabase(
           context: context,
           title: titleTextFieldController.text.toString(),
-          weekday: getNumberWeekday());
+          weekday: getNumberWeekday(),
+          thisContext: thisContext);
 
       widget.onWorkoutCreated.call();
     } else {
@@ -130,6 +119,7 @@ class _DialogWorkoutCreateScreenState extends State<DialogWorkoutCreateScreen> {
 
   createWorkoutInDatabase({
     required BuildContext context,
+    required BuildContext thisContext,
     required String title,
     int weekday = -1,
     bool abs = false,
@@ -142,28 +132,23 @@ class _DialogWorkoutCreateScreenState extends State<DialogWorkoutCreateScreen> {
     bool chest = false,
     bool cardio = false,
   }) {
-    try {
-      print(widget.fakeDB.fakeWorkoutEntities.length);
-      widget.fakeDB.fakeWorkoutEntities.add(
-        WorkoutEntity(
-            title: title,
-            weekday: weekday,
-            abs: abs,
-            shoulders: shoulders,
-            legs: legs,
-            triceps: triceps,
-            biceps: biceps,
-            back: back,
-            forearms: forearms,
-            chest: chest,
-            cardio: cardio),
-      );
-      widget.fakeDB.fakeWorkoutExercises.add(_exercises);
-      print(widget.fakeDB.fakeWorkoutEntities.length);
-      context.read<WorkoutsMenuBloc>().add(AddWorkoutEvent(widget.fakeDB));
-    } catch (e) {
-      print("Handled error: $e");
-    }
+    widget.fakeDB.fakeWorkoutEntities.add(
+      WorkoutEntity(
+          title: title,
+          weekday: weekday,
+          abs: abs,
+          shoulders: shoulders,
+          legs: legs,
+          triceps: triceps,
+          biceps: biceps,
+          back: back,
+          forearms: forearms,
+          chest: chest,
+          cardio: cardio,
+          exercises: widget._exercises),
+    );
+    context.read<WorkoutsMenuBloc>().add(AddWorkoutEvent(widget.fakeDB));
+    thisContext.read<DialogCreateEntityCubit>().resetExercises();
   }
 
   @override
@@ -229,9 +214,14 @@ class _DialogWorkoutCreateScreenState extends State<DialogWorkoutCreateScreen> {
                             child: BlocBuilder<DialogCreateEntityCubit,
                                 List<ExerciseEntity>>(
                               builder: (context, exercises) {
-                                this._exercises = exercises;
-
-                                return buildExerciseCard(exercises);
+                                widget._exercises = exercises;
+                                for (int i = 0;
+                                    i < widget._exercises.length;
+                                    i++) {
+                                  print(widget._exercises[i].kilograms);
+                                }
+                                return buildExerciseCard(
+                                    widget._exercises, context);
                               },
                             ),
                           ),
@@ -239,7 +229,7 @@ class _DialogWorkoutCreateScreenState extends State<DialogWorkoutCreateScreen> {
                             height: 10,
                           ),
                           BaseButton(
-                            onClick: () => addExercise(),
+                            onClick: () => goToAddExercise(context),
                             buttonText: Strings.add,
                             icon: null,
                             buttonSize: Size(widget.screenSize.width / 1.5,
@@ -306,7 +296,8 @@ class _DialogWorkoutCreateScreenState extends State<DialogWorkoutCreateScreen> {
                       height: 30,
                     ),
                     BaseButton(
-                      onClick: () => tryToCreateWorkout(workoutsMenuContext),
+                      onClick: () =>
+                          tryToCreateWorkout(workoutsMenuContext, context),
                       buttonText: Strings.done,
                       icon: null,
                       isElevated: true,
@@ -327,38 +318,34 @@ class _DialogWorkoutCreateScreenState extends State<DialogWorkoutCreateScreen> {
     );
   }
 
-  ListView buildExerciseCard(List<ExerciseEntity> exercises) {
+  ListView buildExerciseCard(
+      List<ExerciseEntity> exercises, BuildContext context) {
     return ListView.builder(
         itemCount: exercises.length,
         itemBuilder: (context, index) {
           if (exercises[index].isExercise) {
-            addControllers();
-
-            return buildExerciseItem(
-                widget.screenSize, exercises, index, _exercises);
+            for (int i = 0; i < widget._exercises.length; i++) {
+              print(widget._exercises[i].kilograms);
+            }
+            return buildExerciseItem(context, widget.screenSize, exercises,
+                index, widget._exercises);
           } else if (exercises[index].isRest) {
-
-            addControllers();
-
             return buildRestItem(
-                widget.screenSize, exercises, index, _exercises);
-          } else if(exercises[index].isTimerExercise) {
-            addControllers();
-
+                widget.screenSize, exercises, index, widget._exercises);
+          } else if (exercises[index].isTimerExercise) {
             return buildTimerExerciseItem(
-                widget.screenSize, exercises, index, _exercises);
+                widget.screenSize, exercises, index, widget._exercises);
           }
         });
   }
 
-  void addExercise() async {
-    final selectedExercise = await Navigator.pushNamed(
-        context, "/workouts_menu/create_workout/add_exercise/");
-    if (selectedExercise != null) {
-      context
-          .read<DialogCreateEntityCubit>()
-          .addItem(selectedExercise as ExerciseEntity);
-    }
+  void updateItem(int index, ExerciseEntity exercises) {
+    context.read<DialogCreateEntityCubit>().updateItem(index, exercises);
+  }
+
+  void goToAddExercise(BuildContext buildContext) {
+    Navigator.pushNamed(context, "/workouts_menu/create_workout/add_exercise/",
+        arguments: buildContext);
   }
 
   void removeExercise(int index) {

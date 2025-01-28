@@ -98,7 +98,7 @@ class WorkoutFeatureCard extends StatelessWidget {
 
     for (int i = 0; i < fakeDatabase.fakeWorkoutEntities.length; i++) {
       if (i == fakeDatabase.fakeWorkoutEntities.indexOf(workout)) {
-        entities = fakeDatabase.fakeWorkoutExercises[i];
+        entities = workout.exercises;
         return entities;
       }
     }

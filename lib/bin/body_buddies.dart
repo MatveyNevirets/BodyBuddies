@@ -8,6 +8,8 @@ import 'package:body_buddies/features/workouts/presentation/widgets/features_car
 import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/domain/fake_workouts_database.dart';
 import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/run_workout/bloc/run_workout_bloc.dart';
 import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/run_workout/presentation/run_workout_screen.dart';
+import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/widgets/workout_create_entity/widgets/add_exercise/widgets/change_exercise_settings/bloc/change_exercise_settings_bloc.dart';
+import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/widgets/workout_create_entity/widgets/add_exercise/widgets/change_exercise_settings/presentation/change_exercise_settings_screen.dart';
 import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/workouts_menu_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -101,6 +103,12 @@ class BodyBuddiesApp extends StatelessWidget {
                     mainFrontendData: mainFrontendData,
                     exercises: exercises,
                   ),
+                ),
+        "workouts_menu/create_workout/add_exercise/setting_exercise/":
+            (context) => BlocProvider(
+                  create: (BuildContext context) =>
+                      ChangeExerciseSettingsBloc(),
+                  child: ChangeExerciseSettingsScreen(screenSize: screenSize),
                 ),
         "workouts_menu/current_workout/": (context) => WorkoutEntityScreen(),
         "/run_workout/": (context) => RunWorkoutScreen(),

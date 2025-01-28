@@ -104,9 +104,10 @@ class _AddYourExerciseScreenState extends State<AddYourExerciseScreen> {
                               color: Colours.workout_card_background_color,
                               width: 2.5),
                           value: isTimerExercise,
-                          onChanged: (newValue) => setState(() {
-                            isTimerExercise = newValue!;
-                          }),
+                          onChanged: (newValue) =>
+                              setState(() {
+                                isTimerExercise = newValue!;
+                              }),
                         ),
                       ],
                     ),
@@ -114,8 +115,10 @@ class _AddYourExerciseScreenState extends State<AddYourExerciseScreen> {
                       height: 32,
                     ),
                     BaseButton(
-                        onClick: () => tryToAddExercise(context,
-                            titleController.text.toString(), isTimerExercise),
+                        onClick: () =>
+                            tryToAddExercise(context,
+                                titleController.text.toString(),
+                                isTimerExercise),
                         buttonText: Strings.add,
                         backgroundColor: Colours.workout_card_background_color,
                         color: Colours.workout_card_foreground_color,
@@ -133,11 +136,9 @@ class _AddYourExerciseScreenState extends State<AddYourExerciseScreen> {
     );
   }
 
-  void tryToAddExercise(
-    BuildContext context,
-    String title,
-    bool isTimerExercise,
-  ) {
+  void tryToAddExercise(BuildContext context,
+      String title,
+      bool isTimerExercise,) {
     if (titleController.text.isNotEmpty) {
       hasBeenAdd(context, title, isTimerExercise);
     } else {
@@ -145,13 +146,11 @@ class _AddYourExerciseScreenState extends State<AddYourExerciseScreen> {
     }
   }
 
-  void hasBeenAdd(
-    BuildContext context,
-    String title,
-    bool isTimerExercise,
-  ) {
+  void hasBeenAdd(BuildContext context,
+      String title,
+      bool isTimerExercise,) {
     widget.exercises.exercises
         .add(ExerciseEntity(title: title, isTimerExercise: isTimerExercise));
-    Navigator.of(context).pop(widget.exercises);
+      Navigator.of(context).pop(widget.exercises);
   }
 }

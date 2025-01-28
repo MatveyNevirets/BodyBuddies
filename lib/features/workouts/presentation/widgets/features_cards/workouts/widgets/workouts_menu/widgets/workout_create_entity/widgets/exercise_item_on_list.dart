@@ -1,13 +1,20 @@
+import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/widgets/workout_create_entity/bloc/workout_create_entity_cubit.dart';
 import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/widgets/workout_entities/entity/exercise_entity.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../../../../../../../core/colors/colors.dart';
 import '../../../../../../../../../../../core/strings/strings.dart';
 import '../../../../../../../../../../../core/styles/styles.dart';
 import '../presentation/workout_create_screen.dart';
 
-buildExerciseItem(Size screenSize, List<ExerciseEntity> exercises, int index,
+buildExerciseItem(
+    BuildContext context,
+    Size screenSize,
+    List<ExerciseEntity> exercises,
+    int index,
     List<ExerciseEntity> _exercises) {
+
   return Column(
     children: [
       Container(
@@ -20,12 +27,13 @@ buildExerciseItem(Size screenSize, List<ExerciseEntity> exercises, int index,
           children: [
             buildHeaderCardWidget(screenSize, exercises, index),
             SizedBox(height: 6),
-            buildExerciseInputFields(screenSize, exercises, index, _exercises),
+            buildExerciseInputFields(
+                context, screenSize, exercises, index, _exercises),
             SizedBox(
               height: 12,
             ),
             buildRestOfSetsInputFields(
-                screenSize, exercises, index, _exercises),
+                context, screenSize, exercises, index, _exercises),
             SizedBox(
               height: 8,
             ),
@@ -40,6 +48,7 @@ buildExerciseItem(Size screenSize, List<ExerciseEntity> exercises, int index,
 }
 
 Column buildRestOfSetsInputFields(
+    BuildContext context,
     Size screenSize,
     List<ExerciseEntity> exercises,
     int index,
@@ -67,7 +76,7 @@ Column buildRestOfSetsInputFields(
             child: TextField(
               onChanged: (value) {
                 exercises[index].timerTimeMinutes = int.parse(value);
-                updateExercise(index, exercises[index], _exercises);
+                updateExercise(context, index, exercises[index], _exercises);
               },
               maxLength: 4,
               buildCounter: null,
@@ -103,7 +112,7 @@ Column buildRestOfSetsInputFields(
             child: TextField(
               onChanged: (value) {
                 exercises[index].restTimeInSeconds = int.parse(value);
-                updateExercise(index, exercises[index], _exercises);
+                updateExercise(context, index, exercises[index], _exercises);
               },
               maxLength: 4,
               buildCounter: null,
@@ -132,8 +141,12 @@ Column buildRestOfSetsInputFields(
   );
 }
 
-Row buildExerciseInputFields(Size screenSize, List<ExerciseEntity> exercises,
-    int index, List<ExerciseEntity> _exercises) {
+Row buildExerciseInputFields(
+    BuildContext context,
+    Size screenSize,
+    List<ExerciseEntity> exercises,
+    int index,
+    List<ExerciseEntity> _exercises) {
   return Row(
     mainAxisAlignment: MainAxisAlignment.spaceBetween,
     children: [
@@ -146,8 +159,8 @@ Row buildExerciseInputFields(Size screenSize, List<ExerciseEntity> exercises,
             borderRadius: BorderRadius.circular(4)),
         child: TextField(
           onChanged: (value) {
-            exercises[index].kilograms = int.parse(value);
-            updateExercise(index, exercises[index], _exercises);
+          //  exercises[index].kilograms = int.parse(value);
+          //  updateExercise(context, index, exercises[index], _exercises);
           },
           keyboardType: TextInputType.number,
           maxLength: 4,
@@ -179,7 +192,7 @@ Row buildExerciseInputFields(Size screenSize, List<ExerciseEntity> exercises,
         child: TextField(
           onChanged: (value) {
             exercises[index].sets = int.parse(value);
-            updateExercise(index, exercises[index], _exercises);
+            updateExercise(context, index, exercises[index], _exercises);
           },
           maxLength: 4,
           buildCounter: null,
@@ -211,7 +224,7 @@ Row buildExerciseInputFields(Size screenSize, List<ExerciseEntity> exercises,
         child: TextField(
           onChanged: (value) {
             exercises[index].reps = int.parse(value);
-            updateExercise(index, exercises[index], _exercises);
+            updateExercise(context, index, exercises[index], _exercises);
           },
           maxLength: 4,
           buildCounter: null,
@@ -263,7 +276,8 @@ Row buildHeaderCardWidget(
   );
 }
 
-void updateExercise(
-    int index, ExerciseEntity exercise, List<ExerciseEntity> _exercises) {
+void updateExercise(BuildContext context, int index, ExerciseEntity exercise,
+    List<ExerciseEntity> _exercises) {
   _exercises[index] = exercise;
+  context.read<DialogCreateEntityCubit>().addItem(_exercises[index]);
 }
