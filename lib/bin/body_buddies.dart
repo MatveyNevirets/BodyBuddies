@@ -16,7 +16,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/domain/exercises_database.dart';
-import '../features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/widgets/workout_create_entity/bloc/workout_create_entity_cubit.dart';
 import '../features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/widgets/workout_create_entity/presentation/workout_create_screen.dart';
 import '../features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/widgets/workout_create_entity/widgets/add_exercise/bloc/add_exercise_cubit.dart';
 import '../features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/widgets/workout_create_entity/widgets/add_exercise/presentation/add_exercise_screen.dart';
@@ -75,18 +74,12 @@ class BodyBuddiesApp extends StatelessWidget {
                   WorkoutsMenuBloc(fakeWorkoutsDatabase),
               child: workoutsMenuScreen,
             ),
-        "/workouts_menu/create_workout/": (context) => BlocProvider(
-              create: (BuildContext context) => DialogCreateEntityCubit(),
-              child: DialogWorkoutCreateScreen(
-                fakeDB: fakeWorkoutsDatabase,
-                workoutsMenuScreen: workoutsMenuScreen,
-                onWorkoutCreated: () {
-                  // context.read<WorkoutsMenuBloc>().add(AddWorkoutEvent());
-                  Navigator.of(context).pop();
-                },
-                screenSize: screenSize,
-                mainFrontendData: mainFrontendData,
-              ),
+        "/workouts_menu/create_workout/": (context) =>
+            DialogWorkoutCreateScreen(
+              fakeDB: fakeWorkoutsDatabase,
+              workoutsMenuScreen: workoutsMenuScreen,
+              screenSize: screenSize,
+              mainFrontendData: mainFrontendData,
             ),
         "/workouts_menu/create_workout/add_exercise/": (context) =>
             BlocProvider(
@@ -104,12 +97,12 @@ class BodyBuddiesApp extends StatelessWidget {
                     exercises: exercises,
                   ),
                 ),
-        "workouts_menu/create_workout/add_exercise/setting_exercise/":
-            (context) => BlocProvider(
-                  create: (BuildContext context) =>
-                      ChangeExerciseSettingsBloc(),
-                  child: ChangeExerciseSettingsScreen(screenSize: screenSize),
-                ),
+        // "workouts_menu/create_workout/add_exercise/setting_exercise/":
+        //     (context) => BlocProvider(
+        //           create: (BuildContext context) =>
+        //               ChangeExerciseSettingsBloc(),
+        //           child: ChangeExerciseSettingsScreen(screenSize: screenSize),
+        //         ),
         "workouts_menu/current_workout/": (context) => WorkoutEntityScreen(),
         "/run_workout/": (context) => RunWorkoutScreen(),
       },

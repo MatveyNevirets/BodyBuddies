@@ -38,15 +38,12 @@ class _AddExerciseScreenState extends State<AddExerciseScreen> {
 
   @override
   Widget build(BuildContext context) {
-
-    final dialogCreateContext = ModalRoute.of(context)!.settings.arguments as BuildContext;
-
     return Scaffold(
       appBar: widget.mainFrontendData
           .createAppBarWidget(appbarTitle: Strings.change_exercise),
       body: Container(
         decoration: BoxDecoration(
-          //color: Colours.workout_card_background_color,
+            //color: Colours.workout_card_background_color,
             borderRadius: BorderRadius.circular(8)),
         margin: EdgeInsets.all(16),
         child: Card(
@@ -88,7 +85,7 @@ class _AddExerciseScreenState extends State<AddExerciseScreen> {
                 ),
                 Expanded(
                   child: filteredExercises.isNotEmpty
-                      ? buildHasDataList(dialogCreateContext)
+                      ? buildHasDataList()
                       : buildHasntDataContainer(),
                 ),
                 SizedBox(
@@ -125,7 +122,7 @@ class _AddExerciseScreenState extends State<AddExerciseScreen> {
     );
   }
 
-  Container buildHasDataList(BuildContext dialogCreateContext) {
+  Container buildHasDataList() {
     return Container(
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(8),
@@ -135,7 +132,7 @@ class _AddExerciseScreenState extends State<AddExerciseScreen> {
           itemCount: filteredExercises.length,
           itemBuilder: (context, index) {
             return GestureDetector(
-              onTap: () => addExerciseScreen(context, index, dialogCreateContext),
+              onTap: () => addExercise(context, index),
               child: Card(
                   color: Colours.workout_card_background_color,
                   child: Padding(
@@ -166,27 +163,20 @@ class _AddExerciseScreenState extends State<AddExerciseScreen> {
     );
   }
 
-  void addExerciseScreen(BuildContext context, int index, BuildContext dialogCreateContext) {
-
-   final newExercise = filteredExercises[index];
-
-    Navigator.of(context).pushNamed(
-        "workouts_menu/create_workout/add_exercise/setting_exercise/",
-        arguments: [newExercise, dialogCreateContext]);
-
-    //Navigator.of(context).pop(settingExercise);
+  void addExercise(BuildContext context, int index) {
+    final newExercise = filteredExercises[index];
+    Navigator.of(context).pop(newExercise);
   }
 
   void searchExercises() {
     String query =
-    searchTextFieldController.text.toLowerCase().replaceAll(" ", "");
+        searchTextFieldController.text.toLowerCase().replaceAll(" ", "");
 
     if (query.isNotEmpty) {
       filteredExercises =
           widget.exercises.exercises.where((ExerciseEntity entity) {
-            return entity.title.toLowerCase().replaceAll(" ", "").contains(
-                query);
-          }).toList();
+        return entity.title.toLowerCase().replaceAll(" ", "").contains(query);
+      }).toList();
     } else if (query.isEmpty) {
       filteredExercises = widget.exercises.exercises;
     }
@@ -204,10 +194,7 @@ class _AddExerciseScreenState extends State<AddExerciseScreen> {
   Future<void> complete(BuildContext context) async {
     setState(() {
       widget.exercises =
-      ModalRoute
-          .of(context)
-          ?.settings
-          .arguments as Exercises;
+          ModalRoute.of(context)?.settings.arguments as Exercises;
     });
   }
 
