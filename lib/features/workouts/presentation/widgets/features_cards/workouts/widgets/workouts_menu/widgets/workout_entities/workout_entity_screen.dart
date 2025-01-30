@@ -18,7 +18,7 @@ class WorkoutEntityScreen extends StatelessWidget {
                   Text("kg: ${exercises[index].kilograms.toString()}"),
                   Text("sets: ${exercises[index].sets.toString()}"),
                   Text("reps: ${exercises[index].reps.toString()}"),
-                  Text("ExerciseTime: ${exercises[index].timerTimeMinutes.toString()}:${exercises[index].timerTimeSeconds.toString()}"),
+                  Text("ExerciseTime: ${exercises[index].restTimeInMinutes.toString()}:${exercises[index].restTimeInSeconds.toString()}"),
                   SizedBox(
                     height: 30,
                   ),

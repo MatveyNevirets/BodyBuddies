@@ -1,19 +1,22 @@
 import 'package:body_buddies/core/styles/styles.dart';
 import 'package:body_buddies/core/widgets/base_button.dart';
 import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workout_button_widget.dart';
+import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/run_workout/bloc/run_workout_bloc.dart';
 import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/widgets/workout_entities/entity/exercise_entity.dart';
 import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/widgets/workout_entities/entity/workout_entity.dart';
 import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/widgets/workout_entities/entity/new_workout_button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../../../../../core/colors/colors.dart';
 import '../../../../../../../../../core/strings/strings.dart';
 
 class WorkoutCardOnList extends StatelessWidget {
   WorkoutEntity workout;
+  BuildContext workoutMenuContext;
 
-  WorkoutCardOnList({required this.workout});
+  WorkoutCardOnList({required this.workoutMenuContext, required this.workout});
 
   @override
   Widget build(BuildContext context) {
@@ -104,7 +107,8 @@ class WorkoutCardOnList extends StatelessWidget {
     BuildContext context,
     List<ExerciseEntity> exercises,
   ) {
-    Navigator.of(context).pushNamed("run_workout/", arguments: exercises);
+    Navigator.of(context)
+        .pushNamed("workouts_menu/run_workout/", arguments: exercises);
   }
 
   String getMusclesGroupOnString() {

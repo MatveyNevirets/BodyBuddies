@@ -1,6 +1,7 @@
 import 'package:body_buddies/core/widgets/base_button.dart';
 import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/run_workout/bloc/run_workout_bloc.dart';
 import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/run_workout/widgets/run_exercise_screen.dart';
+import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/run_workout/widgets/workout_timer/presentation/workout_timer_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -16,12 +17,18 @@ class RunWorkoutScreen extends StatelessWidget {
     List<ExerciseEntity> exercises =
         ModalRoute.of(context)!.settings.arguments as List<ExerciseEntity>;
 
-    return Scaffold(
-      body: BlocProvider(
-        create: (BuildContext context) => RunWorkoutBloc(exercises),
-        child: BlocBuilder<RunWorkoutBloc, RunWorkoutState>(
+    WorkoutTimerWidget workoutTimerWidget = WorkoutTimerWidget();
+
+    return BlocProvider(
+      create: (BuildContext context) => RunWorkoutBloc(exercises, 0),
+      child: Scaffold(
+        body: BlocBuilder<RunWorkoutBloc, RunWorkoutState>(
             builder: (context, state) {
-          return buildRunExerciseScreen();
+          if (state is WorkoutInProcess) {
+            return buildRunExerciseScreen(
+                state.exercises[state.currentExercise].title, workoutTimerWidget);
+          }
+          return CircularProgressIndicator();
         }),
       ),
     );

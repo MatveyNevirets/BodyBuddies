@@ -15,8 +15,9 @@ class ExerciseEntity {
       timerTimeSeconds,
       timerTimeMinutes,
       restTimeInSeconds,
-      restTimeInMinutes,
-      kilograms;
+      restTimeInMinutes;
+
+  double kilograms;
 
   ExerciseEntity(
       {required this.title,

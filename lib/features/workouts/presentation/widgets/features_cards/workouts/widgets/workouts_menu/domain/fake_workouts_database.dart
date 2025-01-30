@@ -5,142 +5,53 @@ import 'package:body_buddies/features/workouts/presentation/widgets/features_car
 class FakeWorkoutsDatabase {
   List<WorkoutEntity> fakeWorkoutEntities = [
     WorkoutEntity(
-      title: "Легкая",
-      weekday: 1,
-      chest: true,
-      biceps: true,
-      forearms: true,
+      title: "Тяжёлая среда",
+      weekday: 2,
+      back: true,
+      triceps: true,
       exercises: [
-        ExerciseEntity(title: "Отжимания", isExercise: true, reps: 25, sets: 4),
         ExerciseEntity(
-            title: "Жим", isExercise: true, reps: 15, sets: 4, kilograms: 55),
-        ExerciseEntity(
-            title: "Гантели махи", isExercise: true, reps: 25, sets: 4),
-        ExerciseEntity(
-            title: "Присед",
             isExercise: true,
-            reps: 25,
+            title: "Подтягивания",
+            kilograms: 30,
+            restTimeInMinutes: 3,
+            restTimeInSeconds: 0,
             sets: 4,
-            kilograms: 40),
-      ],),
-    // ),
-    // WorkoutEntity(
-    //     title: "Легкая среда",
-    //     exercises: [
-    //       ExerciseEntity(
-    //           title: "Хз но  да", isExercise: true, reps: 25, sets: 4),
-    //       ExerciseEntity(
-    //           title: "Жиаывавым",
-    //           isExercise: true,
-    //           reps: 15,
-    //           sets: 4,
-    //           kilograms: 55),
-    //       ExerciseEntity(
-    //           title: "фвыафа махи", isExercise: true, reps: 25, sets: 4),
-    //       ExerciseEntity(
-    //           title: "рфррфрфр",
-    //           isExercise: true,
-    //           reps: 25,
-    //           sets: 4,
-    //           kilograms: 40),
-    //     ],
-    //     weekday: 2,
-    //     back: true,
-    //     triceps: true,
-    //     abs: true),
-    // WorkoutEntity(exercises: [
-    //   ExerciseEntity(title: "Хз но  да", isExercise: true, reps: 25, sets: 4),
-    //   ExerciseEntity(
-    //       title: "Жиаывавым",
-    //       isExercise: true,
-    //       reps: 15,
-    //       sets: 4,
-    //       kilograms: 55),
-    //   ExerciseEntity(title: "фвыафа махи", isExercise: true, reps: 25, sets: 4),
-    //   ExerciseEntity(
-    //       title: "рфррфрфр",
-    //       isExercise: true,
-    //       reps: 25,
-    //       sets: 4,
-    //       kilograms: 40),
-    // ], title: "Легкая пятница", weekday: 5, legs: true, shoulders: true),
-    // WorkoutEntity(
-    //     exercises: [
-    //       ExerciseEntity(
-    //           title: "Гарик пожизненный на бицеас",
-    //           isExercise: true,
-    //           reps: 25,
-    //           sets: 4),
-    //       ExerciseEntity(
-    //           title: "Жим", isExercise: true, reps: 15, sets: 4, kilograms: 55),
-    //       ExerciseEntity(title: "Да махи", isExercise: true, reps: 13, sets: 4),
-    //       ExerciseEntity(
-    //           title: "Присед",
-    //           isExercise: true,
-    //           reps: 15,
-    //           sets: 4,
-    //           kilograms: 40),
-    //     ],
-    //     title: "Тяжелая жимовая",
-    //     weekday: 4,
-    //     chest: true,
-    //     biceps: true,
-    //     forearms: true),
-    // WorkoutEntity(
-    //     exercises: [
-    //       ExerciseEntity(
-    //           title: "Гарик пожизненный на бицеас",
-    //           isExercise: true,
-    //           reps: 25,
-    //           sets: 4),
-    //       ExerciseEntity(
-    //           title: "Жим", isExercise: true, reps: 15, sets: 4, kilograms: 55),
-    //       ExerciseEntity(title: "Да махи", isExercise: true, reps: 13, sets: 4),
-    //       ExerciseEntity(
-    //           title: "Присед",
-    //           isExercise: true,
-    //           reps: 15,
-    //           sets: 4,
-    //           kilograms: 40),
-    //     ],
-    //     title: "Тяжелая Тянущая",
-    //     weekday: 3,
-    //     back: true,
-    //     triceps: true,
-    //     abs: true),
-    // WorkoutEntity(exercises: [
-    //   ExerciseEntity(
-    //       title: "Гарик пожизненный на бицеас",
-    //       isExercise: true,
-    //       reps: 25,
-    //       sets: 4),
-    //   ExerciseEntity(
-    //       title: "Жим", isExercise: true, reps: 15, sets: 4, kilograms: 55),
-    //   ExerciseEntity(title: "Да махи", isExercise: true, reps: 13, sets: 4),
-    //   ExerciseEntity(
-    //       title: "Присед", isExercise: true, reps: 15, sets: 4, kilograms: 40),
-    // ], title: "Тяжелая на грудь", weekday: 7, legs: true, shoulders: true),
-    // WorkoutEntity(
-    //   title: "Кардио на выходной",
-    //   weekday: 6,
-    //   cardio: true,
-    //   exercises: [
-    //     ExerciseEntity(
-    //         title: "Гарик пожизненный на бицеас",
-    //         isExercise: true,
-    //         reps: 25,
-    //         sets: 4),
-    //     ExerciseEntity(
-    //         title: "Жим", isExercise: true, reps: 15, sets: 4, kilograms: 55),
-    //     ExerciseEntity(title: "Да махи", isExercise: true, reps: 13, sets: 4),
-    //     ExerciseEntity(
-    //         title: "Присед",
-    //         isExercise: true,
-    //         reps: 15,
-    //         sets: 4,
-    //         kilograms: 40),
-    //   ],
-    // ),
+            reps: 6),
+        ExerciseEntity(
+            isExercise: true,
+            title: "Тяга штанги в наклоне",
+            kilograms: 75,
+            sets: 4,
+            reps: 6,
+            restTimeInSeconds: 0,
+            restTimeInMinutes: 3),
+        ExerciseEntity(
+            isExercise: true,
+            title: "Тяга широчайшей (верх. блок)",
+            kilograms: 47.5,
+            sets: 4,
+            reps: 6,
+            restTimeInMinutes: 3,
+            restTimeInSeconds: 0),
+        ExerciseEntity(
+            isExercise: true,
+            title: "Жим трицепс (верх. блок)",
+            kilograms: 67.5,
+            reps: 6,
+            sets: 4,
+            restTimeInMinutes: 2,
+            restTimeInSeconds: 0),
+        ExerciseEntity(
+            isExercise: true,
+            title: "Французский жим",
+            kilograms: 37.5,
+            reps: 6,
+            sets: 4,
+            restTimeInMinutes: 2,
+            restTimeInSeconds: 0),
+      ],
+    ),
   ];
 
   WorkoutEntity getWorkout(int index) => fakeWorkoutEntities[index];

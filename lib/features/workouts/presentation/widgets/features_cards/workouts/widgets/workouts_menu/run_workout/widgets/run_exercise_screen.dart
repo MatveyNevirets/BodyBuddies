@@ -4,7 +4,7 @@ import '../../../../../../../../../../core/colors/colors.dart';
 import '../../../../../../../../../../core/strings/strings.dart';
 import '../../../../../../../../../../core/widgets/base_button.dart';
 
-Container buildRunExerciseScreen() {
+Container buildRunExerciseScreen(String titleExercise, Widget workoutTimerWidget) {
   return Container(
     margin: EdgeInsets.only(left: 16, right: 16, bottom: 32, top: 64),
     child: Card(
@@ -16,11 +16,11 @@ Container buildRunExerciseScreen() {
         width: double.maxFinite,
         child: Column(
           children: [
-            buildTimeAndSetsWidget(),
+            buildTimeAndSetsWidget(workoutTimerWidget),
             SizedBox(
               height: 16,
             ),
-            buildWorkoutTitleWidget(),
+            buildWorkoutTitleWidget(titleExercise),
             SizedBox(
               height: 16,
             ),
@@ -40,7 +40,7 @@ Container buildRunExerciseScreen() {
   );
 }
 
-Container buildTimeAndSetsWidget() {
+Container buildTimeAndSetsWidget(Widget workoutTimerWidget) {
   return Container(
     padding: EdgeInsets.all(16),
     color: Colours.workout_card_foreground_color,
@@ -49,8 +49,7 @@ Container buildTimeAndSetsWidget() {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text("Время"),
-            Text("00:10"),
+            workoutTimerWidget,
           ],
         ),
         Expanded(child: SizedBox()),
@@ -67,13 +66,13 @@ Container buildTimeAndSetsWidget() {
   );
 }
 
-Container buildWorkoutTitleWidget() {
+Container buildWorkoutTitleWidget(String title) {
   return Container(
     padding: EdgeInsets.all(16),
     color: Colours.workout_card_foreground_color,
     child: Column(
       children: [
-        Text("data"),
+        Text(title),
       ],
     ),
   );

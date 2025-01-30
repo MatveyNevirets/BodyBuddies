@@ -1,12 +1,19 @@
 part of 'run_workout_bloc.dart';
 
 @immutable
-sealed class RunWorkoutState {}
+sealed class RunWorkoutState {
+}
 
-final class RunWorkoutInitial extends RunWorkoutState {}
+class WorkoutInProcess extends RunWorkoutState {
+  List<ExerciseEntity> exercises;
+  int currentExercise;
 
-class StartWorkoutState extends RunWorkoutState {}
+  WorkoutInProcess({required this.exercises, required this.currentExercise});
+}
 
-class WorkoutInProcess extends RunWorkoutState {}
+class RestWorkoutProcess extends RunWorkoutState {
+  List<ExerciseEntity> exercises;
+  int currentExercise;
 
-class RestWorkoutProcess extends RunWorkoutState {}
+  RestWorkoutProcess({required this.exercises, required this.currentExercise});
+}

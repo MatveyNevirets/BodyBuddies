@@ -36,6 +36,7 @@ class WorkoutsMenuScreen extends StatelessWidget {
                   return index == 0
                       ? AddCardEntity(context)
                       : WorkoutCardOnList(
+                    workoutMenuContext: context,
                           workout: state.database.getWorkout(index - 1),
                         );
                 }),

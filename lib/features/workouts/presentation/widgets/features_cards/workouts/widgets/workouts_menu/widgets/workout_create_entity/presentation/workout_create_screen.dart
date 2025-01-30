@@ -70,7 +70,8 @@ class _DialogWorkoutCreateScreenState extends State<DialogWorkoutCreateScreen> {
 
   void _onSubmit() {
     for (int i = 0; i < widget._exercises.length; i++) {
-      widget._exercises[i].kilograms = int.tryParse(weightControllers[i].text)!;
+      widget._exercises[i].kilograms =
+          double.tryParse(weightControllers[i].text)!;
     }
   }
 
@@ -98,11 +99,10 @@ class _DialogWorkoutCreateScreenState extends State<DialogWorkoutCreateScreen> {
 
   void _updateKg(int index, TextEditingController controller) {
     setState(() {
-      widget._exercises[index].kilograms = int.tryParse(controller.text) ?? 0;
+      widget._exercises[index].kilograms =
+          double.tryParse(controller.text) ?? 0;
     });
   }
-
-  bool allFieldsFilled = false;
 
   void tryToCreateWorkout(BuildContext context, BuildContext thisContext) {
     widget.isMon = widget.selectedWeekday == Strings.monday ? true : false;
@@ -113,13 +113,13 @@ class _DialogWorkoutCreateScreenState extends State<DialogWorkoutCreateScreen> {
     widget.isSat = widget.selectedWeekday == Strings.saturday ? true : false;
     widget.isSun = widget.selectedWeekday == Strings.sunday ? true : false;
 
-    bool allFieldsFilled = true;
-    for (var exercise in widget._exercises) {
-      if (exercise.kilograms == 0 || exercise.sets == 0 || exercise.reps == 0) {
-        allFieldsFilled = false;
-        break;
-      }
-    }
+    // bool allFieldsFilled = true;
+    // for (var exercise in widget._exercises) {
+    //   if (exercise.kilograms == 0 || exercise.sets == 0 || exercise.reps == 0) {
+    //     allFieldsFilled = false;
+    //     break;
+    //   }
+    // }
 
     if (titleTextFieldController.text.toString() != "" &&
         (widget.isMon ||
@@ -129,14 +129,12 @@ class _DialogWorkoutCreateScreenState extends State<DialogWorkoutCreateScreen> {
             widget.isFri ||
             widget.isSat ||
             widget.isSun) &&
-        widget._exercises.length != 0 &&
-        allFieldsFilled) {
+        widget._exercises.length != 0) {
       createWorkoutInDatabase(
           context: context,
           title: titleTextFieldController.text.toString(),
           weekday: getNumberWeekday(),
           thisContext: thisContext);
-      _onSubmit();
     } else {
       showSnackBar(context, Strings.not_full_field_error);
     }
@@ -184,8 +182,10 @@ class _DialogWorkoutCreateScreenState extends State<DialogWorkoutCreateScreen> {
           isExercise: exercise.isExercise,
           isRest: exercise.isRest,
           isTimerExercise: exercise.isTimerExercise,
-          kilograms: int.tryParse(
-                  weightControllers[widget._exercises.indexOf(exercise)].text.toString()) ??
+          kilograms: double.tryParse(
+                  weightControllers[widget._exercises.indexOf(exercise)]
+                      .text
+                      .toString()) ??
               0,
           sets: exercise.sets,
           reps: exercise.reps,
@@ -396,12 +396,12 @@ class _DialogWorkoutCreateScreenState extends State<DialogWorkoutCreateScreen> {
   }
 
   buildExerciseItem(
-      BuildContext context,
-      Size screenSize,
-      int index,
-      List<ExerciseEntity> _exercises,
-      TextEditingController weightController,
-      ) {
+    BuildContext context,
+    Size screenSize,
+    int index,
+    List<ExerciseEntity> _exercises,
+    TextEditingController weightController,
+  ) {
     return Column(
       children: [
         Container(
@@ -532,7 +532,7 @@ class _DialogWorkoutCreateScreenState extends State<DialogWorkoutCreateScreen> {
     List<ExerciseEntity> exercises,
     int index,
     List<ExerciseEntity> _exercises,
-     TextEditingController weightController,
+    TextEditingController weightController,
   ) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -545,8 +545,8 @@ class _DialogWorkoutCreateScreenState extends State<DialogWorkoutCreateScreen> {
               color: Colours.workout_card_foreground_color,
               borderRadius: BorderRadius.circular(4)),
           child: TextField(
-           // controller: weightNotifier[index],
-           // onChanged: (value) => _updateKg(index, weightControllers[index]),
+            // controller: weightNotifier[index],
+            // onChanged: (value) => _updateKg(index, weightControllers[index]),
             keyboardType: TextInputType.number,
             maxLength: 4,
             buildCounter: null,
