@@ -69,22 +69,27 @@ class _DialogWorkoutCreateScreenState extends State<DialogWorkoutCreateScreen> {
   final List<TextEditingController> weightControllers = [];
 
   void _onSubmit() {
-    for (var exercise in widget._exercises) {
-      print(exercise.kilograms);
+    for (int i = 0; i < widget._exercises.length; i++) {
+      widget._exercises[i].kilograms = int.tryParse(weightControllers[i].text)!;
     }
   }
 
-  void createWeightControllers() {
-    for (var exercise in widget._exercises) {
-      weightControllers.add(TextEditingController());
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    for (var controllers in weightControllers) {
+      controllers.dispose();
     }
+    super.dispose();
   }
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    createWeightControllers();
+    for (var exercise in widget._exercises) {
+      weightControllers.add(TextEditingController());
+    }
   }
 
   void addControllers() {
@@ -180,8 +185,7 @@ class _DialogWorkoutCreateScreenState extends State<DialogWorkoutCreateScreen> {
           isRest: exercise.isRest,
           isTimerExercise: exercise.isTimerExercise,
           kilograms: int.tryParse(
-                  weightControllers[widget._exercises.indexOf(exercise)]
-                      .text) ??
+                  weightControllers[widget._exercises.indexOf(exercise)].text.toString()) ??
               0,
           sets: exercise.sets,
           reps: exercise.reps,
@@ -275,12 +279,13 @@ class _DialogWorkoutCreateScreenState extends State<DialogWorkoutCreateScreen> {
                                   itemCount: widget._exercises.length,
                                   itemBuilder: (context, index) {
                                     if (widget._exercises[index].isExercise) {
+                                      addControllers();
                                       return buildExerciseItem(
                                           context,
                                           widget.screenSize,
                                           index,
                                           widget._exercises,
-                                          weightControllers);
+                                          weightControllers[index]);
                                     } else if (widget
                                         ._exercises[index].isRest) {
                                       return buildRestItem(
@@ -395,7 +400,8 @@ class _DialogWorkoutCreateScreenState extends State<DialogWorkoutCreateScreen> {
       Size screenSize,
       int index,
       List<ExerciseEntity> _exercises,
-      List<TextEditingController> weightControllers) {
+      TextEditingController weightController,
+      ) {
     return Column(
       children: [
         Container(
@@ -409,7 +415,7 @@ class _DialogWorkoutCreateScreenState extends State<DialogWorkoutCreateScreen> {
               buildHeaderCardWidget(screenSize, _exercises, index),
               SizedBox(height: 6),
               buildExerciseInputFields(context, screenSize, _exercises, index,
-                  _exercises, weightControllers),
+                  _exercises, weightController),
               SizedBox(
                 height: 12,
               ),
@@ -526,7 +532,7 @@ class _DialogWorkoutCreateScreenState extends State<DialogWorkoutCreateScreen> {
     List<ExerciseEntity> exercises,
     int index,
     List<ExerciseEntity> _exercises,
-    List<TextEditingController> weightControllers,
+     TextEditingController weightController,
   ) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -539,8 +545,8 @@ class _DialogWorkoutCreateScreenState extends State<DialogWorkoutCreateScreen> {
               color: Colours.workout_card_foreground_color,
               borderRadius: BorderRadius.circular(4)),
           child: TextField(
-            controller: weightControllers[index],
-            onChanged: (value) => _updateKg(index, weightControllers[index]),
+           // controller: weightNotifier[index],
+           // onChanged: (value) => _updateKg(index, weightControllers[index]),
             keyboardType: TextInputType.number,
             maxLength: 4,
             buildCounter: null,
