@@ -9,17 +9,17 @@ class WorkoutButtonWidget extends StatelessWidget
   final VoidCallback onPressed;
   final Size buttonSize;
 
-  WorkoutButtonWidget(this.onPressed, this.buttonSize);
+  const WorkoutButtonWidget(this.onPressed, this.buttonSize, {super.key});
 
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
       onPressed: onPressed,
       style: ButtonStyle(
-        backgroundColor: WidgetStatePropertyAll(
+        backgroundColor: const WidgetStatePropertyAll(
             Colours.white_text_color),
         foregroundColor:
-        WidgetStatePropertyAll(Colours.workout_text_color),
+        WidgetStatePropertyAll(Colours.workoutTextColor),
         minimumSize: WidgetStatePropertyAll(
           buttonSize,
         ),

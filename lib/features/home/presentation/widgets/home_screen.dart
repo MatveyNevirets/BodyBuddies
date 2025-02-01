@@ -1,12 +1,8 @@
-import 'package:body_buddies/core/colors/colors.dart';
-import 'package:body_buddies/assets/icons/flutter-icons-ef864561/bottom_icons_icons.dart';
 import 'package:body_buddies/core/styles/styles.dart';
-import 'package:body_buddies/core/widgets/base_bottom_navigation_bar_item.dart';
 import 'package:body_buddies/features/home/presentation/widgets/body_home_data.dart';
 import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/water_indicator_widget/bloc/water_cups_bloc/water_cups_bloc.dart';
 import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/domain/fake_workouts_database.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/strings/strings.dart';
@@ -14,7 +10,6 @@ import '../../../workouts/presentation/widgets/features_cards/nutrition/nutritio
 import '../../../workouts/presentation/widgets/features_cards/useful/useful_feature_card.dart';
 import '../../../workouts/presentation/widgets/features_cards/water_indicator_widget/water_indicator_widget.dart';
 import '../../../workouts/presentation/widgets/features_cards/workouts/workouts_feature_card.dart';
-import '../../../workouts/presentation/widgets/workouts_home_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   final FakeWorkoutsDatabase fakeWorkoutsDatabase;
@@ -66,7 +61,7 @@ class _HomeScreenState extends State<HomeScreen> {
               const SizedBox(
                 height: Styles.big_height_of_text_to_widget / 1.5,
               ),
-              NutritionFeatureCard(),
+              const NutritionFeatureCard(),
               const SizedBox(
                 height: Styles.big_height_of_text_to_widget / 1.5,
               ),
@@ -74,7 +69,7 @@ class _HomeScreenState extends State<HomeScreen> {
               const SizedBox(
                 height: Styles.height_of_text_to_widget,
               ),
-              UsefulFeatureCard(),
+              const UsefulFeatureCard(),
             ],
           ),
         ]),

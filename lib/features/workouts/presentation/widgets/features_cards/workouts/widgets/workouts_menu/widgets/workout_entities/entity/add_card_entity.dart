@@ -1,15 +1,16 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:body_buddies/core/styles/styles.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../../../../../../../core/colors/colors.dart';
 
 class AddCardEntity extends StatelessWidget {
-  static final Color borderColor = Colours.workout_card_background_color;
+  static const Color borderColor = Colours.workout_card_background_color;
 
   BuildContext workoutsMenuContext;
 
-  AddCardEntity(this.workoutsMenuContext);
+  AddCardEntity(this.workoutsMenuContext, {super.key});
 
   createWorkout(BuildContext context) {
     Navigator.of(context).pushNamed("/workouts_menu/create_workout/", arguments: workoutsMenuContext);
@@ -29,7 +30,7 @@ class AddCardEntity extends StatelessWidget {
               decoration: BoxDecoration(
                   border: Border.all(width: 4, color: borderColor),
                   borderRadius: BorderRadius.circular(16)),
-              child: Center(
+              child: const Center(
                 child: Icon(
                   Icons.add,
                   color: borderColor,
@@ -39,7 +40,7 @@ class AddCardEntity extends StatelessWidget {
             ),
           ),
         ),
-        SizedBox(
+        const SizedBox(
           height: Styles.height_of_text_to_widget,
         ),
       ],

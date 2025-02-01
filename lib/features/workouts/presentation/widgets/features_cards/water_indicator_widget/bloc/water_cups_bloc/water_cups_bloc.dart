@@ -15,16 +15,13 @@ class WaterCupsBloc extends Bloc<WaterCupsEvent, WaterCupsState> {
 
   Future<void> _initializeHandler(WaterCupsEvent e, Emitter emit) async {
     emit(WaterCupsInitial());
-    print("Initialize event handle");
   }
 
   Future<void> _activateEventHandler(WaterCupsEvent e, Emitter emit) async {
     emit(ActivatedCupState());
-    print("Active event handle");
   }
 
   Future<void> _deactivateEventHandler(WaterCupsEvent e, Emitter emit) async {
     emit(DeactivatedCupState());
-    print("Deactive event handle");
   }
 }

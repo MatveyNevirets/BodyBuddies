@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../../../core/strings/strings.dart';
 import '../../../../core/styles/styles.dart';
 
 class BodyHomeData {

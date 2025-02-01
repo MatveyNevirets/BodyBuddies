@@ -1,35 +1,39 @@
+import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/run_workout/bloc/run_workout_bloc.dart';
+import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/widgets/workout_entities/entity/exercise_entity.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../../../../../../core/colors/colors.dart';
 import '../../../../../../../../../../core/strings/strings.dart';
 import '../../../../../../../../../../core/widgets/base_button.dart';
 
-Container buildRunExerciseScreen(String titleExercise, Widget workoutTimerWidget) {
+Container buildRunExerciseScreen(BuildContext context,
+    ExerciseEntity exercise, Widget workoutTimerWidget) {
   return Container(
-    margin: EdgeInsets.only(left: 16, right: 16, bottom: 32, top: 64),
+    margin: const EdgeInsets.only(left: 16, right: 16, bottom: 32, top: 64),
     child: Card(
       color: Colours.workout_card_background_color,
       elevation: 4,
       child: Container(
-        padding: EdgeInsets.all(16),
+        padding: const EdgeInsets.all(16),
         height: double.maxFinite,
         width: double.maxFinite,
         child: Column(
           children: [
-            buildTimeAndSetsWidget(workoutTimerWidget),
-            SizedBox(
+            buildTimeAndSetsWidget(workoutTimerWidget, exercise),
+            const SizedBox(
               height: 16,
             ),
-            buildWorkoutTitleWidget(titleExercise),
-            SizedBox(
+            buildWorkoutTitleWidget(exercise.title),
+            const SizedBox(
               height: 16,
             ),
-            buildInputFieldsWidget(),
-            SizedBox(
+            buildInputFieldsWidget(exercise),
+            const SizedBox(
               height: 16,
             ),
             BaseButton(
-                onClick: () {},
+                onClick: () => nextOnExercisesList(context),
                 buttonText: Strings.done,
                 icon: null,
                 isElevated: true),
@@ -40,10 +44,11 @@ Container buildRunExerciseScreen(String titleExercise, Widget workoutTimerWidget
   );
 }
 
-Container buildTimeAndSetsWidget(Widget workoutTimerWidget) {
+Container buildTimeAndSetsWidget(
+    Widget workoutTimerWidget, ExerciseEntity exercise) {
   return Container(
-    padding: EdgeInsets.all(16),
-    color: Colours.workout_card_foreground_color,
+    padding: const EdgeInsets.all(16),
+    color: Colours.workoutCardForegroundColor,
     child: Row(
       children: [
         Column(
@@ -52,13 +57,14 @@ Container buildTimeAndSetsWidget(Widget workoutTimerWidget) {
             workoutTimerWidget,
           ],
         ),
-        Expanded(child: SizedBox()),
+        const Expanded(child: SizedBox()),
         Column(
           crossAxisAlignment: CrossAxisAlignment.end,
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             Text(Strings.sets),
-            Text("data"),
+            Text(
+                "${exercise.currentSets.toString()}/${exercise.sets.toString()}"),
           ],
         ),
       ],
@@ -68,8 +74,8 @@ Container buildTimeAndSetsWidget(Widget workoutTimerWidget) {
 
 Container buildWorkoutTitleWidget(String title) {
   return Container(
-    padding: EdgeInsets.all(16),
-    color: Colours.workout_card_foreground_color,
+    padding: const EdgeInsets.all(16),
+    color: Colours.workoutCardForegroundColor,
     child: Column(
       children: [
         Text(title),
@@ -78,43 +84,43 @@ Container buildWorkoutTitleWidget(String title) {
   );
 }
 
-Wrap buildInputFieldsWidget() {
+Wrap buildInputFieldsWidget(ExerciseEntity exercise) {
   return Wrap(
     children: [
       Container(
-        constraints: BoxConstraints(
+        constraints: const BoxConstraints(
           maxWidth: 250,
           maxHeight: 100,
         ),
-        color: Colours.workout_card_foreground_color,
-        padding: EdgeInsets.all(16),
+        color: Colours.workoutCardForegroundColor,
+        padding: const EdgeInsets.all(16),
         child: Row(
           children: [
-            Container(
-              child: Expanded(
-                child: Column(
-                  children: [
-                    Text("Kg"),
-                    TextField(
-                      decoration: InputDecoration(hintText: "Kg"),
-                    ),
-                  ],
-                ),
+            Expanded(
+              child: Column(
+                children: [
+                  const Text("Kg"),
+                  TextField(
+                    keyboardType: TextInputType.number,
+                    decoration: InputDecoration(
+                        hintText: exercise.kilograms.toString()),
+                  ),
+                ],
               ),
             ),
-            SizedBox(
+            const SizedBox(
               width: 30,
             ),
-            Container(
-              child: Expanded(
-                child: Column(
-                  children: [
-                    Text("Reps"),
-                    TextField(
-                      decoration: InputDecoration(hintText: "Reps"),
-                    ),
-                  ],
-                ),
+            Expanded(
+              child: Column(
+                children: [
+                  const Text("Reps"),
+                  TextField(
+                    keyboardType: TextInputType.number,
+                    decoration:
+                        InputDecoration(hintText: exercise.reps.toString()),
+                  ),
+                ],
               ),
             ),
           ],
@@ -122,4 +128,8 @@ Wrap buildInputFieldsWidget() {
       ),
     ],
   );
+}
+
+void nextOnExercisesList(BuildContext context) {
+  context.read<RunWorkoutBloc>().add(ExerciseRestEvent());
 }

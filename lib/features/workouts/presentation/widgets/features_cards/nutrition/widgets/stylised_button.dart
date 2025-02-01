@@ -1,5 +1,6 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:body_buddies/core/styles/styles.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../../../core/colors/colors.dart';
@@ -27,7 +28,7 @@ class StylisedButton extends StatelessWidget {
     this.elevation,
     this.title,
     this.subTitle,
-    this.onPressed,
+    this.onPressed, {super.key}
   );
 
   @override
@@ -42,7 +43,7 @@ class StylisedButton extends StatelessWidget {
               WidgetStatePropertyAll(color ?? Colours.green_text_color),
           elevation: WidgetStatePropertyAll(elevation ?? 8),
           minimumSize: WidgetStatePropertyAll(
-            buttonSize ?? Size(163, 72 / 1.25),
+            buttonSize ?? const Size(163, 72 / 1.25),
           ),
           shape: WidgetStatePropertyAll(
             RoundedRectangleBorder(
@@ -71,7 +72,7 @@ class StylisedButton extends StatelessWidget {
               WidgetStatePropertyAll(color ?? Colours.green_text_color),
           elevation: WidgetStatePropertyAll(elevation ?? 72),
           minimumSize: WidgetStatePropertyAll(
-            buttonSize ?? Size(163, 72 / 1.25),
+            buttonSize ?? const Size(163, 72 / 1.25),
           ),
           shape: WidgetStatePropertyAll(
             RoundedRectangleBorder(
@@ -94,7 +95,7 @@ class StylisedButton extends StatelessWidget {
         onPressed: onPressed,
         style: ButtonStyle(
             minimumSize: WidgetStatePropertyAll(
-              buttonSize ?? Size(90, 50),
+              buttonSize ?? const Size(90, 50),
             ),
             shape: WidgetStatePropertyAll(
               RoundedRectangleBorder(

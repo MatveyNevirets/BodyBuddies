@@ -3,10 +3,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'bloc/water_cups_bloc/water_cups_bloc.dart';
 
+// ignore: must_be_immutable
 class WaterEntity extends StatefulWidget {
   int index;
 
-  WaterEntity(this.index);
+  WaterEntity(this.index, {super.key});
 
   @override
   State<WaterEntity> createState() => _WaterEntityState();
@@ -45,31 +46,30 @@ class _WaterEntityState extends State<WaterEntity> {
             ? DeactivatingCupEvent(widget.index)
             : ActivatingCupEvent(widget.index));
         setDone(isDone = !isDone);
-        print(widget.index);
       },
       child: Stack(
+        alignment: Alignment.bottomRight,
         children: [
-          Image(
+          const Image(
             image: AssetImage("lib/assets/images/water_cup.jpg"),
             height: 50,
             width: 50,
           ),
           doneIcon(state),
         ],
-        alignment: Alignment.bottomRight,
       ),
     );
   }
 
   Widget doneIcon(WaterCupsState state) {
     if (state is ActivatedCupState) {
-      return Image(
+      return const Image(
         image: AssetImage("lib/assets/images/Check.png"),
         height: 10,
         width: 10,
       );
     } else {
-      return SizedBox();
+      return const SizedBox();
     }
   }
 }

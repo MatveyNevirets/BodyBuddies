@@ -1,9 +1,10 @@
+// ignore_for_file: must_be_immutable
+
 import 'dart:async';
 
 import 'package:body_buddies/core/widgets/base_button.dart';
 import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/domain/exercises_database.dart';
 import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/widgets/workout_entities/entity/exercise_entity.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../../../../../../../../../core/colors/colors.dart';
@@ -45,18 +46,18 @@ class _AddExerciseScreenState extends State<AddExerciseScreen> {
         decoration: BoxDecoration(
             //color: Colours.workout_card_background_color,
             borderRadius: BorderRadius.circular(8)),
-        margin: EdgeInsets.all(16),
+        margin: const EdgeInsets.all(16),
         child: Card(
           color: Colours.workout_card_background_color,
           elevation: 4,
           child: Padding(
-            padding: EdgeInsets.all(16),
+            padding: const EdgeInsets.all(16),
             child: Column(
               children: [
                 Container(
-                  padding: EdgeInsets.all(8),
+                  padding: const EdgeInsets.all(8),
                   decoration: BoxDecoration(
-                      color: Colours.workout_card_foreground_color,
+                      color: Colours.workoutCardForegroundColor,
                       borderRadius: BorderRadius.circular(8)),
                   child: TextField(
                     controller: searchTextFieldController,
@@ -67,12 +68,12 @@ class _AddExerciseScreenState extends State<AddExerciseScreen> {
                       isDense: true,
                       hintStyle: Styles.hint_text_style_create_workout,
                       hintText: Strings.search,
-                      focusedBorder: UnderlineInputBorder(
+                      focusedBorder: const UnderlineInputBorder(
                         borderSide: BorderSide(
                             color: Colours.workout_card_background_color,
                             width: 3),
                       ),
-                      enabledBorder: UnderlineInputBorder(
+                      enabledBorder: const UnderlineInputBorder(
                         borderSide: BorderSide(
                             color: Colours.workout_card_background_color,
                             width: 3),
@@ -80,7 +81,7 @@ class _AddExerciseScreenState extends State<AddExerciseScreen> {
                     ),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 16,
                 ),
                 Expanded(
@@ -88,16 +89,16 @@ class _AddExerciseScreenState extends State<AddExerciseScreen> {
                       ? buildHasDataList()
                       : buildHasntDataContainer(),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 16,
                 ),
                 BaseButton(
                     onClick: () => addYourExercise(context),
                     buttonText: Strings.add_yourself,
-                    backgroundColor: Colours.workout_card_foreground_color,
+                    backgroundColor: Colours.workoutCardForegroundColor,
                     color: Colours.workout_card_background_color,
                     radius: 8,
-                    buttonSize: Size(double.maxFinite, 45),
+                    buttonSize: const Size(double.maxFinite, 45),
                     icon: null,
                     isElevated: true),
               ],
@@ -111,7 +112,7 @@ class _AddExerciseScreenState extends State<AddExerciseScreen> {
   Container buildHasntDataContainer() {
     return Container(
       decoration: BoxDecoration(
-          color: Colours.workout_card_foreground_color,
+          color: Colours.workoutCardForegroundColor,
           borderRadius: BorderRadius.circular(8)),
       child: Center(
         child: Text(
@@ -126,8 +127,8 @@ class _AddExerciseScreenState extends State<AddExerciseScreen> {
     return Container(
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(8),
-          color: Colours.workout_card_foreground_color),
-      padding: EdgeInsets.all(8),
+          color: Colours.workoutCardForegroundColor),
+      padding: const EdgeInsets.all(8),
       child: ListView.builder(
           itemCount: filteredExercises.length,
           itemBuilder: (context, index) {
@@ -139,7 +140,7 @@ class _AddExerciseScreenState extends State<AddExerciseScreen> {
                     padding: const EdgeInsets.all(4),
                     child: Row(
                       children: [
-                        Image(
+                        const Image(
                           image: AssetImage(
                             "lib/assets/images/workout_image.png",
                           ),
@@ -202,7 +203,7 @@ class _AddExerciseScreenState extends State<AddExerciseScreen> {
     if (text.length <= maxLength) {
       return text;
     } else {
-      return text.substring(0, maxLength) + '...';
+      return '${text.substring(0, maxLength)}...';
     }
   }
 }

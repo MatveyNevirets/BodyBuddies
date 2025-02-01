@@ -1,7 +1,4 @@
 import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/widgets/workout_entities/entity/exercise_entity.dart';
-import 'package:flutter/cupertino.dart';
-
-import '../../../../../../../../../../../core/strings/strings.dart';
 
 class WorkoutEntity {
   String? title;

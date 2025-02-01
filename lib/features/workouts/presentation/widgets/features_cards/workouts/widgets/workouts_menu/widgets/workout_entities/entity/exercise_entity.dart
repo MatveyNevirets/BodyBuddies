@@ -11,6 +11,7 @@ class ExerciseEntity {
       isRest,
       isTimerExercise;
   int sets,
+      currentSets,
       reps,
       timerTimeSeconds,
       timerTimeMinutes,
@@ -23,6 +24,7 @@ class ExerciseEntity {
       {required this.title,
       this.chest = false,
       this.legs = false,
+      this.currentSets = 0,
       this.shoulders = false,
       this.forearms = false,
       this.triceps = false,

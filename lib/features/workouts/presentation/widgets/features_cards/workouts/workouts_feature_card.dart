@@ -12,7 +12,7 @@ import '../../../../../../core/styles/styles.dart';
 class WorkoutFeatureCard extends StatelessWidget {
   final FakeWorkoutsDatabase fakeDatabase;
 
-  WorkoutFeatureCard({required this.fakeDatabase});
+  const WorkoutFeatureCard({super.key, required this.fakeDatabase});
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +25,7 @@ class WorkoutFeatureCard extends StatelessWidget {
         children: [
           Stack(
             children: [
-              Image(
+              const Image(
                   image: AssetImage(
                       "lib/assets/images/WorkoutsCardBackground.png")),
               Positioned(
@@ -39,13 +39,13 @@ class WorkoutFeatureCard extends StatelessWidget {
                         children: [
                           WorkoutContainerText(
                               getTodayWorkout().title.toString(), null),
-                          SizedBox(
+                          const SizedBox(
                             height: Styles.height_of_text_to_widget * 4,
                           ),
                           WorkoutContainerText("Грудь, бицепс", 12),
                         ],
                       ),
-                      Expanded(
+                      const Expanded(
                         child: SizedBox(),
                       ),
                       Column(
@@ -53,12 +53,12 @@ class WorkoutFeatureCard extends StatelessWidget {
                         children: [
                           CalendarWidget(
                               height: 40, width: 40, text: getDate()),
-                          SizedBox(
+                          const SizedBox(
                             height: 30,
                           ),
                           WorkoutButtonWidget(
                             () => runCurrentWorkout(context),
-                            Size(80, 45),
+                            const Size(80, 45),
                           ),
                         ],
                       ),

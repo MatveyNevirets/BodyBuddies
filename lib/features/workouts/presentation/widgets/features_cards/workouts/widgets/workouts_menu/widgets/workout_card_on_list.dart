@@ -1,13 +1,10 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:body_buddies/core/styles/styles.dart';
-import 'package:body_buddies/core/widgets/base_button.dart';
-import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workout_button_widget.dart';
-import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/run_workout/bloc/run_workout_bloc.dart';
 import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/widgets/workout_entities/entity/exercise_entity.dart';
 import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/widgets/workout_entities/entity/workout_entity.dart';
 import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/widgets/workout_entities/entity/new_workout_button.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../../../../../core/colors/colors.dart';
 import '../../../../../../../../../core/strings/strings.dart';
@@ -16,7 +13,7 @@ class WorkoutCardOnList extends StatelessWidget {
   WorkoutEntity workout;
   BuildContext workoutMenuContext;
 
-  WorkoutCardOnList({required this.workoutMenuContext, required this.workout});
+  WorkoutCardOnList({super.key, required this.workoutMenuContext, required this.workout});
 
   @override
   Widget build(BuildContext context) {
@@ -40,13 +37,13 @@ class WorkoutCardOnList extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Image(
-                image: AssetImage(
+                image: const AssetImage(
                   "lib/assets/images/workout_image.png",
                 ),
                 height: MediaQuery.sizeOf(context).height / 7,
                 width: MediaQuery.sizeOf(context).height / 7,
               ),
-              Expanded(child: SizedBox()),
+              const Expanded(child: SizedBox()),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
@@ -57,13 +54,13 @@ class WorkoutCardOnList extends StatelessWidget {
                         padding: EdgeInsets.symmetric(
                             horizontal: Styles.base_margin_size_double / 1.5,
                             vertical: Styles.base_margin_size_double / 10),
+                        decoration: BoxDecoration(
+                            color: Colours.workoutCardForegroundColor,
+                            borderRadius: BorderRadius.circular(4)),
                         child: Text(
                           getDayOfWeekOnString(),
                           style: Styles.workout_text_style_week_day,
                         ),
-                        decoration: BoxDecoration(
-                            color: Colours.workout_card_foreground_color,
-                            borderRadius: BorderRadius.circular(4)),
                       ),
                     ],
                   ),
@@ -114,15 +111,15 @@ class WorkoutCardOnList extends StatelessWidget {
   String getMusclesGroupOnString() {
     List<String> groups = [];
 
-    if (workout.abs) groups.add("${Strings.abs}");
-    if (workout.forearms) groups.add("${Strings.forearms}");
-    if (workout.biceps) groups.add("${Strings.biceps}");
-    if (workout.back) groups.add("${Strings.back}");
-    if (workout.chest) groups.add("${Strings.chest}");
-    if (workout.triceps) groups.add("${Strings.triceps}");
-    if (workout.shoulders) groups.add("${Strings.shoulders}");
-    if (workout.cardio) groups.add("${Strings.cardio}");
-    if (workout.legs) groups.add("${Strings.legs}");
+    if (workout.abs) groups.add(Strings.abs);
+    if (workout.forearms) groups.add(Strings.forearms);
+    if (workout.biceps) groups.add(Strings.biceps);
+    if (workout.back) groups.add(Strings.back);
+    if (workout.chest) groups.add(Strings.chest);
+    if (workout.triceps) groups.add(Strings.triceps);
+    if (workout.shoulders) groups.add(Strings.shoulders);
+    if (workout.cardio) groups.add(Strings.cardio);
+    if (workout.legs) groups.add(Strings.legs);
 
     return groups.toString().substring(1, groups.toString().length - 1);
   }
@@ -131,7 +128,7 @@ class WorkoutCardOnList extends StatelessWidget {
     if (text.length <= maxLength) {
       return text;
     } else {
-      return text.substring(0, maxLength) + '...';
+      return '${text.substring(0, maxLength)}...';
     }
   }
 

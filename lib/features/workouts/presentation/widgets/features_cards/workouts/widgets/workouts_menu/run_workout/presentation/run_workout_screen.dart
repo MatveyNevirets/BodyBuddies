@@ -1,17 +1,15 @@
-import 'package:body_buddies/core/widgets/base_button.dart';
 import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/run_workout/bloc/run_workout_bloc.dart';
 import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/run_workout/widgets/run_exercise_screen.dart';
 import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/run_workout/widgets/workout_timer/presentation/workout_timer_widget.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../../../../../../../core/colors/colors.dart';
-import '../../../../../../../../../../core/strings/strings.dart';
 import '../../widgets/workout_entities/entity/exercise_entity.dart';
 import '../widgets/run_rest_screen.dart';
 
 class RunWorkoutScreen extends StatelessWidget {
+  const RunWorkoutScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     List<ExerciseEntity> exercises =
@@ -20,15 +18,18 @@ class RunWorkoutScreen extends StatelessWidget {
     WorkoutTimerWidget workoutTimerWidget = WorkoutTimerWidget();
 
     return BlocProvider(
-      create: (BuildContext context) => RunWorkoutBloc(exercises, 0),
+      create: (BuildContext blocContext) => RunWorkoutBloc(exercises, 0),
       child: Scaffold(
         body: BlocBuilder<RunWorkoutBloc, RunWorkoutState>(
             builder: (context, state) {
           if (state is WorkoutInProcess) {
-            return buildRunExerciseScreen(
-                state.exercises[state.currentExercise].title, workoutTimerWidget);
+            return buildRunExerciseScreen(context, //TODO: Ебни их в отдельные классы, хуле они как методы, если по факту это разные экраны
+                state.exercises[state.currentExercise], workoutTimerWidget);
+          } else if (state is RestWorkoutProcess) {
+            return buildRestScreen(context,
+                state.exercises[state.currentExercise], workoutTimerWidget);
           }
-          return CircularProgressIndicator();
+          return const CircularProgressIndicator();
         }),
       ),
     );

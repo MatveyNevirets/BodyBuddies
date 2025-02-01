@@ -1,17 +1,12 @@
-import 'dart:async';
-import 'dart:ui';
+// ignore_for_file: must_be_immutable
 
 import 'package:body_buddies/core/colors/colors.dart';
 import 'package:body_buddies/core/widgets/base_button.dart';
 import 'package:body_buddies/core/widgets/base_snackbar.dart';
 import 'package:body_buddies/features/home/presentation/widgets/body_home_data.dart';
-import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workout_button_widget.dart';
 import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/bloc/workouts_menu_bloc.dart';
 import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/domain/fake_workouts_database.dart';
-import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/widgets/workout_create_entity/widgets/exercise_item_on_list.dart';
-import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/widgets/workout_create_entity/widgets/rest_item_on_list.dart';
 import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/widgets/workout_entities/entity/exercise_entity.dart';
-import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/widgets/workout_entities/entity/new_workout_button.dart';
 import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/widgets/workout_entities/entity/workout_entity.dart';
 import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/workouts_menu_screen.dart';
 import 'package:flutter/material.dart';
@@ -19,14 +14,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../../../../../../../core/strings/strings.dart';
 import '../../../../../../../../../../../core/styles/styles.dart';
-import '../../../../workout_container_text.dart';
-import '../widgets/timer_exercise_item_on_list.dart';
 
 class DialogWorkoutCreateScreen extends StatefulWidget {
   FakeWorkoutsDatabase fakeDB;
   WorkoutsMenuScreen workoutsMenuScreen;
 
-  List<ExerciseEntity> _exercises = [];
+  final List<ExerciseEntity> _exercises = [];
 
   final Size screenSize;
   final BodyHomeData mainFrontendData;
@@ -68,13 +61,6 @@ class _DialogWorkoutCreateScreenState extends State<DialogWorkoutCreateScreen> {
 
   final List<TextEditingController> weightControllers = [];
 
-  void _onSubmit() {
-    for (int i = 0; i < widget._exercises.length; i++) {
-      widget._exercises[i].kilograms =
-          double.tryParse(weightControllers[i].text)!;
-    }
-  }
-
   @override
   void dispose() {
     // TODO: implement dispose
@@ -88,20 +74,13 @@ class _DialogWorkoutCreateScreenState extends State<DialogWorkoutCreateScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    for (var exercise in widget._exercises) {
+    for (int i = 0; widget._exercises.length > i; i++) {
       weightControllers.add(TextEditingController());
     }
   }
 
   void addControllers() {
     weightControllers.add(TextEditingController());
-  }
-
-  void _updateKg(int index, TextEditingController controller) {
-    setState(() {
-      widget._exercises[index].kilograms =
-          double.tryParse(controller.text) ?? 0;
-    });
   }
 
   void tryToCreateWorkout(BuildContext context, BuildContext thisContext) {
@@ -129,7 +108,7 @@ class _DialogWorkoutCreateScreenState extends State<DialogWorkoutCreateScreen> {
             widget.isFri ||
             widget.isSat ||
             widget.isSun) &&
-        widget._exercises.length != 0) {
+        widget._exercises.isNotEmpty) {
       createWorkoutInDatabase(
           context: context,
           title: titleTextFieldController.text.toString(),
@@ -141,22 +120,23 @@ class _DialogWorkoutCreateScreenState extends State<DialogWorkoutCreateScreen> {
   }
 
   int getNumberWeekday() {
-    if (widget.isMon)
+    if (widget.isMon) {
       return 1;
-    else if (widget.isTue)
+    } else if (widget.isTue) {
       return 2;
-    else if (widget.isWed)
+    } else if (widget.isWed) {
       return 3;
-    else if (widget.isTh)
+    } else if (widget.isTh) {
       return 4;
-    else if (widget.isFri)
+    } else if (widget.isFri) {
       return 5;
-    else if (widget.isSat)
+    } else if (widget.isSat) {
       return 6;
-    else if (widget.isSun)
+    } else if (widget.isSun) {
       return 7;
-    else
+    } else {
       return -1;
+    }
   }
 
   createWorkoutInDatabase({
@@ -237,7 +217,7 @@ class _DialogWorkoutCreateScreenState extends State<DialogWorkoutCreateScreen> {
                     Container(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(8),
-                        color: Colours.workout_card_foreground_color,
+                        color: Colours.workoutCardForegroundColor,
                       ),
                       width: widget.screenSize.width / 1.5,
                       margin: const EdgeInsets.all(30),
@@ -251,12 +231,12 @@ class _DialogWorkoutCreateScreenState extends State<DialogWorkoutCreateScreen> {
                           isDense: true,
                           hintStyle: Styles.hint_text_style_create_workout,
                           hintText: Strings.title,
-                          focusedBorder: UnderlineInputBorder(
+                          focusedBorder: const UnderlineInputBorder(
                             borderSide: BorderSide(
                                 color: Colours.workout_card_background_color,
                                 width: 3),
                           ),
-                          enabledBorder: UnderlineInputBorder(
+                          enabledBorder: const UnderlineInputBorder(
                             borderSide: BorderSide(
                                 color: Colours.workout_card_background_color,
                                 width: 3),
@@ -269,7 +249,7 @@ class _DialogWorkoutCreateScreenState extends State<DialogWorkoutCreateScreen> {
                       width: widget.screenSize.width / 1.5,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(8),
-                        color: Colours.workout_card_foreground_color,
+                        color: Colours.workoutCardForegroundColor,
                       ),
                       child: Column(
                         children: [
@@ -288,19 +268,16 @@ class _DialogWorkoutCreateScreenState extends State<DialogWorkoutCreateScreen> {
                                           weightControllers[index]);
                                     } else if (widget
                                         ._exercises[index].isRest) {
-                                      return buildRestItem(
-                                          widget.screenSize,
-                                          widget._exercises,
-                                          index,
-                                          widget._exercises);
+                                      return buildRestItem(widget.screenSize,
+                                          widget._exercises, index);
                                     } else if (widget
                                         ._exercises[index].isTimerExercise) {
                                       return buildTimerExerciseItem(
                                           widget.screenSize,
                                           widget._exercises,
-                                          index,
-                                          widget._exercises);
+                                          index);
                                     }
+                                    return null;
                                   })),
                           const SizedBox(
                             height: 10,
@@ -315,7 +292,7 @@ class _DialogWorkoutCreateScreenState extends State<DialogWorkoutCreateScreen> {
                             radius: 8,
                             backgroundColor:
                                 Colours.workout_card_background_color,
-                            color: Colours.workout_card_foreground_color,
+                            color: Colours.workoutCardForegroundColor,
                           ),
                         ],
                       ),
@@ -328,20 +305,20 @@ class _DialogWorkoutCreateScreenState extends State<DialogWorkoutCreateScreen> {
                       width: widget.screenSize.width / 1.5,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(8),
-                        color: Colours.workout_card_foreground_color,
+                        color: Colours.workoutCardForegroundColor,
                       ),
                       child: DropdownButtonFormField<String>(
                         isDense: true,
-                        dropdownColor: Colours.workout_card_foreground_color,
+                        dropdownColor: Colours.workoutCardForegroundColor,
                         decoration: InputDecoration(
                           focusedBorder: UnderlineInputBorder(
                             borderSide: BorderSide(
-                              color: Colours.workout_card_foreground_color,
+                              color: Colours.workoutCardForegroundColor,
                             ),
                           ),
                           enabledBorder: UnderlineInputBorder(
                             borderSide: BorderSide(
-                              color: Colours.workout_card_foreground_color,
+                              color: Colours.workoutCardForegroundColor,
                             ),
                           ),
                         ),
@@ -379,7 +356,7 @@ class _DialogWorkoutCreateScreenState extends State<DialogWorkoutCreateScreen> {
                       icon: null,
                       isElevated: true,
                       radius: 8,
-                      backgroundColor: Colours.workout_card_foreground_color,
+                      backgroundColor: Colours.workoutCardForegroundColor,
                       color: Colours.workout_card_background_color,
                       buttonSize: Size(widget.screenSize.width / 1.5,
                           widget.screenSize.height / 15),
@@ -399,7 +376,7 @@ class _DialogWorkoutCreateScreenState extends State<DialogWorkoutCreateScreen> {
     BuildContext context,
     Size screenSize,
     int index,
-    List<ExerciseEntity> _exercises,
+    List<ExerciseEntity> exercises,
     TextEditingController weightController,
   ) {
     return Column(
@@ -409,25 +386,24 @@ class _DialogWorkoutCreateScreenState extends State<DialogWorkoutCreateScreen> {
             borderRadius: BorderRadius.circular(8),
             color: Colours.workout_card_background_color,
           ),
-          padding: EdgeInsets.all(8),
+          padding: const EdgeInsets.all(8),
           child: Column(
             children: [
-              buildHeaderCardWidget(screenSize, _exercises, index),
-              SizedBox(height: 6),
-              buildExerciseInputFields(context, screenSize, _exercises, index,
-                  _exercises, weightController),
-              SizedBox(
+              buildHeaderCardWidget(screenSize, exercises, index),
+              const SizedBox(height: 6),
+              buildExerciseInputFields(
+                  context, screenSize, exercises, index, weightController),
+              const SizedBox(
                 height: 12,
               ),
-              buildRestOfSetsInputFields(
-                  context, screenSize, _exercises, index, _exercises),
-              SizedBox(
+              buildRestOfSetsInputFields(context, screenSize, exercises, index),
+              const SizedBox(
                 height: 8,
               ),
             ],
           ),
         ),
-        SizedBox(
+        const SizedBox(
           height: 12,
         ),
       ],
@@ -435,18 +411,18 @@ class _DialogWorkoutCreateScreenState extends State<DialogWorkoutCreateScreen> {
   }
 
   Column buildRestOfSetsInputFields(
-      BuildContext context,
-      Size screenSize,
-      List<ExerciseEntity> exercises,
-      int index,
-      List<ExerciseEntity> _exercises) {
+    BuildContext context,
+    Size screenSize,
+    List<ExerciseEntity> exercises,
+    int index,
+  ) {
     return Column(
       children: [
         Text(
           Strings.rest_of_sets,
           style: Styles.workout_exercise_card_style,
         ),
-        SizedBox(
+        const SizedBox(
           height: 6,
         ),
         Row(
@@ -456,9 +432,9 @@ class _DialogWorkoutCreateScreenState extends State<DialogWorkoutCreateScreen> {
             Container(
               width: screenSize.width / 4,
               height: 30,
-              padding: EdgeInsets.all(2),
+              padding: const EdgeInsets.all(2),
               decoration: BoxDecoration(
-                  color: Colours.workout_card_foreground_color,
+                  color: Colours.workoutCardForegroundColor,
                   borderRadius: BorderRadius.circular(4)),
               child: TextField(
                 onChanged: (value) {
@@ -470,30 +446,30 @@ class _DialogWorkoutCreateScreenState extends State<DialogWorkoutCreateScreen> {
                 style: Styles.hint_text_field_fill_workout,
                 cursorColor: Colours.workout_card_background_color,
                 decoration: InputDecoration(
-                  enabledBorder: UnderlineInputBorder(
+                  enabledBorder: const UnderlineInputBorder(
                       borderSide: BorderSide(
                           width: 2,
                           color: Colours.workout_card_background_color)),
-                  focusedBorder: UnderlineInputBorder(
+                  focusedBorder: const UnderlineInputBorder(
                       borderSide: BorderSide(
                           width: 2,
                           color: Colours.workout_card_background_color)),
                   hintText: Strings.minutes,
                   hintStyle: Styles.hint_text_field_fill_workout,
-                  contentPadding: EdgeInsets.only(bottom: 16),
+                  contentPadding: const EdgeInsets.only(bottom: 16),
                   counterText: '',
                 ),
               ),
             ),
-            Expanded(
+            const Expanded(
               child: SizedBox(),
             ),
             Container(
               width: screenSize.width / 4,
               height: 30,
-              padding: EdgeInsets.all(2),
+              padding: const EdgeInsets.all(2),
               decoration: BoxDecoration(
-                  color: Colours.workout_card_foreground_color,
+                  color: Colours.workoutCardForegroundColor,
                   borderRadius: BorderRadius.circular(4)),
               child: TextField(
                 onChanged: (value) {
@@ -505,17 +481,17 @@ class _DialogWorkoutCreateScreenState extends State<DialogWorkoutCreateScreen> {
                 style: Styles.hint_text_field_fill_workout,
                 cursorColor: Colours.workout_card_background_color,
                 decoration: InputDecoration(
-                  enabledBorder: UnderlineInputBorder(
+                  enabledBorder: const UnderlineInputBorder(
                       borderSide: BorderSide(
                           width: 2,
                           color: Colours.workout_card_background_color)),
-                  focusedBorder: UnderlineInputBorder(
+                  focusedBorder: const UnderlineInputBorder(
                       borderSide: BorderSide(
                           width: 2,
                           color: Colours.workout_card_background_color)),
                   hintText: Strings.seconds,
                   hintStyle: Styles.hint_text_field_fill_workout,
-                  contentPadding: EdgeInsets.only(bottom: 16),
+                  contentPadding: const EdgeInsets.only(bottom: 16),
                   counterText: '',
                 ),
               ),
@@ -531,7 +507,6 @@ class _DialogWorkoutCreateScreenState extends State<DialogWorkoutCreateScreen> {
     Size screenSize,
     List<ExerciseEntity> exercises,
     int index,
-    List<ExerciseEntity> _exercises,
     TextEditingController weightController,
   ) {
     return Row(
@@ -540,9 +515,9 @@ class _DialogWorkoutCreateScreenState extends State<DialogWorkoutCreateScreen> {
         Container(
           width: screenSize.width / 7,
           height: 30,
-          padding: EdgeInsets.all(2),
+          padding: const EdgeInsets.all(2),
           decoration: BoxDecoration(
-              color: Colours.workout_card_foreground_color,
+              color: Colours.workoutCardForegroundColor,
               borderRadius: BorderRadius.circular(4)),
           child: TextField(
             // controller: weightNotifier[index],
@@ -553,26 +528,26 @@ class _DialogWorkoutCreateScreenState extends State<DialogWorkoutCreateScreen> {
             style: Styles.hint_text_field_fill_workout,
             cursorColor: Colours.workout_card_background_color,
             decoration: InputDecoration(
-              enabledBorder: UnderlineInputBorder(
+              enabledBorder: const UnderlineInputBorder(
                   borderSide: BorderSide(
                       width: 2, color: Colours.workout_card_background_color)),
-              focusedBorder: UnderlineInputBorder(
+              focusedBorder: const UnderlineInputBorder(
                   borderSide: BorderSide(
                       width: 2, color: Colours.workout_card_background_color)),
               hintText: Strings.weight,
               hintStyle: Styles.hint_text_field_fill_workout,
-              contentPadding: EdgeInsets.only(bottom: 16),
+              contentPadding: const EdgeInsets.only(bottom: 16),
               counterText: '',
             ),
           ),
         ),
-        Expanded(child: SizedBox()),
+        const Expanded(child: SizedBox()),
         Container(
           width: screenSize.width / 7,
           height: 30,
-          padding: EdgeInsets.all(2),
+          padding: const EdgeInsets.all(2),
           decoration: BoxDecoration(
-              color: Colours.workout_card_foreground_color,
+              color: Colours.workoutCardForegroundColor,
               borderRadius: BorderRadius.circular(4)),
           child: TextField(
             onChanged: (value) {
@@ -584,26 +559,26 @@ class _DialogWorkoutCreateScreenState extends State<DialogWorkoutCreateScreen> {
             style: Styles.hint_text_field_fill_workout,
             cursorColor: Colours.workout_card_background_color,
             decoration: InputDecoration(
-              enabledBorder: UnderlineInputBorder(
+              enabledBorder: const UnderlineInputBorder(
                   borderSide: BorderSide(
                       width: 2, color: Colours.workout_card_background_color)),
-              focusedBorder: UnderlineInputBorder(
+              focusedBorder: const UnderlineInputBorder(
                   borderSide: BorderSide(
                       width: 2, color: Colours.workout_card_background_color)),
               hintText: Strings.sets,
               hintStyle: Styles.hint_text_field_fill_workout,
-              contentPadding: EdgeInsets.only(bottom: 16),
+              contentPadding: const EdgeInsets.only(bottom: 16),
               counterText: '',
             ),
           ),
         ),
-        Expanded(child: SizedBox()),
+        const Expanded(child: SizedBox()),
         Container(
           width: screenSize.width / 7,
           height: 30,
-          padding: EdgeInsets.all(2),
+          padding: const EdgeInsets.all(2),
           decoration: BoxDecoration(
-              color: Colours.workout_card_foreground_color,
+              color: Colours.workoutCardForegroundColor,
               borderRadius: BorderRadius.circular(4)),
           child: TextField(
             onChanged: (value) {
@@ -615,20 +590,20 @@ class _DialogWorkoutCreateScreenState extends State<DialogWorkoutCreateScreen> {
             style: Styles.hint_text_field_fill_workout,
             cursorColor: Colours.workout_card_background_color,
             decoration: InputDecoration(
-              enabledBorder: UnderlineInputBorder(
+              enabledBorder: const UnderlineInputBorder(
                   borderSide: BorderSide(
                       width: 2, color: Colours.workout_card_background_color)),
-              focusedBorder: UnderlineInputBorder(
+              focusedBorder: const UnderlineInputBorder(
                   borderSide: BorderSide(
                       width: 2, color: Colours.workout_card_background_color)),
               hintText: Strings.reps,
               hintStyle: Styles.hint_text_field_fill_workout,
-              contentPadding: EdgeInsets.only(bottom: 16),
+              contentPadding: const EdgeInsets.only(bottom: 16),
               counterText: '',
             ),
           ),
         ),
-        SizedBox(width: 8),
+        const SizedBox(width: 8),
       ],
     );
   }
@@ -638,16 +613,16 @@ class _DialogWorkoutCreateScreenState extends State<DialogWorkoutCreateScreen> {
     return Row(
       children: [
         Image(
-          image: AssetImage("lib/assets/images/workout_image.png"),
+          image: const AssetImage("lib/assets/images/workout_image.png"),
           height: screenSize.height / 18,
         ),
         Expanded(
           child: Container(
               decoration: BoxDecoration(
-                  color: Colours.workout_card_foreground_color,
+                  color: Colours.workoutCardForegroundColor,
                   borderRadius: BorderRadius.circular(4)),
-              margin: EdgeInsets.all(8),
-              padding: EdgeInsets.symmetric(vertical: 6, horizontal: 4),
+              margin: const EdgeInsets.all(8),
+              padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 4),
               height: screenSize.height / 25,
               child: Text(
                 textAlign: TextAlign.center,
@@ -662,16 +637,14 @@ class _DialogWorkoutCreateScreenState extends State<DialogWorkoutCreateScreen> {
   void updateItem(int index, ExerciseEntity exercises) {}
 
   void goToAddExercise(BuildContext buildContext) async {
-    final ExerciseEntity? exercise = await Navigator.pushNamed(
+    final ExerciseEntity exercise = await Navigator.pushNamed(
             context, "/workouts_menu/create_workout/add_exercise/")
         as ExerciseEntity;
 
-    if (exercise != null) {
-      setState(() {
-        widget._exercises.add(exercise);
-        addControllers();
-      });
-    }
+    setState(() {
+      widget._exercises.add(exercise);
+      addControllers();
+    });
   }
 
   void removeExercise(int index) {}
@@ -681,12 +654,12 @@ String truncateText(String text, int maxLength) {
   if (text.length <= maxLength) {
     return text;
   } else {
-    return text.substring(0, maxLength) + '...';
+    return '${text.substring(0, maxLength)}...';
   }
 }
 
-Widget buildRestItem(Size screenSize, List<ExerciseEntity> exercises, int index,
-    List<ExerciseEntity> _exercises) {
+Widget buildRestItem(
+    Size screenSize, List<ExerciseEntity> exercises, int index) {
   return Column(
     children: [
       Container(
@@ -694,22 +667,24 @@ Widget buildRestItem(Size screenSize, List<ExerciseEntity> exercises, int index,
           borderRadius: BorderRadius.circular(8),
           color: Colours.workout_card_background_color,
         ),
-        padding: EdgeInsets.all(8),
+        padding: const EdgeInsets.all(8),
         child: Column(
           children: [
             Row(
               children: [
                 Image(
-                  image: AssetImage("lib/assets/images/workout_image.png"),
+                  image:
+                      const AssetImage("lib/assets/images/workout_image.png"),
                   height: screenSize.height / 18,
                 ),
                 Expanded(
                   child: Container(
                       decoration: BoxDecoration(
-                          color: Colours.workout_card_foreground_color,
+                          color: Colours.workoutCardForegroundColor,
                           borderRadius: BorderRadius.circular(4)),
-                      margin: EdgeInsets.all(8),
-                      padding: EdgeInsets.symmetric(vertical: 6, horizontal: 4),
+                      margin: const EdgeInsets.all(8),
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 6, horizontal: 4),
                       height: screenSize.height / 25,
                       child: Text(
                         textAlign: TextAlign.center,
@@ -719,7 +694,7 @@ Widget buildRestItem(Size screenSize, List<ExerciseEntity> exercises, int index,
                 ),
               ],
             ),
-            SizedBox(height: 8),
+            const SizedBox(height: 8),
             Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
@@ -727,9 +702,9 @@ Widget buildRestItem(Size screenSize, List<ExerciseEntity> exercises, int index,
                 Container(
                   width: screenSize.width / 5,
                   height: 30,
-                  padding: EdgeInsets.all(2),
+                  padding: const EdgeInsets.all(2),
                   decoration: BoxDecoration(
-                      color: Colours.workout_card_foreground_color,
+                      color: Colours.workoutCardForegroundColor,
                       borderRadius: BorderRadius.circular(4)),
                   child: TextField(
                     onChanged: (value) {
@@ -741,30 +716,30 @@ Widget buildRestItem(Size screenSize, List<ExerciseEntity> exercises, int index,
                     style: Styles.hint_text_field_fill_workout,
                     cursorColor: Colours.workout_card_background_color,
                     decoration: InputDecoration(
-                      enabledBorder: UnderlineInputBorder(
+                      enabledBorder: const UnderlineInputBorder(
                           borderSide: BorderSide(
                               width: 2,
                               color: Colours.workout_card_background_color)),
-                      focusedBorder: UnderlineInputBorder(
+                      focusedBorder: const UnderlineInputBorder(
                           borderSide: BorderSide(
                               width: 2,
                               color: Colours.workout_card_background_color)),
                       hintText: Strings.minutes,
                       hintStyle: Styles.hint_text_field_fill_workout,
-                      contentPadding: EdgeInsets.only(bottom: 16),
+                      contentPadding: const EdgeInsets.only(bottom: 16),
                       counterText: '',
                     ),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 30,
                 ),
                 Container(
                   width: screenSize.width / 5,
                   height: 30,
-                  padding: EdgeInsets.all(2),
+                  padding: const EdgeInsets.all(2),
                   decoration: BoxDecoration(
-                      color: Colours.workout_card_foreground_color,
+                      color: Colours.workoutCardForegroundColor,
                       borderRadius: BorderRadius.circular(4)),
                   child: TextField(
                     onChanged: (value) {
@@ -776,17 +751,17 @@ Widget buildRestItem(Size screenSize, List<ExerciseEntity> exercises, int index,
                     style: Styles.hint_text_field_fill_workout,
                     cursorColor: Colours.workout_card_background_color,
                     decoration: InputDecoration(
-                      enabledBorder: UnderlineInputBorder(
+                      enabledBorder: const UnderlineInputBorder(
                           borderSide: BorderSide(
                               width: 2,
                               color: Colours.workout_card_background_color)),
-                      focusedBorder: UnderlineInputBorder(
+                      focusedBorder: const UnderlineInputBorder(
                           borderSide: BorderSide(
                               width: 2,
                               color: Colours.workout_card_background_color)),
                       hintText: Strings.seconds,
                       hintStyle: Styles.hint_text_field_fill_workout,
-                      contentPadding: EdgeInsets.only(bottom: 16),
+                      contentPadding: const EdgeInsets.only(bottom: 16),
                       counterText: '',
                     ),
                   ),
@@ -796,15 +771,15 @@ Widget buildRestItem(Size screenSize, List<ExerciseEntity> exercises, int index,
           ],
         ),
       ),
-      SizedBox(
+      const SizedBox(
         height: 12,
       ),
     ],
   );
 }
 
-Widget buildTimerExerciseItem(Size screenSize, List<ExerciseEntity> exercises,
-    int index, List<ExerciseEntity> _exercises) {
+Widget buildTimerExerciseItem(
+    Size screenSize, List<ExerciseEntity> exercises, int index) {
   return Column(
     children: [
       Container(
@@ -812,22 +787,24 @@ Widget buildTimerExerciseItem(Size screenSize, List<ExerciseEntity> exercises,
           borderRadius: BorderRadius.circular(8),
           color: Colours.workout_card_background_color,
         ),
-        padding: EdgeInsets.all(8),
+        padding: const EdgeInsets.all(8),
         child: Column(
           children: [
             Row(
               children: [
                 Image(
-                  image: AssetImage("lib/assets/images/workout_image.png"),
+                  image:
+                      const AssetImage("lib/assets/images/workout_image.png"),
                   height: screenSize.height / 18,
                 ),
                 Expanded(
                   child: Container(
                       decoration: BoxDecoration(
-                          color: Colours.workout_card_foreground_color,
+                          color: Colours.workoutCardForegroundColor,
                           borderRadius: BorderRadius.circular(4)),
-                      margin: EdgeInsets.all(8),
-                      padding: EdgeInsets.symmetric(vertical: 6, horizontal: 4),
+                      margin: const EdgeInsets.all(8),
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 6, horizontal: 4),
                       height: screenSize.height / 25,
                       child: Text(
                         textAlign: TextAlign.center,
@@ -837,7 +814,7 @@ Widget buildTimerExerciseItem(Size screenSize, List<ExerciseEntity> exercises,
                 ),
               ],
             ),
-            SizedBox(height: 8),
+            const SizedBox(height: 8),
             Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
@@ -845,9 +822,9 @@ Widget buildTimerExerciseItem(Size screenSize, List<ExerciseEntity> exercises,
                 Container(
                   width: screenSize.width / 5,
                   height: 30,
-                  padding: EdgeInsets.all(2),
+                  padding: const EdgeInsets.all(2),
                   decoration: BoxDecoration(
-                      color: Colours.workout_card_foreground_color,
+                      color: Colours.workoutCardForegroundColor,
                       borderRadius: BorderRadius.circular(4)),
                   child: TextField(
                     onChanged: (value) {
@@ -859,30 +836,30 @@ Widget buildTimerExerciseItem(Size screenSize, List<ExerciseEntity> exercises,
                     style: Styles.hint_text_field_fill_workout,
                     cursorColor: Colours.workout_card_background_color,
                     decoration: InputDecoration(
-                      enabledBorder: UnderlineInputBorder(
+                      enabledBorder: const UnderlineInputBorder(
                           borderSide: BorderSide(
                               width: 2,
                               color: Colours.workout_card_background_color)),
-                      focusedBorder: UnderlineInputBorder(
+                      focusedBorder: const UnderlineInputBorder(
                           borderSide: BorderSide(
                               width: 2,
                               color: Colours.workout_card_background_color)),
                       hintText: Strings.minutes,
                       hintStyle: Styles.hint_text_field_fill_workout,
-                      contentPadding: EdgeInsets.only(bottom: 16),
+                      contentPadding: const EdgeInsets.only(bottom: 16),
                       counterText: '',
                     ),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 30,
                 ),
                 Container(
                   width: screenSize.width / 5,
                   height: 30,
-                  padding: EdgeInsets.all(2),
+                  padding: const EdgeInsets.all(2),
                   decoration: BoxDecoration(
-                      color: Colours.workout_card_foreground_color,
+                      color: Colours.workoutCardForegroundColor,
                       borderRadius: BorderRadius.circular(4)),
                   child: TextField(
                     onChanged: (value) {
@@ -894,17 +871,17 @@ Widget buildTimerExerciseItem(Size screenSize, List<ExerciseEntity> exercises,
                     style: Styles.hint_text_field_fill_workout,
                     cursorColor: Colours.workout_card_background_color,
                     decoration: InputDecoration(
-                      enabledBorder: UnderlineInputBorder(
+                      enabledBorder: const UnderlineInputBorder(
                           borderSide: BorderSide(
                               width: 2,
                               color: Colours.workout_card_background_color)),
-                      focusedBorder: UnderlineInputBorder(
+                      focusedBorder: const UnderlineInputBorder(
                           borderSide: BorderSide(
                               width: 2,
                               color: Colours.workout_card_background_color)),
                       hintText: Strings.seconds,
                       hintStyle: Styles.hint_text_field_fill_workout,
-                      contentPadding: EdgeInsets.only(bottom: 16),
+                      contentPadding: const EdgeInsets.only(bottom: 16),
                       counterText: '',
                     ),
                   ),
@@ -914,7 +891,7 @@ Widget buildTimerExerciseItem(Size screenSize, List<ExerciseEntity> exercises,
           ],
         ),
       ),
-      SizedBox(
+      const SizedBox(
         height: 12,
       ),
     ],

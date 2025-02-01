@@ -10,7 +10,7 @@ class NewWorkoutButton extends StatelessWidget
   final VoidCallback onPressed;
   final Size buttonSize;
 
-  NewWorkoutButton(this.onPressed, this.buttonSize);
+  const NewWorkoutButton(this.onPressed, this.buttonSize, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -18,9 +18,9 @@ class NewWorkoutButton extends StatelessWidget
       onPressed: onPressed,
       style: ButtonStyle(
         backgroundColor: WidgetStatePropertyAll(
-            Colours.workout_card_foreground_color),
+            Colours.workoutCardForegroundColor),
         foregroundColor:
-        WidgetStatePropertyAll(Colours.white_text_color),
+        const WidgetStatePropertyAll(Colours.white_text_color),
         minimumSize: WidgetStatePropertyAll(
           buttonSize,
         ),

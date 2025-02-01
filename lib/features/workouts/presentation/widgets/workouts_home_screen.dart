@@ -30,7 +30,7 @@ class WorkoutsHomeScreen extends StatelessWidget {
               height: Styles.height_of_text_to_widget,
             ),
             WorkoutFeatureCard(fakeDatabase: fakeWorkoutsDatabase,),
-            SizedBox(
+            const SizedBox(
               height: Styles.big_height_of_text_to_widget / 1.5,
             ),
             Text(Strings.diet, style: Styles.appbar_text_style),
@@ -44,18 +44,18 @@ class WorkoutsHomeScreen extends StatelessWidget {
               },
               child: WaterIndicatorWidget(),
             )),
-            SizedBox(
+            const SizedBox(
               height: Styles.big_height_of_text_to_widget / 1.5,
             ),
-            NutritionFeatureCard(),
-            SizedBox(
+            const NutritionFeatureCard(),
+            const SizedBox(
               height: Styles.big_height_of_text_to_widget / 1.5,
             ),
             Text(Strings.useful, style: Styles.appbar_text_style),
             const SizedBox(
               height: Styles.height_of_text_to_widget,
             ),
-            UsefulFeatureCard(),
+            const UsefulFeatureCard(),
           ],
         ),
       ]),

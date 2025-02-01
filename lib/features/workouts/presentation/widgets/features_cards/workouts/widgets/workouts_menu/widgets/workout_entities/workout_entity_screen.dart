@@ -2,6 +2,8 @@ import 'package:body_buddies/features/workouts/presentation/widgets/features_car
 import 'package:flutter/material.dart';
 
 class WorkoutEntityScreen extends StatelessWidget {
+  const WorkoutEntityScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     List<ExerciseEntity> exercises =
@@ -19,7 +21,7 @@ class WorkoutEntityScreen extends StatelessWidget {
                   Text("sets: ${exercises[index].sets.toString()}"),
                   Text("reps: ${exercises[index].reps.toString()}"),
                   Text("ExerciseTime: ${exercises[index].restTimeInMinutes.toString()}:${exercises[index].restTimeInSeconds.toString()}"),
-                  SizedBox(
+                  const SizedBox(
                     height: 30,
                   ),
                 ],
@@ -31,7 +33,7 @@ class WorkoutEntityScreen extends StatelessWidget {
                     child: Text(
                         "restTime: ${exercises[index].restTimeInMinutes.toString()}:${exercises[index].restTimeInSeconds.toString()}"),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 30,
                   ),
                 ],
@@ -48,12 +50,13 @@ class WorkoutEntityScreen extends StatelessWidget {
                       ],
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 30,
                   ),
                 ],
               );
             }
+            return null;
           }),
     );
   }

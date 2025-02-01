@@ -10,7 +10,7 @@ part 'workout_timer_event.dart';
 part 'workout_timer_state.dart';
 
 class WorkoutTimerBloc extends Bloc<WorkoutTimerEvent, WorkoutTimerState> {
-  late WorkoutTicker _ticker;
+  late final WorkoutTicker _ticker;
   StreamSubscription<int>? subscription;
 
   WorkoutTimerBloc({required WorkoutTicker ticker})

@@ -1,4 +1,3 @@
-import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/widgets/workout_card_on_list.dart';
 import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/widgets/workout_entities/entity/exercise_entity.dart';
 import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/widgets/workout_entities/entity/workout_entity.dart';
 
@@ -16,7 +15,7 @@ class FakeWorkoutsDatabase {
             kilograms: 30,
             restTimeInMinutes: 3,
             restTimeInSeconds: 0,
-            sets: 4,
+            sets: 5,
             reps: 6),
         ExerciseEntity(
             isExercise: true,
@@ -46,8 +45,8 @@ class FakeWorkoutsDatabase {
             isExercise: true,
             title: "Французский жим",
             kilograms: 37.5,
-            reps: 6,
-            sets: 4,
+            reps: 8,
+            sets: 3,
             restTimeInMinutes: 2,
             restTimeInSeconds: 0),
       ],

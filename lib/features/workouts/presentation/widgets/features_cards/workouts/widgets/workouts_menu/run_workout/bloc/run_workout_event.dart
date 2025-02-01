@@ -4,7 +4,6 @@ part of 'run_workout_bloc.dart';
 sealed class RunWorkoutEvent {}
 
 
-class WorkoutStarted extends RunWorkoutEvent {
-  List<ExerciseEntity> exercises;
-  WorkoutStarted(this.exercises);
-}
+class ExerciseRunEvent extends RunWorkoutEvent {}
+
+class ExerciseRestEvent extends RunWorkoutEvent {}
