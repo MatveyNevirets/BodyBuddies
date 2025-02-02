@@ -6,10 +6,12 @@ part of 'run_workout_bloc.dart';
 sealed class RunWorkoutState extends Equatable {
   List<ExerciseEntity> exercises;
   int currentExercise;
+  int duration;
 
   RunWorkoutState({
     required this.exercises,
     required this.currentExercise,
+    required this.duration,
   });
 
   @override
@@ -18,19 +20,29 @@ sealed class RunWorkoutState extends Equatable {
 }
 
 class WorkoutInProcess extends RunWorkoutState {
-  WorkoutInProcess({required super.exercises, required super.currentExercise});
+  WorkoutInProcess(
+      {required super.exercises,
+      required super.currentExercise,
+      required super.duration});
+}
+
+class RunTimerInProgress extends RunWorkoutState {
+  RunTimerInProgress(
+      {required super.exercises,
+      required super.currentExercise,
+      required super.duration});
 }
 
 class RestWorkoutProcess extends RunWorkoutState {
-  RestWorkoutProcess({
-    required super.exercises,
-    required super.currentExercise,
-  });
+  RestWorkoutProcess(
+      {required super.exercises,
+      required super.currentExercise,
+      required super.duration});
 }
 
 class CompleteWorkout extends RunWorkoutState {
-  CompleteWorkout({
-    required super.exercises,
-    required super.currentExercise,
-  });
+  CompleteWorkout(
+      {required super.exercises,
+      required super.currentExercise,
+      required super.duration});
 }

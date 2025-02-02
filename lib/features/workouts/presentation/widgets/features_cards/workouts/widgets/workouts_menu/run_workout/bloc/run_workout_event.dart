@@ -1,9 +1,15 @@
 part of 'run_workout_bloc.dart';
 
 @immutable
-sealed class RunWorkoutEvent {}
+sealed class RunWorkoutEvent {
+  int workoutTimerDuration;
+  RunWorkoutEvent(this.workoutTimerDuration);
+}
 
+class ExerciseRunEvent extends RunWorkoutEvent {
+  ExerciseRunEvent(super.workoutTimerDuration);
+}
 
-class ExerciseRunEvent extends RunWorkoutEvent {}
-
-class ExerciseRestEvent extends RunWorkoutEvent {}
+class ExerciseRestEvent extends RunWorkoutEvent {
+  ExerciseRestEvent(super.workoutTimerDuration);
+}
