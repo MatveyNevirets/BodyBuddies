@@ -77,7 +77,7 @@ class WorkoutFeatureCard extends StatelessWidget {
     BuildContext context,
   ) {
     Navigator.of(context)
-        .pushNamed("run_workout/", arguments: getTodayExercises());
+        .pushNamed("workouts_menu/run_workout/", arguments: getTodayExercises());
   }
 
   WorkoutEntity getTodayWorkout() {
