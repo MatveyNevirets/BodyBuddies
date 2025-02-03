@@ -13,9 +13,12 @@ class RunExerciseScreen extends StatelessWidget {
   ExerciseEntity exercise;
   WorkoutTicker ticker;
 
+  RunWorkoutState state;
+
   int workoutTimerDuration;
 
-  RunExerciseScreen(this.exercise, this.ticker, this.workoutTimerDuration);
+  RunExerciseScreen(
+      this.exercise, this.ticker, this.workoutTimerDuration, this.state);
 
   @override
   Widget build(BuildContext context) {
@@ -148,6 +151,13 @@ class RunExerciseScreen extends StatelessWidget {
   }
 
   void nextOnExercisesList(BuildContext context, int duration) {
-    context.read<RunWorkoutBloc>().add(ExerciseRestEvent(duration));
+    if (state.exercises.last == exercise &&
+        state.exercises.last.currentSets == exercise.sets) {
+      context
+          .read<RunWorkoutBloc>()
+          .add(WorkoutCompleteEvent(workoutTimerDuration));
+    } else {
+      context.read<RunWorkoutBloc>().add(ExerciseRestEvent(duration));
+    }
   }
 }

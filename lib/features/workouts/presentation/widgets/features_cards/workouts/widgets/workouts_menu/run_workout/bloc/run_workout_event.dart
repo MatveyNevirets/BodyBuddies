@@ -13,3 +13,7 @@ class ExerciseRunEvent extends RunWorkoutEvent {
 class ExerciseRestEvent extends RunWorkoutEvent {
   ExerciseRestEvent(super.workoutTimerDuration);
 }
+
+class WorkoutCompleteEvent extends RunWorkoutEvent {
+  WorkoutCompleteEvent(super.workoutTimerDuration);
+}

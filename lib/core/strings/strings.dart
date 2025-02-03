@@ -139,5 +139,7 @@ abstract class Strings {
 
   static var filling = "Заполнение";
 
+  static String completedSuccessful = "Тренировка успешно завершена!";
+
 ///////////////////////////////
 }

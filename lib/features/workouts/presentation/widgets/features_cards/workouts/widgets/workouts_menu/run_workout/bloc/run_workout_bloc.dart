@@ -17,9 +17,7 @@ class RunWorkoutBloc extends Bloc<RunWorkoutEvent, RunWorkoutState> {
   int currentExercise = 0;
   int currentSets = 1;
 
-  /// timer
-
-  int duration = 0;
+  int workoutTimerDuration = 0;
 
   RunWorkoutBloc(this.exercises, this.currentExercise)
       : super(WorkoutInProcess(
@@ -28,6 +26,7 @@ class RunWorkoutBloc extends Bloc<RunWorkoutEvent, RunWorkoutState> {
             duration: 0)) {
     on<ExerciseRestEvent>(onWorkoutRested);
     on<ExerciseRunEvent>(onExerciseStarted);
+    on<WorkoutCompleteEvent>(onWorkoutCompete);
   }
 
   onExerciseStarted(ExerciseRunEvent event, Emitter<RunWorkoutState> emit) {
@@ -38,6 +37,13 @@ class RunWorkoutBloc extends Bloc<RunWorkoutEvent, RunWorkoutState> {
           currentExercise: currentExercise,
           duration: event.workoutTimerDuration),
     );
+  }
+
+  onWorkoutCompete(WorkoutCompleteEvent event, Emitter<RunWorkoutState> emit) {
+    emit(CompleteWorkout(
+        exercises: exercises,
+        currentExercise: currentExercise,
+        duration: workoutTimerDuration));
   }
 
   onWorkoutRested(ExerciseRestEvent event, Emitter<RunWorkoutState> emit) {
