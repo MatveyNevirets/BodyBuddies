@@ -37,6 +37,7 @@ class WorkoutsMenuScreen extends StatelessWidget {
                       : WorkoutCardOnList(
                     workoutMenuContext: context,
                           workout: state.database.getWorkout(index - 1),
+                    fakeWorkoutsDatabase: state.database,
                         );
                 }),
           ),

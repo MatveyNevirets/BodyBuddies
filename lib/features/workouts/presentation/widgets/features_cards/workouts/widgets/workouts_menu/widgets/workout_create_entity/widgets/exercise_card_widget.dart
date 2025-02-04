@@ -22,7 +22,7 @@ class ExerciseCardWidget extends StatelessWidget {
             ),
           ),
           SizedBox(
-            width: screenSize.width/30,
+            width: screenSize.width / 30,
           ),
           Text(
             truncateText(text, 9),

@@ -1,10 +1,13 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:body_buddies/core/styles/styles.dart';
+import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/bloc/workouts_menu_bloc.dart';
+import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/domain/fake_workouts_database.dart';
 import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/widgets/workout_entities/entity/exercise_entity.dart';
 import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/widgets/workout_entities/entity/workout_entity.dart';
 import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/widgets/workout_entities/entity/new_workout_button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../../../../../core/colors/colors.dart';
 import '../../../../../../../../../core/strings/strings.dart';
@@ -12,8 +15,13 @@ import '../../../../../../../../../core/strings/strings.dart';
 class WorkoutCardOnList extends StatelessWidget {
   WorkoutEntity workout;
   BuildContext workoutMenuContext;
+  FakeWorkoutsDatabase fakeWorkoutsDatabase;
 
-  WorkoutCardOnList({super.key, required this.workoutMenuContext, required this.workout});
+  WorkoutCardOnList(
+      {super.key,
+      required this.workoutMenuContext,
+      required this.workout,
+      required this.fakeWorkoutsDatabase});
 
   @override
   Widget build(BuildContext context) {
@@ -36,6 +44,9 @@ class WorkoutCardOnList extends StatelessWidget {
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
+              SizedBox(
+                width: 5,
+              ),
               Image(
                 image: const AssetImage(
                   "lib/assets/images/workout_image.png",
@@ -50,17 +61,41 @@ class WorkoutCardOnList extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      Container(
-                        padding: EdgeInsets.symmetric(
-                            horizontal: Styles.base_margin_size_double / 1.5,
-                            vertical: Styles.base_margin_size_double / 10),
-                        decoration: BoxDecoration(
+                      Row(
+                        children: [
+                          Container(
+                            padding: EdgeInsets.symmetric(
+                                horizontal:
+                                    Styles.base_margin_size_double / 1.5,
+                                vertical: Styles.base_margin_size_double / 10),
+                            decoration: BoxDecoration(
+                                color: Colours.workoutCardForegroundColor,
+                                borderRadius: BorderRadius.circular(4)),
+                            child: Text(
+                              getDayOfWeekOnString(),
+                              style: Styles.workout_text_style_week_day,
+                            ),
+                          ),
+                          SizedBox(
+                            width: 10,
+                          ),
+                          IconButton(
+                            onPressed: () {},
                             color: Colours.workoutCardForegroundColor,
-                            borderRadius: BorderRadius.circular(4)),
-                        child: Text(
-                          getDayOfWeekOnString(),
-                          style: Styles.workout_text_style_week_day,
-                        ),
+                            icon: Icon(
+                              Icons.mode_sharp,
+                              size: 25,
+                            ),
+                          ),
+                          IconButton(
+                            onPressed: () => removeCurrentWorkout(context),
+                            color: Colours.workoutCardForegroundColor,
+                            icon: Icon(
+                              Icons.delete,
+                              size: 25,
+                            ),
+                          ),
+                        ],
                       ),
                     ],
                   ),
@@ -98,6 +133,11 @@ class WorkoutCardOnList extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void removeCurrentWorkout(BuildContext context) {
+    fakeWorkoutsDatabase.fakeWorkoutEntities.remove(workout);
+    context.read<WorkoutsMenuBloc>().add(AddWorkoutEvent(fakeWorkoutsDatabase));
   }
 
   void runCurrentWorkout(

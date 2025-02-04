@@ -254,31 +254,29 @@ class _DialogWorkoutCreateScreenState extends State<DialogWorkoutCreateScreen> {
                       child: Column(
                         children: [
                           SizedBox(
-                              height: widget.screenSize.height / 4,
-                              child: ListView.builder(
-                                  itemCount: widget._exercises.length,
-                                  itemBuilder: (context, index) {
-                                    if (widget._exercises[index].isExercise) {
-                                      addControllers();
-                                      return buildExerciseItem(
-                                          context,
-                                          widget.screenSize,
-                                          index,
-                                          widget._exercises,
-                                          weightControllers[index]);
-                                    } else if (widget
-                                        ._exercises[index].isRest) {
-                                      return buildRestItem(widget.screenSize,
-                                          widget._exercises, index);
-                                    } else if (widget
-                                        ._exercises[index].isTimerExercise) {
-                                      return buildTimerExerciseItem(
-                                          widget.screenSize,
-                                          widget._exercises,
-                                          index);
-                                    }
-                                    return null;
-                                  })),
+                            height: widget.screenSize.height / 4,
+                            child: ListView.builder(
+                              itemCount: widget._exercises.length,
+                              itemBuilder: (context, index) {
+                                if (widget._exercises[index].isExercise) {
+                                  addControllers();
+                                  return buildExerciseItem(
+                                      context,
+                                      widget.screenSize,
+                                      index,
+                                      widget._exercises,
+                                      weightControllers[index]);
+                                } else if (widget
+                                    ._exercises[index].isTimerExercise) {
+                                  return buildTimerExerciseItem(
+                                      widget.screenSize,
+                                      widget._exercises,
+                                      index);
+                                }
+                                return null;
+                              },
+                            ),
+                          ),
                           const SizedBox(
                             height: 10,
                           ),
@@ -388,8 +386,11 @@ class _DialogWorkoutCreateScreenState extends State<DialogWorkoutCreateScreen> {
           ),
           padding: const EdgeInsets.all(8),
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               buildHeaderCardWidget(screenSize, exercises, index),
+              buildExerciseTitle(screenSize, exercises, index),
               const SizedBox(height: 6),
               buildExerciseInputFields(
                   context, screenSize, exercises, index, weightController),
@@ -408,6 +409,23 @@ class _DialogWorkoutCreateScreenState extends State<DialogWorkoutCreateScreen> {
         ),
       ],
     );
+  }
+
+  Container buildExerciseTitle(
+      Size screenSize, List<ExerciseEntity> exercises, int index) {
+    return Container(
+        decoration: BoxDecoration(
+            color: Colours.workoutCardForegroundColor,
+            borderRadius: BorderRadius.circular(4)),
+        margin: const EdgeInsets.all(8),
+        height: screenSize.height / 25,
+        width: double.maxFinite,
+        padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 4),
+        child: Text(
+          textAlign: TextAlign.center,
+          truncateText(exercises[index].title, 15),
+          style: Styles.hint_text_field_fill_workout,
+        ));
   }
 
   Column buildRestOfSetsInputFields(
@@ -510,7 +528,7 @@ class _DialogWorkoutCreateScreenState extends State<DialogWorkoutCreateScreen> {
     TextEditingController weightController,
   ) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Container(
           width: screenSize.width / 7,
@@ -626,9 +644,20 @@ class _DialogWorkoutCreateScreenState extends State<DialogWorkoutCreateScreen> {
               height: screenSize.height / 25,
               child: Text(
                 textAlign: TextAlign.center,
-                truncateText(exercises[index].title, 13),
+                "        ",
                 style: Styles.hint_text_field_fill_workout,
               )),
+        ),
+        GestureDetector(
+          onTap: () => removeExercise(index),
+          child: Icon(
+            Icons.delete,
+            size: 25,
+            color: Colours.workoutCardForegroundColor,
+          ),
+        ),
+        SizedBox(
+          width: 5,
         ),
       ],
     );
@@ -647,7 +676,11 @@ class _DialogWorkoutCreateScreenState extends State<DialogWorkoutCreateScreen> {
     });
   }
 
-  void removeExercise(int index) {}
+  void removeExercise(int index) {
+    setState(() {
+      widget._exercises.removeAt(index);
+    });
+  }
 }
 
 String truncateText(String text, int maxLength) {
