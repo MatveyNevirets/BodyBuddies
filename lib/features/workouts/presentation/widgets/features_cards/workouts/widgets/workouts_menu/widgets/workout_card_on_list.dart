@@ -72,7 +72,7 @@ class WorkoutCardOnList extends StatelessWidget {
                                 color: Colours.workoutCardForegroundColor,
                                 borderRadius: BorderRadius.circular(4)),
                             child: Text(
-                              getDayOfWeekOnString(),
+                              getDayOfWeekOnString(workout),
                               style: Styles.workout_text_style_week_day,
                             ),
                           ),
@@ -80,7 +80,8 @@ class WorkoutCardOnList extends StatelessWidget {
                             width: 10,
                           ),
                           IconButton(
-                            onPressed: () {},
+                            onPressed: () =>
+                                editCurrentWorkout(context, exercises),
                             color: Colours.workoutCardForegroundColor,
                             icon: Icon(
                               Icons.mode_sharp,
@@ -135,6 +136,12 @@ class WorkoutCardOnList extends StatelessWidget {
     );
   }
 
+  void editCurrentWorkout(
+      BuildContext context, List<ExerciseEntity> exercises) {
+    Navigator.of(context).pushNamed("/workouts_menu/create_workout/",
+        arguments: [context, exercises, true]);
+  }
+
   void removeCurrentWorkout(BuildContext context) {
     fakeWorkoutsDatabase.fakeWorkoutEntities.remove(workout);
     context.read<WorkoutsMenuBloc>().add(AddWorkoutEvent(fakeWorkoutsDatabase));
@@ -171,24 +178,24 @@ class WorkoutCardOnList extends StatelessWidget {
       return '${text.substring(0, maxLength)}...';
     }
   }
+}
 
-  String getDayOfWeekOnString() {
-    if (workout.weekday == 1) {
-      return Strings.mon;
-    } else if (workout.weekday == 2) {
-      return Strings.tue;
-    } else if (workout.weekday == 3) {
-      return Strings.wed;
-    } else if (workout.weekday == 4) {
-      return Strings.thur;
-    } else if (workout.weekday == 5) {
-      return Strings.fri;
-    } else if (workout.weekday == 6) {
-      return Strings.sat;
-    } else if (workout.weekday == 7) {
-      return Strings.sun;
-    } else {
-      return Strings.empty;
-    }
+String getDayOfWeekOnString(WorkoutEntity workout) {
+  if (workout.weekday == 1) {
+    return Strings.mon;
+  } else if (workout.weekday == 2) {
+    return Strings.tue;
+  } else if (workout.weekday == 3) {
+    return Strings.wed;
+  } else if (workout.weekday == 4) {
+    return Strings.thur;
+  } else if (workout.weekday == 5) {
+    return Strings.fri;
+  } else if (workout.weekday == 6) {
+    return Strings.sat;
+  } else if (workout.weekday == 7) {
+    return Strings.sun;
+  } else {
+    return Strings.empty;
   }
 }

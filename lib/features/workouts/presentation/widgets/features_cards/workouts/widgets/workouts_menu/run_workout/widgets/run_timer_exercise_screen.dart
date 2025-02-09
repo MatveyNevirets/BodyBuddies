@@ -1,25 +1,26 @@
-import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/run_workout/bloc/run_workout_bloc.dart';
-import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/run_workout/presentation/run_workout_screen.dart';
 import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/run_workout/widgets/workout_timer/reverse_ticker.dart';
 import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/run_workout/widgets/workout_timer/workout_ticker.dart';
-import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/widgets/workout_entities/entity/exercise_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../../../../../../core/colors/colors.dart';
 import '../../../../../../../../../../core/strings/strings.dart';
 import '../../../../../../../../../../core/widgets/base_button.dart';
+import '../../widgets/workout_entities/entity/exercise_entity.dart';
+import '../bloc/run_workout_bloc.dart';
+import '../presentation/run_workout_screen.dart';
 
-class RunExerciseScreen extends StatelessWidget {
+class RunTimerExercise extends StatelessWidget {
   ExerciseEntity exercise;
   WorkoutTicker ticker;
+  ReverseTicker reverseTicker = ReverseTicker();
 
   RunWorkoutState state;
 
   int workoutTimerDuration;
 
-  RunExerciseScreen(this.exercise, this.ticker, this.workoutTimerDuration,
-      this.state);
+  RunTimerExercise(
+      this.exercise, this.ticker, this.workoutTimerDuration, this.state);
 
   @override
   Widget build(BuildContext context) {
@@ -42,19 +43,54 @@ class RunExerciseScreen extends StatelessWidget {
               const SizedBox(
                 height: 16,
               ),
+              buildExerciseTimerWidget(),
+              const SizedBox(
+                height: 16,
+              ),
               buildInputFieldsWidget(exercise),
               const SizedBox(
                 height: 16,
               ),
               BaseButton(
                   onClick: () =>
-                      nextOnExercisesList(context, workoutTimerDuration),
+                      nextOnExercisesList(context),
                   buttonText: Strings.done,
                   icon: null,
                   isElevated: true),
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  Container buildExerciseTimerWidget() {
+    int duration = exercise.timerTimeMinutes * 60 + exercise.timerTimeSeconds;
+    return Container(
+      padding: const EdgeInsets.all(16),
+      color: Colours.workoutCardForegroundColor,
+      child: Column(
+        children: [
+          Text(Strings.exercise),
+          StreamBuilder(
+            stream: reverseTicker.reverseTick(duration),
+            builder: (context, snapshot) {
+              print(snapshot.data);
+              if (snapshot.hasData) {
+                if (snapshot.data! > 0) {
+                  return Text(getTime(snapshot.data!));
+                } else {
+                  nextOnExercisesList(context);
+                }
+              } else if (snapshot.hasError) {
+                throw Exception(
+                    "Snapshot reverse timer has error: ${snapshot.error}");
+              }
+              return Text(
+                  "${exercise.timerTimeMinutes.toString().padLeft(2, "0")}:${exercise.timerTimeSeconds.toString().padLeft(2, "0")}");
+            },
+          ),
+        ],
       ),
     );
   }
@@ -129,21 +165,6 @@ class RunExerciseScreen extends StatelessWidget {
                   ],
                 ),
               ),
-              const SizedBox(
-                width: 30,
-              ),
-              Expanded(
-                child: Column(
-                  children: [
-                    const Text("Reps"),
-                    TextField(
-                      keyboardType: TextInputType.number,
-                      decoration:
-                          InputDecoration(hintText: exercise.reps.toString()),
-                    ),
-                  ],
-                ),
-              ),
             ],
           ),
         ),
@@ -151,7 +172,7 @@ class RunExerciseScreen extends StatelessWidget {
     );
   }
 
-  void nextOnExercisesList(BuildContext context, int duration) {
+  void nextOnExercisesList(BuildContext context) {
     if (state.exercises.last == exercise &&
         state.exercises.last.currentSets == exercise.sets) {
       context

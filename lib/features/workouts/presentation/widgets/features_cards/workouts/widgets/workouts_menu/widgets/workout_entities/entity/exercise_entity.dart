@@ -8,7 +8,6 @@ class ExerciseEntity {
       biceps,
       abs,
       isExercise,
-      isRest,
       isTimerExercise;
   int sets,
       currentSets,
@@ -38,6 +37,5 @@ class ExerciseEntity {
       this.restTimeInMinutes = 0,
       this.restTimeInSeconds = 0,
       this.isTimerExercise = false,
-      this.isRest = false,
       this.isExercise = false});
 }

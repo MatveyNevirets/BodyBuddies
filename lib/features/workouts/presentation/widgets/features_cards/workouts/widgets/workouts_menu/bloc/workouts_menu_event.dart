@@ -9,6 +9,11 @@ class AddWorkoutEvent extends WorkoutsMenuEvent {
   AddWorkoutEvent(this.database);
 }
 
+class UpdateWorkoutEvent extends WorkoutsMenuEvent {
+  final FakeWorkoutsDatabase database;
+  UpdateWorkoutEvent(this.database);
+}
+
 class RemoveWorkoutEvent extends WorkoutsMenuEvent {
   final FakeWorkoutsDatabase database;
   RemoveWorkoutEvent(this.database);

@@ -3,6 +3,8 @@ import 'dart:async';
 import 'package:body_buddies/core/widgets/base_snackbar.dart';
 import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/run_workout/bloc/run_workout_bloc.dart';
 import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/run_workout/widgets/run_exercise_screen.dart';
+import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/run_workout/widgets/run_timer_exercise_screen.dart';
+import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/run_workout/widgets/workout_timer/reverse_ticker.dart';
 import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/run_workout/widgets/workout_timer/workout_ticker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -38,10 +40,23 @@ class RunWorkoutScreen extends StatelessWidget {
             return BlocBuilder<RunWorkoutBloc, RunWorkoutState>(
                 builder: (context, state) {
               if (state is WorkoutInProcess) {
-                return RunExerciseScreen(state.exercises[state.currentExercise],
-                    ticker, state.duration, state);
+                if (state.exercises[state.currentExercise].isExercise) {
+                  return RunExerciseScreen(
+                      state.exercises[state.currentExercise],
+                      ticker,
+                      state.duration,
+                      state);
+                } else if (state
+                    .exercises[state.currentExercise].isTimerExercise) {
+                  return RunTimerExercise(
+                      state.exercises[state.currentExercise],
+                      ticker,
+                      state.duration,
+                      state);
+                }
               } else if (state is RestWorkoutProcess) {
-                return RestScreen(ticker, state.duration);
+                return RestScreen(ticker, state.duration,
+                    state.exercises[state.currentExercise]);
               }
               return const CircularProgressIndicator();
             });

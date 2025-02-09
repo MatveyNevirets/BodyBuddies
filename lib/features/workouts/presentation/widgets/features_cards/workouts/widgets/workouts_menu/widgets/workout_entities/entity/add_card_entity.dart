@@ -1,19 +1,23 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:body_buddies/core/styles/styles.dart';
+import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/domain/exercises_database.dart';
+import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/domain/fake_workouts_database.dart';
+import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/widgets/workout_entities/entity/exercise_entity.dart';
+import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/widgets/workout_entities/entity/workout_entity.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../../../../../../../core/colors/colors.dart';
 
-class AddCardEntity extends StatelessWidget {
+class OpenWorkoutsJournal extends StatelessWidget {
   static const Color borderColor = Colours.workout_card_background_color;
 
-  BuildContext workoutsMenuContext;
+  List<ExerciseEntity> emptyList = [];
 
-  AddCardEntity(this.workoutsMenuContext, {super.key});
-
-  createWorkout(BuildContext context) {
-    Navigator.of(context).pushNamed("/workouts_menu/create_workout/", arguments: workoutsMenuContext);
+  openJournal(BuildContext context) {
+    Navigator.of(context).pushNamed(
+      "/workouts_menu/workouts_journal/"
+    );
   }
 
   @override
@@ -21,7 +25,7 @@ class AddCardEntity extends StatelessWidget {
     return Column(
       children: [
         GestureDetector(
-          onTap: () => createWorkout(context),
+          onTap: () => openJournal(context),
           child: Card(
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),

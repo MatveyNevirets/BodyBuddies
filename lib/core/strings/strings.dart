@@ -141,5 +141,13 @@ abstract class Strings {
 
   static String completedSuccessful = "Тренировка успешно завершена!";
 
+  static String time_of_timer_exercise = "Длительность подхода";
+
+  static String add_timer_exercise_parameters = "Подходы и отягощение";
+
+  static String exercise = "Упражнение";
+
+  static var journal = "Журнал";
+
 ///////////////////////////////
 }

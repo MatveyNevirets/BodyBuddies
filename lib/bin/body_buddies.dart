@@ -9,6 +9,8 @@ import 'package:body_buddies/features/intro/presentation/widgets/intro_screen.da
 import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/bloc/workouts_menu_bloc.dart';
 import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/domain/fake_workouts_database.dart';
 import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/run_workout/presentation/run_workout_screen.dart';
+import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/workouts_journal/bloc/workouts_journal_cubit.dart';
+import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/workouts_journal/presentation/workouts_journal_screen.dart';
 import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/workouts_menu_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -20,7 +22,7 @@ import '../features/workouts/presentation/widgets/features_cards/workouts/widget
 import '../features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/widgets/workout_create_entity/widgets/add_exercise/presentation/add_exercise_screen.dart';
 import '../features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/widgets/workout_create_entity/widgets/add_exercise/widgets/add_your_exercise/bloc/add_your_exercise_cubit.dart';
 import '../features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/widgets/workout_create_entity/widgets/add_exercise/widgets/add_your_exercise/presentation/add_your_exercise_screen.dart';
-import '../features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/widgets/workout_entities/workout_entity_screen.dart';
+import '../features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/widgets/workout_entities/current_workout_screen.dart';
 
 void main() {
   runApp(BodyBuddiesApp());
@@ -95,9 +97,12 @@ class BodyBuddiesApp extends StatelessWidget {
                     exercises: exercises,
                   ),
                 ),
-        "workouts_menu/current_workout/": (context) => const WorkoutEntityScreen(),
-        "workouts_menu/run_workout/": (context) =>  const RunWorkoutScreen(
-            ),
+        "/workouts_menu/workouts_journal/": (context) => BlocProvider(
+            create: (BuildContext context) => WorkoutsJournalCubit(fakeWorkoutsDatabase),
+            child: WorkoutsJournalScreen()),
+        "workouts_menu/current_workout/": (context) =>
+            const WorkoutEntityScreen(),
+        "workouts_menu/run_workout/": (context) => const RunWorkoutScreen(),
       },
       initialRoute: "/",
     );

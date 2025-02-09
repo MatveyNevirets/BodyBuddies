@@ -20,4 +20,8 @@ class WorkoutsMenuBloc extends Bloc<WorkoutsMenuEvent, WorkoutsMenuState> {
   void onRemoveCard(RemoveWorkoutEvent event, Emitter<WorkoutsMenuState> emit) {
     emit(AddWorkoutState(event.database));
   }
+
+  void onUpdateCard(UpdateWorkoutEvent event, Emitter<WorkoutsMenuState> emit) {
+    emit(UpdateWorkoutState(event.database));
+  }
 }

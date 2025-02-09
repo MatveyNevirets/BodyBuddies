@@ -1,5 +1,6 @@
 import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/run_workout/bloc/run_workout_bloc.dart';
 import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/run_workout/presentation/run_workout_screen.dart';
+import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/run_workout/widgets/workout_timer/reverse_ticker.dart';
 import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/run_workout/widgets/workout_timer/workout_ticker.dart';
 import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/widgets/workout_entities/entity/exercise_entity.dart';
 import 'package:flutter/material.dart';
@@ -10,10 +11,13 @@ import '../../../../../../../../../../core/strings/strings.dart';
 import '../../../../../../../../../../core/widgets/base_button.dart';
 
 class RestScreen extends StatelessWidget {
+  ExerciseEntity exercise;
+
   WorkoutTicker ticker;
+  ReverseTicker reverseTicker = ReverseTicker();
   int workoutTimerDuration;
 
-  RestScreen(this.ticker, this.workoutTimerDuration);
+  RestScreen(this.ticker, this.workoutTimerDuration, this.exercise);
 
   @override
   Widget build(BuildContext context) {
@@ -74,13 +78,32 @@ class RestScreen extends StatelessWidget {
   }
 
   Container buildRestTextWidget() {
+    int duration = exercise.restTimeInMinutes * 60 + exercise.restTimeInSeconds;
+
     return Container(
       padding: const EdgeInsets.all(16),
       color: Colours.workoutCardForegroundColor,
-      child: const Column(
+      child: Column(
         children: [
           Text("Отдых"),
-          Text("60"),
+          StreamBuilder(
+            stream: reverseTicker.reverseTick(duration),
+            builder: (context, snapshot) {
+              print(snapshot.data);
+              if (snapshot.hasData) {
+                if (snapshot.data! > 0) {
+                  return Text(getTime(snapshot.data!));
+                } else {
+                  nextOnExercisesList(context);
+                }
+              } else if (snapshot.hasError) {
+                throw Exception(
+                    "Snapshot reverse timer has error: ${snapshot.error}");
+              }
+              return Text(
+                  "${exercise.restTimeInMinutes.toString().padLeft(2, "0")}:${exercise.restTimeInSeconds.toString().padLeft(2, "0")}");
+            },
+          ),
         ],
       ),
     );

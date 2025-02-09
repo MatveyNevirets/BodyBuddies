@@ -16,3 +16,7 @@ final class WorkoutsMenuInitial extends WorkoutsMenuState {
 class AddWorkoutState extends WorkoutsMenuState {
   AddWorkoutState(super.database);
 }
+
+class UpdateWorkoutState extends WorkoutsMenuState {
+  UpdateWorkoutState(super.database);
+}

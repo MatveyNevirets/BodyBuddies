@@ -20,19 +20,8 @@ class WorkoutEntityScreen extends StatelessWidget {
                   Text("kg: ${exercises[index].kilograms.toString()}"),
                   Text("sets: ${exercises[index].sets.toString()}"),
                   Text("reps: ${exercises[index].reps.toString()}"),
-                  Text("ExerciseTime: ${exercises[index].restTimeInMinutes.toString()}:${exercises[index].restTimeInSeconds.toString()}"),
-                  const SizedBox(
-                    height: 30,
-                  ),
-                ],
-              );
-            } else if (exercises[index].isRest) {
-              return Column(
-                children: [
-                  Center(
-                    child: Text(
-                        "restTime: ${exercises[index].restTimeInMinutes.toString()}:${exercises[index].restTimeInSeconds.toString()}"),
-                  ),
+                  Text(
+                      "ExerciseTime: ${exercises[index].restTimeInMinutes.toString()}:${exercises[index].restTimeInSeconds.toString()}"),
                   const SizedBox(
                     height: 30,
                   ),
@@ -47,6 +36,10 @@ class WorkoutEntityScreen extends StatelessWidget {
                         Text("Exercise: ${exercises[index].title}"),
                         Text(
                             "ExerciseTime: ${exercises[index].timerTimeMinutes.toString()}:${exercises[index].timerTimeSeconds.toString()}"),
+                       Text(
+                            "Sets: ${exercises[index].sets.toString()} Weight: ${exercises[index].kilograms.toString()}"),
+                       Text(
+                            "RestTime: ${exercises[index].restTimeInMinutes.toString()}:${exercises[index].restTimeInSeconds.toString()}"),
                       ],
                     ),
                   ),

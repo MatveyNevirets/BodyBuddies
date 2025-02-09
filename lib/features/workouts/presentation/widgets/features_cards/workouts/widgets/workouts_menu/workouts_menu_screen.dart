@@ -8,6 +8,7 @@ import 'package:body_buddies/features/workouts/presentation/widgets/features_car
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../../../../../core/colors/colors.dart';
 import '../../../../../../../../core/strings/strings.dart';
 
 class WorkoutsMenuScreen extends StatelessWidget {
@@ -19,31 +20,52 @@ class WorkoutsMenuScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     this.context = context;
+
+    createWorkout() {
+      Navigator.of(context).pushNamed(
+        "/workouts_menu/create_workout/",
+        arguments: [
+          context,
+          [],
+          false,
+        ],
+      );
+    }
 
     return BlocBuilder<WorkoutsMenuBloc, WorkoutsMenuState>(
       builder: (context, state) {
         return Scaffold(
           appBar: mainFrontendData.createAppBarWidget(
               appbarTitle: Strings.workouts_appbar),
+          floatingActionButton: Padding(
+            padding: const EdgeInsets.only(right: 8, bottom: 32),
+            child: FloatingActionButton(
+              elevation: 3,
+              onPressed: () => createWorkout(),
+              child: Icon(Icons.add, size: 30,),
+              backgroundColor: Colours.workoutCardForegroundColor,
+              foregroundColor: Colours.workout_card_background_color,
+            ),
+          ),
           body: Container(
             margin: Styles.base_margin_size,
             child: ListView.builder(
                 itemCount: state.database.fakeWorkoutEntities.length + 1,
                 itemBuilder: (context, index) {
                   return index == 0
-                      ? AddCardEntity(context)
+                      ? OpenWorkoutsJournal()
                       : WorkoutCardOnList(
-                    workoutMenuContext: context,
+                          workoutMenuContext: context,
                           workout: state.database.getWorkout(index - 1),
-                    fakeWorkoutsDatabase: state.database,
+                          fakeWorkoutsDatabase: state.database,
                         );
                 }),
           ),
         );
       },
-      buildWhen: (prev, curr) => curr is AddWorkoutState,
+      buildWhen: (prev, curr) =>
+          curr is AddWorkoutState || curr is UpdateWorkoutState,
     );
   }
 }
