@@ -109,7 +109,7 @@ class CollectCharacteristicScreen extends StatelessWidget {
                     width: 250,
                     child: BaseButton(
                         onClick: () => collectData(),
-                        buttonText: Strings.button_done_text,
+                        buttonText: Strings.done,
                         icon: null,
                         isElevated: true),
                   ),

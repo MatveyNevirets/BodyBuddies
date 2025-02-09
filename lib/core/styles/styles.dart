@@ -1,4 +1,4 @@
-// ignore_for_file: constant_identifier_names, unnecessary_import
+// ignore_for_file: constant_identifier_names, unnecessary_import, non_constant_identifier_names
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -28,14 +28,30 @@ abstract class Styles {
       color: Colours.black_text_color,
       fontWeight: FontWeight.w500);
 
-  static var workouts_containers_text_style = TextStyle(fontFamily: 'AqumTwo', fontSize: 12, color: Colours.white_text_color);
-  static var advices_containers_text_style = TextStyle(fontFamily: 'AqumTwo', fontSize: 14, color: Colours.white_text_color);
+  static var hint_text_style_create_workout = const TextStyle(
+      fontFamily: 'AqumTwo',
+      fontSize: 16,
+      color: Colours.workout_card_background_color);
+  static var hint_text_style_create_exercise = TextStyle(
+      fontFamily: 'AqumTwo',
+      fontSize: 16,
+      color: Colours.workoutCardForegroundColor);
+  static var hint_text_field_fill_workout = const TextStyle(
+      fontFamily: 'AqumTwo',
+      fontSize: 12,
+      color: Colours.workout_card_background_color);
+
+  static var workouts_containers_text_style = const TextStyle(
+      fontFamily: 'AqumTwo', fontSize: 12, color: Colours.white_text_color);
+  static var advices_containers_text_style = const TextStyle(
+      fontFamily: 'AqumTwo', fontSize: 14, color: Colours.white_text_color);
 
   ////news////////
 
-  static var news_card_header_text_style = TextStyle(fontFamily: 'AqumTwo', fontSize: 18, color: Colours.black_text_color);
-  static var news_card_body_text_style = TextStyle(fontFamily: 'AqumTwo', fontSize: 12, color: Colours.black_text_color);
-
+  static var news_card_header_text_style = const TextStyle(
+      fontFamily: 'AqumTwo', fontSize: 18, color: Colours.black_text_color);
+  static var news_card_body_text_style = const TextStyle(
+      fontFamily: 'AqumTwo', fontSize: 12, color: Colours.black_text_color);
 
   ////dark///boxes//////
 
@@ -52,7 +68,8 @@ abstract class Styles {
   ////dark///boxes//////
   static const title_text_style = TextStyle(
       fontSize: 24,
-      color: Colours.black_text_color,
+      fontFamily: 'AqumTwo',
+      color: Colours.workout_card_background_color,
       fontWeight: FontWeight.w500);
   static const medium_text_style = TextStyle(
       fontSize: 18,
@@ -69,7 +86,8 @@ abstract class Styles {
       color: Colours.hint_form_text_color,
       fontWeight: FontWeight.w400);
 
-  static const mini_info_text_style = TextStyle(fontSize: 12,
+  static const mini_info_text_style = TextStyle(
+      fontSize: 12,
       color: Colours.black_text_color,
       fontWeight: FontWeight.w200);
 
@@ -79,18 +97,43 @@ abstract class Styles {
 
   static const base_outlined_button_style = ButtonStyle(
       side: WidgetStatePropertyAll(BorderSide(
-          color: Colours.base_button_color, width: 1.5, style: BorderStyle.solid)));
+          color: Colours.base_button_color,
+          width: 1.5,
+          style: BorderStyle.solid)));
 
   static const base_text_button_style =
       TextStyle(color: Colours.base_button_text_color);
 
-  static var nutrition_text_style = TextStyle(fontFamily: 'AqumTwo', fontSize: 12);
-  static var nutrition_symbol_text_style = TextStyle(fontFamily: 'AqumTwo', fontSize: 21);
+  static var nutrition_text_style =
+      const TextStyle(fontFamily: 'AqumTwo', fontSize: 12);
+  static var nutrition_symbol_text_style =
+      const TextStyle(fontFamily: 'AqumTwo', fontSize: 21);
+
+  static var workout_text_style = TextStyle(
+      fontFamily: 'AqumTwo',
+      fontSize: 21,
+      color: Colours.workoutCardForegroundColor);
+  static var add_exercise_text_style = TextStyle(
+      fontFamily: 'AqumTwo',
+      fontSize: 18,
+      color: Colours.workoutCardForegroundColor);
+  static var workout_text_style_week_day = const TextStyle(
+      fontFamily: 'AqumTwo',
+      fontSize: 14,
+      color: Colours.workout_card_background_color);
+  static var workout_exercise_card_style = TextStyle(
+      fontFamily: 'AqumTwo',
+      fontSize: 12,
+      color: Colours.workoutCardForegroundColor);
+  static var workout_text_style_background_24 = const TextStyle(
+      fontFamily: 'AqumTwo',
+      fontSize: 24,
+      color: Colours.workout_card_background_color);
+  static var workout_text_style2 = const TextStyle(
+      fontFamily: 'AqumTwo', fontSize: 12, color: Colours.white_text_color);
 
   static double nutrition_button_elevate = 20;
 
-  static var workouts_button_text_style = TextStyle(fontFamily: 'AqumTwo', fontSize: 12, color: Colours.workout_text_color);
-
-
-
+  static var workouts_button_text_style = TextStyle(
+      fontFamily: 'AqumTwo', fontSize: 12, color: Colours.workoutTextColor);
 }

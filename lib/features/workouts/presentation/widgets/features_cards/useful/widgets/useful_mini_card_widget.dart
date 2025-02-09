@@ -8,7 +8,7 @@ class UsefulMiniCardWidget extends StatelessWidget {
   final String title;
   final String? subTitle;
 
-  UsefulMiniCardWidget(this.subTitle, {required this.assetImage, required this.title});
+  const UsefulMiniCardWidget(this.subTitle, {super.key, required this.assetImage, required this.title});
   @override
   Widget build(BuildContext context) {
     return GestureDetector(

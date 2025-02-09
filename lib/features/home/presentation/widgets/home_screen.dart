@@ -1,56 +1,79 @@
-import 'package:body_buddies/core/colors/colors.dart';
-import 'package:body_buddies/assets/icons/flutter-icons-ef864561/bottom_icons_icons.dart';
 import 'package:body_buddies/core/styles/styles.dart';
-import 'package:body_buddies/core/widgets/base_bottom_navigation_bar_item.dart';
 import 'package:body_buddies/features/home/presentation/widgets/body_home_data.dart';
-import 'package:body_buddies/features/workouts/presentation/widgets/workouts_screen.dart';
+import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/water_indicator_widget/bloc/water_cups_bloc/water_cups_bloc.dart';
+import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/domain/fake_workouts_database.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../../../core/strings/strings.dart';
+import '../../../workouts/presentation/widgets/features_cards/nutrition/nutrition_feature_card.dart';
+import '../../../workouts/presentation/widgets/features_cards/useful/useful_feature_card.dart';
+import '../../../workouts/presentation/widgets/features_cards/water_indicator_widget/water_indicator_widget.dart';
+import '../../../workouts/presentation/widgets/features_cards/workouts/workouts_feature_card.dart';
 
 class HomeScreen extends StatefulWidget {
+  final FakeWorkoutsDatabase fakeWorkoutsDatabase;
+  final BodyHomeData mainFrontendData;
+
+  const HomeScreen(
+      {super.key,
+      required this.fakeWorkoutsDatabase,
+      required this.mainFrontendData});
+
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final data = BodyHomeData();
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: data.createAppBarWidget(),
-      bottomNavigationBar: BottomNavigationBar(
-        selectedItemColor: Colours.bottom_bar_icons_color,
-        currentIndex: data.currentTab,
-        backgroundColor: Colours.bottom_bar_background_color,
-        type: BottomNavigationBarType.fixed,
-        landscapeLayout: BottomNavigationBarLandscapeLayout.spread,
-        elevation: 8,
-        items: [
-          baseBottomNavigationBarItem(BottomIcons.newspaper, ""),
-          baseBottomNavigationBarItem(BottomIcons.chat, ""),
-          baseBottomNavigationBarItem(BottomIcons.dumbbell, ""),
-          baseBottomNavigationBarItem(BottomIcons.user, ""),
-        ],
-        onTap: setCurrentTab,
-      ),
-      body: SafeArea(
-        child: Container(
-          child: Center(child: data.screens[data.currentTab]),
-        ),
+      appBar: widget.mainFrontendData
+          .createAppBarWidget(appbarTitle: Strings.workouts_appbar),
+      body: Container(
+        margin: Styles.base_margin_size,
+        child: ListView(children: [
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Text(Strings.your_programs_string,
+                  style: Styles.appbar_text_style),
+              const SizedBox(
+                height: Styles.height_of_text_to_widget,
+              ),
+              WorkoutFeatureCard(
+                fakeDatabase: widget.fakeWorkoutsDatabase,
+              ),
+              const SizedBox(
+                height: Styles.big_height_of_text_to_widget / 1.5,
+              ),
+              Text(Strings.diet, style: Styles.appbar_text_style),
+              const SizedBox(
+                height: Styles.height_of_text_to_widget,
+              ),
+              Center(
+                  child: BlocProvider(
+                create: (BuildContext context) {
+                  return WaterCupsBloc();
+                },
+                child: WaterIndicatorWidget(),
+              )),
+              const SizedBox(
+                height: Styles.big_height_of_text_to_widget / 1.5,
+              ),
+              const NutritionFeatureCard(),
+              const SizedBox(
+                height: Styles.big_height_of_text_to_widget / 1.5,
+              ),
+              Text(Strings.useful, style: Styles.appbar_text_style),
+              const SizedBox(
+                height: Styles.height_of_text_to_widget,
+              ),
+              const UsefulFeatureCard(),
+            ],
+          ),
+        ]),
       ),
     );
-  }
-
-  setCurrentTab(int index) {
-    if (data.currentTab == index) return;
-
-    setState(() {
-      data.currentTab = index;
-    });
-  }
-
-  goBack(BuildContext context) {
-    Navigator.of(context).pop();
   }
 }

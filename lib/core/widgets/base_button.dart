@@ -9,18 +9,24 @@ class BaseButton extends StatelessWidget {
 
   final Color? backgroundColor;
   final Color? color;
+  final double? radius;
+
+  final Size? buttonSize;
 
   bool isElevated = true;
 
   final IconData? icon;
 
   BaseButton(
-      {super.key, required this.onClick,
+      {super.key,
+      required this.onClick,
       required this.buttonText,
       required this.icon,
       required this.isElevated,
+      this.buttonSize,
+      this.radius,
       this.backgroundColor,
-      this.color,});
+      this.color});
 
   @override
   Widget build(BuildContext context) {
@@ -29,15 +35,26 @@ class BaseButton extends StatelessWidget {
         return ElevatedButton(
           onPressed: onClick,
           style: ButtonStyle(
-              backgroundColor: WidgetStatePropertyAll(
-                  backgroundColor ?? Colours.base_button_color)),
+            minimumSize: WidgetStatePropertyAll(
+              buttonSize,
+            ),
+            shape: WidgetStatePropertyAll(
+              RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(radius ?? 32),
+              ),
+            ),
+            backgroundColor: WidgetStatePropertyAll(
+                backgroundColor ?? Colours.base_button_color),
+          ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
                 buttonText,
-                style:
-                    TextStyle(color: color ?? Colours.base_button_text_color),
+                style: TextStyle(
+                  color: color ?? Colours.base_button_text_color,
+                  fontFamily: 'AqumTwo',
+                ),
               ),
               const SizedBox(
                 width: 20,
@@ -53,11 +70,21 @@ class BaseButton extends StatelessWidget {
         return ElevatedButton(
           onPressed: onClick,
           style: ButtonStyle(
+              minimumSize: WidgetStatePropertyAll(
+                buttonSize,
+              ),
+              shape: WidgetStatePropertyAll(
+                RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(radius ?? 32),
+                ),
+              ),
               backgroundColor: WidgetStatePropertyAll(
                   backgroundColor ?? Colours.base_button_color)),
           child: Text(
             buttonText,
-            style: TextStyle(color: color ?? Colours.base_button_text_color),
+            style: TextStyle(
+                fontFamily: 'AqumTwo',
+                color: color ?? Colours.base_button_text_color),
           ),
         );
       }
@@ -66,6 +93,14 @@ class BaseButton extends StatelessWidget {
         return OutlinedButton(
           onPressed: onClick,
           style: ButtonStyle(
+              minimumSize: WidgetStatePropertyAll(
+                buttonSize,
+              ),
+              shape: WidgetStatePropertyAll(
+                RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(radius ?? 32),
+                ),
+              ),
               side: WidgetStatePropertyAll(BorderSide(
                   color: backgroundColor ?? Colours.base_button_color,
                   width: 1.5,
@@ -76,6 +111,7 @@ class BaseButton extends StatelessWidget {
               Text(
                 buttonText,
                 style: TextStyle(
+                    fontFamily: 'AqumTwo',
                     fontSize: 12,
                     color: color ?? Colours.base_button_color,
                     fontWeight: FontWeight.w500),
@@ -94,6 +130,14 @@ class BaseButton extends StatelessWidget {
         return OutlinedButton(
           onPressed: onClick,
           style: ButtonStyle(
+              minimumSize: WidgetStatePropertyAll(
+                buttonSize,
+              ),
+              shape: WidgetStatePropertyAll(
+                RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(radius ?? 32),
+                ),
+              ),
               side: WidgetStatePropertyAll(BorderSide(
                   color: backgroundColor ?? Colours.base_button_color,
                   width: 1.5,
@@ -101,6 +145,7 @@ class BaseButton extends StatelessWidget {
           child: Text(
             buttonText,
             style: TextStyle(
+                fontFamily: 'AqumTwo',
                 fontSize: 12,
                 color: color ?? Colours.base_button_color,
                 fontWeight: FontWeight.w500),

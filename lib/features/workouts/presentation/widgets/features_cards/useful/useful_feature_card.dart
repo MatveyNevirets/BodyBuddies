@@ -1,13 +1,12 @@
-import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/useful/widgets/useful_mini_card_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../../../core/colors/colors.dart';
 import '../../../../../../core/strings/strings.dart';
 import '../../../../../../core/styles/styles.dart';
-import '../nutrition/widgets/stylised_button.dart';
 
 class UsefulFeatureCard extends StatelessWidget {
+  const UsefulFeatureCard({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Wrap(

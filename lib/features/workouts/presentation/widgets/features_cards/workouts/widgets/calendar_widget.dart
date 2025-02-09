@@ -8,8 +8,8 @@ class CalendarWidget extends StatelessWidget {
 
   final String text;
 
-  CalendarWidget(
-      {required this.height, required this.width, required this.text});
+  const CalendarWidget(
+      {super.key, required this.height, required this.width, required this.text});
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +22,7 @@ class CalendarWidget extends StatelessWidget {
         ),
         Positioned(
           top: height / 1.9,
-          left: width / 5.5,
+          left: width / 4.5,
           child: Text(
             text,
             style: TextStyle(

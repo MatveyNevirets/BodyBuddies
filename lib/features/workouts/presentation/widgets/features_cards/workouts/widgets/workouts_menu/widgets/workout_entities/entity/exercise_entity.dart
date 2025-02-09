@@ -8,14 +8,22 @@ class ExerciseEntity {
       biceps,
       abs,
       isExercise,
-      isRest,
-      isCardio;
-  int sets, reps, restTime, cardioTime, kilograms;
+      isTimerExercise;
+  int sets,
+      currentSets,
+      reps,
+      timerTimeSeconds,
+      timerTimeMinutes,
+      restTimeInSeconds,
+      restTimeInMinutes;
+
+  double kilograms;
 
   ExerciseEntity(
       {required this.title,
       this.chest = false,
       this.legs = false,
+      this.currentSets = 1,
       this.shoulders = false,
       this.forearms = false,
       this.triceps = false,
@@ -23,10 +31,11 @@ class ExerciseEntity {
       this.abs = false,
       this.reps = 0,
       this.sets = 0,
-      this.restTime = 0,
-      this.cardioTime = 0,
-        this.kilograms=0,
-      this.isCardio = false,
-      this.isRest = false,
+      this.timerTimeSeconds = 0,
+      this.timerTimeMinutes = 0,
+      this.kilograms = 0,
+      this.restTimeInMinutes = 0,
+      this.restTimeInSeconds = 0,
+      this.isTimerExercise = false,
       this.isExercise = false});
 }

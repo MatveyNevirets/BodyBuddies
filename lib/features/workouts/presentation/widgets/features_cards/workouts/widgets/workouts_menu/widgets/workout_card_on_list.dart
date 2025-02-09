@@ -1,76 +1,201 @@
-import 'package:body_buddies/core/widgets/base_button.dart';
+// ignore_for_file: must_be_immutable
+
+import 'package:body_buddies/core/styles/styles.dart';
+import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/bloc/workouts_menu_bloc.dart';
+import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/domain/fake_workouts_database.dart';
 import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/widgets/workout_entities/entity/exercise_entity.dart';
 import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/widgets/workout_entities/entity/workout_entity.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/widgets/workout_entities/entity/new_workout_button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../../../../../../core/colors/colors.dart';
 import '../../../../../../../../../core/strings/strings.dart';
 
 class WorkoutCardOnList extends StatelessWidget {
   WorkoutEntity workout;
-  List<ExerciseEntity> exercises;
+  BuildContext workoutMenuContext;
+  FakeWorkoutsDatabase fakeWorkoutsDatabase;
 
-  WorkoutCardOnList({required this.workout, required this.exercises});
+  WorkoutCardOnList(
+      {super.key,
+      required this.workoutMenuContext,
+      required this.workout,
+      required this.fakeWorkoutsDatabase});
 
   @override
   Widget build(BuildContext context) {
+    List<ExerciseEntity> exercises = workout.exercises;
 
     openWorkout() {
-      Navigator.of(context).pushNamed("workouts_menu/current_workout/", arguments: exercises);
+      Navigator.of(context)
+          .pushNamed("workouts_menu/current_workout/", arguments: exercises);
     }
 
     return GestureDetector(
       onTap: () => openWorkout(),
       child: Card(
-        child: Column(
-          children: [
-            Text(workout.title!),
-            Text(getMusclesGroupOnString()),
-            Text(getDayOfWeekOnString()),
-            BaseButton(
-                onClick: () {},
-                buttonText: Strings.start,
-                icon: null,
-                isElevated: true)
-          ],
+        color: Colours.workout_card_background_color,
+        child: Container(
+          padding: EdgeInsets.only(
+              right: Styles.base_margin_size_double,
+              top: Styles.base_margin_size_double / 2,
+              bottom: Styles.base_margin_size_double / 2),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              SizedBox(
+                width: 5,
+              ),
+              Image(
+                image: const AssetImage(
+                  "lib/assets/images/workout_image.png",
+                ),
+                height: MediaQuery.sizeOf(context).height / 7,
+                width: MediaQuery.sizeOf(context).height / 7,
+              ),
+              const Expanded(child: SizedBox()),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Row(
+                        children: [
+                          Container(
+                            padding: EdgeInsets.symmetric(
+                                horizontal:
+                                    Styles.base_margin_size_double / 1.5,
+                                vertical: Styles.base_margin_size_double / 10),
+                            decoration: BoxDecoration(
+                                color: Colours.workoutCardForegroundColor,
+                                borderRadius: BorderRadius.circular(4)),
+                            child: Text(
+                              getDayOfWeekOnString(workout),
+                              style: Styles.workout_text_style_week_day,
+                            ),
+                          ),
+                          SizedBox(
+                            width: 10,
+                          ),
+                          IconButton(
+                            onPressed: () =>
+                                editCurrentWorkout(context, exercises),
+                            color: Colours.workoutCardForegroundColor,
+                            icon: Icon(
+                              Icons.mode_sharp,
+                              size: 25,
+                            ),
+                          ),
+                          IconButton(
+                            onPressed: () => removeCurrentWorkout(context),
+                            color: Colours.workoutCardForegroundColor,
+                            icon: Icon(
+                              Icons.delete,
+                              size: 25,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Text(
+                        truncateText(workout.title!, 10),
+                        style: Styles.workout_text_style,
+                      ),
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Text(
+                        truncateText(getMusclesGroupOnString(), 20),
+                        style: Styles.workout_text_style2,
+                      ),
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      NewWorkoutButton(
+                          () => runCurrentWorkout(context, exercises),
+                          Size(MediaQuery.sizeOf(context).width / 5,
+                              MediaQuery.sizeOf(context).width / 10)),
+                    ],
+                  )
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );
   }
 
+  void editCurrentWorkout(
+      BuildContext context, List<ExerciseEntity> exercises) {
+    Navigator.of(context).pushNamed("/workouts_menu/create_workout/",
+        arguments: [context, exercises, true]);
+  }
+
+  void removeCurrentWorkout(BuildContext context) {
+    fakeWorkoutsDatabase.fakeWorkoutEntities.remove(workout);
+    context.read<WorkoutsMenuBloc>().add(AddWorkoutEvent(fakeWorkoutsDatabase));
+  }
+
+  void runCurrentWorkout(
+    BuildContext context,
+    List<ExerciseEntity> exercises,
+  ) {
+    Navigator.of(context)
+        .pushNamed("workouts_menu/run_workout/", arguments: exercises);
+  }
+
   String getMusclesGroupOnString() {
     List<String> groups = [];
 
-    if (workout.abs) groups.add("${Strings.abs}");
-    if (workout.forearms) groups.add("${Strings.forearms}");
-    if (workout.biceps) groups.add("${Strings.biceps}");
-    if (workout.back) groups.add("${Strings.back}");
-    if (workout.chest) groups.add("${Strings.chest}");
-    if (workout.triceps) groups.add("${Strings.triceps}");
-    if (workout.shoulders) groups.add("${Strings.shoulders}");
-    if (workout.cardio) groups.add("${Strings.cardio}");
-    if (workout.legs) groups.add("${Strings.legs}");
+    if (workout.abs) groups.add(Strings.abs);
+    if (workout.forearms) groups.add(Strings.forearms);
+    if (workout.biceps) groups.add(Strings.biceps);
+    if (workout.back) groups.add(Strings.back);
+    if (workout.chest) groups.add(Strings.chest);
+    if (workout.triceps) groups.add(Strings.triceps);
+    if (workout.shoulders) groups.add(Strings.shoulders);
+    if (workout.cardio) groups.add(Strings.cardio);
+    if (workout.legs) groups.add(Strings.legs);
 
     return groups.toString().substring(1, groups.toString().length - 1);
   }
 
-  String getDayOfWeekOnString() {
-    if (workout.mon) {
-      return Strings.monday;
-    } else if (workout.tue) {
-      return Strings.tuesday;
-    } else if (workout.wen) {
-      return Strings.wednesday;
-    } else if (workout.thur) {
-      return Strings.thursday;
-    } else if (workout.fri) {
-      return Strings.friday;
-    } else if (workout.sun) {
-      return Strings.sunday;
-    } else if (workout.sat) {
-      return Strings.saturday;
+  String truncateText(String text, int maxLength) {
+    if (text.length <= maxLength) {
+      return text;
     } else {
-      return Strings.empty;
+      return '${text.substring(0, maxLength)}...';
     }
+  }
+}
+
+String getDayOfWeekOnString(WorkoutEntity workout) {
+  if (workout.weekday == 1) {
+    return Strings.mon;
+  } else if (workout.weekday == 2) {
+    return Strings.tue;
+  } else if (workout.weekday == 3) {
+    return Strings.wed;
+  } else if (workout.weekday == 4) {
+    return Strings.thur;
+  } else if (workout.weekday == 5) {
+    return Strings.fri;
+  } else if (workout.weekday == 6) {
+    return Strings.sat;
+  } else if (workout.weekday == 7) {
+    return Strings.sun;
+  } else {
+    return Strings.empty;
   }
 }

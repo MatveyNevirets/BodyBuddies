@@ -1,4 +1,4 @@
-// ignore_for_file: constant_identifier_names
+// ignore_for_file: constant_identifier_names, non_constant_identifier_names
 
 abstract class Strings {
   static const navigator_exception =
@@ -20,9 +20,12 @@ abstract class Strings {
   static const intro_login_enter_password_text = "Введите ваш пароль";
 
   static const button_login_text = "Войти";
-  static const button_done_text = "Готово";
+  static const done = "Готово";
 
   static const registration_text = "Зарегестрироваться";
+
+  static const not_full_field_error =
+      "Пожалуйста, заполните все необходимые поля, чтобы продолжить";
 
   static const intro_login_mini_info_text =
       "Внимание! Ваши аккаунты могут быть утеряны!\nВ связи с тем, что это приложение находиться в разработке, ваши аккаунты из-за различных манипуляций могут быть утеряны.\nТем не менее, будет сделано всё, чтобы их сохранить.";
@@ -53,12 +56,14 @@ abstract class Strings {
   static var chats_appbar_string = "Чаты";
 
   static var workouts_appbar = "Тренировки";
+  static var creating_appbar = "Создание";
 
-  static var profile_string =  "Профиль";
+  static var profile_string = "Профиль";
 
   static const String your_programs_string = "Твои программы";
 
   static const String start = "Начнём!";
+  static const String start2 = "Начать";
 
   static String diet = "Питание";
   static String useful = "Полезное";
@@ -88,15 +93,61 @@ abstract class Strings {
 
   static String empty = "Нет данных";
 
+  static String mon = "Пн.";
+  static String tue = "Вт.";
+  static String wed = "Ср.";
+  static String thur = "Чт.";
+  static String fri = "Пт.";
+  static String sat = "Сб.";
+  static String sun = "Вс.";
+
   static String monday = "Понедельник";
   static String tuesday = "Вторник";
   static String wednesday = "Среда";
   static String thursday = "Четверг";
   static String friday = "Пятница";
-  static String sunday = "Суббота";
-  static String saturday = "Воскресенье";
+  static String saturday = "Суббота";
+  static String sunday = "Воскресенье";
 
-  
+  static String selectWeekday = "Выберите день недели";
+
+  static var title = "Название";
+
+  static String day = "День";
+
+  static var change_exercise = "Выбор";
+
+  static var weight = "Вес";
+  static var reps = "Повторения";
+  static var sets = "Подходы";
+
+  static var search = "Поиск";
+
+  static var add_yourself = "Добавить свое";
+
+  static var error = "ОШИБКА";
+
+  static var skip = "Пропустить";
+
+  static var seconds = "Секунды";
+
+  static var minutes = "Минуты";
+
+  static String not_correct_data = "Введите данные в корректном формате";
+
+  static String rest_of_sets = "Отдых между подходами";
+
+  static var filling = "Заполнение";
+
+  static String completedSuccessful = "Тренировка успешно завершена!";
+
+  static String time_of_timer_exercise = "Длительность подхода";
+
+  static String add_timer_exercise_parameters = "Подходы и отягощение";
+
+  static String exercise = "Упражнение";
+
+  static var journal = "Журнал";
 
 ///////////////////////////////
 }
