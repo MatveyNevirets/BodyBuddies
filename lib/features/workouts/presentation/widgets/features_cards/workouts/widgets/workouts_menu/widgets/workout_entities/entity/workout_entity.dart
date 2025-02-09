@@ -6,7 +6,7 @@ class WorkoutEntity {
 
   bool chest, back, legs, biceps, triceps, forearms, shoulders, abs, cardio;
 
-  String dateWhenTodo;
+  String dateWhenTodo, allWorkoutLength;
 
   List<ExerciseEntity> exercises = [];
 
@@ -14,6 +14,7 @@ class WorkoutEntity {
     required this.title,
     required this.exercises,
     this.dateWhenTodo = "",
+    this.allWorkoutLength = "",
     this.weekday = -1,
     this.abs = false,
     this.shoulders = false,

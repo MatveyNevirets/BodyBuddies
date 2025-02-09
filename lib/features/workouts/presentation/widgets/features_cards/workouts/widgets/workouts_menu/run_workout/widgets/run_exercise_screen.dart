@@ -1,8 +1,8 @@
 import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/run_workout/bloc/run_workout_bloc.dart';
 import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/run_workout/presentation/run_workout_screen.dart';
-import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/run_workout/widgets/workout_timer/reverse_ticker.dart';
 import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/run_workout/widgets/workout_timer/workout_ticker.dart';
 import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/widgets/workout_entities/entity/exercise_entity.dart';
+import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/widgets/workout_entities/entity/workout_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -12,6 +12,7 @@ import '../../../../../../../../../../core/widgets/base_button.dart';
 
 class RunExerciseScreen extends StatelessWidget {
   ExerciseEntity exercise;
+  WorkoutEntity journalWorkout;
   WorkoutTicker ticker;
 
   RunWorkoutState state;
@@ -19,10 +20,17 @@ class RunExerciseScreen extends StatelessWidget {
   int workoutTimerDuration;
 
   RunExerciseScreen(this.exercise, this.ticker, this.workoutTimerDuration,
-      this.state);
+      this.state, this.journalWorkout,
+      {super.key});
+
+  var repsController = TextEditingController();
+  var weightController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
+    repsController.text = exercise.reps.toString();
+    weightController.text = exercise.kilograms.toString();
+
     return Container(
       margin: const EdgeInsets.only(left: 16, right: 16, bottom: 32, top: 64),
       child: Card(
@@ -47,8 +55,8 @@ class RunExerciseScreen extends StatelessWidget {
                 height: 16,
               ),
               BaseButton(
-                  onClick: () =>
-                      nextOnExercisesList(context, workoutTimerDuration),
+                  onClick: () => nextOnExercisesList(
+                      context, workoutTimerDuration, journalWorkout),
                   buttonText: Strings.done,
                   icon: null,
                   isElevated: true),
@@ -122,6 +130,7 @@ class RunExerciseScreen extends StatelessWidget {
                   children: [
                     const Text("Kg"),
                     TextField(
+                      controller: weightController,
                       keyboardType: TextInputType.number,
                       decoration: InputDecoration(
                           hintText: exercise.kilograms.toString()),
@@ -137,6 +146,7 @@ class RunExerciseScreen extends StatelessWidget {
                   children: [
                     const Text("Reps"),
                     TextField(
+                      controller: repsController,
                       keyboardType: TextInputType.number,
                       decoration:
                           InputDecoration(hintText: exercise.reps.toString()),
@@ -151,14 +161,27 @@ class RunExerciseScreen extends StatelessWidget {
     );
   }
 
-  void nextOnExercisesList(BuildContext context, int duration) {
+  void nextOnExercisesList(
+      BuildContext context, int duration, WorkoutEntity journalWorkout) {
+    ExerciseEntity exerciseEntity = ExerciseEntity(
+        title: exercise.title,
+        sets: exercise.sets,
+        reps: int.parse(repsController.text),
+        kilograms: double.parse(weightController.text));
+
+    if (journalWorkout.exercises.isEmpty) {
+      journalWorkout.exercises.add(exerciseEntity);
+    }
+
     if (state.exercises.last == exercise &&
         state.exercises.last.currentSets == exercise.sets) {
       context
           .read<RunWorkoutBloc>()
           .add(WorkoutCompleteEvent(workoutTimerDuration));
     } else {
-      context.read<RunWorkoutBloc>().add(ExerciseRestEvent(workoutTimerDuration));
+      context
+          .read<RunWorkoutBloc>()
+          .add(ExerciseRestEvent(workoutTimerDuration));
     }
   }
 }

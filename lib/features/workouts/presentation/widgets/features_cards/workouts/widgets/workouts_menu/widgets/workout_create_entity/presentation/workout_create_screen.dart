@@ -196,8 +196,9 @@ class _DialogWorkoutCreateScreenState extends State<DialogWorkoutCreateScreen> {
 
     int workoutIndex = 0;
 
-    if (ListEquality().equals(modalRouteData[1], widget._exercises)) {
-    } else if (!ListEquality().equals(modalRouteData[1], widget._exercises) &&
+    if (const ListEquality().equals(modalRouteData[1], widget._exercises)) {
+    } else if (!const ListEquality()
+            .equals(modalRouteData[1], widget._exercises) &&
         widget._exercises.isEmpty) {
       widget._exercises = modalRouteData[1];
     }
@@ -205,10 +206,9 @@ class _DialogWorkoutCreateScreenState extends State<DialogWorkoutCreateScreen> {
     if (widget.isEditWorkout) {
       int getIndexIfEdit() {
         for (int i = 0; i < widget.fakeDB.fakeWorkoutEntities.length; i++) {
-          if (ListEquality().equals(
+          if (const ListEquality().equals(
               widget.fakeDB.fakeWorkoutEntities[i].exercises,
               widget._exercises)) {
-            print(i);
             return i;
           }
         }

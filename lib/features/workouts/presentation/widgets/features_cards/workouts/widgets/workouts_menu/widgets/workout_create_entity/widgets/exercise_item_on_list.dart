@@ -14,8 +14,9 @@ class ExerciseItemOnList extends StatelessWidget {
 
   final VoidCallback onRemoveItem;
 
-  ExerciseItemOnList(this.context, this.screenSize, this.index, this.exercises,
-      {required this.onRemoveItem});
+  const ExerciseItemOnList(
+      this.context, this.screenSize, this.index, this.exercises,
+      {super.key, required this.onRemoveItem});
 
   @override
   Widget build(BuildContext context) {
@@ -313,7 +314,7 @@ class ExerciseItemOnList extends StatelessWidget {
             color: Colours.workoutCardForegroundColor,
           ),
         ),
-        SizedBox(
+        const SizedBox(
           width: 5,
         ),
       ],

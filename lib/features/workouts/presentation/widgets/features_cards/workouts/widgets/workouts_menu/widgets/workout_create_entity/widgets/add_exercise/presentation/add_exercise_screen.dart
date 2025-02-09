@@ -31,7 +31,6 @@ class _AddExerciseScreenState extends State<AddExerciseScreen> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     searchExercises();
     searchTextFieldController.addListener(searchExercises);

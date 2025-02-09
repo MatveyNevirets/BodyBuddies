@@ -14,9 +14,9 @@ class TimerExerciseItemOnList extends StatelessWidget {
 
   final VoidCallback onRemoveItem;
 
-  TimerExerciseItemOnList(
+  const TimerExerciseItemOnList(
       this.context, this.screenSize, this.index, this.exercises,
-      {required this.onRemoveItem});
+      {super.key, required this.onRemoveItem});
 
   @override
   Widget build(BuildContext context) {
@@ -40,8 +40,7 @@ class TimerExerciseItemOnList extends StatelessWidget {
               const SizedBox(
                 height: 12,
               ),
-              buildExerciseParameters(
-                  context, screenSize, exercises, index),
+              buildExerciseParameters(context, screenSize, exercises, index),
               const SizedBox(
                 height: 12,
               ),
@@ -398,7 +397,7 @@ class TimerExerciseItemOnList extends StatelessWidget {
             color: Colours.workoutCardForegroundColor,
           ),
         ),
-        SizedBox(
+        const SizedBox(
           width: 5,
         ),
       ],

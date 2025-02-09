@@ -98,11 +98,14 @@ class BodyBuddiesApp extends StatelessWidget {
                   ),
                 ),
         "/workouts_menu/workouts_journal/": (context) => BlocProvider(
-            create: (BuildContext context) => WorkoutsJournalCubit(fakeWorkoutsDatabase),
-            child: WorkoutsJournalScreen()),
+            create: (BuildContext context) =>
+                WorkoutsJournalCubit(fakeWorkoutsDatabase),
+            child: const WorkoutsJournalScreen()),
         "workouts_menu/current_workout/": (context) =>
             const WorkoutEntityScreen(),
-        "workouts_menu/run_workout/": (context) => const RunWorkoutScreen(),
+        "workouts_menu/run_workout/": (context) => RunWorkoutScreen(
+              fakeWorkoutsDatabase: fakeWorkoutsDatabase,
+            ),
       },
       initialRoute: "/",
     );

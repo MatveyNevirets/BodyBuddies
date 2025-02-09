@@ -20,7 +20,8 @@ class RunTimerExercise extends StatelessWidget {
   int workoutTimerDuration;
 
   RunTimerExercise(
-      this.exercise, this.ticker, this.workoutTimerDuration, this.state);
+      this.exercise, this.ticker, this.workoutTimerDuration, this.state,
+      {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -52,8 +53,7 @@ class RunTimerExercise extends StatelessWidget {
                 height: 16,
               ),
               BaseButton(
-                  onClick: () =>
-                      nextOnExercisesList(context),
+                  onClick: () => nextOnExercisesList(context),
                   buttonText: Strings.done,
                   icon: null,
                   isElevated: true),
@@ -75,7 +75,6 @@ class RunTimerExercise extends StatelessWidget {
           StreamBuilder(
             stream: reverseTicker.reverseTick(duration),
             builder: (context, snapshot) {
-              print(snapshot.data);
               if (snapshot.hasData) {
                 if (snapshot.data! > 0) {
                   return Text(getTime(snapshot.data!));
@@ -179,7 +178,9 @@ class RunTimerExercise extends StatelessWidget {
           .read<RunWorkoutBloc>()
           .add(WorkoutCompleteEvent(workoutTimerDuration));
     } else {
-      context.read<RunWorkoutBloc>().add(ExerciseRestEvent(workoutTimerDuration));
+      context
+          .read<RunWorkoutBloc>()
+          .add(ExerciseRestEvent(workoutTimerDuration));
     }
   }
 }

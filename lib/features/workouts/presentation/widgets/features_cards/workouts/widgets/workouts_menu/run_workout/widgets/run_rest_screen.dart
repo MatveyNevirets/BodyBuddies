@@ -17,7 +17,8 @@ class RestScreen extends StatelessWidget {
   ReverseTicker reverseTicker = ReverseTicker();
   int workoutTimerDuration;
 
-  RestScreen(this.ticker, this.workoutTimerDuration, this.exercise);
+  RestScreen(this.ticker, this.workoutTimerDuration, this.exercise,
+      {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -85,11 +86,11 @@ class RestScreen extends StatelessWidget {
       color: Colours.workoutCardForegroundColor,
       child: Column(
         children: [
-          Text("Отдых"),
+          const Text("Отдых"),
           StreamBuilder(
             stream: reverseTicker.reverseTick(duration),
             builder: (context, snapshot) {
-              print(snapshot.data);
+  
               if (snapshot.hasData) {
                 if (snapshot.data! > 0) {
                   return Text(getTime(snapshot.data!));

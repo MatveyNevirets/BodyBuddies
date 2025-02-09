@@ -1,31 +1,34 @@
-import 'dart:async';
-
 import 'package:body_buddies/core/widgets/base_snackbar.dart';
+import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/domain/fake_workouts_database.dart';
 import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/run_workout/bloc/run_workout_bloc.dart';
 import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/run_workout/widgets/run_exercise_screen.dart';
 import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/run_workout/widgets/run_timer_exercise_screen.dart';
-import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/run_workout/widgets/workout_timer/reverse_ticker.dart';
 import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/run_workout/widgets/workout_timer/workout_ticker.dart';
+import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/widgets/workout_entities/entity/workout_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../../../../../../core/strings/strings.dart';
-import '../../widgets/workout_entities/entity/exercise_entity.dart';
 import '../widgets/run_rest_screen.dart';
 
 class RunWorkoutScreen extends StatelessWidget {
-  const RunWorkoutScreen({super.key});
+  FakeWorkoutsDatabase fakeWorkoutsDatabase;
+
+  RunWorkoutScreen({super.key, required this.fakeWorkoutsDatabase});
 
   @override
   Widget build(BuildContext context) {
-    List<ExerciseEntity> exercises =
-        ModalRoute.of(context)!.settings.arguments as List<ExerciseEntity>;
+    WorkoutEntity workout =
+        ModalRoute.of(context)!.settings.arguments as WorkoutEntity;
 
     WorkoutTicker ticker = WorkoutTicker();
 
+    WorkoutEntity workoutToJournal =
+        WorkoutEntity(title: workout.title, exercises: []);
+
     return BlocProvider(
       create: (BuildContext blocContext) {
-        final bloc = RunWorkoutBloc(exercises, 0);
+        final bloc = RunWorkoutBloc(workout.exercises, 0);
         bloc.exercises[bloc.state.currentExercise].currentSets = 1;
         return bloc;
       },
@@ -33,7 +36,7 @@ class RunWorkoutScreen extends StatelessWidget {
         body: BlocConsumer<RunWorkoutBloc, RunWorkoutState>(
           listener: (context, state) {
             if (state is CompleteWorkout) {
-              completeWorkout(context);
+              completeWorkout(context, workoutToJournal, state.duration);
             }
           },
           builder: (context, state) {
@@ -45,7 +48,8 @@ class RunWorkoutScreen extends StatelessWidget {
                       state.exercises[state.currentExercise],
                       ticker,
                       state.duration,
-                      state);
+                      state,
+                      workoutToJournal);
                 } else if (state
                     .exercises[state.currentExercise].isTimerExercise) {
                   return RunTimerExercise(
@@ -66,7 +70,18 @@ class RunWorkoutScreen extends StatelessWidget {
     );
   }
 
-  void completeWorkout(BuildContext context) {
+  void completeWorkout(
+      BuildContext context, WorkoutEntity workout, int duration) {
+    WorkoutEntity newWorkoutEntity = WorkoutEntity(
+        title: workout.title, exercises: List.from(workout.exercises));
+
+    DateTime currentData = DateTime.now();
+    String dataInFormat =
+        "${currentData.day.toString().padLeft(2, "0")}.${currentData.month.toString().padLeft(2, "0")}.${currentData.year}";
+
+    newWorkoutEntity.allWorkoutLength = getTime(duration);
+    newWorkoutEntity.dateWhenTodo = dataInFormat;
+    fakeWorkoutsDatabase.journalSavedWorkouts.add(newWorkoutEntity);
     showSnackBar(context, Strings.completedSuccessful);
     Navigator.of(context).pop();
   }

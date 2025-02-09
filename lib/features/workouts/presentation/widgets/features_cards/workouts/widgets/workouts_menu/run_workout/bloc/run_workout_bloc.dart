@@ -1,12 +1,9 @@
-import 'dart:async';
-
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
 
 import '../../widgets/workout_entities/entity/exercise_entity.dart';
-import '../widgets/workout_timer/workout_ticker.dart';
 
 part 'run_workout_event.dart';
 
@@ -43,7 +40,7 @@ class RunWorkoutBloc extends Bloc<RunWorkoutEvent, RunWorkoutState> {
     emit(CompleteWorkout(
         exercises: exercises,
         currentExercise: currentExercise,
-        duration: workoutTimerDuration));
+        duration: event.workoutTimerDuration));
   }
 
   onWorkoutRested(ExerciseRestEvent event, Emitter<RunWorkoutState> emit) {

@@ -3,6 +3,7 @@
 import 'package:body_buddies/core/styles/styles.dart';
 import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/bloc/workouts_menu_bloc.dart';
 import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/domain/fake_workouts_database.dart';
+import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/widgets/workout_create_entity/presentation/workout_create_screen.dart';
 import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/widgets/workout_entities/entity/exercise_entity.dart';
 import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/widgets/workout_entities/entity/workout_entity.dart';
 import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/widgets/workout_entities/entity/new_workout_button.dart';
@@ -25,11 +26,9 @@ class WorkoutCardOnList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<ExerciseEntity> exercises = workout.exercises;
-
     openWorkout() {
       Navigator.of(context)
-          .pushNamed("workouts_menu/current_workout/", arguments: exercises);
+          .pushNamed("workouts_menu/current_workout/", arguments: workout);
     }
 
     return GestureDetector(
@@ -44,7 +43,7 @@ class WorkoutCardOnList extends StatelessWidget {
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              SizedBox(
+              const SizedBox(
                 width: 5,
               ),
               Image(
@@ -76,14 +75,14 @@ class WorkoutCardOnList extends StatelessWidget {
                               style: Styles.workout_text_style_week_day,
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             width: 10,
                           ),
                           IconButton(
                             onPressed: () =>
-                                editCurrentWorkout(context, exercises),
+                                editCurrentWorkout(context, workout.exercises),
                             color: Colours.workoutCardForegroundColor,
-                            icon: Icon(
+                            icon: const Icon(
                               Icons.mode_sharp,
                               size: 25,
                             ),
@@ -91,7 +90,7 @@ class WorkoutCardOnList extends StatelessWidget {
                           IconButton(
                             onPressed: () => removeCurrentWorkout(context),
                             color: Colours.workoutCardForegroundColor,
-                            icon: Icon(
+                            icon: const Icon(
                               Icons.delete,
                               size: 25,
                             ),
@@ -122,7 +121,7 @@ class WorkoutCardOnList extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       NewWorkoutButton(
-                          () => runCurrentWorkout(context, exercises),
+                          () => runCurrentWorkout(context),
                           Size(MediaQuery.sizeOf(context).width / 5,
                               MediaQuery.sizeOf(context).width / 10)),
                     ],
@@ -149,10 +148,9 @@ class WorkoutCardOnList extends StatelessWidget {
 
   void runCurrentWorkout(
     BuildContext context,
-    List<ExerciseEntity> exercises,
   ) {
     Navigator.of(context)
-        .pushNamed("workouts_menu/run_workout/", arguments: exercises);
+        .pushNamed("workouts_menu/run_workout/", arguments: workout);
   }
 
   String getMusclesGroupOnString() {
@@ -169,14 +167,6 @@ class WorkoutCardOnList extends StatelessWidget {
     if (workout.legs) groups.add(Strings.legs);
 
     return groups.toString().substring(1, groups.toString().length - 1);
-  }
-
-  String truncateText(String text, int maxLength) {
-    if (text.length <= maxLength) {
-      return text;
-    } else {
-      return '${text.substring(0, maxLength)}...';
-    }
   }
 }
 

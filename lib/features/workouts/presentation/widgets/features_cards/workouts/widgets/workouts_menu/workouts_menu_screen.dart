@@ -43,9 +43,12 @@ class WorkoutsMenuScreen extends StatelessWidget {
             child: FloatingActionButton(
               elevation: 3,
               onPressed: () => createWorkout(),
-              child: Icon(Icons.add, size: 30,),
               backgroundColor: Colours.workoutCardForegroundColor,
               foregroundColor: Colours.workout_card_background_color,
+              child: const Icon(
+                Icons.add,
+                size: 30,
+              ),
             ),
           ),
           body: Container(

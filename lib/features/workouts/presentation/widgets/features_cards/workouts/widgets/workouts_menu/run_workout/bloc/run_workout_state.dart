@@ -15,7 +15,6 @@ sealed class RunWorkoutState extends Equatable {
   });
 
   @override
-  // TODO: implement props
   List<Object?> get props => [exercises, currentExercise];
 }
 

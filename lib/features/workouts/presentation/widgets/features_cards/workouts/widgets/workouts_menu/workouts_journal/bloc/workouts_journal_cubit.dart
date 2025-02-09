@@ -12,5 +12,15 @@ class WorkoutsJournalCubit extends Cubit<List<WorkoutEntity>> {
   WorkoutsJournalCubit(this.fakeWorkoutsDatabase)
       : super(fakeWorkoutsDatabase.journalSavedWorkouts);
 
+  void addSavedWorkout(WorkoutEntity savedWorkout) {
+    final List<WorkoutEntity> updatedList = List.from(state)..add(savedWorkout);
+    fakeWorkoutsDatabase.journalSavedWorkouts = updatedList;
+    emit(updatedList);
+  }
 
+  void removeSavedWorkout(int index) {
+    final List<WorkoutEntity> updatedList = List.from(state)..removeAt(index);
+    fakeWorkoutsDatabase.journalSavedWorkouts = updatedList;
+    emit(updatedList);
+  }
 }
