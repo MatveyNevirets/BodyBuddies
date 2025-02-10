@@ -1,5 +1,6 @@
 import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/run_workout/widgets/workout_timer/reverse_ticker.dart';
 import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/run_workout/widgets/workout_timer/workout_ticker.dart';
+import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/widgets/workout_entities/entity/workout_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -15,13 +16,17 @@ class RunTimerExercise extends StatelessWidget {
   WorkoutTicker ticker;
   ReverseTicker reverseTicker = ReverseTicker();
 
+  WorkoutEntity journalWorkout;
+  TextEditingController weightController;
+
   RunWorkoutState state;
 
   int workoutTimerDuration;
 
-  RunTimerExercise(
-      this.exercise, this.ticker, this.workoutTimerDuration, this.state,
-      {super.key});
+  RunTimerExercise(this.exercise, this.ticker, this.workoutTimerDuration,
+      this.state, this.journalWorkout, {super.key})
+      : weightController =
+            TextEditingController(text: exercise.kilograms.toString());
 
   @override
   Widget build(BuildContext context) {
@@ -157,6 +162,7 @@ class RunTimerExercise extends StatelessWidget {
                   children: [
                     const Text("Kg"),
                     TextField(
+                      controller: weightController,
                       keyboardType: TextInputType.number,
                       decoration: InputDecoration(
                           hintText: exercise.kilograms.toString()),
@@ -172,6 +178,19 @@ class RunTimerExercise extends StatelessWidget {
   }
 
   void nextOnExercisesList(BuildContext context) {
+    ExerciseEntity exerciseEntity = ExerciseEntity(
+        title: exercise.title,
+        sets: exercise.sets,
+        kilograms: double.parse(weightController.text),
+        isExercise: exercise.isExercise,
+        isTimerExercise: exercise.isTimerExercise,
+        restTimeInMinutes: exercise.restTimeInMinutes,
+        restTimeInSeconds: exercise.restTimeInSeconds,
+        timerTimeMinutes: exercise.timerTimeMinutes,
+        timerTimeSeconds: exercise.timerTimeSeconds);
+
+    journalWorkout.exercises.add(exerciseEntity);
+
     if (state.exercises.last == exercise &&
         state.exercises.last.currentSets == exercise.sets) {
       context

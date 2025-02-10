@@ -56,7 +56,8 @@ class RunWorkoutScreen extends StatelessWidget {
                       state.exercises[state.currentExercise],
                       ticker,
                       state.duration,
-                      state);
+                      state,
+                      workoutToJournal);
                 }
               } else if (state is RestWorkoutProcess) {
                 return RestScreen(ticker, state.duration,

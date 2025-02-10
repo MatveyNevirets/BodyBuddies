@@ -167,11 +167,15 @@ class RunExerciseScreen extends StatelessWidget {
         title: exercise.title,
         sets: exercise.sets,
         reps: int.parse(repsController.text),
-        kilograms: double.parse(weightController.text));
+        kilograms: double.parse(weightController.text),
+        isExercise: exercise.isExercise,
+        isTimerExercise: exercise.isTimerExercise,
+        restTimeInMinutes: exercise.restTimeInMinutes,
+        restTimeInSeconds: exercise.restTimeInSeconds,
+        timerTimeMinutes: exercise.timerTimeMinutes,
+        timerTimeSeconds: exercise.timerTimeSeconds);
 
-    if (journalWorkout.exercises.isEmpty) {
-      journalWorkout.exercises.add(exerciseEntity);
-    }
+    journalWorkout.exercises.add(exerciseEntity);
 
     if (state.exercises.last == exercise &&
         state.exercises.last.currentSets == exercise.sets) {

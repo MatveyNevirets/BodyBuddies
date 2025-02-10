@@ -130,7 +130,71 @@ class FakeWorkoutsDatabase {
         ],
         weekday: 2,
         legs: true,
-        cardio: true)
+        cardio: true),
+    WorkoutEntity(
+      title: "Ношке наказание",
+      weekday: 1,
+      legs: true,
+      shoulders: true,
+      exercises: [
+        ExerciseEntity(
+            isExercise: true,
+            title: "Икры штанга",
+            kilograms: 70,
+            restTimeInMinutes: 3,
+            restTimeInSeconds: 0,
+            sets: 4,
+            reps: 20),
+        ExerciseEntity(
+            isExercise: true,
+            title: "Жим лёжа",
+            kilograms: 75,
+            sets: 4,
+            reps: 10,
+            restTimeInSeconds: 0,
+            restTimeInMinutes: 3),
+        ExerciseEntity(
+            isExercise: true,
+            title: "Квадры в тренажёре",
+            kilograms: 85,
+            sets: 4,
+            reps: 15,
+            restTimeInMinutes: 3,
+            restTimeInSeconds: 0),
+        ExerciseEntity(
+            isExercise: true,
+            title: "Бицепс бедра",
+            kilograms: 35,
+            reps: 12,
+            sets: 4,
+            restTimeInMinutes: 3,
+            restTimeInSeconds: 0),
+        ExerciseEntity(
+            isExercise: true,
+            title: "Приседания",
+            kilograms: 65,
+            reps: 12,
+            sets: 4,
+            restTimeInMinutes: 3,
+            restTimeInSeconds: 0),
+        ExerciseEntity(
+            isExercise: true,
+            title: "Армейский жим",
+            kilograms: 42.5,
+            reps: 12,
+            sets: 4,
+            restTimeInMinutes: 2,
+            restTimeInSeconds: 0),
+        ExerciseEntity(
+            isExercise: true,
+            title: "Махи гантелями",
+            kilograms: 25,
+            reps: 20,
+            sets: 4,
+            restTimeInMinutes: 2,
+            restTimeInSeconds: 0),
+      ],
+    ),
   ];
 
   List<WorkoutEntity> journalSavedWorkouts = [
