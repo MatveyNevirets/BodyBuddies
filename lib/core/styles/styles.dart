@@ -132,6 +132,11 @@ abstract class Styles {
   static var workout_text_style2 = const TextStyle(
       fontFamily: 'AqumTwo', fontSize: 12, color: Colours.white_text_color);
 
+  static var mini_hint_background = const TextStyle(
+      fontFamily: 'AqumTwo',
+      fontSize: 16,
+      color: Colours.workout_card_background_color);
+
   static double nutrition_button_elevate = 20;
 
   static var workouts_button_text_style = TextStyle(

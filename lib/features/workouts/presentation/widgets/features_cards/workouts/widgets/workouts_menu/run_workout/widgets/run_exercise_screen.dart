@@ -1,3 +1,4 @@
+import 'package:body_buddies/core/styles/styles.dart';
 import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/run_workout/bloc/run_workout_bloc.dart';
 import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/run_workout/presentation/run_workout_screen.dart';
 import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/run_workout/widgets/workout_timer/workout_ticker.dart';
@@ -32,34 +33,70 @@ class RunExerciseScreen extends StatelessWidget {
     weightController.text = exercise.kilograms.toString();
 
     return Container(
-      margin: const EdgeInsets.only(left: 16, right: 16, bottom: 32, top: 64),
+      margin: const EdgeInsets.only(left: 8, right: 8, bottom: 32, top: 64),
       child: Card(
         color: Colours.workout_card_background_color,
         elevation: 4,
-        child: Container(
-          padding: const EdgeInsets.all(16),
-          height: double.maxFinite,
-          width: double.maxFinite,
+        child: Padding(
+          padding: const EdgeInsets.all(8),
+          child: Card(
+            color: Colours.workoutCardForegroundColor,
+            child: Container(
+              padding: const EdgeInsets.all(16),
+              height: double.maxFinite,
+              width: double.maxFinite,
+              child: Wrap(
+                children: [
+                  Column(
+                    children: [
+                      buildTimeAndSetsWidget(exercise, ticker),
+                      const SizedBox(
+                        height: 16,
+                      ),
+                      buildBodyWidgets(),
+                      const SizedBox(
+                        height: 16,
+                      ),
+                      BaseButton(
+                          onClick: () => nextOnExercisesList(
+                              context, workoutTimerDuration, journalWorkout),
+                          buttonText: Strings.done,
+                          icon: null,
+                          isElevated: true),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Card buildBodyWidgets() {
+    return Card(
+      color: Colours.workout_card_background_color,
+      child: Padding(
+        padding: const EdgeInsets.all(8),
+        child: Card(
+          color: Colours.workoutCardForegroundColor,
           child: Column(
             children: [
-              buildTimeAndSetsWidget(exercise, ticker),
+              Padding(
+                padding: const EdgeInsets.all(14),
+                child: buildWorkoutTitleWidget(exercise.title),
+              ),
               const SizedBox(
                 height: 16,
               ),
-              buildWorkoutTitleWidget(exercise.title),
+              Padding(
+                padding: const EdgeInsets.all(14),
+                child: buildInputFieldsWidget(exercise),
+              ),
               const SizedBox(
                 height: 16,
               ),
-              buildInputFieldsWidget(exercise),
-              const SizedBox(
-                height: 16,
-              ),
-              BaseButton(
-                  onClick: () => nextOnExercisesList(
-                      context, workoutTimerDuration, journalWorkout),
-                  buttonText: Strings.done,
-                  icon: null,
-                  isElevated: true),
             ],
           ),
         ),
@@ -67,48 +104,98 @@ class RunExerciseScreen extends StatelessWidget {
     );
   }
 
-  Container buildTimeAndSetsWidget(
-      ExerciseEntity exercise, WorkoutTicker ticker) {
-    return Container(
-      padding: const EdgeInsets.all(16),
-      color: Colours.workoutCardForegroundColor,
-      child: Row(
-        children: [
-          StreamBuilder(
-              stream: ticker.workoutTick(workoutTimerDuration),
-              builder: (context, snapshot) {
-                if (snapshot.hasData) {
-                  workoutTimerDuration = snapshot.data!;
-                  return Text(getTime(workoutTimerDuration));
-                } else if (snapshot.hasError) {
-                  throw Exception(
-                      "Run exercise Snapshot error: ${snapshot.error}");
-                }
-                return Text(getTime(workoutTimerDuration));
-              }),
-          const Expanded(child: SizedBox()),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.end,
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              Text(Strings.sets),
-              Text(
-                  "${exercise.currentSets.toString()}/${exercise.sets.toString()}"),
-            ],
+  Row buildTimeAndSetsWidget(ExerciseEntity exercise, WorkoutTicker ticker) {
+    return Row(
+      children: [
+        Card(
+          color: Colours.workout_card_background_color,
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              children: [
+                Text(
+                  Strings.time,
+                  style: Styles.add_exercise_text_style,
+                ),
+                Container(
+                  height: 40,
+                  width: 110,
+                  child: Card(
+                    elevation: 2,
+                    color: Colours.workoutCardForegroundColor,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 4, horizontal: 12),
+                      child: StreamBuilder(
+                          stream: ticker.workoutTick(workoutTimerDuration),
+                          builder: (context, snapshot) {
+                            if (snapshot.hasData) {
+                              workoutTimerDuration = snapshot.data!;
+                              return Text(
+                                getTime(workoutTimerDuration),
+                                style: Styles.hint_text_style_create_workout,
+                              );
+                            } else if (snapshot.hasError) {
+                              throw Exception(
+                                  "Run exercise Snapshot error: ${snapshot.error}");
+                            }
+                            return Text(
+                              getTime(workoutTimerDuration),
+                              style: Styles.hint_text_style_create_workout,
+                            );
+                          }),
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
-        ],
-      ),
+        ),
+        Expanded(child: SizedBox()),
+        Card(
+          color: Colours.workout_card_background_color,
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  Strings.sets,
+                  style: Styles.add_exercise_text_style,
+                ),
+                Card(
+                  color: Colours.workoutCardForegroundColor,
+                  child: Padding(
+                    padding:
+                        const EdgeInsets.symmetric(vertical: 4, horizontal: 32),
+                    child: Text(
+                      "${exercise.currentSets.toString()} | ${exercise.sets.toString()}",
+                      style: Styles.hint_text_style_create_workout,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ],
     );
   }
 
-  Container buildWorkoutTitleWidget(String title) {
-    return Container(
-      padding: const EdgeInsets.all(16),
-      color: Colours.workoutCardForegroundColor,
-      child: Column(
-        children: [
-          Text(title),
-        ],
+  Card buildWorkoutTitleWidget(String title) {
+    return Card(
+      color: Colours.workout_card_background_color,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+        child: Column(
+          children: [
+            Text(
+              title,
+              style: Styles.add_exercise_text_style,
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -122,20 +209,41 @@ class RunExerciseScreen extends StatelessWidget {
             maxHeight: 100,
           ),
           color: Colours.workoutCardForegroundColor,
-          padding: const EdgeInsets.all(16),
           child: Row(
             children: [
               Expanded(
-                child: Column(
-                  children: [
-                    const Text("Kg"),
-                    TextField(
-                      controller: weightController,
-                      keyboardType: TextInputType.number,
-                      decoration: InputDecoration(
-                          hintText: exercise.kilograms.toString()),
+                child: Card(
+                  color: Colours.workout_card_background_color,
+                  child: Padding(
+                    padding: const EdgeInsets.all(4),
+                    child: Column(
+                      children: [
+                        Text(
+                          Strings.weight,
+                          style: Styles.add_exercise_text_style,
+                        ),
+                        Card(
+                          color: Colours.workoutCardForegroundColor,
+                          child: Padding(
+                            padding: const EdgeInsets.all(1),
+                            child: TextField(
+                              style: Styles.mini_hint_background,
+                              textAlign: TextAlign.center,
+                              controller: weightController,
+                              keyboardType: TextInputType.number,
+                              decoration: InputDecoration(
+                                  focusedBorder: UnderlineInputBorder(
+                                      borderSide: BorderSide(
+                                    width: 0,
+                                  )),
+                                  hintText: exercise.kilograms.toString(),
+                                  hintStyle: Styles.mini_hint_background),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
-                  ],
+                  ),
                 ),
               ),
               const SizedBox(

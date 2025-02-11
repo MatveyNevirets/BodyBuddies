@@ -149,5 +149,7 @@ abstract class Strings {
 
   static var journal = "Журнал";
 
+  static String time = "Время";
+
 ///////////////////////////////
 }
