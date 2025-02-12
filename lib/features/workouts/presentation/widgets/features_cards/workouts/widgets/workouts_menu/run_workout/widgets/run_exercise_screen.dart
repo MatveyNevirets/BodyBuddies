@@ -25,13 +25,11 @@ class RunExerciseScreen extends StatelessWidget {
       {super.key});
 
   var repsController = TextEditingController();
+
   var weightController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    repsController.text = exercise.reps.toString();
-    weightController.text = exercise.kilograms.toString();
-
     return Container(
       margin: const EdgeInsets.only(left: 8, right: 8, bottom: 32, top: 64),
       child: Card(
@@ -55,14 +53,9 @@ class RunExerciseScreen extends StatelessWidget {
                       ),
                       buildBodyWidgets(),
                       const SizedBox(
-                        height: 16,
+                        height: 32,
                       ),
-                      BaseButton(
-                          onClick: () => nextOnExercisesList(
-                              context, workoutTimerDuration, journalWorkout),
-                          buttonText: Strings.done,
-                          icon: null,
-                          isElevated: true),
+                      buildDoneButton(context),
                     ],
                   ),
                 ],
@@ -74,30 +67,48 @@ class RunExerciseScreen extends StatelessWidget {
     );
   }
 
-  Card buildBodyWidgets() {
-    return Card(
-      color: Colours.workout_card_background_color,
-      child: Padding(
-        padding: const EdgeInsets.all(8),
-        child: Card(
-          color: Colours.workoutCardForegroundColor,
-          child: Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(14),
-                child: buildWorkoutTitleWidget(exercise.title),
-              ),
-              const SizedBox(
-                height: 16,
-              ),
-              Padding(
-                padding: const EdgeInsets.all(14),
-                child: buildInputFieldsWidget(exercise),
-              ),
-              const SizedBox(
-                height: 16,
-              ),
-            ],
+  BaseButton buildDoneButton(BuildContext context) {
+    return BaseButton(
+      onClick: () =>
+          nextOnExercisesList(context, workoutTimerDuration, journalWorkout),
+      buttonText: Strings.done,
+      icon: null,
+      isElevated: true,
+      backgroundColor: Colours.workout_card_background_color,
+      color: Colours.workoutCardForegroundColor,
+      radius: 8,
+      buttonSize:
+          Size(double.maxFinite, MediaQuery.sizeOf(context).height / 18),
+    );
+  }
+
+  Container buildBodyWidgets() {
+    return Container(
+      width: double.maxFinite,
+      child: Card(
+        color: Colours.workout_card_background_color,
+        child: Padding(
+          padding: const EdgeInsets.all(8),
+          child: Card(
+            color: Colours.workoutCardForegroundColor,
+            child: Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(14),
+                  child: buildWorkoutTitleWidget(exercise.title),
+                ),
+                Container(
+                  width: double.maxFinite,
+                  child: Padding(
+                    padding: const EdgeInsets.all(14),
+                    child: buildInputFieldsWidget(exercise),
+                  ),
+                ),
+                const SizedBox(
+                  height: 8,
+                ),
+              ],
+            ),
           ),
         ),
       ),
@@ -203,67 +214,83 @@ class RunExerciseScreen extends StatelessWidget {
   Wrap buildInputFieldsWidget(ExerciseEntity exercise) {
     return Wrap(
       children: [
-        Container(
-          constraints: const BoxConstraints(
-            maxWidth: 250,
-            maxHeight: 100,
-          ),
-          color: Colours.workoutCardForegroundColor,
-          child: Row(
-            children: [
-              Expanded(
-                child: Card(
-                  color: Colours.workout_card_background_color,
-                  child: Padding(
-                    padding: const EdgeInsets.all(4),
-                    child: Column(
-                      children: [
-                        Text(
-                          Strings.weight,
-                          style: Styles.add_exercise_text_style,
-                        ),
-                        Card(
-                          color: Colours.workoutCardForegroundColor,
-                          child: Padding(
-                            padding: const EdgeInsets.all(1),
-                            child: TextField(
-                              style: Styles.mini_hint_background,
-                              textAlign: TextAlign.center,
-                              controller: weightController,
-                              keyboardType: TextInputType.number,
-                              decoration: InputDecoration(
-                                  focusedBorder: UnderlineInputBorder(
-                                      borderSide: BorderSide(
-                                    width: 0,
-                                  )),
-                                  hintText: exercise.kilograms.toString(),
-                                  hintStyle: Styles.mini_hint_background),
-                            ),
+        Row(
+          children: [
+            Expanded(
+              child: Card(
+                color: Colours.workout_card_background_color,
+                child: Padding(
+                  padding: const EdgeInsets.all(4),
+                  child: Column(
+                    children: [
+                      Text(
+                        Strings.weight,
+                        style: Styles.add_exercise_text_style,
+                      ),
+                      Card(
+                        color: Colours.workoutCardForegroundColor,
+                        child: Padding(
+                          padding: const EdgeInsets.all(1),
+                          child: TextField(
+                            style: Styles.mini_hint_background,
+                            textAlign: TextAlign.center,
+                            cursorColor: Colours.workout_card_background_color,
+                            controller: weightController,
+                            keyboardType: TextInputType.number,
+                            decoration: InputDecoration(
+                                enabledBorder: InputBorder.none,
+                                focusedBorder: InputBorder.none,
+                                hintText: exercise.kilograms ==
+                                        exercise.kilograms.toInt()
+                                    ? exercise.kilograms.toInt().toString()
+                                    : exercise.kilograms.toString(),
+                                hintStyle: Styles.mini_hint_background),
                           ),
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                 ),
               ),
-              const SizedBox(
-                width: 30,
-              ),
-              Expanded(
-                child: Column(
-                  children: [
-                    const Text("Reps"),
-                    TextField(
-                      controller: repsController,
-                      keyboardType: TextInputType.number,
-                      decoration:
-                          InputDecoration(hintText: exercise.reps.toString()),
-                    ),
-                  ],
+            ),
+            const SizedBox(
+              width: 30,
+            ),
+            Expanded(
+              child: Card(
+                color: Colours.workout_card_background_color,
+                child: Padding(
+                  padding: const EdgeInsets.all(4),
+                  child: Column(
+                    children: [
+                      Text(
+                        Strings.rep,
+                        style: Styles.add_exercise_text_style,
+                      ),
+                      Card(
+                        color: Colours.workoutCardForegroundColor,
+                        child: Padding(
+                          padding: const EdgeInsets.all(1),
+                          child: TextField(
+                            style: Styles.mini_hint_background,
+                            textAlign: TextAlign.center,
+                            controller: repsController,
+                            cursorColor: Colours.workout_card_background_color,
+                            keyboardType: TextInputType.number,
+                            decoration: InputDecoration(
+                                enabledBorder: InputBorder.none,
+                                focusedBorder: InputBorder.none,
+                                hintText: exercise.reps.toString(),
+                                hintStyle: Styles.mini_hint_background),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ],
     );
@@ -271,11 +298,26 @@ class RunExerciseScreen extends StatelessWidget {
 
   void nextOnExercisesList(
       BuildContext context, int duration, WorkoutEntity journalWorkout) {
+    double weight;
+    int reps;
+
+    if (weightController.text.isEmpty) {
+      weight = exercise.kilograms;
+    } else {
+      weight = double.parse(weightController.text);
+    }
+
+    if (repsController.text.isEmpty) {
+      reps = exercise.reps;
+    } else {
+      reps = int.parse(repsController.text);
+    }
+
     ExerciseEntity exerciseEntity = ExerciseEntity(
         title: exercise.title,
         sets: exercise.sets,
-        reps: int.parse(repsController.text),
-        kilograms: double.parse(weightController.text),
+        reps: reps,
+        kilograms: weight,
         isExercise: exercise.isExercise,
         isTimerExercise: exercise.isTimerExercise,
         restTimeInMinutes: exercise.restTimeInMinutes,

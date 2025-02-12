@@ -77,7 +77,7 @@ class WorkoutFeatureCard extends StatelessWidget {
     BuildContext context,
   ) {
     Navigator.of(context)
-        .pushNamed("workouts_menu/run_workout/", arguments: getTodayExercises());
+        .pushNamed("workouts_menu/run_workout/", arguments: getTodayWorkout());
   }
 
   WorkoutEntity getTodayWorkout() {
@@ -90,20 +90,6 @@ class WorkoutFeatureCard extends StatelessWidget {
     }
 
     return fakeDatabase.fakeWorkoutEntities[0];
-  }
-
-  List<ExerciseEntity>? getTodayExercises() {
-    List<ExerciseEntity> entities;
-    final workout = getTodayWorkout();
-
-    for (int i = 0; i < fakeDatabase.fakeWorkoutEntities.length; i++) {
-      if (i == fakeDatabase.fakeWorkoutEntities.indexOf(workout)) {
-        entities = workout.exercises;
-        return entities;
-      }
-    }
-
-    return [ExerciseEntity(title: Strings.error)];
   }
 
   String getDate() {

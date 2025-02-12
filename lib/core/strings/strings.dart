@@ -151,5 +151,7 @@ abstract class Strings {
 
   static String time = "Время";
 
+  static String rep = "Повт.";
+
 ///////////////////////////////
 }
