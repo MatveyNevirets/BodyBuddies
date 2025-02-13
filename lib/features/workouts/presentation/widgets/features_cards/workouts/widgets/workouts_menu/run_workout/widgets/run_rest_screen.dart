@@ -1,3 +1,4 @@
+import 'package:body_buddies/core/styles/styles.dart';
 import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/run_workout/bloc/run_workout_bloc.dart';
 import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/run_workout/presentation/run_workout_screen.dart';
 import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/run_workout/widgets/workout_timer/reverse_ticker.dart';
@@ -27,85 +28,151 @@ class RestScreen extends StatelessWidget {
       child: Card(
         color: Colours.workout_card_background_color,
         elevation: 4,
-        child: Container(
-          padding: const EdgeInsets.all(16),
-          height: double.maxFinite,
-          width: double.maxFinite,
-          child: Column(
-            children: [
-              buildWorkoutTimeWidget(),
-              const SizedBox(
-                height: 16,
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Card(
+            color: Colours.workoutCardForegroundColor,
+            child: Container(
+              padding: const EdgeInsets.all(16),
+              height: double.maxFinite,
+              width: double.maxFinite,
+              child: Column(
+                children: [
+                  buildWorkoutTimeWidget(context),
+                  const SizedBox(
+                    height: 16,
+                  ),
+                  buildRestTextWidget(context),
+                  const SizedBox(
+                    height: 32,
+                  ),
+                  buildSkipButton(context),
+                ],
               ),
-              buildRestTextWidget(),
-              const SizedBox(
-                height: 16,
-              ),
-              BaseButton(
-                  onClick: () => nextOnExercisesList(context),
-                  buttonText: Strings.skip,
-                  icon: null,
-                  isElevated: true),
-            ],
+            ),
           ),
         ),
       ),
     );
   }
 
-  Container buildWorkoutTimeWidget() {
-    return Container(
-      padding: const EdgeInsets.all(16),
+  BaseButton buildSkipButton(BuildContext context) {
+    return BaseButton(
+      onClick: () => nextOnExercisesList(context),
+      buttonText: Strings.skip,
+      icon: null,
+      isElevated: true,
+      backgroundColor: Colours.workout_card_background_color,
       color: Colours.workoutCardForegroundColor,
+      radius: 8,
+      buttonSize: Size(MediaQuery.sizeOf(context).width,
+          MediaQuery.sizeOf(context).height / 15),
+    );
+  }
+
+  Padding buildWorkoutTimeWidget(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text("Время"),
-          StreamBuilder(
-              stream: ticker.workoutTick(workoutTimerDuration),
-              builder: (context, snapshot) {
-                if (snapshot.hasData) {
-                  workoutTimerDuration = snapshot.data!;
-                  return Text(getTime(workoutTimerDuration));
-                } else if (snapshot.hasError) {
-                  throw Exception(
-                      "Exception on RunRest Snapshot error: ${snapshot.error}");
-                }
-                return Text(getTime(workoutTimerDuration));
-              })
+          Text(
+            Strings.timeOfWorkout,
+            style: Styles.reverse_rest_text_style,
+          ),
+          SizedBox(
+            height: 5,
+          ),
+          Container(
+            height: MediaQuery.sizeOf(context).height / 18,
+            width: MediaQuery.sizeOf(context).width / 3,
+            child: Card(
+              elevation: 3,
+              color: Colours.workout_card_background_color,
+              child: Center(
+                child: Padding(
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 4, horizontal: 12),
+                  child: StreamBuilder(
+                      stream: ticker.workoutTick(workoutTimerDuration),
+                      builder: (context, snapshot) {
+                        if (snapshot.hasData) {
+                          workoutTimerDuration = snapshot.data!;
+                          return Text(
+                            getTime(workoutTimerDuration),
+                            style: Styles.add_exercise_text_style,
+                          );
+                        } else if (snapshot.hasError) {
+                          throw Exception(
+                              "Run exercise Snapshot error: ${snapshot.error}");
+                        }
+                        return Text(
+                          getTime(workoutTimerDuration),
+                          style: Styles.add_exercise_text_style,
+                        );
+                      }),
+                ),
+              ),
+            ),
+          ),
         ],
       ),
     );
   }
 
-  Container buildRestTextWidget() {
+  Container buildRestTextWidget(BuildContext context) {
     int duration = exercise.restTimeInMinutes * 60 + exercise.restTimeInSeconds;
-
     return Container(
-      padding: const EdgeInsets.all(16),
-      color: Colours.workoutCardForegroundColor,
-      child: Column(
-        children: [
-          const Text("Отдых"),
-          StreamBuilder(
-            stream: reverseTicker.reverseTick(duration),
-            builder: (context, snapshot) {
-  
-              if (snapshot.hasData) {
-                if (snapshot.data! > 0) {
-                  return Text(getTime(snapshot.data!));
-                } else {
-                  nextOnExercisesList(context);
-                }
-              } else if (snapshot.hasError) {
-                throw Exception(
-                    "Snapshot reverse timer has error: ${snapshot.error}");
-              }
-              return Text(
-                  "${exercise.restTimeInMinutes.toString().padLeft(2, "0")}:${exercise.restTimeInSeconds.toString().padLeft(2, "0")}");
-            },
+      width: MediaQuery.sizeOf(context).width / 1,
+      height: MediaQuery.sizeOf(context).height / 5,
+      child: Card(
+        color: Colours.workout_card_background_color,
+        child: Padding(
+          padding: const EdgeInsets.all(8),
+          child: Column(
+            children: [
+              Text(
+                Strings.rest,
+                style: Styles.workout_text_style,
+              ),
+              SizedBox(
+                height: MediaQuery.sizeOf(context).height / 100,
+              ),
+              Container(
+                height: MediaQuery.sizeOf(context).height / 12,
+                width: MediaQuery.sizeOf(context).width / 1.7,
+                child: Card(
+                  elevation: 2,
+                  color: Colours.workoutCardForegroundColor,
+                  child: Padding(
+                    padding:
+                        const EdgeInsets.symmetric(vertical: 4, horizontal: 12),
+                    child: Center(
+                      child: StreamBuilder(
+                          stream: reverseTicker.reverseTick(duration),
+                          builder: (context, snapshot) {
+                            if (snapshot.hasData) {
+                              workoutTimerDuration = snapshot.data!;
+                              return Text(
+                                getTime(workoutTimerDuration,
+                                    needHourses: false),
+                                style: Styles.workout_text_style_background_24,
+                              );
+                            } else if (snapshot.hasError) {
+                              throw Exception(
+                                  "Run exercise Snapshot error: ${snapshot.error}");
+                            }
+                            return Text(
+                              "${exercise.restTimeInMinutes.toString().padLeft(2, "0")}:${exercise.restTimeInSeconds.toString().padLeft(2, "0")}",
+                              style: Styles.workout_text_style_background_24,
+                            );
+                          }),
+                    ),
+                  ),
+                ),
+              ),
+            ],
           ),
-        ],
+        ),
       ),
     );
   }

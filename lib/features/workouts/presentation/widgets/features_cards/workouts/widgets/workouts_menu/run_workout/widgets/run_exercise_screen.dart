@@ -5,6 +5,7 @@ import 'package:body_buddies/features/workouts/presentation/widgets/features_car
 import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/widgets/workout_entities/entity/exercise_entity.dart';
 import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/widgets/workout_entities/entity/workout_entity.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../../../../../../core/colors/colors.dart';
@@ -232,6 +233,8 @@ class RunExerciseScreen extends StatelessWidget {
                         child: Padding(
                           padding: const EdgeInsets.all(1),
                           child: TextField(
+                            onTapAlwaysCalled: true,
+                            onTap: () => print("tap"),
                             style: Styles.mini_hint_background,
                             textAlign: TextAlign.center,
                             cursorColor: Colours.workout_card_background_color,

@@ -88,11 +88,13 @@ class RunWorkoutScreen extends StatelessWidget {
   }
 }
 
-String getTime(int duration) {
+String getTime(int duration, {bool needHourses = true}) {
   String hoursesToString =
       (((duration / 60) / 60) % 60).floor().toString().padLeft(2, "0");
   String minutesToString =
       ((duration / 60) % 60).floor().toString().padLeft(2, "0");
   String secondsToString = (duration % 60).floor().toString().padLeft(2, "0");
-  return "$hoursesToString:$minutesToString:$secondsToString";
+  return needHourses
+      ? "$hoursesToString:$minutesToString:$secondsToString"
+      : "$minutesToString:$secondsToString";
 }

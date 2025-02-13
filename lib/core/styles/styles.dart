@@ -40,6 +40,10 @@ abstract class Styles {
       fontFamily: 'AqumTwo',
       fontSize: 12,
       color: Colours.workout_card_background_color);
+  static var reverse_rest_text_style = const TextStyle(
+      fontFamily: 'AqumTwo',
+      fontSize: 18,
+      color: Colours.workout_card_background_color);
 
   static var workouts_containers_text_style = const TextStyle(
       fontFamily: 'AqumTwo', fontSize: 12, color: Colours.white_text_color);

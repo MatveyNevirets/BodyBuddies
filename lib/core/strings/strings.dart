@@ -153,5 +153,9 @@ abstract class Strings {
 
   static String rep = "Повт.";
 
+  static String timeOfWorkout = "Время тренировки";
+
+  static String rest = "Отдых";
+
 ///////////////////////////////
 }
