@@ -151,10 +151,8 @@ class RestScreen extends StatelessWidget {
                           stream: reverseTicker.reverseTick(duration),
                           builder: (context, snapshot) {
                             if (snapshot.hasData) {
-                              workoutTimerDuration = snapshot.data!;
                               return Text(
-                                getTime(workoutTimerDuration,
-                                    needHourses: false),
+                                getTime(snapshot.data!, needHourses: false),
                                 style: Styles.workout_text_style_background_24,
                               );
                             } else if (snapshot.hasError) {
