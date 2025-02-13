@@ -141,10 +141,15 @@ abstract class Styles {
       fontSize: 16,
       color: Colours.workout_card_background_color);
 
+  static var mini_journal_card_text = const TextStyle(
+      fontFamily: 'AqumTwo',
+      fontSize: 14,
+      color: Colours.workout_card_background_color);
+
   static double nutrition_button_elevate = 20;
 
   static var journal_foreground_text_style = TextStyle(
-      shadows: [
+      shadows: const [
         Shadow(
             blurRadius: 4,
             color: Color.fromARGB(64, 255, 255, 255),

@@ -15,7 +15,6 @@ class WorkoutsHomeScreen extends StatelessWidget {
 
   final FakeWorkoutsDatabase fakeWorkoutsDatabase;
 
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -29,7 +28,9 @@ class WorkoutsHomeScreen extends StatelessWidget {
             const SizedBox(
               height: Styles.height_of_text_to_widget,
             ),
-            WorkoutFeatureCard(fakeDatabase: fakeWorkoutsDatabase,),
+            WorkoutFeatureCard(
+              fakeDatabase: fakeWorkoutsDatabase,
+            ),
             const SizedBox(
               height: Styles.big_height_of_text_to_widget / 1.5,
             ),

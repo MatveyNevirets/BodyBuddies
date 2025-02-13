@@ -66,7 +66,7 @@ abstract class Colours {
       const Color.fromARGB(255, 208, 219, 253);
 
   static var journalGradientColors = [
-    Color.fromARGB(255, 111, 122, 159),
-    Color.fromARGB(255, 20, 23, 34)
+    const Color.fromARGB(255, 111, 122, 159),
+    const Color.fromARGB(255, 20, 23, 34)
   ];
 }

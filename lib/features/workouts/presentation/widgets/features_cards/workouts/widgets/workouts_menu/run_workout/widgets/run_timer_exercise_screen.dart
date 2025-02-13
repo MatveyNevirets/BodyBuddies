@@ -52,7 +52,7 @@ class RunTimerExercise extends StatelessWidget {
                       const SizedBox(
                         height: 16,
                       ),
-                      Container(
+                      SizedBox(
                           width: double.maxFinite,
                           child: buildWorkoutTitleWidget(exercise.title)),
                       const SizedBox(
@@ -92,9 +92,9 @@ class RunTimerExercise extends StatelessWidget {
     );
   }
 
-  Container buildExerciseTimerWidget(BuildContext context) {
+  SizedBox buildExerciseTimerWidget(BuildContext context) {
     int duration = exercise.timerTimeMinutes * 60 + exercise.timerTimeSeconds;
-    return Container(
+    return SizedBox(
       width: MediaQuery.sizeOf(context).width / 1,
       height: MediaQuery.sizeOf(context).height / 5,
       child: Card(
@@ -110,7 +110,7 @@ class RunTimerExercise extends StatelessWidget {
               SizedBox(
                 height: MediaQuery.sizeOf(context).height / 100,
               ),
-              Container(
+              SizedBox(
                 height: MediaQuery.sizeOf(context).height / 12,
                 width: MediaQuery.sizeOf(context).width / 1.7,
                 child: Card(
@@ -171,7 +171,7 @@ class RunTimerExercise extends StatelessWidget {
                   Strings.time,
                   style: Styles.add_exercise_text_style,
                 ),
-                Container(
+                SizedBox(
                   height: 40,
                   width: 110,
                   child: Card(
@@ -205,7 +205,7 @@ class RunTimerExercise extends StatelessWidget {
             ),
           ),
         ),
-        Expanded(child: SizedBox()),
+        const Expanded(child: SizedBox()),
         Card(
           color: Colours.workout_card_background_color,
           child: Padding(
@@ -272,6 +272,7 @@ class RunTimerExercise extends StatelessWidget {
                   padding: const EdgeInsets.all(1),
                   child: TextField(
                     onTapAlwaysCalled: true,
+                    // ignore: avoid_print
                     onTap: () => print("tap"),
                     style: Styles.mini_hint_background,
                     textAlign: TextAlign.center,

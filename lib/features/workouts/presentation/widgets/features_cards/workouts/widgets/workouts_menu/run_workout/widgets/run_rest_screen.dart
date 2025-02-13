@@ -79,10 +79,10 @@ class RestScreen extends StatelessWidget {
             Strings.timeOfWorkout,
             style: Styles.reverse_rest_text_style,
           ),
-          SizedBox(
+          const SizedBox(
             height: 5,
           ),
-          Container(
+          SizedBox(
             height: 55,
             width: MediaQuery.sizeOf(context).width / 2.5,
             child: Card(
@@ -119,9 +119,9 @@ class RestScreen extends StatelessWidget {
     );
   }
 
-  Container buildRestTextWidget(BuildContext context) {
+  SizedBox buildRestTextWidget(BuildContext context) {
     int duration = exercise.restTimeInMinutes * 60 + exercise.restTimeInSeconds;
-    return Container(
+    return SizedBox(
       width: MediaQuery.sizeOf(context).width / 1,
       height: MediaQuery.sizeOf(context).height / 5,
       child: Card(
@@ -137,7 +137,7 @@ class RestScreen extends StatelessWidget {
               SizedBox(
                 height: MediaQuery.sizeOf(context).height / 100,
               ),
-              Container(
+              SizedBox(
                 height: MediaQuery.sizeOf(context).height / 12,
                 width: MediaQuery.sizeOf(context).width / 1.7,
                 child: Card(

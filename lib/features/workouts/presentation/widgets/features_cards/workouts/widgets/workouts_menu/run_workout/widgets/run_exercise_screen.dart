@@ -5,7 +5,6 @@ import 'package:body_buddies/features/workouts/presentation/widgets/features_car
 import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/widgets/workout_entities/entity/exercise_entity.dart';
 import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/widgets/workout_entities/entity/workout_entity.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../../../../../../core/colors/colors.dart';
@@ -83,8 +82,8 @@ class RunExerciseScreen extends StatelessWidget {
     );
   }
 
-  Container buildBodyWidgets() {
-    return Container(
+  SizedBox buildBodyWidgets() {
+    return SizedBox(
       width: double.maxFinite,
       child: Card(
         color: Colours.workout_card_background_color,
@@ -98,7 +97,7 @@ class RunExerciseScreen extends StatelessWidget {
                   padding: const EdgeInsets.all(14),
                   child: buildWorkoutTitleWidget(exercise.title),
                 ),
-                Container(
+                SizedBox(
                   width: double.maxFinite,
                   child: Padding(
                     padding: const EdgeInsets.all(14),
@@ -129,7 +128,7 @@ class RunExerciseScreen extends StatelessWidget {
                   Strings.time,
                   style: Styles.add_exercise_text_style,
                 ),
-                Container(
+                SizedBox(
                   height: 40,
                   width: 110,
                   child: Card(
@@ -163,7 +162,7 @@ class RunExerciseScreen extends StatelessWidget {
             ),
           ),
         ),
-        Expanded(child: SizedBox()),
+        const Expanded(child: SizedBox()),
         Card(
           color: Colours.workout_card_background_color,
           child: Padding(
@@ -234,6 +233,7 @@ class RunExerciseScreen extends StatelessWidget {
                           padding: const EdgeInsets.all(1),
                           child: TextField(
                             onTapAlwaysCalled: true,
+                            // ignore: avoid_print
                             onTap: () => print("tap"),
                             style: Styles.mini_hint_background,
                             textAlign: TextAlign.center,

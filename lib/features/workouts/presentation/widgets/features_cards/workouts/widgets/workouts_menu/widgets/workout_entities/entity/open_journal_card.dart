@@ -32,7 +32,7 @@ class OpenWorkoutsJournal extends StatelessWidget {
               height: MediaQuery.sizeOf(context).height / 5,
               decoration: BoxDecoration(
                   gradient: LinearGradient(
-                      stops: [70, 100],
+                      stops: const [70, 100],
                       begin: Alignment.topCenter,
                       end: Alignment.bottomCenter,
                       colors: Colours.journalGradientColors),
@@ -43,10 +43,11 @@ class OpenWorkoutsJournal extends StatelessWidget {
                 child: Row(
                   children: [
                     Image(
-                      image: AssetImage("lib/assets/images/journal_image.png"),
+                      image: const AssetImage(
+                          "lib/assets/images/journal_image.png"),
                       height: MediaQuery.sizeOf(context).height / 8,
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 20,
                     ),
                     Padding(
