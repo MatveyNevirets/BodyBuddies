@@ -83,8 +83,8 @@ class RestScreen extends StatelessWidget {
             height: 5,
           ),
           Container(
-            height: MediaQuery.sizeOf(context).height / 18,
-            width: MediaQuery.sizeOf(context).width / 3,
+            height: 55,
+            width: MediaQuery.sizeOf(context).width / 2.5,
             child: Card(
               elevation: 3,
               color: Colours.workout_card_background_color,
