@@ -157,5 +157,7 @@ abstract class Strings {
 
   static String rest = "Отдых";
 
+  static String workouts = "Тренировок";
+
 ///////////////////////////////
 }

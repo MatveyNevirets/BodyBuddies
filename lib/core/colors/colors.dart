@@ -1,23 +1,21 @@
-
 // ignore_for_file: constant_identifier_names, duplicate_ignore
 
 import 'package:flutter/material.dart';
 
-abstract class Colours
-{
+abstract class Colours {
   ///bars/////
   // ignore: constant_identifier_names
   static const Color bottom_bar_icons_color = Color.fromARGB(255, 55, 161, 227);
   // ignore: constant_identifier_names
-  static const Color bottom_bar_background_color = Color.fromARGB(
-      255, 250, 250, 250);
+  static const Color bottom_bar_background_color =
+      Color.fromARGB(255, 250, 250, 250);
   // ignore: constant_identifier_names
-  static const Color system_bottom_bar_background_color = Color.fromARGB(
-      255, 255, 255, 255);
+  static const Color system_bottom_bar_background_color =
+      Color.fromARGB(255, 255, 255, 255);
 
   //News_screen_colors
-  static const Color background_news_card_color = Color.fromARGB(
-      255, 177, 216, 252);
+  static const Color background_news_card_color =
+      Color.fromARGB(255, 177, 216, 252);
 
   ////text////
   static const Color white_text_color = Colors.white;
@@ -26,16 +24,14 @@ abstract class Colours
   static const Color green_text_color = Color.fromARGB(255, 9, 222, 9);
   static const Color hint_form_text_color = Color.fromARGB(189, 0, 0, 0);
 
-  static const Color invisible_color = Color.fromARGB(0,0,0,0);
+  static const Color invisible_color = Color.fromARGB(0, 0, 0, 0);
 
   /////buttons/////
   static const Color base_button_color = Color.fromARGB(255, 107, 169, 232);
-  static const Color base_button_text_color = Color.fromARGB(255, 255, 255, 255);
-
+  static const Color base_button_text_color =
+      Color.fromARGB(255, 255, 255, 255);
 
   /////container gradients///////
-
-
 
   static const List<Color> blueContainerGradientColors = [
     Color.fromARGB(255, 120, 166, 211),
@@ -64,6 +60,13 @@ abstract class Colours
 
   static Color workoutTextColor = const Color.fromARGB(255, 35, 74, 165);
 
-  static const Color workout_card_background_color = Color.fromARGB(255, 110, 121, 158);
-  static var workoutCardForegroundColor = const Color.fromARGB(255, 208, 219, 253);
+  static const Color workout_card_background_color =
+      Color.fromARGB(255, 110, 121, 158);
+  static var workoutCardForegroundColor =
+      const Color.fromARGB(255, 208, 219, 253);
+
+  static var journalGradientColors = [
+    Color.fromARGB(255, 111, 122, 159),
+    Color.fromARGB(255, 20, 23, 34)
+  ];
 }

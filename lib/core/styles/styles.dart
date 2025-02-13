@@ -143,6 +143,17 @@ abstract class Styles {
 
   static double nutrition_button_elevate = 20;
 
+  static var journal_foreground_text_style = TextStyle(
+      shadows: [
+        Shadow(
+            blurRadius: 4,
+            color: Color.fromARGB(64, 255, 255, 255),
+            offset: Offset(0, 4))
+      ],
+      fontFamily: 'AqumTwo',
+      fontSize: 24,
+      color: Colours.workoutCardForegroundColor);
+
   static var workouts_button_text_style = TextStyle(
       fontFamily: 'AqumTwo', fontSize: 12, color: Colours.workoutTextColor);
 }
