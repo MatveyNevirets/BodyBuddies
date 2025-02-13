@@ -1,3 +1,4 @@
+import 'package:body_buddies/core/styles/styles.dart';
 import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/run_workout/widgets/workout_timer/reverse_ticker.dart';
 import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/run_workout/widgets/workout_timer/workout_ticker.dart';
 import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/widgets/workout_entities/entity/workout_entity.dart';
@@ -31,37 +32,105 @@ class RunTimerExercise extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(left: 16, right: 16, bottom: 32, top: 64),
+      margin: const EdgeInsets.only(left: 8, right: 8, bottom: 32, top: 64),
       child: Card(
         color: Colours.workout_card_background_color,
-        elevation: 4,
-        child: Container(
-          padding: const EdgeInsets.all(16),
-          height: double.maxFinite,
-          width: double.maxFinite,
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Card(
+            color: Colours.workoutCardForegroundColor,
+            elevation: 4,
+            child: Container(
+              padding: const EdgeInsets.all(16),
+              height: double.maxFinite,
+              width: double.maxFinite,
+              child: Wrap(
+                children: [
+                  Column(
+                    children: [
+                      buildTimeAndSetsWidget(exercise, ticker),
+                      const SizedBox(
+                        height: 16,
+                      ),
+                      Container(
+                          width: double.maxFinite,
+                          child: buildWorkoutTitleWidget(exercise.title)),
+                      const SizedBox(
+                        height: 16,
+                      ),
+                      buildExerciseTimerWidget(context),
+                      const SizedBox(
+                        height: 16,
+                      ),
+                      buildInputFieldsWidget(exercise),
+                      const SizedBox(
+                        height: 16,
+                      ),
+                      BaseButton(
+                          onClick: () => nextOnExercisesList(context),
+                          buttonText: Strings.done,
+                          icon: null,
+                          isElevated: true),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Container buildExerciseTimerWidget(BuildContext context) {
+    int duration = exercise.timerTimeMinutes * 60 + exercise.timerTimeSeconds;
+    return Container(
+      width: MediaQuery.sizeOf(context).width / 1,
+      height: MediaQuery.sizeOf(context).height / 5,
+      child: Card(
+        color: Colours.workout_card_background_color,
+        child: Padding(
+          padding: const EdgeInsets.all(8),
           child: Column(
             children: [
-              buildTimeAndSetsWidget(exercise, ticker),
-              const SizedBox(
-                height: 16,
+              Text(
+                Strings.exercise,
+                style: Styles.workout_text_style,
               ),
-              buildWorkoutTitleWidget(exercise.title),
-              const SizedBox(
-                height: 16,
+              SizedBox(
+                height: MediaQuery.sizeOf(context).height / 100,
               ),
-              buildExerciseTimerWidget(),
-              const SizedBox(
-                height: 16,
+              Container(
+                height: MediaQuery.sizeOf(context).height / 12,
+                width: MediaQuery.sizeOf(context).width / 1.7,
+                child: Card(
+                  elevation: 2,
+                  color: Colours.workoutCardForegroundColor,
+                  child: Padding(
+                    padding:
+                        const EdgeInsets.symmetric(vertical: 4, horizontal: 12),
+                    child: Center(
+                      child: StreamBuilder(
+                          stream: reverseTicker.reverseTick(duration),
+                          builder: (context, snapshot) {
+                            if (snapshot.hasData) {
+                              return Text(
+                                getTime(snapshot.data!, needHourses: false),
+                                style: Styles.workout_text_style_background_24,
+                              );
+                            } else if (snapshot.hasError) {
+                              throw Exception(
+                                  "Run exercise Snapshot error: ${snapshot.error}");
+                            }
+                            return Text(
+                              "${exercise.timerTimeMinutes.toString().padLeft(2, "0")}:${exercise.restTimeInSeconds.toString().padLeft(2, "0")}",
+                              style: Styles.workout_text_style_background_24,
+                            );
+                          }),
+                    ),
+                  ),
+                ),
               ),
-              buildInputFieldsWidget(exercise),
-              const SizedBox(
-                height: 16,
-              ),
-              BaseButton(
-                  onClick: () => nextOnExercisesList(context),
-                  buttonText: Strings.done,
-                  icon: null,
-                  isElevated: true),
             ],
           ),
         ),
@@ -69,78 +138,98 @@ class RunTimerExercise extends StatelessWidget {
     );
   }
 
-  Container buildExerciseTimerWidget() {
-    int duration = exercise.timerTimeMinutes * 60 + exercise.timerTimeSeconds;
-    return Container(
-      padding: const EdgeInsets.all(16),
-      color: Colours.workoutCardForegroundColor,
-      child: Column(
-        children: [
-          Text(Strings.exercise),
-          StreamBuilder(
-            stream: reverseTicker.reverseTick(duration),
-            builder: (context, snapshot) {
-              if (snapshot.hasData) {
-                if (snapshot.data! > 0) {
-                  return Text(getTime(snapshot.data!));
-                } else {
-                  nextOnExercisesList(context);
-                }
-              } else if (snapshot.hasError) {
-                throw Exception(
-                    "Snapshot reverse timer has error: ${snapshot.error}");
-              }
-              return Text(
-                  "${exercise.timerTimeMinutes.toString().padLeft(2, "0")}:${exercise.timerTimeSeconds.toString().padLeft(2, "0")}");
-            },
+  Row buildTimeAndSetsWidget(ExerciseEntity exercise, WorkoutTicker ticker) {
+    return Row(
+      children: [
+        Card(
+          color: Colours.workout_card_background_color,
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              children: [
+                Text(
+                  Strings.time,
+                  style: Styles.add_exercise_text_style,
+                ),
+                Container(
+                  height: 40,
+                  width: 110,
+                  child: Card(
+                    elevation: 2,
+                    color: Colours.workoutCardForegroundColor,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 4, horizontal: 12),
+                      child: StreamBuilder(
+                          stream: ticker.workoutTick(workoutTimerDuration),
+                          builder: (context, snapshot) {
+                            if (snapshot.hasData) {
+                              workoutTimerDuration = snapshot.data!;
+                              return Text(
+                                getTime(workoutTimerDuration),
+                                style: Styles.hint_text_style_create_workout,
+                              );
+                            } else if (snapshot.hasError) {
+                              throw Exception(
+                                  "Run exercise Snapshot error: ${snapshot.error}");
+                            }
+                            return Text(
+                              getTime(workoutTimerDuration),
+                              style: Styles.hint_text_style_create_workout,
+                            );
+                          }),
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
-        ],
-      ),
+        ),
+        Expanded(child: SizedBox()),
+        Card(
+          color: Colours.workout_card_background_color,
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  Strings.sets,
+                  style: Styles.add_exercise_text_style,
+                ),
+                Card(
+                  color: Colours.workoutCardForegroundColor,
+                  child: Padding(
+                    padding:
+                        const EdgeInsets.symmetric(vertical: 4, horizontal: 32),
+                    child: Text(
+                      "${exercise.currentSets.toString()} | ${exercise.sets.toString()}",
+                      style: Styles.hint_text_style_create_workout,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ],
     );
   }
 
-  Container buildTimeAndSetsWidget(
-      ExerciseEntity exercise, WorkoutTicker ticker) {
-    return Container(
-      padding: const EdgeInsets.all(16),
-      color: Colours.workoutCardForegroundColor,
-      child: Row(
-        children: [
-          StreamBuilder(
-              stream: ticker.workoutTick(workoutTimerDuration),
-              builder: (context, snapshot) {
-                if (snapshot.hasData) {
-                  workoutTimerDuration = snapshot.data!;
-                  return Text(getTime(workoutTimerDuration));
-                } else if (snapshot.hasError) {
-                  throw Exception(
-                      "Run exercise Snapshot error: ${snapshot.error}");
-                }
-                return Text(getTime(workoutTimerDuration));
-              }),
-          const Expanded(child: SizedBox()),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.end,
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              Text(Strings.sets),
-              Text(
-                  "${exercise.currentSets.toString()}/${exercise.sets.toString()}"),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-
-  Container buildWorkoutTitleWidget(String title) {
-    return Container(
-      padding: const EdgeInsets.all(16),
-      color: Colours.workoutCardForegroundColor,
-      child: Column(
-        children: [
-          Text(title),
-        ],
+  Card buildWorkoutTitleWidget(String title) {
+    return Card(
+      color: Colours.workout_card_background_color,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+        child: Column(
+          children: [
+            Text(
+              title,
+              style: Styles.add_exercise_text_style,
+            ),
+          ],
+        ),
       ),
     );
   }
