@@ -125,7 +125,6 @@ class WorkoutEntityScreen extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Expanded(
-          flex: 4,
           child: Card(
             elevation: 3,
             color: Colours.workout_card_background_color,
@@ -163,7 +162,6 @@ class WorkoutEntityScreen extends StatelessWidget {
           ),
         ),
         Expanded(
-          flex: 3,
           child: Card(
             elevation: 3,
             color: Colours.workout_card_background_color,
@@ -175,9 +173,7 @@ class WorkoutEntityScreen extends StatelessWidget {
                     Strings.sets,
                     style: Styles.mini_current_card_text2,
                   ),
-                  const Expanded(
-                    child: SizedBox(),
-                  ),
+                  const Expanded(child: SizedBox()),
                   Card(
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8)),
