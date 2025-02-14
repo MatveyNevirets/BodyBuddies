@@ -80,7 +80,7 @@ class WorkoutCardOnList extends StatelessWidget {
                           ),
                           IconButton(
                             onPressed: () =>
-                                editCurrentWorkout(context, workout.exercises),
+                                editCurrentWorkout(context, workout),
                             color: Colours.workoutCardForegroundColor,
                             icon: const Icon(
                               Icons.mode_sharp,
@@ -135,10 +135,9 @@ class WorkoutCardOnList extends StatelessWidget {
     );
   }
 
-  void editCurrentWorkout(
-      BuildContext context, List<ExerciseEntity> exercises) {
+  void editCurrentWorkout(BuildContext context, WorkoutEntity workout) {
     Navigator.of(context).pushNamed("/workouts_menu/create_workout/",
-        arguments: [context, exercises, true]);
+        arguments: [context, workout, true]);
   }
 
   void removeCurrentWorkout(BuildContext context) {

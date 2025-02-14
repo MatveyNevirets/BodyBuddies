@@ -6,6 +6,7 @@ import 'package:body_buddies/core/widgets/base_snackbar.dart';
 import 'package:body_buddies/features/home/presentation/widgets/body_home_data.dart';
 import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/bloc/workouts_menu_bloc.dart';
 import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/domain/fake_workouts_database.dart';
+import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/widgets/workout_card_on_list.dart';
 import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/widgets/workout_create_entity/widgets/exercise_item_on_list.dart';
 import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/widgets/workout_create_entity/widgets/timer_exercise_item_on_list.dart';
 import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/widgets/workout_entities/entity/exercise_entity.dart';
@@ -62,10 +63,8 @@ class DialogWorkoutCreateScreen extends StatefulWidget {
 }
 
 class _DialogWorkoutCreateScreenState extends State<DialogWorkoutCreateScreen> {
-  final titleTextFieldController = TextEditingController();
-
-  void tryToCreateWorkout(
-      BuildContext context, BuildContext thisContext, int index) {
+  void tryToCreateWorkout(BuildContext context, BuildContext thisContext,
+      int index, TextEditingController titleController) {
     widget.isMon = widget.selectedWeekday == Strings.monday ? true : false;
     widget.isTue = widget.selectedWeekday == Strings.tuesday ? true : false;
     widget.isWed = widget.selectedWeekday == Strings.wednesday ? true : false;
@@ -91,7 +90,7 @@ class _DialogWorkoutCreateScreenState extends State<DialogWorkoutCreateScreen> {
       }
     }
 
-    if (titleTextFieldController.text.toString() != "" &&
+    if (titleController.text.toString() != "" &&
         (widget.isMon ||
             widget.isTue ||
             widget.isWed ||
@@ -103,7 +102,7 @@ class _DialogWorkoutCreateScreenState extends State<DialogWorkoutCreateScreen> {
         allFieldsFilled) {
       createWorkoutInDatabase(
           context: context,
-          title: titleTextFieldController.text.toString(),
+          title: titleController.text.toString(),
           index: index,
           weekday: getNumberWeekday(),
           thisContext: thisContext);
@@ -191,19 +190,26 @@ class _DialogWorkoutCreateScreenState extends State<DialogWorkoutCreateScreen> {
   @override
   Widget build(BuildContext context) {
     final modalRouteData = ModalRoute.of(context)!.settings.arguments as List;
-
     widget.isEditWorkout = modalRouteData[2] as bool;
+
+    final workoutEntity = modalRouteData[1] as WorkoutEntity;
 
     int workoutIndex = 0;
 
-    if (const ListEquality().equals(modalRouteData[1], widget._exercises)) {
+    final titleTextFieldController = TextEditingController(
+        text: widget.isEditWorkout ? workoutEntity.title : "");
+
+    if (const ListEquality()
+        .equals(workoutEntity.exercises, widget._exercises)) {
     } else if (!const ListEquality()
-            .equals(modalRouteData[1], widget._exercises) &&
+            .equals(workoutEntity.exercises, widget._exercises) &&
         widget._exercises.isEmpty) {
-      widget._exercises = modalRouteData[1];
+      widget._exercises = workoutEntity.exercises;
     }
 
     if (widget.isEditWorkout) {
+      widget.selectedWeekday = widget.daysOfWeek[workoutEntity.weekday - 1];
+
       int getIndexIfEdit() {
         for (int i = 0; i < widget.fakeDB.fakeWorkoutEntities.length; i++) {
           if (const ListEquality().equals(
@@ -284,6 +290,7 @@ class _DialogWorkoutCreateScreenState extends State<DialogWorkoutCreateScreen> {
                                     widget.screenSize,
                                     index,
                                     widget._exercises,
+                                    widget.isEditWorkout,
                                     onRemoveItem: () {
                                       removeItem(index);
                                     },
@@ -375,8 +382,8 @@ class _DialogWorkoutCreateScreenState extends State<DialogWorkoutCreateScreen> {
                       height: 30,
                     ),
                     BaseButton(
-                      onClick: () => tryToCreateWorkout(
-                          workoutsMenuContext, context, workoutIndex),
+                      onClick: () => tryToCreateWorkout(workoutsMenuContext,
+                          context, workoutIndex, titleTextFieldController),
                       buttonText: Strings.done,
                       icon: null,
                       isElevated: true,
