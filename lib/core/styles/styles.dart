@@ -146,6 +146,21 @@ abstract class Styles {
       fontSize: 14,
       color: Colours.workout_card_background_color);
 
+  static var mini_journal_card_text2 = TextStyle(
+      fontFamily: 'AqumTwo',
+      fontSize: 14,
+      color: Colours.workoutCardForegroundColor);
+
+  static var mini_current_card_text = const TextStyle(
+      fontFamily: 'AqumTwo',
+      fontSize: 12,
+      color: Colours.workout_card_background_color);
+
+  static var mini_current_card_text2 = TextStyle(
+      fontFamily: 'AqumTwo',
+      fontSize: 12,
+      color: Colours.workoutCardForegroundColor);
+
   static double nutrition_button_elevate = 20;
 
   static var journal_foreground_text_style = TextStyle(

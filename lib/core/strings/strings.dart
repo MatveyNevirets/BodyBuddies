@@ -159,5 +159,7 @@ abstract class Strings {
 
   static String workouts = "Тренировок";
 
+  static String repeats = "Повторы";
+
 ///////////////////////////////
 }

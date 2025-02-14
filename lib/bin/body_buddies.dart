@@ -22,7 +22,7 @@ import '../features/workouts/presentation/widgets/features_cards/workouts/widget
 import '../features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/widgets/workout_create_entity/widgets/add_exercise/presentation/add_exercise_screen.dart';
 import '../features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/widgets/workout_create_entity/widgets/add_exercise/widgets/add_your_exercise/bloc/add_your_exercise_cubit.dart';
 import '../features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/widgets/workout_create_entity/widgets/add_exercise/widgets/add_your_exercise/presentation/add_your_exercise_screen.dart';
-import '../features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/widgets/workout_entities/current_workout_screen.dart';
+import '../features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/current_workout_screen.dart';
 
 void main() {
   runApp(BodyBuddiesApp());
