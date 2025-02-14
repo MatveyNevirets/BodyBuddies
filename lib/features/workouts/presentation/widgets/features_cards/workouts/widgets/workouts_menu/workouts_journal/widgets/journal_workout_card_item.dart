@@ -15,7 +15,7 @@ class JournalWorkoutCardItem extends StatelessWidget {
   Widget build(BuildContext context) {
     void openCurrentWorkout() {
       Navigator.of(context)
-          .pushNamed("workouts_menu/current_workout/", arguments: workout);
+          .pushNamed("workouts_menu/current_workout/", arguments: [workout, 1]);
     }
 
     return Padding(

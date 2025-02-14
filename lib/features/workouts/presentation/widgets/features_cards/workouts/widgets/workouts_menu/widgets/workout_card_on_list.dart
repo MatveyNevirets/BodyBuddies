@@ -28,7 +28,7 @@ class WorkoutCardOnList extends StatelessWidget {
   Widget build(BuildContext context) {
     openWorkout() {
       Navigator.of(context)
-          .pushNamed("workouts_menu/current_workout/", arguments: workout);
+          .pushNamed("workouts_menu/current_workout/", arguments: [workout, 0]);
     }
 
     return GestureDetector(

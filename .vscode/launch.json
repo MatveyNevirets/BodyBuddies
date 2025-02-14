@@ -9,12 +9,6 @@
             "type": "dart",
             "request": "launch",
             "program": "lib/bin/body_buddies.dart"
-        },
-        {
-            "name": "Flutter (lib/bin/body_buddies.dart)",
-            "type": "dart",
-            "request": "launch",
-            "program": "lib/bin/body_buddies.dart"
         }
     ]
 }

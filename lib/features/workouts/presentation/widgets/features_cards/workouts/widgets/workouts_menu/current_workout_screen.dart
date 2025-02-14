@@ -12,11 +12,16 @@ class WorkoutEntityScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    WorkoutEntity workoutEntity =
-        ModalRoute.of(context)!.settings.arguments as WorkoutEntity;
+    List getPreviousScreenData =
+        ModalRoute.of(context)!.settings.arguments as List;
+
+    WorkoutEntity workoutEntity = getPreviousScreenData[0] as WorkoutEntity;
+    int whatsOpen = getPreviousScreenData[1] as int;
 
     return Scaffold(
-      appBar: createAppBarWidget(appbarTitle: Strings.workouts_appbar),
+      appBar: createAppBarWidget(
+          appbarTitle:
+              whatsOpen == 0 ? Strings.workouts_appbar : Strings.journal),
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: Card(
