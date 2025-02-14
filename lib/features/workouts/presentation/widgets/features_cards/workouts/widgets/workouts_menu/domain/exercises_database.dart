@@ -6,4 +6,6 @@ class Exercises {
     ExerciseEntity(title: "Подъемы на бицепс", biceps: true, isExercise: true),
     ExerciseEntity(title: "Приседания", legs: true, isExercise: true),
   ];
+
+  add(Exercises createdExercise) {}
 }

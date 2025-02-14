@@ -92,7 +92,7 @@ class _AddExerciseScreenState extends State<AddExerciseScreen> {
                   height: 16,
                 ),
                 BaseButton(
-                    onClick: () => addYourExercise(context),
+                    onClick: () async => await addYourExercise(context),
                     buttonText: Strings.add_yourself,
                     backgroundColor: Colours.workoutCardForegroundColor,
                     color: Colours.workout_card_background_color,
@@ -183,18 +183,15 @@ class _AddExerciseScreenState extends State<AddExerciseScreen> {
     setState(() {});
   }
 
-  void addYourExercise(BuildContext context) {
-    final createdExercises = Navigator.of(context).pushNamed(
-        "/workouts_menu/create_workout/add_exercise/add_your_exercise/");
+  Future<void> addYourExercise(BuildContext context) async {
+    final createdExercise = await Navigator.of(context).pushNamed(
+            "/workouts_menu/create_workout/add_exercise/add_your_exercise/")
+        as ExerciseEntity?;
 
-    createdExercises
-        .whenComplete(complete(context) as FutureOr<void> Function());
-  }
-
-  Future<void> complete(BuildContext context) async {
     setState(() {
-      widget.exercises =
-          ModalRoute.of(context)?.settings.arguments as Exercises;
+      createdExercise != null
+          ? widget.exercises.exercises.add(createdExercise)
+          : widget.exercises;
     });
   }
 

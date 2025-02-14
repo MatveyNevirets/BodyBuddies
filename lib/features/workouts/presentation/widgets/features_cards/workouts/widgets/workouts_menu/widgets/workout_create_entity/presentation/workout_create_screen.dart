@@ -22,10 +22,9 @@ import '../../../../../../../../../../../core/styles/styles.dart';
 class DialogWorkoutCreateScreen extends StatefulWidget {
   FakeWorkoutsDatabase fakeDB;
   WorkoutsMenuScreen workoutsMenuScreen;
-
   List<ExerciseEntity> _exercises = [];
-
   bool isEditWorkout = false;
+  String? selectedWeekday;
 
   final Size screenSize;
   final BodyHomeData mainFrontendData;
@@ -40,15 +39,6 @@ class DialogWorkoutCreateScreen extends StatefulWidget {
     Strings.sunday,
   ];
 
-  String? selectedWeekday;
-
-  DialogWorkoutCreateScreen(
-      {super.key,
-      required this.fakeDB,
-      required this.workoutsMenuScreen,
-      required this.screenSize,
-      required this.mainFrontendData});
-
   bool isMon = false,
       isTue = false,
       isWed = false,
@@ -56,6 +46,13 @@ class DialogWorkoutCreateScreen extends StatefulWidget {
       isFri = false,
       isSat = false,
       isSun = false;
+
+  DialogWorkoutCreateScreen(
+      {super.key,
+      required this.fakeDB,
+      required this.workoutsMenuScreen,
+      required this.screenSize,
+      required this.mainFrontendData});
 
   @override
   State<DialogWorkoutCreateScreen> createState() =>
@@ -164,26 +161,36 @@ class _DialogWorkoutCreateScreenState extends State<DialogWorkoutCreateScreen> {
         ),
       );
     }
-    widget.fakeDB.fakeWorkoutEntities.add(
-      WorkoutEntity(
-          title: title,
-          weekday: weekday,
-          abs: abs,
-          shoulders: shoulders,
-          legs: legs,
-          triceps: triceps,
-          biceps: biceps,
-          back: back,
-          forearms: forearms,
-          chest: chest,
-          cardio: cardio,
-          exercises: newExercises),
-    );
-    if (!widget.isEditWorkout) {
-      context.read<WorkoutsMenuBloc>().add(AddWorkoutEvent(widget.fakeDB));
-    } else {
-      context.read<WorkoutsMenuBloc>().add(UpdateWorkoutEvent(widget.fakeDB));
-    }
+    !widget.isEditWorkout
+        ? widget.fakeDB.fakeWorkoutEntities.add(
+            WorkoutEntity(
+                title: title,
+                weekday: weekday,
+                abs: abs,
+                shoulders: shoulders,
+                legs: legs,
+                triceps: triceps,
+                biceps: biceps,
+                back: back,
+                forearms: forearms,
+                chest: chest,
+                cardio: cardio,
+                exercises: newExercises),
+          )
+        : widget.fakeDB.fakeWorkoutEntities[index] = WorkoutEntity(
+            title: title,
+            weekday: weekday,
+            abs: abs,
+            shoulders: shoulders,
+            legs: legs,
+            triceps: triceps,
+            biceps: biceps,
+            back: back,
+            forearms: forearms,
+            chest: chest,
+            cardio: cardio,
+            exercises: newExercises);
+    context.read<WorkoutsMenuBloc>().add(AddWorkoutEvent(widget.fakeDB));
     Navigator.of(thisContext).pop();
   }
 
@@ -307,7 +314,7 @@ class _DialogWorkoutCreateScreenState extends State<DialogWorkoutCreateScreen> {
                                     },
                                   );
                                 }
-                                return null;
+                                return CircularProgressIndicator();
                               },
                             ),
                           ),
