@@ -6,7 +6,7 @@ import '../../../../../../../../../../../core/styles/styles.dart';
 import '../../workout_entities/entity/exercise_entity.dart';
 import '../presentation/workout_create_screen.dart';
 
-class TimerExerciseItemOnList extends StatelessWidget {
+class TimerExerciseItemOnList extends StatefulWidget {
   final BuildContext context;
   final Size screenSize;
   final int index;
@@ -14,12 +14,79 @@ class TimerExerciseItemOnList extends StatelessWidget {
 
   final VoidCallback onRemoveItem;
 
-  const TimerExerciseItemOnList(
-      this.context, this.screenSize, this.index, this.exercises,
+  TimerExerciseItemOnList(
+      this.context, this.screenSize, this.index, this.exercises, this.isEdited,
       {super.key, required this.onRemoveItem});
+
+  bool isEdited = false;
+
+  @override
+  State<TimerExerciseItemOnList> createState() =>
+      _TimerExerciseItemOnListState();
+}
+
+class _TimerExerciseItemOnListState extends State<TimerExerciseItemOnList> {
+  late TextEditingController exerciseMinutesController;
+  late TextEditingController exerciseSecondsController;
+  late TextEditingController setsController;
+  late TextEditingController weightController;
+  late TextEditingController restMinutesController;
+  late TextEditingController restSecondsController;
+
+  @override
+  void initState() {
+    super.initState();
+    exerciseMinutesController = TextEditingController();
+    exerciseSecondsController = TextEditingController();
+    weightController = TextEditingController();
+    setsController = TextEditingController();
+    restMinutesController = TextEditingController();
+    restSecondsController = TextEditingController();
+  }
 
   @override
   Widget build(BuildContext context) {
+    String? weightText;
+    String? setsText;
+    String? restSecondsText;
+    String? restMinutesText;
+    String? exerciseSecondsText;
+    String? exerciseMinutesText;
+
+    if (widget.isEdited) {
+      var weight = widget.exercises[widget.index].kilograms;
+      var sets = widget.exercises[widget.index].sets;
+      var restTimeOfSeconds = widget.exercises[widget.index].restTimeInSeconds;
+      var restTimeOfMinutes = widget.exercises[widget.index].restTimeInMinutes;
+      var exerciseTimeMinutes = widget.exercises[widget.index].timerTimeMinutes;
+      var exericseTimeSeconds = widget.exercises[widget.index].timerTimeSeconds;
+
+      weight == weight.toInt()
+          ? weightText = weight.toInt().toString()
+          : weightText = weight.toString();
+
+      sets == sets.toInt()
+          ? setsText = sets.toInt().toString()
+          : setsText = sets.toString();
+
+      restMinutesText = restTimeOfMinutes.toString();
+      restSecondsText = restTimeOfSeconds.toString();
+
+      exerciseMinutesText = exerciseTimeMinutes.toString();
+      exerciseSecondsText = exericseTimeSeconds.toString();
+
+      weightController.text = widget.isEdited ? weightText.toString() : "";
+      setsController.text = widget.isEdited ? setsText.toString() : "";
+      restMinutesController.text =
+          widget.isEdited ? restMinutesText.toString() : "";
+      restSecondsController.text =
+          widget.isEdited ? restSecondsText.toString() : "";
+      exerciseMinutesController.text =
+          widget.isEdited ? exerciseMinutesText.toString() : "";
+      exerciseSecondsController.text =
+          widget.isEdited ? exerciseSecondsText.toString() : "";
+    }
+
     return Column(
       children: [
         Container(
@@ -32,19 +99,23 @@ class TimerExerciseItemOnList extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              buildHeaderCardWidget(screenSize, exercises, index),
-              buildExerciseTitle(screenSize, exercises, index),
+              buildHeaderCardWidget(
+                  widget.screenSize, widget.exercises, widget.index),
+              buildExerciseTitle(
+                  widget.screenSize, widget.exercises, widget.index),
               const SizedBox(height: 6),
               buildTimerExerciseInputFields(
-                  context, screenSize, exercises, index),
+                  context, widget.screenSize, widget.exercises, widget.index),
               const SizedBox(
                 height: 12,
               ),
-              buildExerciseParameters(context, screenSize, exercises, index),
+              buildExerciseParameters(
+                  context, widget.screenSize, widget.exercises, widget.index),
               const SizedBox(
                 height: 12,
               ),
-              buildRestOfSetsInputFields(context, screenSize, exercises, index),
+              buildRestOfSetsInputFields(
+                  context, widget.screenSize, widget.exercises, widget.index),
               const SizedBox(
                 height: 8,
               ),
@@ -102,11 +173,13 @@ class TimerExerciseItemOnList extends StatelessWidget {
                   color: Colours.workoutCardForegroundColor,
                   borderRadius: BorderRadius.circular(4)),
               child: TextField(
+                controller: restMinutesController,
                 onChanged: (value) {
                   if (value.isNotEmpty) {
-                    exercises[index].restTimeInMinutes = int.parse(value);
+                    exercises[index].restTimeInMinutes =
+                        int.parse(restMinutesController.text);
                   } else {
-                    exercises[index].restTimeInSeconds = 0;
+                    exercises[index].restTimeInMinutes = 0;
                   }
                 },
                 maxLength: 4,
@@ -141,9 +214,11 @@ class TimerExerciseItemOnList extends StatelessWidget {
                   color: Colours.workoutCardForegroundColor,
                   borderRadius: BorderRadius.circular(4)),
               child: TextField(
+                controller: restSecondsController,
                 onChanged: (value) {
                   if (value.isNotEmpty) {
-                    exercises[index].restTimeInSeconds = int.parse(value);
+                    exercises[index].restTimeInSeconds =
+                        int.parse(restSecondsController.text);
                   } else {
                     exercises[index].restTimeInSeconds = 0;
                   }
@@ -198,9 +273,10 @@ class TimerExerciseItemOnList extends StatelessWidget {
                   color: Colours.workoutCardForegroundColor,
                   borderRadius: BorderRadius.circular(4)),
               child: TextField(
+                controller: setsController,
                 onChanged: (value) {
                   if (value.isNotEmpty) {
-                    exercises[index].sets = int.parse(value);
+                    exercises[index].sets = int.parse(setsController.text);
                   } else {
                     exercises[index].sets = 0;
                   }
@@ -237,9 +313,11 @@ class TimerExerciseItemOnList extends StatelessWidget {
                   color: Colours.workoutCardForegroundColor,
                   borderRadius: BorderRadius.circular(4)),
               child: TextField(
+                controller: weightController,
                 onChanged: (value) {
                   if (value.isNotEmpty) {
-                    exercises[index].kilograms = double.parse(value);
+                    exercises[index].kilograms =
+                        double.parse(weightController.text);
                   } else {
                     exercises[index].kilograms = 0;
                   }
@@ -294,9 +372,11 @@ class TimerExerciseItemOnList extends StatelessWidget {
                   color: Colours.workoutCardForegroundColor,
                   borderRadius: BorderRadius.circular(4)),
               child: TextField(
+                controller: exerciseMinutesController,
                 onChanged: (value) {
                   if (value.isNotEmpty) {
-                    exercises[index].timerTimeMinutes = int.parse(value);
+                    exercises[index].timerTimeMinutes =
+                        int.parse(exerciseMinutesController.text);
                   } else {
                     exercises[index].timerTimeMinutes = 0;
                   }
@@ -333,9 +413,11 @@ class TimerExerciseItemOnList extends StatelessWidget {
                   color: Colours.workoutCardForegroundColor,
                   borderRadius: BorderRadius.circular(4)),
               child: TextField(
+                controller: exerciseSecondsController,
                 onChanged: (value) {
                   if (value.isNotEmpty) {
-                    exercises[index].timerTimeSeconds = int.parse(value);
+                    exercises[index].timerTimeSeconds =
+                        int.parse(exerciseSecondsController.text);
                   } else {
                     exercises[index].timerTimeSeconds = 0;
                   }
@@ -405,6 +487,6 @@ class TimerExerciseItemOnList extends StatelessWidget {
   }
 
   void removeExercise() {
-    onRemoveItem.call();
+    widget.onRemoveItem.call();
   }
 }

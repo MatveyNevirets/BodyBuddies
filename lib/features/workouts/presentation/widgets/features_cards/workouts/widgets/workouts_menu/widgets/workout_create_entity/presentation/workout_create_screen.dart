@@ -194,17 +194,21 @@ class _DialogWorkoutCreateScreenState extends State<DialogWorkoutCreateScreen> {
     Navigator.of(thisContext).pop();
   }
 
+  late TextEditingController titleTextFieldController;
+
+  @override
+  void initState() {
+    super.initState();
+    titleTextFieldController = TextEditingController();
+  }
+
   @override
   Widget build(BuildContext context) {
     final modalRouteData = ModalRoute.of(context)!.settings.arguments as List;
     widget.isEditWorkout = modalRouteData[2] as bool;
 
     final workoutEntity = modalRouteData[1] as WorkoutEntity;
-
     int workoutIndex = 0;
-
-    final titleTextFieldController = TextEditingController(
-        text: widget.isEditWorkout ? workoutEntity.title : "");
 
     if (const ListEquality()
         .equals(workoutEntity.exercises, widget._exercises)) {
@@ -216,6 +220,8 @@ class _DialogWorkoutCreateScreenState extends State<DialogWorkoutCreateScreen> {
 
     if (widget.isEditWorkout) {
       widget.selectedWeekday = widget.daysOfWeek[workoutEntity.weekday - 1];
+      titleTextFieldController.text =
+          widget.isEditWorkout ? workoutEntity.title.toString() : "";
 
       int getIndexIfEdit() {
         for (int i = 0; i < widget.fakeDB.fakeWorkoutEntities.length; i++) {
@@ -309,6 +315,7 @@ class _DialogWorkoutCreateScreenState extends State<DialogWorkoutCreateScreen> {
                                     widget.screenSize,
                                     index,
                                     widget._exercises,
+                                    widget.isEditWorkout,
                                     onRemoveItem: () {
                                       removeItem(index);
                                     },

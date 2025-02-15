@@ -6,7 +6,7 @@ import '../../../../../../../../../../../core/styles/styles.dart';
 import '../../workout_entities/entity/exercise_entity.dart';
 import '../presentation/workout_create_screen.dart';
 
-class ExerciseItemOnList extends StatelessWidget {
+class ExerciseItemOnList extends StatefulWidget {
   final BuildContext context;
   final Size screenSize;
   final int index;
@@ -21,6 +21,27 @@ class ExerciseItemOnList extends StatelessWidget {
       {super.key, required this.onRemoveItem});
 
   @override
+  State<ExerciseItemOnList> createState() => _ExerciseItemOnListState();
+}
+
+class _ExerciseItemOnListState extends State<ExerciseItemOnList> {
+  late TextEditingController weightController;
+  late TextEditingController setsContorller;
+  late TextEditingController repsController;
+  late TextEditingController restTimeOfMinutesController;
+  late TextEditingController restTimOfSecondsController;
+
+  @override
+  void initState() {
+    super.initState();
+    weightController = TextEditingController();
+    setsContorller = TextEditingController();
+    repsController = TextEditingController();
+    restTimeOfMinutesController = TextEditingController();
+    restTimOfSecondsController = TextEditingController();
+  }
+
+  @override
   Widget build(BuildContext context) {
     String? weightText;
     String? repsText;
@@ -28,12 +49,12 @@ class ExerciseItemOnList extends StatelessWidget {
     String? restTimeOfSecondsText;
     String? restTimeOfMinutesText;
 
-    if (isEdited) {
-      var weight = exercises[index].kilograms;
-      var reps = exercises[index].reps;
-      var sets = exercises[index].sets;
-      var restTimeOfSeconds = exercises[index].restTimeInSeconds;
-      var resTimeOfMinutes = exercises[index].restTimeInMinutes;
+    if (widget.isEdited) {
+      var weight = widget.exercises[widget.index].kilograms;
+      var reps = widget.exercises[widget.index].reps;
+      var sets = widget.exercises[widget.index].sets;
+      var restTimeOfSeconds = widget.exercises[widget.index].restTimeInSeconds;
+      var resTimeOfMinutes = widget.exercises[widget.index].restTimeInMinutes;
 
       weight == weight.toInt()
           ? weightText = weight.toInt().toString()
@@ -54,18 +75,15 @@ class ExerciseItemOnList extends StatelessWidget {
       restTimeOfSeconds == restTimeOfSeconds.toInt()
           ? restTimeOfSecondsText = restTimeOfSeconds.toInt().toString()
           : restTimeOfSecondsText = restTimeOfSeconds.toString();
-    }
 
-    TextEditingController weightController =
-        TextEditingController(text: isEdited ? weightText : "");
-    TextEditingController setsContorller =
-        TextEditingController(text: isEdited ? setsText : "");
-    TextEditingController repsController =
-        TextEditingController(text: isEdited ? repsText : "");
-    TextEditingController restTimeOfMinutesController =
-        TextEditingController(text: isEdited ? restTimeOfMinutesText : "");
-    TextEditingController restTimOfSecondsController =
-        TextEditingController(text: isEdited ? restTimeOfSecondsText : "");
+      weightController.text = widget.isEdited ? weightText.toString() : "";
+      setsContorller.text = widget.isEdited ? setsText.toString() : "";
+      repsController.text = widget.isEdited ? repsText.toString() : "";
+      restTimeOfMinutesController.text =
+          widget.isEdited ? restTimeOfMinutesText.toString() : "";
+      restTimOfSecondsController.text =
+          widget.isEdited ? restTimeOfSecondsText.toString() : "";
+    }
 
     return Column(
       children: [
@@ -79,16 +97,29 @@ class ExerciseItemOnList extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              buildHeaderCardWidget(screenSize, exercises, index),
-              buildExerciseTitle(screenSize, exercises, index),
+              buildHeaderCardWidget(
+                  widget.screenSize, widget.exercises, widget.index),
+              buildExerciseTitle(
+                  widget.screenSize, widget.exercises, widget.index),
               const SizedBox(height: 6),
-              buildExerciseInputFields(context, screenSize, exercises, index,
-                  weightController, setsContorller, repsController),
+              buildExerciseInputFields(
+                  context,
+                  widget.screenSize,
+                  widget.exercises,
+                  widget.index,
+                  weightController,
+                  setsContorller,
+                  repsController),
               const SizedBox(
                 height: 12,
               ),
-              buildRestOfSetsInputFields(context, screenSize, exercises, index,
-                  restTimeOfMinutesController, restTimOfSecondsController),
+              buildRestOfSetsInputFields(
+                  context,
+                  widget.screenSize,
+                  widget.exercises,
+                  widget.index,
+                  restTimeOfMinutesController,
+                  restTimOfSecondsController),
               const SizedBox(
                 height: 8,
               ),
@@ -386,6 +417,6 @@ class ExerciseItemOnList extends StatelessWidget {
   }
 
   void removeExercise() {
-    onRemoveItem.call();
+    widget.onRemoveItem.call();
   }
 }
