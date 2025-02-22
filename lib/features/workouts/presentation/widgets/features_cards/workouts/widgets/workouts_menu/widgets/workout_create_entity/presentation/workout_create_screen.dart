@@ -1,9 +1,9 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:body_buddies/core/colors/colors.dart';
+import 'package:body_buddies/core/widgets/app_bar.dart';
 import 'package:body_buddies/core/widgets/base_button.dart';
 import 'package:body_buddies/core/widgets/base_snackbar.dart';
-import 'package:body_buddies/features/home/presentation/widgets/body_home_data.dart';
 import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/bloc/workouts_menu_bloc.dart';
 import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/domain/fake_workouts_database.dart';
 import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/widgets/workout_card_on_list.dart';
@@ -27,7 +27,6 @@ class DialogWorkoutCreateScreen extends StatefulWidget {
   String? selectedWeekday;
 
   final Size screenSize;
-  final BodyHomeData mainFrontendData;
 
   final List<String> daysOfWeek = [
     Strings.monday,
@@ -51,8 +50,7 @@ class DialogWorkoutCreateScreen extends StatefulWidget {
       {super.key,
       required this.fakeDB,
       required this.workoutsMenuScreen,
-      required this.screenSize,
-      required this.mainFrontendData});
+      required this.screenSize});
 
   @override
   State<DialogWorkoutCreateScreen> createState() =>
@@ -240,8 +238,7 @@ class _DialogWorkoutCreateScreenState extends State<DialogWorkoutCreateScreen> {
     final workoutsMenuContext = modalRouteData[0] as BuildContext;
 
     return Scaffold(
-      appBar: widget.mainFrontendData
-          .createAppBarWidget(appbarTitle: Strings.creating_appbar),
+      appBar: createAppBarWidget(appbarTitle: Strings.creating_appbar),
       body: Wrap(
         children: [
           Container(

@@ -2,10 +2,7 @@
 
 import 'package:body_buddies/core/colors/colors.dart';
 import 'package:body_buddies/features/home/presentation/bloc/home_bloc.dart';
-import 'package:body_buddies/features/home/presentation/widgets/body_home_data.dart';
 import 'package:body_buddies/features/home/presentation/widgets/home_screen.dart';
-import 'package:body_buddies/features/intro/presentation/bloc/intro_bloc.dart';
-import 'package:body_buddies/features/intro/presentation/widgets/intro_screen.dart';
 import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/bloc/workouts_menu_bloc.dart';
 import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/domain/fake_workouts_database.dart';
 import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/run_workout/presentation/run_workout_screen.dart';
@@ -32,7 +29,6 @@ class BodyBuddiesApp extends StatelessWidget {
   BodyBuddiesApp({super.key});
 
   FakeWorkoutsDatabase fakeWorkoutsDatabase = FakeWorkoutsDatabase();
-  final BodyHomeData mainFrontendData = BodyHomeData();
   final exercises = Exercises();
 
   // This widget is the root of your application.
@@ -42,7 +38,6 @@ class BodyBuddiesApp extends StatelessWidget {
         MediaQuery.sizeOf(context).width, MediaQuery.sizeOf(context).height);
 
     WorkoutsMenuScreen workoutsMenuScreen = WorkoutsMenuScreen(
-      mainFrontendData: mainFrontendData,
     );
     return MaterialApp(
       theme: ThemeData(
@@ -58,15 +53,10 @@ class BodyBuddiesApp extends StatelessWidget {
       )),
       debugShowCheckedModeBanner: false,
       routes: {
-        "/login_page": (context) => BlocProvider(
-              create: (BuildContext context) => IntroBloc(),
-              child: IntroScreen(),
-            ),
         "/": (context) => BlocProvider(
               create: (BuildContext context) => HomeBloc(),
               child: HomeScreen(
                 fakeWorkoutsDatabase: fakeWorkoutsDatabase,
-                mainFrontendData: mainFrontendData,
               ),
             ),
         "/workouts_menu": (context) => BlocProvider(
@@ -79,13 +69,11 @@ class BodyBuddiesApp extends StatelessWidget {
               fakeDB: fakeWorkoutsDatabase,
               workoutsMenuScreen: workoutsMenuScreen,
               screenSize: screenSize,
-              mainFrontendData: mainFrontendData,
             ),
         "/workouts_menu/create_workout/add_exercise/": (context) =>
             BlocProvider(
               create: (BuildContext context) => AddExerciseCubit(),
               child: AddExerciseScreen(
-                mainFrontendData: mainFrontendData,
                 exercises: exercises,
               ),
             ),
@@ -93,7 +81,6 @@ class BodyBuddiesApp extends StatelessWidget {
             (context) => BlocProvider(
                   create: (BuildContext context) => AddYourExerciseCubit(),
                   child: AddYourExerciseScreen(
-                    mainFrontendData: mainFrontendData,
                     exercises: exercises,
                   ),
                 ),

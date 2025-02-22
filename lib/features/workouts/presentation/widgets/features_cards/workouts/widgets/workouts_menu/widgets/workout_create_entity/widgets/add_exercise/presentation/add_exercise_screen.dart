@@ -2,6 +2,7 @@
 
 import 'dart:async';
 
+import 'package:body_buddies/core/widgets/app_bar.dart';
 import 'package:body_buddies/core/widgets/base_button.dart';
 import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/domain/exercises_database.dart';
 import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/widgets/workout_entities/entity/exercise_entity.dart';
@@ -10,15 +11,11 @@ import 'package:flutter/material.dart';
 import '../../../../../../../../../../../../../core/colors/colors.dart';
 import '../../../../../../../../../../../../../core/strings/strings.dart';
 import '../../../../../../../../../../../../../core/styles/styles.dart';
-import '../../../../../../../../../../../../home/presentation/widgets/body_home_data.dart';
 
 class AddExerciseScreen extends StatefulWidget {
-  final BodyHomeData mainFrontendData;
-
   Exercises exercises;
 
-  AddExerciseScreen(
-      {super.key, required this.mainFrontendData, required this.exercises});
+  AddExerciseScreen({super.key, required this.exercises});
 
   @override
   State<AddExerciseScreen> createState() => _AddExerciseScreenState();
@@ -39,8 +36,7 @@ class _AddExerciseScreenState extends State<AddExerciseScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: widget.mainFrontendData
-          .createAppBarWidget(appbarTitle: Strings.change_exercise),
+      appBar: createAppBarWidget(appbarTitle: Strings.change_exercise),
       body: Container(
         decoration: BoxDecoration(
             //color: Colours.workout_card_background_color,

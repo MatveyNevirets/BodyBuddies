@@ -1,7 +1,7 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:body_buddies/core/styles/styles.dart';
-import 'package:body_buddies/features/home/presentation/widgets/body_home_data.dart';
+import 'package:body_buddies/core/widgets/app_bar.dart';
 import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/bloc/workouts_menu_bloc.dart';
 import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/widgets/workout_card_on_list.dart';
 import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/widgets/workout_entities/entity/open_journal_card.dart';
@@ -13,9 +13,7 @@ import '../../../../../../../../core/colors/colors.dart';
 import '../../../../../../../../core/strings/strings.dart';
 
 class WorkoutsMenuScreen extends StatelessWidget {
-  late final BodyHomeData mainFrontendData;
-
-  WorkoutsMenuScreen({super.key, required this.mainFrontendData});
+  WorkoutsMenuScreen({super.key});
 
   BuildContext? context;
 
@@ -37,8 +35,7 @@ class WorkoutsMenuScreen extends StatelessWidget {
     return BlocBuilder<WorkoutsMenuBloc, WorkoutsMenuState>(
       builder: (context, state) {
         return Scaffold(
-          appBar: mainFrontendData.createAppBarWidget(
-              appbarTitle: Strings.workouts_appbar),
+          appBar: createAppBarWidget(appbarTitle: Strings.workouts_appbar),
           floatingActionButton: Padding(
             padding: const EdgeInsets.only(right: 8, bottom: 32),
             child: FloatingActionButton(

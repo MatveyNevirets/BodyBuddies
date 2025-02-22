@@ -1,5 +1,5 @@
 import 'package:body_buddies/core/styles/styles.dart';
-import 'package:body_buddies/features/home/presentation/widgets/body_home_data.dart';
+import 'package:body_buddies/core/widgets/app_bar.dart';
 import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/water_indicator_widget/bloc/water_cups_bloc/water_cups_bloc.dart';
 import 'package:body_buddies/features/workouts/presentation/widgets/features_cards/workouts/widgets/workouts_menu/domain/fake_workouts_database.dart';
 import 'package:flutter/material.dart';
@@ -13,12 +13,8 @@ import '../../../workouts/presentation/widgets/features_cards/workouts/workouts_
 
 class HomeScreen extends StatefulWidget {
   final FakeWorkoutsDatabase fakeWorkoutsDatabase;
-  final BodyHomeData mainFrontendData;
 
-  const HomeScreen(
-      {super.key,
-      required this.fakeWorkoutsDatabase,
-      required this.mainFrontendData});
+  const HomeScreen({super.key, required this.fakeWorkoutsDatabase});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -28,8 +24,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: widget.mainFrontendData
-          .createAppBarWidget(appbarTitle: Strings.workouts_appbar),
+      appBar: createAppBarWidget(appbarTitle: Strings.workouts_appbar),
       body: Container(
         margin: Styles.base_margin_size,
         child: ListView(children: [
