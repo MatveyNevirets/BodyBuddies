@@ -1,9 +1,9 @@
+import 'package:body_buddies/features/workouts/workouts_menu/domain/entity/exercise_entity.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../core/colors/colors.dart';
 import '../../../../core/strings/strings.dart';
 import '../../../../core/styles/styles.dart';
-import '../../workouts_menu/widgets/workout_entities/entity/exercise_entity.dart';
 import '../presentation/workout_create_screen.dart';
 
 class TimerExerciseItemOnList extends StatefulWidget {

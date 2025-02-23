@@ -1,7 +1,7 @@
 import 'package:body_buddies/core/widgets/app_bar.dart';
-import 'package:body_buddies/features/workouts/workouts_menu/widgets/workout_entities/entity/workout_entity.dart';
 import 'package:body_buddies/features/workouts/workouts_journal/bloc/workouts_journal_cubit.dart';
 import 'package:body_buddies/features/workouts/workouts_journal/widgets/journal_workout_card_item.dart';
+import 'package:body_buddies/features/workouts/workouts_menu/domain/entity/workout_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

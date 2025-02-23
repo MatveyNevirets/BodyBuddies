@@ -5,13 +5,12 @@ import 'package:body_buddies/core/widgets/app_bar.dart';
 import 'package:body_buddies/core/widgets/base_button.dart';
 import 'package:body_buddies/core/widgets/base_snackbar.dart';
 import 'package:body_buddies/features/workouts/workouts_menu/bloc/workouts_menu_bloc.dart';
+import 'package:body_buddies/features/workouts/workouts_menu/domain/entity/exercise_entity.dart';
+import 'package:body_buddies/features/workouts/workouts_menu/domain/entity/workout_entity.dart';
 import 'package:body_buddies/features/workouts/workouts_menu/domain/fake_workouts_database.dart';
-import 'package:body_buddies/features/workouts/workouts_menu/widgets/workout_card_on_list.dart';
+import 'package:body_buddies/features/workouts/workouts_menu/presentation/workouts_menu_screen.dart';
 import 'package:body_buddies/features/workouts/create_workout/widgets/exercise_item_on_list.dart';
 import 'package:body_buddies/features/workouts/create_workout/widgets/timer_exercise_item_on_list.dart';
-import 'package:body_buddies/features/workouts/workouts_menu/widgets/workout_entities/entity/exercise_entity.dart';
-import 'package:body_buddies/features/workouts/workouts_menu/widgets/workout_entities/entity/workout_entity.dart';
-import 'package:body_buddies/features/workouts/workouts_menu/workouts_menu_screen.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -317,7 +316,7 @@ class _CreateWorkoutScreenState extends State<CreateWorkoutScreen> {
                                     },
                                   );
                                 }
-                                return CircularProgressIndicator();
+                                return const CircularProgressIndicator();
                               },
                             ),
                           ),

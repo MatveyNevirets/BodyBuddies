@@ -1,4 +1,4 @@
-import 'package:body_buddies/features/workouts/workouts_menu/widgets/workout_entities/entity/exercise_entity.dart';
+import 'package:body_buddies/features/workouts/workouts_menu/domain/entity/exercise_entity.dart';
 
 class WorkoutEntity {
   String? title;

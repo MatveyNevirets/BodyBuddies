@@ -1,9 +1,8 @@
 import 'package:bloc/bloc.dart';
+import 'package:body_buddies/features/workouts/workouts_menu/domain/entity/exercise_entity.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
-
-import '../../workouts_menu/widgets/workout_entities/entity/exercise_entity.dart';
 
 part 'run_workout_event.dart';
 

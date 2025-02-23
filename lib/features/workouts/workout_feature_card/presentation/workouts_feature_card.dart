@@ -1,8 +1,8 @@
 import 'package:body_buddies/features/workouts/workout_feature_card/widgets/calendar_widget.dart';
 import 'package:body_buddies/features/workouts/workout_feature_card/widgets/workout_button_widget.dart';
 import 'package:body_buddies/features/workouts/workout_feature_card/widgets/workout_container_text.dart';
+import 'package:body_buddies/features/workouts/workouts_menu/domain/entity/workout_entity.dart';
 import 'package:body_buddies/features/workouts/workouts_menu/domain/fake_workouts_database.dart';
-import 'package:body_buddies/features/workouts/workouts_menu/widgets/workout_entities/entity/workout_entity.dart';
 import 'package:flutter/cupertino.dart';
 
 import '../../../../core/styles/styles.dart';

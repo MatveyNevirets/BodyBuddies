@@ -4,7 +4,7 @@ import 'package:body_buddies/core/styles/styles.dart';
 import 'package:body_buddies/core/widgets/app_bar.dart';
 import 'package:body_buddies/features/workouts/run_workout/presentation/run_workout_screen.dart';
 import 'package:body_buddies/features/workouts/create_workout/presentation/workout_create_screen.dart';
-import 'package:body_buddies/features/workouts/workouts_menu/widgets/workout_entities/entity/workout_entity.dart';
+import 'package:body_buddies/features/workouts/workouts_menu/domain/entity/workout_entity.dart';
 import 'package:flutter/material.dart';
 
 class WorkoutEntityScreen extends StatelessWidget {

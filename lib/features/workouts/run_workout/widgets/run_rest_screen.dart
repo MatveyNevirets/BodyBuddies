@@ -3,7 +3,7 @@ import 'package:body_buddies/features/workouts/run_workout/bloc/run_workout_bloc
 import 'package:body_buddies/features/workouts/run_workout/presentation/run_workout_screen.dart';
 import 'package:body_buddies/features/workouts/run_workout/workout_ticker/reverse_ticker.dart';
 import 'package:body_buddies/features/workouts/run_workout/workout_ticker/workout_ticker.dart';
-import 'package:body_buddies/features/workouts/workouts_menu/widgets/workout_entities/entity/exercise_entity.dart';
+import 'package:body_buddies/features/workouts/workouts_menu/domain/entity/exercise_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

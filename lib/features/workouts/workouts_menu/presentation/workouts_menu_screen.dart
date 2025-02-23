@@ -1,16 +1,15 @@
 // ignore_for_file: must_be_immutable
 
+import 'package:body_buddies/core/colors/colors.dart';
+import 'package:body_buddies/core/strings/strings.dart';
 import 'package:body_buddies/core/styles/styles.dart';
 import 'package:body_buddies/core/widgets/app_bar.dart';
 import 'package:body_buddies/features/workouts/workouts_menu/bloc/workouts_menu_bloc.dart';
+import 'package:body_buddies/features/workouts/workouts_menu/domain/entity/open_journal_card.dart';
+import 'package:body_buddies/features/workouts/workouts_menu/domain/entity/workout_entity.dart';
 import 'package:body_buddies/features/workouts/workouts_menu/widgets/workout_card_on_list.dart';
-import 'package:body_buddies/features/workouts/workouts_menu/widgets/workout_entities/entity/open_journal_card.dart';
-import 'package:body_buddies/features/workouts/workouts_menu/widgets/workout_entities/entity/workout_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import '../../../core/colors/colors.dart';
-import '../../../core/strings/strings.dart';
 
 class WorkoutsMenuScreen extends StatelessWidget {
   WorkoutsMenuScreen({super.key});

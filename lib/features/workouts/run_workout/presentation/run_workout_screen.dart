@@ -1,10 +1,10 @@
 import 'package:body_buddies/core/widgets/base_snackbar.dart';
+import 'package:body_buddies/features/workouts/workouts_menu/domain/entity/workout_entity.dart';
 import 'package:body_buddies/features/workouts/workouts_menu/domain/fake_workouts_database.dart';
 import 'package:body_buddies/features/workouts/run_workout/bloc/run_workout_bloc.dart';
 import 'package:body_buddies/features/workouts/run_workout/widgets/run_exercise_screen.dart';
 import 'package:body_buddies/features/workouts/run_workout/widgets/run_timer_exercise_screen.dart';
 import 'package:body_buddies/features/workouts/run_workout/workout_ticker/workout_ticker.dart';
-import 'package:body_buddies/features/workouts/workouts_menu/widgets/workout_entities/entity/workout_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
