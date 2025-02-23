@@ -3,23 +3,23 @@
 import 'package:body_buddies/core/colors/colors.dart';
 import 'package:body_buddies/internal/home/presentation/bloc/home_bloc.dart';
 import 'package:body_buddies/internal/home/home_screen.dart';
-import 'package:body_buddies/features/workouts/widgets/workouts_menu/bloc/workouts_menu_bloc.dart';
-import 'package:body_buddies/features/workouts/widgets/workouts_menu/domain/fake_workouts_database.dart';
-import 'package:body_buddies/features/workouts/widgets/workouts_menu/run_workout/presentation/run_workout_screen.dart';
-import 'package:body_buddies/features/workouts/widgets/workouts_menu/workouts_journal/bloc/workouts_journal_cubit.dart';
-import 'package:body_buddies/features/workouts/widgets/workouts_menu/workouts_journal/presentation/workouts_journal_screen.dart';
-import 'package:body_buddies/features/workouts/widgets/workouts_menu/workouts_menu_screen.dart';
+import 'package:body_buddies/features/workouts/workouts_menu/bloc/workouts_menu_bloc.dart';
+import 'package:body_buddies/features/workouts/workouts_menu/domain/fake_workouts_database.dart';
+import 'package:body_buddies/features/workouts/run_workout/presentation/run_workout_screen.dart';
+import 'package:body_buddies/features/workouts/workouts_journal/bloc/workouts_journal_cubit.dart';
+import 'package:body_buddies/features/workouts/workouts_journal/presentation/workouts_journal_screen.dart';
+import 'package:body_buddies/features/workouts/workouts_menu/workouts_menu_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../features/workouts/widgets/workouts_menu/domain/exercises_database.dart';
-import '../features/workouts/widgets/workouts_menu/widgets/workout_create_entity/presentation/workout_create_screen.dart';
-import '../features/workouts/widgets/workouts_menu/widgets/workout_create_entity/widgets/add_exercise/bloc/add_exercise_cubit.dart';
-import '../features/workouts/widgets/workouts_menu/widgets/workout_create_entity/widgets/add_exercise/presentation/add_exercise_screen.dart';
-import '../features/workouts/widgets/workouts_menu/widgets/workout_create_entity/widgets/add_exercise/widgets/add_your_exercise/bloc/add_your_exercise_cubit.dart';
-import '../features/workouts/widgets/workouts_menu/widgets/workout_create_entity/widgets/add_exercise/widgets/add_your_exercise/presentation/add_your_exercise_screen.dart';
-import '../features/workouts/widgets/workouts_menu/current_workout_screen.dart';
+import '../features/workouts/workouts_menu/domain/exercises_database.dart';
+import '../features/workouts/create_workout/presentation/workout_create_screen.dart';
+import '../features/workouts/add_exercise/bloc/add_exercise_cubit.dart';
+import '../features/workouts/add_exercise/presentation/add_exercise_screen.dart';
+import '../features/workouts/add_your_exercise/bloc/add_your_exercise_cubit.dart';
+import '../features/workouts/add_your_exercise/presentation/add_your_exercise_screen.dart';
+import '../features/workouts/workouts_menu/current_workout_screen.dart';
 
 void main() {
   runApp(BodyBuddiesApp());
@@ -28,7 +28,7 @@ void main() {
 class BodyBuddiesApp extends StatelessWidget {
   BodyBuddiesApp({super.key});
 
-  FakeWorkoutsDatabase fakeWorkoutsDatabase = FakeWorkoutsDatabase();
+  final fakeWorkoutsDatabase = FakeWorkoutsDatabase();
   final exercises = Exercises();
 
   // This widget is the root of your application.
@@ -63,8 +63,7 @@ class BodyBuddiesApp extends StatelessWidget {
                   WorkoutsMenuBloc(fakeWorkoutsDatabase),
               child: workoutsMenuScreen,
             ),
-        "/workouts_menu/create_workout/": (context) =>
-            DialogWorkoutCreateScreen(
+        "/workouts_menu/create_workout/": (context) => CreateWorkoutScreen(
               fakeDB: fakeWorkoutsDatabase,
               workoutsMenuScreen: workoutsMenuScreen,
               screenSize: screenSize,
