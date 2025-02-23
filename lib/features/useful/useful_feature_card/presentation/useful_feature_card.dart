@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../../core/strings/strings.dart';
-import '../../core/styles/styles.dart';
+import '../../../../core/strings/strings.dart';
+import '../../../../core/styles/styles.dart';
 
 class UsefulFeatureCard extends StatelessWidget {
   const UsefulFeatureCard({super.key});
@@ -18,6 +18,7 @@ class UsefulFeatureCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 GestureDetector(
+                  onTap: () => openPage(context, "/bench_press_calculator"),
                   child: Stack(
                     children: [
                       const Image(
@@ -102,5 +103,9 @@ class UsefulFeatureCard extends StatelessWidget {
         ),
       ],
     );
+  }
+
+  void openPage(BuildContext context, String routePath) {
+    Navigator.of(context).pushNamed(routePath);
   }
 }

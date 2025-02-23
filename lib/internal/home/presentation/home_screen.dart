@@ -7,7 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../core/strings/strings.dart';
 import '../../../features/nutrition/nutrition_feature_card.dart';
-import '../../../features/useful/useful_feature_card.dart';
+import '../../../features/useful/useful_feature_card/presentation/useful_feature_card.dart';
 import '../../../features/water_indicator_widget/water_indicator_widget.dart';
 import '../../../features/workouts/workout_feature_card/presentation/workouts_feature_card.dart';
 

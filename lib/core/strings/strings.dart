@@ -161,5 +161,9 @@ abstract class Strings {
 
   static String repeats = "Повторы";
 
+  static var bench_press_calculator_appbar = "Калькулятор жима";
+
+  static var calculate = "Посчитать";
+
 ///////////////////////////////
 }
