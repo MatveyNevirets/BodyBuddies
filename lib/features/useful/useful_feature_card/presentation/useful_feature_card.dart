@@ -50,6 +50,7 @@ class UsefulFeatureCard extends StatelessWidget {
                   width: Styles.height_of_text_to_widget / 2,
                 ),
                 GestureDetector(
+                  onTap: () => openPage(context, "/advices"),
                   child: Stack(
                     children: [
                       const Image(
