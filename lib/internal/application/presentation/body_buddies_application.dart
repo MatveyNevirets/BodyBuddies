@@ -1,5 +1,6 @@
 import 'package:body_buddies/core/colors/colors.dart';
 import 'package:body_buddies/features/useful/advices/presentation/advices_page.dart';
+import 'package:body_buddies/features/useful/advices/presentation/current_advice_screen.dart';
 import 'package:body_buddies/features/useful/bench_press_calculator/presentation/bench_press_calculator_page.dart';
 import 'package:body_buddies/features/workouts/add_exercise/bloc/add_exercise_cubit.dart';
 import 'package:body_buddies/features/workouts/add_exercise/presentation/add_exercise_screen.dart';
@@ -87,6 +88,7 @@ class BodyBuddiesApp extends StatelessWidget {
             ),
         "/bench_press_calculator": (context) => BenchPressCalculatorPage(),
         "/advices": (context) => const AdvicesPage(),
+        "/advices/current_advice": (context) => const CurrentAdviceScreen(),
       },
       initialRoute: "/",
     );
