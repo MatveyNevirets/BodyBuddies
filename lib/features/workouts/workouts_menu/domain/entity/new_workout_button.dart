@@ -7,8 +7,10 @@ import '../../../../../../core/styles/styles.dart';
 class NewWorkoutButton extends StatelessWidget {
   final VoidCallback onPressed;
   final Size buttonSize;
+  final String title;
 
-  const NewWorkoutButton(this.onPressed, this.buttonSize, {super.key});
+  const NewWorkoutButton(this.onPressed, this.buttonSize,
+      {super.key, this.title = Strings.start2});
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +32,7 @@ class NewWorkoutButton extends StatelessWidget {
       child: Column(
         children: [
           Text(
-            Strings.start2,
+            title,
             style: Styles.workout_text_style_week_day,
           ),
         ],

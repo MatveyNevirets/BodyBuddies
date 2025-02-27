@@ -84,6 +84,7 @@ class UsefulFeatureCard extends StatelessWidget {
               height: Styles.base_margin_size_double / 2,
             ),
             GestureDetector(
+              onTap: () => openPage(context, "/made_workouts"),
               child: Stack(
                 children: [
                   const Image(

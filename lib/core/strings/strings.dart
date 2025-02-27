@@ -165,5 +165,7 @@ abstract class Strings {
 
   static var calculate = "Посчитать";
 
+  static var cancel = "Отменить";
+
 ///////////////////////////////
 }

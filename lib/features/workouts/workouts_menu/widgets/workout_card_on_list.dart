@@ -98,33 +98,21 @@ class WorkoutCardOnList extends StatelessWidget {
                       ),
                     ],
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Text(
-                        truncateText(workout.title!, 10),
-                        style: Styles.workout_text_style,
-                      ),
-                    ],
+                  Text(
+                    truncateText(workout.title!, 10),
+                    style: Styles.workout_text_style,
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Text(
-                        truncateText(getMusclesGroupOnString(), 20),
-                        style: Styles.workout_text_style2,
-                      ),
-                    ],
+                  Text(
+                    truncateText(getMusclesGroupOnString(), 20),
+                    style: Styles.workout_text_style2,
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      NewWorkoutButton(
-                          () => runCurrentWorkout(context),
-                          Size(MediaQuery.sizeOf(context).width / 5,
-                              MediaQuery.sizeOf(context).width / 10)),
-                    ],
-                  )
+                  const SizedBox(
+                    height: 6,
+                  ),
+                  NewWorkoutButton(
+                      () => runCurrentWorkout(context),
+                      Size(MediaQuery.sizeOf(context).width / 5,
+                          MediaQuery.sizeOf(context).width / 10))
                 ],
               ),
             ],
