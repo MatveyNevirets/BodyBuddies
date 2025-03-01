@@ -158,6 +158,7 @@ abstract class Strings {
   static String rest = "Отдых";
 
   static String workouts = "Тренировок";
+  static String workout = "Тренировка";
 
   static String repeats = "Повторы";
 
@@ -166,6 +167,10 @@ abstract class Strings {
   static var calculate = "Посчитать";
 
   static var cancel = "Отменить";
+
+  static var alreadyAdded = "уже добавлена";
+
+  static var addedSuccessful = "успешно добавлена";
 
 ///////////////////////////////
 }

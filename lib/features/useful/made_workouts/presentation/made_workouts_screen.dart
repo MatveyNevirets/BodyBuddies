@@ -3,6 +3,8 @@ import 'package:body_buddies/core/data/fakeMadeWorkoutsDb.dart';
 import 'package:body_buddies/core/strings/strings.dart';
 import 'package:body_buddies/core/styles/styles.dart';
 import 'package:body_buddies/core/widgets/app_bar.dart';
+import 'package:body_buddies/core/widgets/base_snackbar.dart';
+import 'package:body_buddies/features/useful/bench_press_calculator/presentation/bench_press_calculator_screen.dart';
 import 'package:body_buddies/features/workouts/create_workout/presentation/workout_create_screen.dart';
 import 'package:body_buddies/features/workouts/workouts_menu/bloc/workouts_menu_bloc.dart';
 import 'package:body_buddies/features/workouts/workouts_menu/domain/entity/new_workout_button.dart';
@@ -20,9 +22,6 @@ class MadeWorkoutsScreen extends StatefulWidget {
 }
 
 class _MadeWorkoutsScreenState extends State<MadeWorkoutsScreen> {
-  final List<bool> isAdded =
-      List.generate(FakeMadeWorkoutsDb.workouts.length, (int index) => false);
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -78,15 +77,10 @@ class _MadeWorkoutsScreenState extends State<MadeWorkoutsScreen> {
                                   height: 8,
                                 ),
                                 NewWorkoutButton(
-                                    title: isAdded[index]
-                                        ? Strings.cancel
-                                        : Strings.add,
-                                    () => addWorkout(
-                                        index,
-                                        FakeMadeWorkoutsDb.workouts[index],
-                                        context),
+                                    title: Strings.add,
+                                    () => addWorkout(index, context),
                                     Size(MediaQuery.sizeOf(context).width / 5,
-                                        MediaQuery.sizeOf(context).width / 10))
+                                        MediaQuery.sizeOf(context).width / 10)),
                               ],
                             ),
                           ],
@@ -101,18 +95,16 @@ class _MadeWorkoutsScreenState extends State<MadeWorkoutsScreen> {
     );
   }
 
-  void addWorkout(int index, WorkoutEntity workout, BuildContext context) {
-    setState(() {
-      isAdded[index] = !isAdded[index];
-    });
-
-    if (isAdded[index]) {
-      widget.fakeWorkoutsDatabase.fakeWorkoutEntities.add(workout);
-      context
-          .read<WorkoutsMenuBloc>()
-          .add(AddWorkoutEvent(widget.fakeWorkoutsDatabase));
+  void addWorkout(int index, BuildContext context) {
+    if (widget.fakeWorkoutsDatabase.fakeWorkoutEntities
+        .contains(FakeMadeWorkoutsDb.workouts[index])) {
+      showSnackBar(context,
+          '${Strings.workout} "${FakeMadeWorkoutsDb.workouts[index].title}" ${Strings.alreadyAdded}');
     } else {
-      widget.fakeWorkoutsDatabase.fakeWorkoutEntities.remove(workout);
+      widget.fakeWorkoutsDatabase.fakeWorkoutEntities
+          .add(FakeMadeWorkoutsDb.workouts[index]);
+      showSnackBar(context,
+          '${Strings.workout} "${FakeMadeWorkoutsDb.workouts[index].title}" ${Strings.addedSuccessful}');
     }
   }
 
