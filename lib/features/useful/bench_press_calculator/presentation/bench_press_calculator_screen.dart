@@ -1,5 +1,6 @@
 import 'package:body_buddies/core/colors/colors.dart';
 import 'package:body_buddies/core/strings/strings.dart';
+import 'package:body_buddies/core/styles/styles.dart';
 import 'package:body_buddies/core/widgets/app_bar.dart';
 import 'package:body_buddies/core/widgets/base_button.dart';
 import 'package:body_buddies/features/useful/bench_press_calculator/presentation/bloc/bench_press_calculator_bloc.dart';
@@ -25,22 +26,15 @@ class BenchPressCalculatorScreen extends StatelessWidget {
           child: SizedBox(
               height: double.maxFinite,
               width: double.maxFinite,
-              child: Card(
-                elevation: 4,
-                color: Colours.workout_card_background_color,
-                child: Padding(
-                  padding: const EdgeInsets.all(16),
-                  child: Column(
-                    children: [
-                      buildTextFields(weightController, repsController),
-                      buildResults(),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      buildCalculateButton(context)
-                    ],
+              child: Column(
+                children: [
+                  buildTextFields(weightController, repsController),
+                  buildResults(),
+                  const SizedBox(
+                    height: 10,
                   ),
-                ),
+                  buildCalculateButton(context)
+                ],
               )),
         ),
       ),
@@ -100,31 +94,53 @@ class BenchPressCalculatorScreen extends StatelessWidget {
     );
   }
 
-  Column buildTextFields(
+  Padding buildTextFields(
       TextEditingController weightController, repsController) {
-    return Column(
-      children: [
-        Card(
-          color: Colours.workoutCardForegroundColor,
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: TextField(
-              controller: weightController,
-              decoration: InputDecoration(hintText: Strings.weight),
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Card(
+        color: Colours.workout_card_background_color,
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Card(
+            color: Colours.workoutCardForegroundColor,
+            child: Padding(
+              padding: const EdgeInsets.all(16),
+              child: Column(
+                children: [
+                  Text(
+                    Strings.weight,
+                    style: Styles.reverse_rest_text_style,
+                  ),
+                  Card(
+                    color: Colours.workout_card_background_color,
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: TextField(
+                        controller: weightController,
+                        decoration: InputDecoration(),
+                      ),
+                    ),
+                  ),
+                  Text(
+                    Strings.reps,
+                    style: Styles.reverse_rest_text_style,
+                  ),
+                  Card(
+                    color: Colours.workout_card_background_color,
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: TextField(
+                        controller: repsController,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ),
-        Card(
-          color: Colours.workoutCardForegroundColor,
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: TextField(
-              controller: repsController,
-              decoration: InputDecoration(hintText: Strings.reps),
-            ),
-          ),
-        ),
-      ],
+      ),
     );
   }
 }
