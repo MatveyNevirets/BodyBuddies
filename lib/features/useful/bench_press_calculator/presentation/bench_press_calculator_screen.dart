@@ -118,7 +118,7 @@ class BenchPressCalculatorScreen extends StatelessWidget {
                       padding: const EdgeInsets.all(8.0),
                       child: TextField(
                         controller: weightController,
-                        decoration: InputDecoration(),
+                        decoration: const InputDecoration(),
                       ),
                     ),
                   ),

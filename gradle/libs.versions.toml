@@ -3,6 +3,8 @@
 
 [versions]
 guava = "33.3.1-jre"
+junitJupiter = "5.8.1"
 
 [libraries]
 guava = { module = "com.google.guava:guava", version.ref = "guava" }
+junit-jupiter = { group = "org.junit.jupiter", name = "junit-jupiter", version.ref = "junitJupiter" }

@@ -87,7 +87,8 @@ class BodyBuddiesApp extends StatelessWidget {
         "workouts_menu/run_workout/": (context) => RunWorkoutScreen(
               fakeWorkoutsDatabase: fakeWorkoutsDatabase,
             ),
-        "/bench_press_calculator": (context) => BenchPressCalculatorPage(),
+        "/bench_press_calculator": (context) =>
+            const BenchPressCalculatorPage(),
         "/advices": (context) => const AdvicesPage(),
         "/advices/current_advice": (context) => const CurrentAdviceScreen(),
         "/made_workouts": (context) => MadeWorkroutsPage(
