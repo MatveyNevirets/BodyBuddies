@@ -22,99 +22,101 @@ class WorkoutEntityScreen extends StatelessWidget {
       appBar: createAppBarWidget(
           appbarTitle:
               whatsOpen == 0 ? Strings.workouts_appbar : Strings.journal),
-      body: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Card(
-          color: Colours.workout_card_background_color,
-          child: Padding(
-            padding: const EdgeInsets.all(16),
-            child: Column(
-              children: [
-                Column(
-                  children: [
-                    Card(
-                      color: Colours.workoutCardForegroundColor,
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 8, horizontal: 32),
-                        child: Text(
-                          textAlign: TextAlign.center,
-                          workoutEntity.title.toString(),
-                          style: Styles.workout_text_style_background_24,
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Card(
+            color: Colours.workout_card_background_color,
+            child: Padding(
+              padding: const EdgeInsets.all(16),
+              child: Column(
+                children: [
+                  Column(
+                    children: [
+                      Card(
+                        color: Colours.workoutCardForegroundColor,
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 8, horizontal: 32),
+                          child: Text(
+                            textAlign: TextAlign.center,
+                            workoutEntity.title.toString(),
+                            style: Styles.workout_text_style_background_24,
+                          ),
                         ),
                       ),
-                    ),
-                    const SizedBox(
-                      height: 8,
-                    ),
-                  ],
-                ),
-                Expanded(
-                  child: ListView.builder(
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      itemCount: workoutEntity.exercises.length,
-                      itemBuilder: (context, index) {
-                        if (workoutEntity.exercises[index].isExercise) {
-                          return Card(
-                            color: Colours.workoutCardForegroundColor,
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Column(
-                                children: [
-                                  Text(
-                                    truncateText(
-                                        workoutEntity.exercises[index].title,
-                                        20),
-                                    style: Styles.mini_hint_background,
-                                  ),
-                                  const SizedBox(
-                                    height: 8,
-                                  ),
-                                  buildRepsSetsFields(workoutEntity, index),
-                                  buildRestWeightFields(workoutEntity, index),
-                                ],
-                              ),
-                            ),
-                          );
-                        } else if (workoutEntity
-                            .exercises[index].isTimerExercise) {
-                          return Card(
-                            color: Colours.workoutCardForegroundColor,
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Column(
-                                children: [
-                                  Center(
-                                    child: Column(
-                                      children: [
-                                        Text(
-                                          truncateText(
-                                              workoutEntity
-                                                  .exercises[index].title,
-                                              20),
-                                          style: Styles.mini_hint_background,
-                                        ),
-                                        const SizedBox(
-                                          height: 8,
-                                        ),
-                                        buildExerciseTimeSets(
-                                            workoutEntity, index),
-                                        buildWeightRestTime(
-                                            workoutEntity, index),
-                                      ],
+                      const SizedBox(
+                        height: 8,
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    child: ListView.builder(
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemCount: workoutEntity.exercises.length,
+                        itemBuilder: (context, index) {
+                          if (workoutEntity.exercises[index].isExercise) {
+                            return Card(
+                              color: Colours.workoutCardForegroundColor,
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Column(
+                                  children: [
+                                    Text(
+                                      truncateText(
+                                          workoutEntity.exercises[index].title,
+                                          20),
+                                      style: Styles.mini_hint_background,
                                     ),
-                                  ),
-                                ],
+                                    const SizedBox(
+                                      height: 8,
+                                    ),
+                                    buildRepsSetsFields(workoutEntity, index),
+                                    buildRestWeightFields(workoutEntity, index),
+                                  ],
+                                ),
                               ),
-                            ),
-                          );
-                        }
+                            );
+                          } else if (workoutEntity
+                              .exercises[index].isTimerExercise) {
+                            return Card(
+                              color: Colours.workoutCardForegroundColor,
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Column(
+                                  children: [
+                                    Center(
+                                      child: Column(
+                                        children: [
+                                          Text(
+                                            truncateText(
+                                                workoutEntity
+                                                    .exercises[index].title,
+                                                20),
+                                            style: Styles.mini_hint_background,
+                                          ),
+                                          const SizedBox(
+                                            height: 8,
+                                          ),
+                                          buildExerciseTimeSets(
+                                              workoutEntity, index),
+                                          buildWeightRestTime(
+                                              workoutEntity, index),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            );
+                          }
 
-                        return const CircularProgressIndicator();
-                      }),
-                ),
-              ],
+                          return const CircularProgressIndicator();
+                        }),
+                  ),
+                ],
+              ),
             ),
           ),
         ),
