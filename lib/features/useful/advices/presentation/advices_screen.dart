@@ -21,7 +21,14 @@ class AdvicesScreen extends StatelessWidget {
             child: ListView.builder(
               itemCount: FakeAdvicesDb.advices.length,
               itemBuilder: (context, index) {
-                return buildAdviceCard(context, index);
+                return Column(
+                  children: [
+                    buildAdviceCard(context, index),
+                    const SizedBox(
+                      height: 5,
+                    )
+                  ],
+                );
               },
             ),
           ),
