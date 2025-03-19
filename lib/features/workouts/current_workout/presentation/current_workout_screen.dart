@@ -51,6 +51,8 @@ class WorkoutEntityScreen extends StatelessWidget {
                 ),
                 Expanded(
                   child: ListView.builder(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
                       itemCount: workoutEntity.exercises.length,
                       itemBuilder: (context, index) {
                         if (workoutEntity.exercises[index].isExercise) {
