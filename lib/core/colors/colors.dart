@@ -62,7 +62,7 @@ abstract class Colours {
 
   static const Color workout_card_background_color =
       Color.fromARGB(255, 110, 121, 158);
-  static var workoutCardForegroundColor =
+  static const workoutCardForegroundColor =
       const Color.fromARGB(255, 208, 219, 253);
 
   static var journalGradientColors = [
