@@ -459,21 +459,24 @@ class _TimerExerciseItemOnListState extends State<TimerExerciseItemOnList> {
         ),
         Expanded(
           child: Container(
-              decoration: BoxDecoration(
-                  color: Colours.workoutCardForegroundColor,
-                  borderRadius: BorderRadius.circular(4)),
-              margin: const EdgeInsets.all(8),
-              padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 4),
-              height: screenSize.height / 25,
+            decoration: BoxDecoration(
+                color: Colours.workoutCardForegroundColor,
+                borderRadius: BorderRadius.circular(4)),
+            margin: const EdgeInsets.all(8),
+            padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 4),
+            height: screenSize.height / 25,
+            child: Center(
               child: Text(
                 textAlign: TextAlign.center,
-                "        ",
-                style: Styles.hint_text_field_fill_workout,
-              )),
+                (index + 1).toString(),
+                style: Styles.hint_text_style_create_workout,
+              ),
+            ),
+          ),
         ),
         GestureDetector(
           onTap: () => removeExercise(),
-          child: Icon(
+          child: const Icon(
             Icons.delete,
             size: 25,
             color: Colours.workoutCardForegroundColor,

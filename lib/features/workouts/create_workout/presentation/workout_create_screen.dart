@@ -237,25 +237,26 @@ class _CreateWorkoutScreenState extends State<CreateWorkoutScreen> {
 
     return Scaffold(
       appBar: createAppBarWidget(appbarTitle: Strings.creating_appbar),
-      body: Wrap(
-        children: [
-          Container(
-              width: widget.screenSize.width,
-              margin: const EdgeInsets.symmetric(vertical: 24, horizontal: 16),
-              child: Card(
-                elevation: 4,
-                color: Colours.workout_card_background_color,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8),
-                        color: Colours.workoutCardForegroundColor,
-                      ),
-                      width: widget.screenSize.width / 1.5,
-                      margin: const EdgeInsets.all(30),
-                      padding: const EdgeInsets.all(8),
+      body: SingleChildScrollView(
+        child: Container(
+            width: widget.screenSize.width,
+            margin: const EdgeInsets.symmetric(vertical: 24, horizontal: 16),
+            child: Card(
+              elevation: 4,
+              color: Colours.workout_card_background_color,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Container(
+                    height: 50,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(8),
+                      color: Colours.workoutCardForegroundColor,
+                    ),
+                    width: widget.screenSize.width / 1.5,
+                    margin: const EdgeInsets.all(30),
+                    padding: const EdgeInsets.all(8),
+                    child: Center(
                       child: TextField(
                         controller: titleTextFieldController,
                         cursorColor: Colours.workout_card_background_color,
@@ -278,18 +279,21 @@ class _CreateWorkoutScreenState extends State<CreateWorkoutScreen> {
                         ),
                       ),
                     ),
-                    Container(
-                      padding: const EdgeInsets.all(16),
-                      width: widget.screenSize.width / 1.5,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8),
-                        color: Colours.workoutCardForegroundColor,
-                      ),
+                  ),
+                  Container(
+                    padding: const EdgeInsets.all(16),
+                    width: widget.screenSize.width / 1.5,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(8),
+                      color: Colours.workoutCardForegroundColor,
+                    ),
+                    child: Expanded(
                       child: Column(
                         children: [
                           SizedBox(
-                            height: widget.screenSize.height / 4,
                             child: ListView.builder(
+                              shrinkWrap: true,
+                              physics: const NeverScrollableScrollPhysics(),
                               itemCount: widget._exercises.length,
                               itemBuilder: (context, index) {
                                 if (widget._exercises[index].isExercise) {
@@ -338,77 +342,77 @@ class _CreateWorkoutScreenState extends State<CreateWorkoutScreen> {
                         ],
                       ),
                     ),
-                    const SizedBox(
-                      height: 30,
+                  ),
+                  const SizedBox(
+                    height: 30,
+                  ),
+                  Container(
+                    padding: const EdgeInsets.all(16),
+                    width: widget.screenSize.width / 1.5,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(8),
+                      color: Colours.workoutCardForegroundColor,
                     ),
-                    Container(
-                      padding: const EdgeInsets.all(16),
-                      width: widget.screenSize.width / 1.5,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8),
-                        color: Colours.workoutCardForegroundColor,
-                      ),
-                      child: DropdownButtonFormField<String>(
-                        isDense: true,
-                        dropdownColor: Colours.workoutCardForegroundColor,
-                        decoration: InputDecoration(
-                          focusedBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(
-                              color: Colours.workoutCardForegroundColor,
-                            ),
-                          ),
-                          enabledBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(
-                              color: Colours.workoutCardForegroundColor,
-                            ),
+                    child: DropdownButtonFormField<String>(
+                      isDense: true,
+                      dropdownColor: Colours.workoutCardForegroundColor,
+                      decoration: const InputDecoration(
+                        focusedBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Colours.workoutCardForegroundColor,
                           ),
                         ),
-                        value: widget.selectedWeekday,
-                        hint: Center(
-                            child: Text(
-                          Strings.day,
-                          textAlign: TextAlign.center,
-                          style: Styles.hint_text_style_create_workout,
-                        )),
-                        items: widget.daysOfWeek.map((String day) {
-                          return DropdownMenuItem<String>(
-                            value: day,
-                            child: Center(
-                                child: Text(
-                              day,
-                              style: Styles.hint_text_style_create_workout,
-                            )),
-                          );
-                        }).toList(),
-                        onChanged: (String? newValue) {
-                          setState(() {
-                            widget.selectedWeekday = newValue;
-                          });
-                        },
+                        enabledBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Colours.workoutCardForegroundColor,
+                          ),
+                        ),
                       ),
+                      value: widget.selectedWeekday,
+                      hint: Center(
+                          child: Text(
+                        Strings.day,
+                        textAlign: TextAlign.center,
+                        style: Styles.hint_text_style_create_workout,
+                      )),
+                      items: widget.daysOfWeek.map((String day) {
+                        return DropdownMenuItem<String>(
+                          value: day,
+                          child: Center(
+                              child: Text(
+                            day,
+                            style: Styles.hint_text_style_create_workout,
+                          )),
+                        );
+                      }).toList(),
+                      onChanged: (String? newValue) {
+                        setState(() {
+                          widget.selectedWeekday = newValue;
+                        });
+                      },
                     ),
-                    const SizedBox(
-                      height: 30,
-                    ),
-                    BaseButton(
-                      onClick: () => tryToCreateWorkout(workoutsMenuContext,
-                          context, workoutIndex, titleTextFieldController),
-                      buttonText: Strings.done,
-                      icon: null,
-                      isElevated: true,
-                      radius: 8,
-                      backgroundColor: Colours.workoutCardForegroundColor,
-                      color: Colours.workout_card_background_color,
-                      buttonSize: Size(widget.screenSize.width / 1.5,
-                          widget.screenSize.height / 15),
-                    ),
-                    const SizedBox(
-                      height: 30,
-                    ),
-                  ],
-                ),
-              )),
-        ],
+                  ),
+                  const SizedBox(
+                    height: 30,
+                  ),
+                  BaseButton(
+                    onClick: () => tryToCreateWorkout(workoutsMenuContext,
+                        context, workoutIndex, titleTextFieldController),
+                    buttonText: Strings.done,
+                    icon: null,
+                    isElevated: true,
+                    radius: 8,
+                    backgroundColor: Colours.workoutCardForegroundColor,
+                    color: Colours.workout_card_background_color,
+                    buttonSize: Size(widget.screenSize.width / 1.5,
+                        widget.screenSize.height / 15),
+                  ),
+                  const SizedBox(
+                    height: 30,
+                  ),
+                ],
+              ),
+            )),
       ),
     );
   }
@@ -420,13 +424,17 @@ class _CreateWorkoutScreenState extends State<CreateWorkoutScreen> {
   }
 
   void goToAddExercise(BuildContext buildContext) async {
-    final ExerciseEntity exercise = await Navigator.pushNamed(
+    final ExerciseEntity? exercise = await Navigator.pushNamed(
             context, "/workouts_menu/create_workout/add_exercise/")
-        as ExerciseEntity;
+        as ExerciseEntity?;
 
-    setState(() {
-      widget._exercises.add(exercise);
-    });
+    if (exercise != null) {
+      setState(() {
+        widget._exercises.add(exercise);
+      });
+    } else {
+      return null;
+    }
   }
 }
 
