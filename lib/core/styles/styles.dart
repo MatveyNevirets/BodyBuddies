@@ -32,7 +32,7 @@ abstract class Styles {
       fontFamily: 'AqumTwo',
       fontSize: 16,
       color: Colours.workout_card_background_color);
-  static var hint_text_style_create_exercise = TextStyle(
+  static var hint_text_style_create_exercise = const TextStyle(
       fontFamily: 'AqumTwo',
       fontSize: 16,
       color: Colours.workoutCardForegroundColor);
@@ -113,11 +113,11 @@ abstract class Styles {
   static var nutrition_symbol_text_style =
       const TextStyle(fontFamily: 'AqumTwo', fontSize: 21);
 
-  static var workout_text_style = TextStyle(
+  static var workout_text_style = const TextStyle(
       fontFamily: 'AqumTwo',
       fontSize: 21,
       color: Colours.workoutCardForegroundColor);
-  static var add_exercise_text_style = TextStyle(
+  static var add_exercise_text_style = const TextStyle(
       fontFamily: 'AqumTwo',
       fontSize: 18,
       color: Colours.workoutCardForegroundColor);
@@ -125,7 +125,7 @@ abstract class Styles {
       fontFamily: 'AqumTwo',
       fontSize: 14,
       color: Colours.workout_card_background_color);
-  static var workout_exercise_card_style = TextStyle(
+  static var workout_exercise_card_style = const TextStyle(
       fontFamily: 'AqumTwo',
       fontSize: 12,
       color: Colours.workoutCardForegroundColor);
@@ -146,7 +146,7 @@ abstract class Styles {
       fontSize: 14,
       color: Colours.workout_card_background_color);
 
-  static var mini_journal_card_text2 = TextStyle(
+  static var mini_journal_card_text2 = const TextStyle(
       fontFamily: 'AqumTwo',
       fontSize: 14,
       color: Colours.workoutCardForegroundColor);
@@ -156,15 +156,15 @@ abstract class Styles {
       fontSize: 12,
       color: Colours.workout_card_background_color);
 
-  static var mini_current_card_text2 = TextStyle(
+  static var mini_current_card_text2 = const TextStyle(
       fontFamily: 'AqumTwo',
       fontSize: 12,
       color: Colours.workoutCardForegroundColor);
 
   static double nutrition_button_elevate = 20;
 
-  static var journal_foreground_text_style = TextStyle(
-      shadows: const [
+  static var journal_foreground_text_style = const TextStyle(
+      shadows: [
         Shadow(
             blurRadius: 4,
             color: Color.fromARGB(64, 255, 255, 255),

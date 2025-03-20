@@ -18,7 +18,7 @@ class NewWorkoutButton extends StatelessWidget {
       onPressed: onPressed,
       style: ButtonStyle(
         backgroundColor:
-            WidgetStatePropertyAll(Colours.workoutCardForegroundColor),
+            const WidgetStatePropertyAll(Colours.workoutCardForegroundColor),
         foregroundColor: const WidgetStatePropertyAll(Colours.white_text_color),
         minimumSize: WidgetStatePropertyAll(
           buttonSize,

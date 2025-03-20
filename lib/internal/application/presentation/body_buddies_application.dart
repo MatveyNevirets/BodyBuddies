@@ -1,4 +1,6 @@
 import 'package:body_buddies/core/colors/colors.dart';
+import 'package:body_buddies/features/auth/presentation/auth_main/auth_page.dart';
+import 'package:body_buddies/features/auth/signup/signup_screen.dart';
 import 'package:body_buddies/features/useful/advices/presentation/advices_page.dart';
 import 'package:body_buddies/features/useful/advices/presentation/current_advice_screen.dart';
 import 'package:body_buddies/features/useful/bench_press_calculator/presentation/bench_press_calculator_page.dart';
@@ -54,6 +56,8 @@ class BodyBuddiesApp extends StatelessWidget {
                 fakeWorkoutsDatabase: fakeWorkoutsDatabase,
               ),
             ),
+        "/auth": (context) => const AuthPage(),
+        "/auth/signup": (context) => const SignUpScreen(),
         "/workouts_menu": (context) => BlocProvider(
               create: (BuildContext context) =>
                   WorkoutsMenuBloc(fakeWorkoutsDatabase),
@@ -95,7 +99,7 @@ class BodyBuddiesApp extends StatelessWidget {
               fakeWorkoutsDatabase: fakeWorkoutsDatabase,
             ),
       },
-      initialRoute: "/",
+      initialRoute: "/auth",
     );
   }
 }

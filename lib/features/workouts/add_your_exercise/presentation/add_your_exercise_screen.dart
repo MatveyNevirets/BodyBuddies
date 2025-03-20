@@ -68,12 +68,12 @@ class _AddYourExerciseScreenState extends State<AddYourExerciseScreen> {
                           isDense: true,
                           hintStyle: Styles.hint_text_style_create_exercise,
                           hintText: Strings.title,
-                          focusedBorder: UnderlineInputBorder(
+                          focusedBorder: const UnderlineInputBorder(
                             borderSide: BorderSide(
                                 color: Colours.workoutCardForegroundColor,
                                 width: 3),
                           ),
-                          enabledBorder: UnderlineInputBorder(
+                          enabledBorder: const UnderlineInputBorder(
                             borderSide: BorderSide(
                                 color: Colours.workoutCardForegroundColor,
                                 width: 3),
