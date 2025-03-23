@@ -5,8 +5,12 @@ import 'package:body_buddies/core/widgets/base_button.dart';
 import 'package:body_buddies/internal/application/di/app_depends_provider.dart';
 import 'package:flutter/material.dart';
 
+typedef OnSignUp = Function();
+typedef OnSignIn = Function({required String email, required String password});
+
 class LoginIntroScreen extends StatelessWidget {
-  final VoidCallback onSignUp, onSignIn;
+  OnSignIn onSignIn;
+  OnSignUp onSignUp;
 
   TextEditingController loginController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
@@ -90,7 +94,9 @@ class LoginIntroScreen extends StatelessWidget {
                   child: SizedBox(
                     width: 250,
                     child: BaseButton(
-                        onClick: () => onSignIn.call(),
+                        onClick: () => onSignIn(
+                            email: loginController.text,
+                            password: passwordController.text),
                         buttonText: Strings.button_login_text,
                         icon: null,
                         isElevated: true),
@@ -103,7 +109,7 @@ class LoginIntroScreen extends StatelessWidget {
                   child: SizedBox(
                     width: 250,
                     child: BaseButton(
-                        onClick: () => onSignUp.call(),
+                        onClick: () => onSignUp(),
                         buttonText: Strings.registration_text,
                         icon: null,
                         isElevated: false),

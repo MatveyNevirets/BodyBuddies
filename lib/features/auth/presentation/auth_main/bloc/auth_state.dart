@@ -22,6 +22,5 @@ class UserHasAuthtorized extends AuthState {
 
 class ErrorState extends AuthState {
   String message;
-
   ErrorState(this.message);
 }

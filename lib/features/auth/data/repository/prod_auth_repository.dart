@@ -16,17 +16,23 @@ class ProdAuthRepository implements AuthRepository {
 
   @override
   Future<(String, String)> signIn(
-      {required String email, required String password}) {
-    // TODO: implement signIn
-    throw UnimplementedError();
+      {required String email, required String password}) async {
+    final response =
+        await _client.signIn(UserDto(email: email, password: password));
+    return (response.accessToken, response.refreshToken);
   }
 
   @override
   Future<(String, String)> signUp(
       {required String username,
       required String password,
-      required String email}) {
-    // TODO: implement signUp
-    throw UnimplementedError();
+      required String email}) async {
+    final request = await _client.signUp(UserDto(
+      email: email,
+      password: password,
+      username: username,
+    ));
+
+    return (request.accessToken, request.refreshToken);
   }
 }

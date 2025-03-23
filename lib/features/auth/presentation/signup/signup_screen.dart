@@ -117,10 +117,10 @@ class SignUpScreen extends StatelessWidget {
                     width: 250,
                     child: BaseButton(
                         onClick: () => _tryRegister(
-                            emailController.text,
-                            passwordController.text,
-                            usernameController.text,
-                            context),
+                            email: emailController.text,
+                            password: passwordController.text,
+                            username: usernameController.text,
+                            context: context),
                         buttonText: Strings.registration_text,
                         icon: null,
                         isElevated: true),
@@ -145,7 +145,10 @@ class SignUpScreen extends StatelessWidget {
   }
 
   void _tryRegister(
-      String email, String password, String username, BuildContext context) {
+      {required String email,
+      required String password,
+      required String username,
+      required BuildContext context}) {
     if (email.isEmpty || password.isEmpty || username.isEmpty) {
       showSnackBar(context, Strings.not_full_field_error);
     } else if (password.length < 8) {
