@@ -6,12 +6,6 @@ abstract class Strings {
 
   ///////INTRO/////SCREEN////////
 
-  static const intro_decription_1_text =
-      "Приложение BodyBuddies - отличный сборник инструментов, для комфортных тренировок!";
-  static const intro_decription_2_text =
-      "Наше приложение сочитает в себе множество полезнейших функций, от создания собственных программ тренировок, до чатов с вашими Джим бро!";
-  static const intro_decription_3_text = "Готовы к нам присоединиться?";
-
   static const intro_button_letsgo_text = "Вперед";
 
   static const intro_login_title_text = "Войдите в аккаунт";
@@ -171,6 +165,13 @@ abstract class Strings {
   static var alreadyAdded = "уже добавлена";
 
   static var addedSuccessful = "успешно добавлена";
+
+  static String uncorrectEmail = "Пожалуйста, введите корректную почту";
+
+  static String passwordTooShort = "Пароль должен быть не менее 8 символов";
+  static String usernameTooShort = "Никнейм должен быть не менее 3 символов";
+
+  static const String loading = 'Загрузка...';
 
 ///////////////////////////////
 }

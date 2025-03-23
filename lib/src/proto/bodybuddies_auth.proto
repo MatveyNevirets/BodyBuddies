@@ -1,0 +1,29 @@
+syntax="proto3";
+
+service AuthRpc {
+    rpc SignIn (UserDto) returns (TokensDto);
+    rpc SignUp (UserDto) returns (TokensDto);
+    rpc RefreshTokens (TokensDto) returns (TokensDto);
+    rpc DeleteUser (RequestDto) returns (ResponseDto);
+    rpc FetchUser (RequestDto) returns (UserDto);
+}
+
+message UserDto {
+    string id = 1;
+    string username = 2;
+    oneof password_optional {
+       string password = 3; 
+    }
+    string email = 4;
+}
+
+message TokensDto {
+    string access_token = 1;
+    string refresh_token = 2;
+}
+
+message RequestDto {}
+
+message ResponseDto {
+    string message = 1;
+}

@@ -2,10 +2,16 @@ import 'package:body_buddies/core/colors/colors.dart';
 import 'package:body_buddies/core/strings/strings.dart';
 import 'package:body_buddies/core/styles/styles.dart';
 import 'package:body_buddies/core/widgets/base_button.dart';
+import 'package:body_buddies/core/widgets/base_snackbar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SignUpScreen extends StatelessWidget {
-  const SignUpScreen({super.key});
+  SignUpScreen({super.key});
+
+  TextEditingController emailController = TextEditingController(),
+      passwordController = TextEditingController(),
+      usernameController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -36,6 +42,7 @@ class SignUpScreen extends StatelessWidget {
                   height: 10,
                 ),
                 TextField(
+                  controller: emailController,
                   maxLength: 30,
                   cursorColor: Colours.bottom_bar_icons_color.withAlpha(200),
                   decoration: const InputDecoration(
@@ -61,6 +68,7 @@ class SignUpScreen extends StatelessWidget {
                   height: 10,
                 ),
                 TextField(
+                  controller: usernameController,
                   maxLength: 30,
                   cursorColor: Colours.bottom_bar_icons_color.withAlpha(200),
                   decoration: const InputDecoration(
@@ -86,6 +94,7 @@ class SignUpScreen extends StatelessWidget {
                   height: 10,
                 ),
                 TextField(
+                  controller: passwordController,
                   obscureText: true,
                   cursorColor: Colours.bottom_bar_icons_color.withAlpha(200),
                   decoration: const InputDecoration(
@@ -107,7 +116,11 @@ class SignUpScreen extends StatelessWidget {
                   child: SizedBox(
                     width: 250,
                     child: BaseButton(
-                        onClick: () => print("try sign up"),
+                        onClick: () => _tryRegister(
+                            emailController.text,
+                            passwordController.text,
+                            usernameController.text,
+                            context),
                         buttonText: Strings.registration_text,
                         icon: null,
                         isElevated: true),
@@ -129,5 +142,21 @@ class SignUpScreen extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  void _tryRegister(
+      String email, String password, String username, BuildContext context) {
+    if (email.isEmpty || password.isEmpty || username.isEmpty) {
+      showSnackBar(context, Strings.not_full_field_error);
+    } else if (password.length < 8) {
+      showSnackBar(context, Strings.passwordTooShort);
+    } else if (!email.contains("@") || !email.contains(".")) {
+      showSnackBar(context, Strings.uncorrectEmail);
+    } else if (username.length < 3) {
+      showSnackBar(context, Strings.usernameTooShort);
+    } else {
+      List<String> response = [email, password, username];
+      Navigator.pop(context, response);
+    }
   }
 }

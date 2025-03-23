@@ -176,4 +176,9 @@ abstract class Styles {
 
   static var workouts_button_text_style = TextStyle(
       fontFamily: 'AqumTwo', fontSize: 12, color: Colours.workoutTextColor);
+
+  static const TextStyle loadingTextStyle = TextStyle(
+      fontFamily: 'AqumTwo',
+      fontSize: 24,
+      color: Colours.bottom_bar_icons_color);
 }
