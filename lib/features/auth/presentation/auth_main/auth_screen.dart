@@ -1,15 +1,10 @@
-import 'dart:developer';
-
 import 'package:body_buddies/core/colors/colors.dart';
 import 'package:body_buddies/core/widgets/base_snackbar.dart';
 import 'package:body_buddies/core/widgets/loading_screen.dart';
 import 'package:body_buddies/features/auth/presentation/auth_main/auth_main_screen.dart';
 import 'package:body_buddies/features/auth/presentation/auth_main/bloc/auth_bloc.dart';
-import 'package:body_buddies/features/auth/presentation/signup/signup_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class AuthScreen extends StatelessWidget {
   const AuthScreen({super.key});

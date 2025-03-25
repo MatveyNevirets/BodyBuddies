@@ -2,7 +2,6 @@ import 'package:body_buddies/core/colors/colors.dart';
 import 'package:body_buddies/core/strings/strings.dart';
 import 'package:body_buddies/core/styles/styles.dart';
 import 'package:body_buddies/core/widgets/base_button.dart';
-import 'package:body_buddies/internal/application/di/app_depends_provider.dart';
 import 'package:flutter/material.dart';
 
 typedef OnSignUp = Function();
