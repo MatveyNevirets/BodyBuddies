@@ -1,5 +1,5 @@
-import 'package:body_buddies/features/workouts/workouts_menu/domain/entity/exercise_entity.dart';
-import 'package:body_buddies/features/workouts/workouts_menu/domain/entity/workout_entity.dart';
+import 'package:body_buddies/features/workouts/presentation/workouts_menu/domain/entity/exercise_entity.dart';
+import 'package:body_buddies/features/workouts/presentation/workouts_menu/domain/entity/workout_entity.dart';
 
 abstract class FakeMadeWorkoutsDb {
   static List<WorkoutEntity> workouts = [
