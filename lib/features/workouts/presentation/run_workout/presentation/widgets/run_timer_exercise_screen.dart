@@ -1,8 +1,8 @@
 import 'package:body_buddies/core/styles/styles.dart';
 import 'package:body_buddies/features/workouts/presentation/run_workout/workout_ticker/reverse_ticker.dart';
 import 'package:body_buddies/features/workouts/presentation/run_workout/workout_ticker/workout_ticker.dart';
-import 'package:body_buddies/features/workouts/presentation/workouts_menu/domain/entity/exercise_entity.dart';
-import 'package:body_buddies/features/workouts/presentation/workouts_menu/domain/entity/workout_entity.dart';
+import 'package:body_buddies/features/workouts/domain/Entities/exercise_entity.dart';
+import 'package:body_buddies/features/workouts/domain/Entities/workout_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

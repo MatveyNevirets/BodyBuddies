@@ -1,5 +1,5 @@
 import 'package:body_buddies/core/widgets/base_snackbar.dart';
-import 'package:body_buddies/features/workouts/presentation/workouts_menu/domain/entity/workout_entity.dart';
+import 'package:body_buddies/features/workouts/domain/Entities/workout_entity.dart';
 import 'package:body_buddies/features/workouts/presentation/workouts_menu/domain/fake_workouts_database.dart';
 import 'package:body_buddies/features/workouts/presentation/run_workout/presentation/bloc/run_workout_bloc.dart';
 import 'package:body_buddies/features/workouts/presentation/run_workout/presentation/widgets/run_exercise_screen.dart';

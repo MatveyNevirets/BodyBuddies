@@ -63,11 +63,7 @@ class BodyBuddiesApp extends StatelessWidget {
               ),
           "/auth": (context) => const AuthPage(),
           "/auth/signup": (context) => SignUpScreen(),
-          "/workouts_menu": (context) => BlocProvider(
-                create: (BuildContext context) =>
-                    WorkoutsMenuBloc(fakeWorkoutsDatabase),
-                child: workoutsMenuScreen,
-              ),
+          "/workouts_menu": (context) => workoutsMenuScreen,
           "/workouts_menu/create_workout/": (context) => CreateWorkoutScreen(
                 fakeDB: fakeWorkoutsDatabase,
                 workoutsMenuScreen: workoutsMenuScreen,

@@ -4,19 +4,18 @@ part of 'workouts_menu_bloc.dart';
 
 @immutable
 sealed class WorkoutsMenuState {
-  FakeWorkoutsDatabase database;
-  WorkoutsMenuState(this.database);
+  WorkoutsRepository workoutsRepository;
+  WorkoutsMenuState(this.workoutsRepository);
 }
 
 final class WorkoutsMenuInitial extends WorkoutsMenuState {
-  WorkoutsMenuInitial(super.database);
-
+  WorkoutsMenuInitial(super.workoutsRepository);
 }
 
 class AddWorkoutState extends WorkoutsMenuState {
-  AddWorkoutState(super.database);
+  AddWorkoutState(super.workoutsRepository);
 }
 
 class UpdateWorkoutState extends WorkoutsMenuState {
-  UpdateWorkoutState(super.database);
+  UpdateWorkoutState(super.workoutsRepository);
 }

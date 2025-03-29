@@ -2,19 +2,18 @@ part of 'workouts_menu_bloc.dart';
 
 @immutable
 sealed class WorkoutsMenuEvent {
+  final WorkoutsRepository workoutsRepository;
+  const WorkoutsMenuEvent(this.workoutsRepository);
 }
 
 class AddWorkoutEvent extends WorkoutsMenuEvent {
-  final FakeWorkoutsDatabase database;
-  AddWorkoutEvent(this.database);
+  const AddWorkoutEvent(super.workoutsRepository);
 }
 
 class UpdateWorkoutEvent extends WorkoutsMenuEvent {
-  final FakeWorkoutsDatabase database;
-  UpdateWorkoutEvent(this.database);
+  const UpdateWorkoutEvent(super.workoutsRepository);
 }
 
 class RemoveWorkoutEvent extends WorkoutsMenuEvent {
-  final FakeWorkoutsDatabase database;
-  RemoveWorkoutEvent(this.database);
+  const RemoveWorkoutEvent(super.workoutsRepository);
 }

@@ -1,5 +1,5 @@
 import 'package:bloc/bloc.dart';
-import 'package:body_buddies/features/workouts/presentation/workouts_menu/domain/entity/exercise_entity.dart';
+import 'package:body_buddies/features/workouts/domain/Entities/exercise_entity.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';

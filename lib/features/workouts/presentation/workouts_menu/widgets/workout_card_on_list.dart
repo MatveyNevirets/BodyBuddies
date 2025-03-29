@@ -2,8 +2,8 @@
 
 import 'package:body_buddies/core/styles/styles.dart';
 import 'package:body_buddies/features/workouts/presentation/workouts_menu/bloc/workouts_menu_bloc.dart';
-import 'package:body_buddies/features/workouts/presentation/workouts_menu/domain/entity/new_workout_button.dart';
-import 'package:body_buddies/features/workouts/presentation/workouts_menu/domain/entity/workout_entity.dart';
+import 'package:body_buddies/features/workouts/presentation/workouts_menu/widgets/new_workout_button.dart';
+import 'package:body_buddies/features/workouts/domain/Entities/workout_entity.dart';
 import 'package:body_buddies/features/workouts/presentation/workouts_menu/domain/fake_workouts_database.dart';
 import 'package:body_buddies/features/workouts/presentation/create_workout/presentation/workout_create_screen.dart';
 import 'package:flutter/material.dart';
@@ -15,13 +15,9 @@ import '../../../../../core/strings/strings.dart';
 class WorkoutCardOnList extends StatelessWidget {
   WorkoutEntity workout;
   BuildContext workoutMenuContext;
-  FakeWorkoutsDatabase fakeWorkoutsDatabase;
 
   WorkoutCardOnList(
-      {super.key,
-      required this.workoutMenuContext,
-      required this.workout,
-      required this.fakeWorkoutsDatabase});
+      {super.key, required this.workoutMenuContext, required this.workout});
 
   @override
   Widget build(BuildContext context) {
@@ -128,8 +124,8 @@ class WorkoutCardOnList extends StatelessWidget {
   }
 
   void removeCurrentWorkout(BuildContext context) {
-    fakeWorkoutsDatabase.fakeWorkoutEntities.remove(workout);
-    context.read<WorkoutsMenuBloc>().add(AddWorkoutEvent(fakeWorkoutsDatabase));
+    // fakeWorkoutsDatabase.fakeWorkoutEntities.remove(workout);
+    // context.read<WorkoutsMenuBloc>().add(AddWorkoutEvent(fakeWorkoutsDatabase));
   }
 
   void runCurrentWorkout(

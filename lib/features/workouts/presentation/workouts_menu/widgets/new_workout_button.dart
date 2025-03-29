@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import '../../../../../../../core/colors/colors.dart';
-import '../../../../../../../core/strings/strings.dart';
-import '../../../../../../../core/styles/styles.dart';
+import '../../../../../../core/colors/colors.dart';
+import '../../../../../../core/strings/strings.dart';
+import '../../../../../../core/styles/styles.dart';
 
 class NewWorkoutButton extends StatelessWidget {
   final VoidCallback onPressed;

@@ -1,7 +1,7 @@
 import 'package:body_buddies/features/workouts/presentation/workout_feature_card/presentation/widgets/calendar_widget.dart';
 import 'package:body_buddies/features/workouts/presentation/workout_feature_card/presentation/widgets/workout_button_widget.dart';
 import 'package:body_buddies/features/workouts/presentation/workout_feature_card/presentation/widgets/workout_container_text.dart';
-import 'package:body_buddies/features/workouts/presentation/workouts_menu/domain/entity/workout_entity.dart';
+import 'package:body_buddies/features/workouts/domain/Entities/workout_entity.dart';
 import 'package:body_buddies/features/workouts/presentation/workouts_menu/domain/fake_workouts_database.dart';
 import 'package:flutter/cupertino.dart';
 

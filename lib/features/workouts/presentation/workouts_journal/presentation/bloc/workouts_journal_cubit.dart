@@ -1,5 +1,5 @@
 import 'package:bloc/bloc.dart';
-import 'package:body_buddies/features/workouts/presentation/workouts_menu/domain/entity/workout_entity.dart';
+import 'package:body_buddies/features/workouts/domain/Entities/workout_entity.dart';
 import 'package:meta/meta.dart';
 
 import '../../../workouts_menu/domain/fake_workouts_database.dart';

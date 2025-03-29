@@ -1,4 +1,4 @@
-import 'package:body_buddies/features/workouts/presentation/workouts_menu/domain/entity/exercise_entity.dart';
+import 'package:body_buddies/features/workouts/domain/Entities/exercise_entity.dart';
 
 class Exercises {
   List<ExerciseEntity> exercises = [

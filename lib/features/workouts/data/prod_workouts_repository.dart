@@ -1,5 +1,6 @@
+import 'package:body_buddies/features/workouts/domain/Entities/exercise_entity.dart';
 import 'package:body_buddies/features/workouts/domain/workouts_repository.dart';
-import 'package:body_buddies/features/workouts/presentation/workouts_menu/domain/entity/workout_entity.dart';
+import 'package:body_buddies/features/workouts/domain/Entities/workout_entity.dart';
 
 class ProdWorkoutsRepository implements WorkoutsRepository {
   @override
@@ -10,4 +11,11 @@ class ProdWorkoutsRepository implements WorkoutsRepository {
 
   @override
   String get name => "Prod workouts repository";
+
+  @override
+  Future<void> createWorkout(
+      String title, int weekday, List<ExerciseEntity> exercises) {
+    // TODO: implement createWorkout
+    throw UnimplementedError();
+  }
 }

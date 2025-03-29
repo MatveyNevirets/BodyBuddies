@@ -4,7 +4,7 @@ import 'dart:async';
 
 import 'package:body_buddies/core/widgets/app_bar.dart';
 import 'package:body_buddies/core/widgets/base_button.dart';
-import 'package:body_buddies/features/workouts/presentation/workouts_menu/domain/entity/exercise_entity.dart';
+import 'package:body_buddies/features/workouts/domain/Entities/exercise_entity.dart';
 import 'package:body_buddies/features/workouts/presentation/workouts_menu/domain/exercises_database.dart';
 import 'package:flutter/material.dart';
 

@@ -4,13 +4,15 @@ import 'package:body_buddies/core/colors/colors.dart';
 import 'package:body_buddies/core/widgets/app_bar.dart';
 import 'package:body_buddies/core/widgets/base_button.dart';
 import 'package:body_buddies/core/widgets/base_snackbar.dart';
+import 'package:body_buddies/features/workouts/domain/Entities/exercise_entity.dart';
+import 'package:body_buddies/features/workouts/domain/Entities/workout_entity.dart';
 import 'package:body_buddies/features/workouts/presentation/workouts_menu/bloc/workouts_menu_bloc.dart';
-import 'package:body_buddies/features/workouts/presentation/workouts_menu/domain/entity/exercise_entity.dart';
-import 'package:body_buddies/features/workouts/presentation/workouts_menu/domain/entity/workout_entity.dart';
+import 'package:body_buddies/features/workouts/data/Models/exercise_entity.dart';
 import 'package:body_buddies/features/workouts/presentation/workouts_menu/domain/fake_workouts_database.dart';
 import 'package:body_buddies/features/workouts/presentation/workouts_menu/presentation/workouts_menu_screen.dart';
 import 'package:body_buddies/features/workouts/presentation/create_workout/presentation/widgets/exercise_item_on_list.dart';
 import 'package:body_buddies/features/workouts/presentation/create_workout/presentation/widgets/timer_exercise_item_on_list.dart';
+import 'package:body_buddies/internal/application/di/app_depends_provider.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -141,6 +143,8 @@ class _CreateWorkoutScreenState extends State<CreateWorkoutScreen> {
     bool cardio = false,
   }) {
     List<ExerciseEntity> newExercises = [];
+    final workoutsRepostitory =
+        AppDependsProvider.of(thisContext).workoutsRepository;
     for (var exercise in widget._exercises) {
       newExercises.add(
         ExerciseEntity(
@@ -157,37 +161,37 @@ class _CreateWorkoutScreenState extends State<CreateWorkoutScreen> {
         ),
       );
     }
-    !widget.isEditWorkout
-        ? widget.fakeDB.fakeWorkoutEntities.add(
-            WorkoutEntity(
-                title: title,
-                weekday: weekday,
-                abs: abs,
-                shoulders: shoulders,
-                legs: legs,
-                triceps: triceps,
-                biceps: biceps,
-                back: back,
-                forearms: forearms,
-                chest: chest,
-                cardio: cardio,
-                exercises: newExercises),
-          )
-        : widget.fakeDB.fakeWorkoutEntities[index] = WorkoutEntity(
-            title: title,
-            weekday: weekday,
-            abs: abs,
-            shoulders: shoulders,
-            legs: legs,
-            triceps: triceps,
-            biceps: biceps,
-            back: back,
-            forearms: forearms,
-            chest: chest,
-            cardio: cardio,
-            exercises: newExercises);
-    context.read<WorkoutsMenuBloc>().add(AddWorkoutEvent(widget.fakeDB));
-    Navigator.of(thisContext).pop();
+    // !widget.isEditWorkout
+    //     ? widget.fakeDB.fakeWorkoutEntities.add(
+    //         WorkoutEntity(
+    //             title: title,
+    //             weekday: weekday,
+    //             abs: abs,
+    //             shoulders: shoulders,
+    //             legs: legs,
+    //             triceps: triceps,
+    //             biceps: biceps,
+    //             back: back,
+    //             forearms: forearms,
+    //             chest: chest,
+    //             cardio: cardio,
+    //             exercises: newExercises),
+    //       )
+    //     : widget.fakeDB.fakeWorkoutEntities[index] = WorkoutEntity(
+    //         title: title,
+    //         weekday: weekday,
+    //         abs: abs,
+    //         shoulders: shoulders,
+    //         legs: legs,
+    //         triceps: triceps,
+    //         biceps: biceps,
+    //         back: back,
+    //         forearms: forearms,
+    //         chest: chest,
+    //         cardio: cardio,
+    //         exercises: newExercises);
+    workoutsRepostitory.createWorkout(title, weekday, newExercises);
+    Navigator.of(thisContext).pushReplacementNamed("/workouts_menu");
   }
 
   late TextEditingController titleTextFieldController;

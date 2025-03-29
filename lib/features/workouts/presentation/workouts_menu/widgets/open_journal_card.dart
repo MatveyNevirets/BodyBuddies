@@ -2,10 +2,10 @@
 
 import 'package:body_buddies/core/strings/strings.dart';
 import 'package:body_buddies/core/styles/styles.dart';
-import 'package:body_buddies/features/workouts/presentation/workouts_menu/domain/entity/exercise_entity.dart';
+import 'package:body_buddies/features/workouts/domain/Entities/exercise_entity.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../../../../core/colors/colors.dart';
+import '../../../../../../core/colors/colors.dart';
 
 class OpenWorkoutsJournal extends StatelessWidget {
   static const Color borderColor = Colours.workout_card_background_color;
