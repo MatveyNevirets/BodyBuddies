@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:body_buddies/features/workouts/data/Models/exercise_entity.dart';
 import 'package:body_buddies/features/workouts/data/Models/workout_entity.dart';
 import 'package:body_buddies/features/workouts/domain/Entities/exercise_entity.dart';
+import 'package:body_buddies/features/workouts/domain/Entities/workout_entity.dart';
 import 'package:body_buddies/features/workouts/domain/workouts_repository.dart';
 
 class MockWorkoutsRepository implements WorkoutsRepository {
@@ -21,6 +22,19 @@ class MockWorkoutsRepository implements WorkoutsRepository {
       String title, int weekday, List<ExerciseEntity> exercises) async {
     _workouts.add(
         WorkoutModel(title: title, weekday: weekday, exercises: exercises));
+  }
+
+  @override
+  Future<void> deleteWorkout(int index) async {
+    _workouts.removeAt(index);
+  }
+
+  @override
+  Future<void> updateWorkout(String? title, int? weekday,
+      List<ExerciseEntity>? exercises, int index) async {
+    _workouts[index].title = title ?? _workouts[index].title;
+    _workouts[index].weekday = weekday ?? _workouts[index].weekday;
+    _workouts[index].exercises = exercises ?? _workouts[index].exercises;
   }
 }
 

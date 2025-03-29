@@ -13,9 +13,14 @@ import 'package:body_buddies/features/workouts/presentation/workouts_menu/widget
 import 'package:body_buddies/internal/application/di/app_depends_provider.dart';
 import 'package:flutter/material.dart';
 
-class WorkoutsMenuScreen extends StatelessWidget {
+class WorkoutsMenuScreen extends StatefulWidget {
   const WorkoutsMenuScreen({super.key});
 
+  @override
+  State<WorkoutsMenuScreen> createState() => _WorkoutsMenuScreenState();
+}
+
+class _WorkoutsMenuScreenState extends State<WorkoutsMenuScreen> {
   @override
   Widget build(BuildContext context) {
     final workoutsRepository =
@@ -61,6 +66,7 @@ class WorkoutsMenuScreen extends StatelessWidget {
                         : WorkoutCardOnList(
                             workoutMenuContext: context,
                             workout: snapshot.data!.elementAt(index),
+                            index: index,
                           );
                   },
                 ),

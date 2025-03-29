@@ -1,11 +1,13 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:body_buddies/core/styles/styles.dart';
+import 'package:body_buddies/features/workouts/domain/workouts_repository.dart';
 import 'package:body_buddies/features/workouts/presentation/workouts_menu/bloc/workouts_menu_bloc.dart';
 import 'package:body_buddies/features/workouts/presentation/workouts_menu/widgets/new_workout_button.dart';
 import 'package:body_buddies/features/workouts/domain/Entities/workout_entity.dart';
 import 'package:body_buddies/features/workouts/presentation/workouts_menu/domain/fake_workouts_database.dart';
 import 'package:body_buddies/features/workouts/presentation/create_workout/presentation/workout_create_screen.dart';
+import 'package:body_buddies/internal/application/di/app_depends_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -14,13 +16,20 @@ import '../../../../../core/strings/strings.dart';
 
 class WorkoutCardOnList extends StatelessWidget {
   WorkoutEntity workout;
+  int index;
   BuildContext workoutMenuContext;
 
   WorkoutCardOnList(
-      {super.key, required this.workoutMenuContext, required this.workout});
+      {super.key,
+      required this.workoutMenuContext,
+      required this.workout,
+      required this.index});
 
   @override
   Widget build(BuildContext context) {
+    final workoutsRepository =
+        AppDependsProvider.of(context).workoutsRepository;
+
     openWorkout() {
       Navigator.of(context)
           .pushNamed("workouts_menu/current_workout/", arguments: [workout, 0]);
@@ -83,7 +92,8 @@ class WorkoutCardOnList extends StatelessWidget {
                             ),
                           ),
                           IconButton(
-                            onPressed: () => removeCurrentWorkout(context),
+                            onPressed: () => removeCurrentWorkout(
+                                context, workoutsRepository, index),
                             color: Colours.workoutCardForegroundColor,
                             icon: const Icon(
                               Icons.delete,
@@ -123,9 +133,10 @@ class WorkoutCardOnList extends StatelessWidget {
         arguments: [context, workout, true]);
   }
 
-  void removeCurrentWorkout(BuildContext context) {
-    // fakeWorkoutsDatabase.fakeWorkoutEntities.remove(workout);
-    // context.read<WorkoutsMenuBloc>().add(AddWorkoutEvent(fakeWorkoutsDatabase));
+  void removeCurrentWorkout(
+      BuildContext context, WorkoutsRepository workoutsRepository, int index) {
+    workoutsRepository.deleteWorkout(index);
+    Navigator.pushReplacementNamed(context, "/workouts_menu");
   }
 
   void runCurrentWorkout(

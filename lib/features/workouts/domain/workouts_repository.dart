@@ -8,4 +8,9 @@ abstract interface class WorkoutsRepository {
 
   Future<void> createWorkout(
       String title, int weekday, List<ExerciseEntity> exercises);
+
+  Future<void> deleteWorkout(int index);
+
+  Future<void> updateWorkout(
+      String? title, int? weekday, List<ExerciseEntity>? exercises, int index);
 }

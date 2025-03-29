@@ -161,36 +161,21 @@ class _CreateWorkoutScreenState extends State<CreateWorkoutScreen> {
         ),
       );
     }
-    // !widget.isEditWorkout
-    //     ? widget.fakeDB.fakeWorkoutEntities.add(
-    //         WorkoutEntity(
-    //             title: title,
-    //             weekday: weekday,
-    //             abs: abs,
-    //             shoulders: shoulders,
-    //             legs: legs,
-    //             triceps: triceps,
-    //             biceps: biceps,
-    //             back: back,
-    //             forearms: forearms,
-    //             chest: chest,
-    //             cardio: cardio,
-    //             exercises: newExercises),
-    //       )
-    //     : widget.fakeDB.fakeWorkoutEntities[index] = WorkoutEntity(
-    //         title: title,
-    //         weekday: weekday,
-    //         abs: abs,
-    //         shoulders: shoulders,
-    //         legs: legs,
-    //         triceps: triceps,
-    //         biceps: biceps,
-    //         back: back,
-    //         forearms: forearms,
-    //         chest: chest,
-    //         cardio: cardio,
-    //         exercises: newExercises);
-    workoutsRepostitory.createWorkout(title, weekday, newExercises);
+    !widget.isEditWorkout
+        ? workoutsRepostitory.createWorkout(title, weekday, newExercises)
+        : widget.fakeDB.fakeWorkoutEntities[index] = WorkoutEntity(
+            title: title,
+            weekday: weekday,
+            abs: abs,
+            shoulders: shoulders,
+            legs: legs,
+            triceps: triceps,
+            biceps: biceps,
+            back: back,
+            forearms: forearms,
+            chest: chest,
+            cardio: cardio,
+            exercises: newExercises);
     Navigator.of(thisContext).pushReplacementNamed("/workouts_menu");
   }
 
