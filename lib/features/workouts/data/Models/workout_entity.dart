@@ -28,4 +28,8 @@ class WorkoutModel extends WorkoutEntity {
     this.chest = false,
     this.cardio = false,
   }) : super(title: '', exercises: []);
+
+  factory WorkoutModel.fromJson(Map<String, dynamic> json) {
+    return WorkoutModel(title: json['title'], exercises: json['exercises']);
+  }
 }

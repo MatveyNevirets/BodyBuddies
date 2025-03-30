@@ -10,7 +10,7 @@ class ProdAuthRepository implements AuthRepository {
 
   ProdAuthRepository() {
     final channel = GrpcOrGrpcWebClientChannel.toSingleEndpoint(
-        host: "185.43.5.250", port: 8588, transportSecure: false);
+        host: "185.43.5.250", port: 4001, transportSecure: false);
     _client = AuthRpcClient(channel);
   }
 

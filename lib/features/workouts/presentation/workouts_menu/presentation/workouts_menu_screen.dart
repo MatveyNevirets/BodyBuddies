@@ -59,14 +59,14 @@ class _WorkoutsMenuScreenState extends State<WorkoutsMenuScreen> {
               body: Container(
                 margin: Styles.base_margin_size,
                 child: ListView.builder(
-                  itemCount: snapshot.data!.length,
+                  itemCount: snapshot.data!.length + 1,
                   itemBuilder: (context, index) {
                     return index == 0
                         ? OpenWorkoutsJournal()
                         : WorkoutCardOnList(
                             workoutMenuContext: context,
-                            workout: snapshot.data!.elementAt(index),
-                            index: index,
+                            workout: snapshot.data!.elementAt(index - 1),
+                            index: index - 1,
                           );
                   },
                 ),

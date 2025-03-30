@@ -1,0 +1,47 @@
+syntax="proto3";
+
+service WorkoutsRpc {
+    rpc FetchAllWorkouts (RequestDto) returns (AllWorkoutsDto);
+    rpc AddWorkout (WorkoutDto) returns (ResponseDto);
+    rpc DeleteWorkout (WorkoutDto) returns (ResponseDto);
+    rpc UpdateWorkout (WorkoutDto) returns (ResponseDto);
+    rpc FetchWorkout (WorkoutDto) returns (WorkoutDto);
+
+    rpc AddExercise (ExerciseDto) returns (ResponseDto);
+    rpc UpdateExercise (ExerciseDto) returns (ResponseDto);
+    rpc DeleteExercise (ExerciseDto) returns (ResponseDto);
+}
+
+message RequestDto {}
+
+message ResponseDto {
+    string message = 1;
+}
+
+message AllWorkoutsDto {
+    repeated WorkoutDto workouts = 1;
+}
+
+message WorkoutDto {
+    string id = 1;
+    string author_id = 2;
+    string title = 3;
+    string weekday = 4;
+    repeated ExerciseDto exercises = 5;
+}
+
+message ExerciseDto {
+    string id = 1;
+    string author_id = 2;
+    string workout_id = 3;
+    string title = 4;
+    bool isExercise = 5;
+    bool isTimerExercise = 6;
+    string weight = 7; 
+    string reps = 8;
+    string sets = 9;
+    string exerciseTimeMinutes = 10;
+    string exerciseTimeSeconds = 11;
+    string restTimeMinutes = 12;
+    string restTimeSeconds = 13;
+}
