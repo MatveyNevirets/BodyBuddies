@@ -26,7 +26,7 @@ class AuthScreen extends StatelessWidget {
           return const LoadingScreen();
         } else if (state is UserHasAuthtorized) {
           WidgetsBinding.instance.addPostFrameCallback((_) {
-            Navigator.pop(context);
+            Navigator.pushReplacementNamed(context, "/");
           });
         }
         return const CircularProgressIndicator(

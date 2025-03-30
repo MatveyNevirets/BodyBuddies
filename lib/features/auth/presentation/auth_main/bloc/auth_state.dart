@@ -13,12 +13,7 @@ class AuthLoadingState extends AuthState {}
 
 class UserNotAuthtorized extends AuthState {}
 
-class UserHasAuthtorized extends AuthState {
-  String accessToken;
-  String refreshToken;
-
-  UserHasAuthtorized(this.accessToken, this.refreshToken);
-}
+class UserHasAuthtorized extends AuthState {}
 
 class ErrorState extends AuthState {
   String message;

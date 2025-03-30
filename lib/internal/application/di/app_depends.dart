@@ -7,16 +7,19 @@ import 'package:body_buddies/features/workouts/data/mock_workouts_repository.dar
 import 'package:body_buddies/features/workouts/data/prod_workouts_repository.dart';
 import 'package:body_buddies/features/workouts/domain/workouts_repository.dart';
 import 'package:body_buddies/internal/application/app_runner/app_env.dart';
+import 'package:body_buddies/services/secure_storage/flutter_secure_storage.dart';
+import 'package:body_buddies/services/secure_storage/i_secure_storage.dart';
 
 typedef OnProgress = Function(String name, String progress);
 typedef OnError = Function(String name, Object error, StackTrace? stack);
 
-enum Depends { auth, workouts }
+enum Depends { auth, workouts, secureStorage }
 
 class AppDepends {
   final AppEnv appEnv;
   late final AuthRepository repository;
   late final WorkoutsRepository workoutsRepository;
+  late final SecureStorage secureStorage;
 
   AppDepends(this.appEnv);
 
@@ -49,6 +52,18 @@ class AppDepends {
           _calculateProgress(Depends.workouts.index, Depends.values.length));
     } on Object catch (error, stack) {
       onError.call(workoutsRepository.name, error, stack);
+    }
+
+    try {
+      final timer = Stopwatch();
+      secureStorage = FlutterSecureStorageImpl();
+      log("Depend: ${secureStorage.name} took ${timer.elapsedMilliseconds}ms to initialize");
+      onProgress.call(
+          secureStorage.name,
+          _calculateProgress(
+              Depends.secureStorage.index, Depends.values.length));
+    } on Object catch (error, stack) {
+      onError.call(secureStorage.name, error, stack);
     }
   }
 

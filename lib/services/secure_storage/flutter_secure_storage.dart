@@ -1,27 +1,29 @@
+import 'dart:developer';
+
 import 'package:body_buddies/services/secure_storage/i_secure_storage.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
-class FlutterSecureStorage implements SecureStorage {
-  final storage = FlutterSecureStorage();
+class FlutterSecureStorageImpl implements SecureStorage {
+  final storage = const FlutterSecureStorage(
+      aOptions: AndroidOptions.defaultOptions,
+      iOptions: IOSOptions.defaultOptions);
 
   @override
-  Future<void> delete(String key) {
-    // TODO: implement delete
-    throw UnimplementedError();
+  Future<void> delete(String key) async {
+    await storage.delete(key: key);
   }
 
   @override
-  // TODO: implement name
-  String get name => throw UnimplementedError();
+  String get name => "FlutterSecureStorage";
 
   @override
-  Future<void> read(String key) {
-    // TODO: implement read
-    throw UnimplementedError();
+  Future<String> read(String key) async {
+    final String? token = await storage.read(key: key);
+    return token ?? "";
   }
 
   @override
-  Future<void> write(String key, value) {
-    // TODO: implement write
-    throw UnimplementedError();
+  Future<void> write(String key, value) async {
+    await storage.write(key: key, value: value);
   }
 }

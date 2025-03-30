@@ -9,10 +9,13 @@ class AuthPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final authRepository = AppDependsProvider.of(context).repository;
+    final depends = AppDependsProvider.of(context);
+    final authRepository = depends.repository;
+    final storage = depends.secureStorage;
 
     return BlocProvider(
-      create: (BuildContext context) => AuthBloc(authRepository),
+      create: (BuildContext context) =>
+          AuthBloc(authRepository, storage)..add(AuthInitEvent()),
       child: const AuthScreen(),
     );
   }

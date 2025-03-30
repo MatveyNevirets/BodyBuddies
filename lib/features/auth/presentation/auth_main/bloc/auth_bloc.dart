@@ -1,5 +1,11 @@
+import 'dart:async';
+import 'dart:developer';
+
 import 'package:bloc/bloc.dart';
 import 'package:body_buddies/features/auth/domain/repository/auth_repository.dart';
+import 'package:body_buddies/features/auth/domain/tokens.dart';
+import 'package:body_buddies/internal/application/app_consts.dart';
+import 'package:body_buddies/services/secure_storage/i_secure_storage.dart';
 import 'package:equatable/equatable.dart';
 
 part 'auth_event.dart';
@@ -7,10 +13,27 @@ part 'auth_state.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final AuthRepository authRepository;
+  final SecureStorage storage;
 
-  AuthBloc(this.authRepository) : super(UserNotAuthtorized()) {
+  AuthBloc(this.authRepository, this.storage) : super(AuthInitial()) {
     on<SignUpEvent>(_onSignUp);
     on<SignInEvent>(_onSignIn);
+    on<AuthInitEvent>(_initAuth);
+  }
+
+  FutureOr<void> _initAuth(event, emit) async {
+    log("init");
+
+    try {
+      final data = await storage.read(AppConsts.tokenKey);
+      log(data.toString());
+      final tokens = Tokens.fromJson(data);
+      log(tokens.toString());
+      emit(UserHasAuthtorized());
+    } on Object catch (e, st) {
+      emit(UserNotAuthtorized());
+      onError(e, st);
+    }
   }
 
   void _onSignUp(SignUpEvent event, Emitter<AuthState> emit) async {
@@ -22,7 +45,10 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         email: event.email,
       );
 
-      emit(UserHasAuthtorized(response.$1, response.$2));
+      final tokens =
+          Tokens(accessToken: response.$1, refreshToken: response.$2);
+      await storage.write(AppConsts.tokenKey, tokens.toJson());
+      emit(UserHasAuthtorized());
     } catch (e) {
       emit(ErrorState("Пользователь с такой почтой или именем уже существует"));
       emit(UserNotAuthtorized());
@@ -37,7 +63,11 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         password: event.password,
       );
 
-      emit(UserHasAuthtorized(response.$1, response.$2));
+      final tokens =
+          Tokens(accessToken: response.$1, refreshToken: response.$2);
+      await storage.write(AppConsts.tokenKey, tokens.toJson());
+      log("Sign in ${tokens.toJson()}");
+      emit(UserHasAuthtorized());
     } catch (e) {
       emit(ErrorState("Неверный логин или пароль"));
       emit(UserNotAuthtorized());
