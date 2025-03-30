@@ -3,7 +3,6 @@ import 'dart:developer';
 import 'package:body_buddies/features/workouts/data/Models/exercise_entity.dart';
 import 'package:body_buddies/features/workouts/data/Models/workout_entity.dart';
 import 'package:body_buddies/features/workouts/domain/Entities/exercise_entity.dart';
-import 'package:body_buddies/features/workouts/domain/Entities/workout_entity.dart';
 import 'package:body_buddies/features/workouts/domain/workouts_repository.dart';
 
 class MockWorkoutsRepository implements WorkoutsRepository {

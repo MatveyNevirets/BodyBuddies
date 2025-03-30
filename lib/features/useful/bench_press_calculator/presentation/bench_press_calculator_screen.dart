@@ -19,6 +19,7 @@ class BenchPressCalculatorScreen extends StatelessWidget {
     return Scaffold(
       appBar: createAppBarWidget(
         appbarTitle: Strings.bench_press_calculator_appbar,
+        context: context,
       ),
       body: ListView(
         children: [

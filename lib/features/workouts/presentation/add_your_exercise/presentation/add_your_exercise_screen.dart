@@ -25,7 +25,8 @@ class _AddYourExerciseScreenState extends State<AddYourExerciseScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: createAppBarWidget(appbarTitle: Strings.creating_appbar),
+      appBar: createAppBarWidget(
+          appbarTitle: Strings.creating_appbar, context: context),
       body: Wrap(
         children: [
           Container(

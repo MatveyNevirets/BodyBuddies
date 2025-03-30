@@ -21,7 +21,8 @@ class WorkoutEntityScreen extends StatelessWidget {
     return Scaffold(
       appBar: createAppBarWidget(
           appbarTitle:
-              whatsOpen == 0 ? Strings.workouts_appbar : Strings.journal),
+              whatsOpen == 0 ? Strings.workouts_appbar : Strings.journal,
+          context: context),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16),

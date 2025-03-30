@@ -11,7 +11,8 @@ class AdvicesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: createAppBarWidget(appbarTitle: Strings.advices),
+      appBar:
+          createAppBarWidget(appbarTitle: Strings.advices, context: context),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Card(

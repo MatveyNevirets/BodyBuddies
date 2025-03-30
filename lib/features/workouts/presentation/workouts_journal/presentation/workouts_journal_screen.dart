@@ -14,7 +14,8 @@ class WorkoutsJournalScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: createAppBarWidget(appbarTitle: Strings.journal),
+      appBar:
+          createAppBarWidget(appbarTitle: Strings.journal, context: context),
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: Card(

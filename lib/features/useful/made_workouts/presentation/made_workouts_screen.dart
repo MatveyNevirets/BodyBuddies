@@ -22,7 +22,8 @@ class _MadeWorkoutsScreenState extends State<MadeWorkoutsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: createAppBarWidget(appbarTitle: Strings.workouts_appbar),
+      appBar: createAppBarWidget(
+          appbarTitle: Strings.workouts_appbar, context: context),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Card(

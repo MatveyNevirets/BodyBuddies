@@ -24,7 +24,8 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: createAppBarWidget(appbarTitle: Strings.workouts_appbar),
+      appBar: createAppBarWidget(
+          appbarTitle: Strings.workouts_appbar, context: context),
       body: Container(
         margin: Styles.base_margin_size,
         child: ListView(children: [

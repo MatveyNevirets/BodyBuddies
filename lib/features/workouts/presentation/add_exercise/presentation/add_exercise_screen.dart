@@ -36,7 +36,8 @@ class _AddExerciseScreenState extends State<AddExerciseScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: createAppBarWidget(appbarTitle: Strings.change_exercise),
+      appBar: createAppBarWidget(
+          appbarTitle: Strings.change_exercise, context: context),
       body: Container(
         decoration: BoxDecoration(
             //color: Colours.workout_card_background_color,

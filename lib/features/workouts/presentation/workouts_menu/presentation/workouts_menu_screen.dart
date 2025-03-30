@@ -42,7 +42,8 @@ class _WorkoutsMenuScreenState extends State<WorkoutsMenuScreen> {
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             return Scaffold(
-              appBar: createAppBarWidget(appbarTitle: Strings.workouts_appbar),
+              appBar: createAppBarWidget(
+                  appbarTitle: Strings.workouts_appbar, context: context),
               floatingActionButton: Padding(
                 padding: const EdgeInsets.only(right: 8, bottom: 32),
                 child: FloatingActionButton(

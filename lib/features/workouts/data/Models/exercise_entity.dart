@@ -1,8 +1,18 @@
 import 'package:body_buddies/features/workouts/domain/Entities/exercise_entity.dart';
 
 class ExerciseModel extends ExerciseEntity {
+  @override
   String title;
 
+  @override
+  @override
+  @override
+  @override
+  @override
+  @override
+  @override
+  @override
+  @override
   bool chest,
       legs,
       shoulders,
@@ -13,6 +23,13 @@ class ExerciseModel extends ExerciseEntity {
       isExercise,
       isTimerExercise;
 
+  @override
+  @override
+  @override
+  @override
+  @override
+  @override
+  @override
   int sets,
       currentSets,
       reps,
@@ -21,6 +38,7 @@ class ExerciseModel extends ExerciseEntity {
       restTimeInSeconds,
       restTimeInMinutes;
 
+  @override
   double kilograms;
 
   ExerciseModel(

@@ -2,14 +2,28 @@ import 'package:body_buddies/features/workouts/domain/Entities/exercise_entity.d
 import 'package:body_buddies/features/workouts/domain/Entities/workout_entity.dart';
 
 class WorkoutModel extends WorkoutEntity {
+  @override
   String? title;
 
+  @override
   int weekday;
 
+  @override
+  @override
+  @override
+  @override
+  @override
+  @override
+  @override
+  @override
+  @override
   bool chest, back, legs, biceps, triceps, forearms, shoulders, abs, cardio;
 
+  @override
+  @override
   String dateWhenTodo, allWorkoutLength;
 
+  @override
   List<ExerciseEntity> exercises = [];
 
   WorkoutModel({

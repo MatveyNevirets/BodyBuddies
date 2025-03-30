@@ -35,7 +35,7 @@ class BodyBuddiesApp extends StatelessWidget {
   Widget build(BuildContext context) {
     final Size screenSize = Size(
         MediaQuery.sizeOf(context).width, MediaQuery.sizeOf(context).height);
-    WorkoutsMenuScreen workoutsMenuScreen = WorkoutsMenuScreen();
+    WorkoutsMenuScreen workoutsMenuScreen = const WorkoutsMenuScreen();
 
     final appDepends = AppDependsProvider.of(context);
 
@@ -55,14 +55,14 @@ class BodyBuddiesApp extends StatelessWidget {
         )),
         debugShowCheckedModeBanner: false,
         routes: {
+          "auth/": (context) => const AuthPage(),
           "/": (context) => BlocProvider(
                 create: (BuildContext context) => HomeBloc(),
                 child: HomeScreen(
                   fakeWorkoutsDatabase: fakeWorkoutsDatabase,
                 ),
               ),
-          "/auth": (context) => const AuthPage(),
-          "/auth/signup": (context) => SignUpScreen(),
+          "auth/signup": (context) => SignUpScreen(),
           "/workouts_menu": (context) => workoutsMenuScreen,
           "/workouts_menu/create_workout/": (context) => CreateWorkoutScreen(
                 fakeDB: fakeWorkoutsDatabase,
@@ -100,7 +100,7 @@ class BodyBuddiesApp extends StatelessWidget {
                 fakeWorkoutsDatabase: fakeWorkoutsDatabase,
               ),
         },
-        initialRoute: "/auth",
+        initialRoute: "auth/",
       ),
     );
   }

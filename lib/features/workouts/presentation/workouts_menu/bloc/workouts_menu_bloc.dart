@@ -1,6 +1,5 @@
 import 'package:bloc/bloc.dart';
 import 'package:body_buddies/features/workouts/domain/workouts_repository.dart';
-import 'package:body_buddies/features/workouts/presentation/workouts_menu/domain/fake_workouts_database.dart';
 import 'package:meta/meta.dart';
 
 part 'workouts_menu_event.dart';
