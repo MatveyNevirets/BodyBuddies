@@ -1,10 +1,15 @@
+import 'dart:convert';
 import 'dart:developer';
 
+import 'package:body_buddies/features/auth/domain/tokens.dart';
 import 'package:body_buddies/features/workouts/data/Models/workout_entity.dart';
 import 'package:body_buddies/features/workouts/domain/Entities/exercise_entity.dart';
 import 'package:body_buddies/features/workouts/domain/workouts_repository.dart';
 import 'package:body_buddies/features/workouts/domain/Entities/workout_entity.dart';
 import 'package:body_buddies/features/workouts/generated/bodybuddies_workouts.pbgrpc.dart';
+import 'package:body_buddies/internal/application/app_consts.dart';
+import 'package:body_buddies/internal/application/di/app_depends_provider.dart';
+import 'package:flutter/widgets.dart';
 import 'package:grpc/grpc_or_grpcweb.dart';
 
 class ProdWorkoutsRepository implements WorkoutsRepository {
@@ -23,25 +28,31 @@ class ProdWorkoutsRepository implements WorkoutsRepository {
   }
 
   @override
-  Future<List<WorkoutEntity>> fetchAllWorkout() async {
-    final response = await _client.fetchAllWorkouts(
-      RequestDto(),
-      options: CallOptions(
-        metadata: {
-          'token':
-              "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3NDMyNTAyODIsImlhdCI6MTc0MzE0MjI4MiwidXNlcl9pZCI6IjEwIn0.L8_0tBAW85exXcTu3VLKTjjTeavgDSZeO5FpJpLmkmU"
-        },
-      ),
-    );
+  Future<List<WorkoutEntity>> fetchAllWorkout(BuildContext context) async {
+    final storage = AppDependsProvider.of(context).secureStorage;
 
-    log("Result of fetch: $response");
+    try {
+      final tokens = await storage.read(AppConsts.tokenKey);
+      final jsonString = jsonDecode(tokens);
+      final token = jsonString['access_token'];
 
-    List<WorkoutDto> workoutsDto = response.workouts;
-    final workouts = workoutsDto
-        .map((dto) => WorkoutModel(title: dto.title, exercises: []))
-        .toList();
+      final response = await _client.fetchAllWorkouts(
+        RequestDto(),
+        options: CallOptions(
+          metadata: {'token': token},
+        ),
+      );
 
-    return workouts;
+      List<WorkoutDto> workoutsDto = response.workouts;
+      final workouts = workoutsDto
+          .map((dto) => WorkoutModel(title: dto.title, exercises: []))
+          .toList();
+
+      return workouts;
+    } catch (e) {
+      log("Error on fetch workout: $e");
+      return [];
+    }
   }
 
   @override

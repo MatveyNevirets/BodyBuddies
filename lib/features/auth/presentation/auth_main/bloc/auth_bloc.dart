@@ -26,9 +26,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     emit(AuthLoadingState());
     try {
       final data = await storage.read(AppConsts.tokenKey);
-      log(data.toString());
       final tokens = Tokens.fromJson(data);
-      log(tokens.toString());
       emit(UserHasAuthtorized());
     } on Object catch (e, st) {
       emit(UserNotAuthtorized());
@@ -66,7 +64,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       final tokens =
           Tokens(accessToken: response.$1, refreshToken: response.$2);
       await storage.write(AppConsts.tokenKey, tokens.toJson());
-      log("Sign in ${tokens.toJson()}");
       emit(UserHasAuthtorized());
     } catch (e) {
       emit(ErrorState("Неверный логин или пароль"));

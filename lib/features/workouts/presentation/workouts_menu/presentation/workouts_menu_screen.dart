@@ -38,7 +38,7 @@ class _WorkoutsMenuScreenState extends State<WorkoutsMenuScreen> {
     }
 
     return FutureBuilder(
-        future: workoutsRepository.fetchAllWorkout(),
+        future: workoutsRepository.fetchAllWorkout(context),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             return Scaffold(

@@ -43,7 +43,7 @@ class AuthScreen extends StatelessWidget {
 
   void _trySignUp(BuildContext context) async {
     final response =
-        await Navigator.pushNamed(context, "/auth/signup") as List<String>?;
+        await Navigator.pushNamed(context, "auth/signup") as List<String>?;
 
     if (response == null) {
       return null;

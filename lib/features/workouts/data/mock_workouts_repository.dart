@@ -4,10 +4,11 @@ import 'package:body_buddies/features/workouts/data/Models/exercise_entity.dart'
 import 'package:body_buddies/features/workouts/data/Models/workout_entity.dart';
 import 'package:body_buddies/features/workouts/domain/Entities/exercise_entity.dart';
 import 'package:body_buddies/features/workouts/domain/workouts_repository.dart';
+import 'package:flutter/widgets.dart';
 
 class MockWorkoutsRepository implements WorkoutsRepository {
   @override
-  Future<List<WorkoutModel>> fetchAllWorkout() async {
+  Future<List<WorkoutModel>> fetchAllWorkout(BuildContext context) async {
     await Future.delayed(const Duration(seconds: 3));
     log("Loading has been ended");
     return _workouts;
