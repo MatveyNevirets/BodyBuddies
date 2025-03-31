@@ -18,6 +18,9 @@ class WorkoutEntityScreen extends StatelessWidget {
     WorkoutEntity workoutEntity = getPreviousScreenData[0] as WorkoutEntity;
     int whatsOpen = getPreviousScreenData[1] as int;
 
+    print(workoutEntity.title);
+    print(workoutEntity.exercises);
+
     return Scaffold(
       appBar: createAppBarWidget(
           appbarTitle:

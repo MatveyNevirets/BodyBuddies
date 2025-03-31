@@ -45,7 +45,10 @@ class ProdWorkoutsRepository implements WorkoutsRepository {
 
       List<WorkoutDto> workoutsDto = response.workouts;
       final workouts = workoutsDto
-          .map((dto) => WorkoutModel(title: dto.title, exercises: []))
+          .map((dto) => WorkoutModel(
+              title: dto.title,
+              weekday: int.parse(dto.weekday),
+              exercises: convertExerciseFromDto(dto.exercises)))
           .toList();
 
       return workouts;
@@ -53,6 +56,25 @@ class ProdWorkoutsRepository implements WorkoutsRepository {
       log("Error on fetch workout: $e");
       return [];
     }
+  }
+
+  List<ExerciseEntity> convertExerciseFromDto(List<ExerciseDto> exerciseDto) {
+    return exerciseDto
+        .map(
+          (dto) => ExerciseEntity(
+            title: dto.title,
+            kilograms: double.parse(dto.weight),
+            reps: int.parse(dto.reps),
+            sets: int.parse(dto.sets),
+            restTimeInMinutes: int.parse(dto.restTimeMinutes),
+            restTimeInSeconds: int.parse(dto.restTimeSeconds),
+            timerTimeMinutes: int.parse(dto.exerciseTimeMinutes),
+            timerTimeSeconds: int.parse(dto.exerciseTimeSeconds),
+            isExercise: dto.isExercise,
+            isTimerExercise: dto.isTimerExercise,
+          ),
+        )
+        .toList();
   }
 
   @override
