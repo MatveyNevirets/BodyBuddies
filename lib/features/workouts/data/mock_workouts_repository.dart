@@ -18,14 +18,14 @@ class MockWorkoutsRepository implements WorkoutsRepository {
   String get name => "Mock workouts repository";
 
   @override
-  Future<void> createWorkout(
-      String title, int weekday, List<ExerciseEntity> exercises) async {
+  Future<void> createWorkout(String title, int weekday,
+      List<ExerciseEntity> exercises, BuildContext context) async {
     _workouts.add(
         WorkoutModel(title: title, weekday: weekday, exercises: exercises));
   }
 
   @override
-  Future<void> deleteWorkout(int index) async {
+  Future<void> deleteWorkout(int index, BuildContext context) async {
     _workouts.removeAt(index);
   }
 

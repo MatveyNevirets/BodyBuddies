@@ -132,7 +132,7 @@ class WorkoutCardOnList extends StatelessWidget {
 
   void removeCurrentWorkout(
       BuildContext context, WorkoutsRepository workoutsRepository, int index) {
-    workoutsRepository.deleteWorkout(index);
+    workoutsRepository.deleteWorkout(index, context);
     Navigator.pushReplacementNamed(context, "/workouts_menu");
   }
 

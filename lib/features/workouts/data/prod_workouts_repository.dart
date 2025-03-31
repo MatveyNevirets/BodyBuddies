@@ -58,39 +58,64 @@ class ProdWorkoutsRepository implements WorkoutsRepository {
     }
   }
 
-  List<ExerciseEntity> convertExerciseFromDto(List<ExerciseDto> exerciseDto) {
-    return exerciseDto
-        .map(
-          (dto) => ExerciseEntity(
-            title: dto.title,
-            kilograms: double.parse(dto.weight),
-            reps: int.parse(dto.reps),
-            sets: int.parse(dto.sets),
-            restTimeInMinutes: int.parse(dto.restTimeMinutes),
-            restTimeInSeconds: int.parse(dto.restTimeSeconds),
-            timerTimeMinutes: int.parse(dto.exerciseTimeMinutes),
-            timerTimeSeconds: int.parse(dto.exerciseTimeSeconds),
-            isExercise: dto.isExercise,
-            isTimerExercise: dto.isTimerExercise,
-          ),
-        )
-        .toList();
-  }
-
   @override
   String get name => "Prod workouts repository";
 
   @override
-  Future<void> createWorkout(
-      String title, int weekday, List<ExerciseEntity> exercises) {
-    // TODO: implement createWorkout
-    throw UnimplementedError();
+  Future<void> createWorkout(String title, int weekday,
+      List<ExerciseEntity> exercises, BuildContext context) async {
+    final storage = AppDependsProvider.of(context).secureStorage;
+
+    try {
+      final tokenJson = await storage.read(AppConsts.tokenKey);
+      final tokenMap = jsonDecode(tokenJson);
+      final token = tokenMap['access_token'];
+
+//TODO: ТУТ КАРОЧЕ НА СЕРВАКЕ НАДО ЧИРКАНУТЬ, ШОБЫ ОН АЙДИ ПЕРЕДАВАЛ
+      final tutmessagechistoidpereday = await _client.addWorkout(
+          WorkoutDto(title: title, weekday: weekday.toString(), exercises: []),
+          options: CallOptions(metadata: {"token": token}));
+
+      log("Exercises: ${convertExerciseToDto(exercises)}");
+
+      exercises.map((entity) async {
+        log("Run");
+        await _client.addExercise(
+            ExerciseDto(
+              workoutId: "Тут нема, потому фиксеть нада",
+              title: entity.title,
+              weight: entity.kilograms.toString(),
+              reps: entity.reps.toString(),
+              sets: entity.sets.toString(),
+              restTimeMinutes: entity.restTimeInMinutes.toString(),
+              restTimeSeconds: entity.restTimeInSeconds.toString(),
+              exerciseTimeMinutes: entity.timerTimeMinutes.toString(),
+              exerciseTimeSeconds: entity.timerTimeSeconds.toString(),
+              isExercise: entity.isExercise,
+              isTimerExercise: entity.isTimerExercise,
+            ),
+            options: CallOptions(metadata: {"token": token}));
+        log("End");
+      });
+    } on Object catch (error, stack) {
+      throw Exception("Error: $error and stack: $stack");
+    }
   }
 
   @override
-  Future<void> deleteWorkout(int index) {
-    // TODO: implement deleteWorkout
-    throw UnimplementedError();
+  Future<void> deleteWorkout(int index, BuildContext context) async {
+    final storage = AppDependsProvider.of(context).secureStorage;
+    try {
+      final tokenJson = await storage.read(AppConsts.tokenKey);
+      final tokenMap = jsonDecode(tokenJson);
+      final token = tokenMap['access_token'];
+
+//TODO: ТУТ С НАЗВАНИЕ РАЗОБРАТЬСЯ
+      await _client.deleteWorkout(WorkoutDto(title: "лвлвв"),
+          options: CallOptions(metadata: {"token": token}));
+    } on Object catch (error, stack) {
+      throw Exception("Error: $error and stack: $stack");
+    }
   }
 
   @override
@@ -99,4 +124,42 @@ class ProdWorkoutsRepository implements WorkoutsRepository {
     // TODO: implement updateWorkout
     throw UnimplementedError();
   }
+}
+
+List<ExerciseEntity> convertExerciseFromDto(List<ExerciseDto> exerciseDto) {
+  return exerciseDto
+      .map(
+        (dto) => ExerciseEntity(
+          title: dto.title,
+          kilograms: double.parse(dto.weight),
+          reps: int.parse(dto.reps),
+          sets: int.parse(dto.sets),
+          restTimeInMinutes: int.parse(dto.restTimeMinutes),
+          restTimeInSeconds: int.parse(dto.restTimeSeconds),
+          timerTimeMinutes: int.parse(dto.exerciseTimeMinutes),
+          timerTimeSeconds: int.parse(dto.exerciseTimeSeconds),
+          isExercise: dto.isExercise,
+          isTimerExercise: dto.isTimerExercise,
+        ),
+      )
+      .toList();
+}
+
+List<ExerciseDto> convertExerciseToDto(List<ExerciseEntity> exerciseEntity) {
+  return exerciseEntity
+      .map(
+        (entity) => ExerciseDto(
+          title: entity.title,
+          weight: entity.kilograms.toString(),
+          reps: entity.reps.toString(),
+          sets: entity.sets.toString(),
+          restTimeMinutes: entity.restTimeInMinutes.toString(),
+          restTimeSeconds: entity.restTimeInSeconds.toString(),
+          exerciseTimeMinutes: entity.timerTimeMinutes.toString(),
+          exerciseTimeSeconds: entity.timerTimeSeconds.toString(),
+          isExercise: entity.isExercise,
+          isTimerExercise: entity.isTimerExercise,
+        ),
+      )
+      .toList();
 }

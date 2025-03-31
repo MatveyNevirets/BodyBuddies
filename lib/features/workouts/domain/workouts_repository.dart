@@ -7,10 +7,10 @@ abstract interface class WorkoutsRepository {
 
   Future<List<WorkoutEntity>> fetchAllWorkout(BuildContext context);
 
-  Future<void> createWorkout(
-      String title, int weekday, List<ExerciseEntity> exercises);
+  Future<void> createWorkout(String title, int weekday,
+      List<ExerciseEntity> exercises, BuildContext context);
 
-  Future<void> deleteWorkout(int index);
+  Future<void> deleteWorkout(int index, BuildContext context);
 
   Future<void> updateWorkout(
       String? title, int? weekday, List<ExerciseEntity>? exercises, int index);

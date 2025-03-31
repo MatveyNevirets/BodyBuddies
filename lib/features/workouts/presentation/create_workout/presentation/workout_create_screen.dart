@@ -159,7 +159,8 @@ class _CreateWorkoutScreenState extends State<CreateWorkoutScreen> {
       );
     }
     !widget.isEditWorkout
-        ? workoutsRepostitory.createWorkout(title, weekday, newExercises)
+        ? workoutsRepostitory.createWorkout(
+            title, weekday, newExercises, context)
         : widget.fakeDB.fakeWorkoutEntities[index] = WorkoutEntity(
             title: title,
             weekday: weekday,
