@@ -1,21 +1,48 @@
+import 'dart:developer';
+
+import 'package:body_buddies/core/colors/colors.dart';
+import 'package:body_buddies/core/widgets/loading_screen.dart';
+import 'package:body_buddies/features/workouts/domain/workouts_repository.dart';
 import 'package:body_buddies/features/workouts/presentation/workout_feature_card/presentation/widgets/calendar_widget.dart';
 import 'package:body_buddies/features/workouts/presentation/workout_feature_card/presentation/widgets/workout_button_widget.dart';
 import 'package:body_buddies/features/workouts/presentation/workout_feature_card/presentation/widgets/workout_container_text.dart';
 import 'package:body_buddies/features/workouts/domain/Entities/workout_entity.dart';
 import 'package:body_buddies/features/workouts/presentation/workouts_menu/domain/fake_workouts_database.dart';
+import 'package:body_buddies/internal/application/di/app_depends_provider.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 import '../../../../../core/styles/styles.dart';
 
 class WorkoutFeatureCard extends StatelessWidget {
-  final FakeWorkoutsDatabase fakeDatabase;
-
-  const WorkoutFeatureCard({super.key, required this.fakeDatabase});
+  const WorkoutFeatureCard({super.key});
 
   @override
   Widget build(BuildContext context) {
     void openWorkoutsMenuScreen() =>
         Navigator.of(context).pushNamed("/workouts_menu");
+
+    final workoutRepository = AppDependsProvider.of(context).workoutsRepository;
+
+    Future<WorkoutEntity> getTodayWorkout() async {
+      final thisWeekDay = DateTime.now().weekday;
+      final workoutsList = await workoutRepository.fetchAllWorkout(context);
+
+      for (int i = 0; i < workoutsList.length; i++) {
+        if (workoutsList[i].weekday == thisWeekDay) {
+          return workoutsList[i];
+        }
+      }
+      return workoutsList[0];
+    }
+
+    void runCurrentWorkout(
+      BuildContext context,
+    ) async {
+      Navigator.of(context).pushNamed("workouts_menu/run_workout/",
+          arguments: await getTodayWorkout().then((workout) => workout));
+    }
 
     return GestureDetector(
       onTap: () => openWorkoutsMenuScreen(),
@@ -35,8 +62,22 @@ class WorkoutFeatureCard extends StatelessWidget {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          WorkoutContainerText(
-                              getTodayWorkout().title.toString(), null),
+                          FutureBuilder(
+                            future: getTodayWorkout(),
+                            builder: (context, snapshot) {
+                              if (snapshot.hasData) {
+                                return WorkoutContainerText(
+                                    snapshot.data!.title.toString(), null);
+                              } else if (snapshot.hasError) {
+                                throw Exception(
+                                    "Error on Workouts Feature Card error: ${snapshot.error}");
+                              }
+                              return const SpinKitThreeInOut(
+                                color: Colours.white_text_color,
+                                size: 30,
+                              );
+                            },
+                          ),
                           const SizedBox(
                             height: Styles.height_of_text_to_widget * 4,
                           ),
@@ -69,25 +110,6 @@ class WorkoutFeatureCard extends StatelessWidget {
         ],
       ),
     );
-  }
-
-  void runCurrentWorkout(
-    BuildContext context,
-  ) {
-    Navigator.of(context)
-        .pushNamed("workouts_menu/run_workout/", arguments: getTodayWorkout());
-  }
-
-  WorkoutEntity getTodayWorkout() {
-    final thisWeekDay = DateTime.now().weekday;
-
-    for (int i = 0; i < fakeDatabase.fakeWorkoutEntities.length; i++) {
-      if (fakeDatabase.fakeWorkoutEntities[i].weekday == thisWeekDay) {
-        return fakeDatabase.fakeWorkoutEntities[i];
-      }
-    }
-
-    return fakeDatabase.fakeWorkoutEntities[0];
   }
 
   String getDate() {

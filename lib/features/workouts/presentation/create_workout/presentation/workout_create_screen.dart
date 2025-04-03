@@ -174,7 +174,8 @@ class _CreateWorkoutScreenState extends State<CreateWorkoutScreen> {
             chest: chest,
             cardio: cardio,
             exercises: newExercises);
-    Navigator.of(thisContext).pushReplacementNamed("/workouts_menu");
+
+    Navigator.of(context).pop(true);
   }
 
   late TextEditingController titleTextFieldController;

@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'dart:developer';
 
-import 'package:body_buddies/features/auth/domain/tokens.dart';
 import 'package:body_buddies/features/workouts/data/Models/workout_entity.dart';
 import 'package:body_buddies/features/workouts/domain/Entities/exercise_entity.dart';
 import 'package:body_buddies/features/workouts/domain/workouts_repository.dart';
@@ -71,18 +70,14 @@ class ProdWorkoutsRepository implements WorkoutsRepository {
       final tokenMap = jsonDecode(tokenJson);
       final token = tokenMap['access_token'];
 
-//TODO: ТУТ КАРОЧЕ НА СЕРВАКЕ НАДО ЧИРКАНУТЬ, ШОБЫ ОН АЙДИ ПЕРЕДАВАЛ
-      final tutmessagechistoidpereday = await _client.addWorkout(
+      final workoutId = await _client.addWorkout(
           WorkoutDto(title: title, weekday: weekday.toString(), exercises: []),
           options: CallOptions(metadata: {"token": token}));
 
-      log("Exercises: ${convertExerciseToDto(exercises)}");
-
-      exercises.map((entity) async {
-        log("Run");
+      for (ExerciseEntity entity in exercises) {
         await _client.addExercise(
             ExerciseDto(
-              workoutId: "Тут нема, потому фиксеть нада",
+              workoutId: workoutId.message,
               title: entity.title,
               weight: entity.kilograms.toString(),
               reps: entity.reps.toString(),
@@ -95,8 +90,7 @@ class ProdWorkoutsRepository implements WorkoutsRepository {
               isTimerExercise: entity.isTimerExercise,
             ),
             options: CallOptions(metadata: {"token": token}));
-        log("End");
-      });
+      }
     } on Object catch (error, stack) {
       throw Exception("Error: $error and stack: $stack");
     }
@@ -110,8 +104,11 @@ class ProdWorkoutsRepository implements WorkoutsRepository {
       final tokenMap = jsonDecode(tokenJson);
       final token = tokenMap['access_token'];
 
-//TODO: ТУТ С НАЗВАНИЕ РАЗОБРАТЬСЯ
-      await _client.deleteWorkout(WorkoutDto(title: "лвлвв"),
+      final workoutsDto = await _client.fetchAllWorkouts(RequestDto(),
+          options: CallOptions(metadata: {"token": token}));
+      final workouts = workoutsDto.workouts;
+
+      await _client.deleteWorkout(WorkoutDto(title: workouts[index].title),
           options: CallOptions(metadata: {"token": token}));
     } on Object catch (error, stack) {
       throw Exception("Error: $error and stack: $stack");
@@ -121,7 +118,6 @@ class ProdWorkoutsRepository implements WorkoutsRepository {
   @override
   Future<void> updateWorkout(
       String? title, int? weekday, List<ExerciseEntity>? exercises, int index) {
-    // TODO: implement updateWorkout
     throw UnimplementedError();
   }
 }

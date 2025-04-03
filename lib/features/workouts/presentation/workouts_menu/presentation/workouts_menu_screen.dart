@@ -23,8 +23,14 @@ class WorkoutsMenuScreen extends StatefulWidget {
 class _WorkoutsMenuScreenState extends State<WorkoutsMenuScreen> {
   @override
   Widget build(BuildContext context) {
+    Future<List<WorkoutEntity>>? workouts;
+
     final workoutsRepository =
         AppDependsProvider.of(context).workoutsRepository;
+
+    setState(() {
+      workouts = workoutsRepository.fetchAllWorkout(context);
+    });
 
     createWorkout() {
       Navigator.of(context).pushNamed(
@@ -35,10 +41,15 @@ class _WorkoutsMenuScreenState extends State<WorkoutsMenuScreen> {
           false,
         ],
       );
+      setState(() {
+        workouts = workoutsRepository.fetchAllWorkout(context);
+      });
     }
 
+    setState(() {});
+
     return FutureBuilder(
-        future: workoutsRepository.fetchAllWorkout(context),
+        future: workouts,
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             return Scaffold(

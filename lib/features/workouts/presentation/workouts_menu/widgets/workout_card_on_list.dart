@@ -2,6 +2,7 @@
 
 import 'package:body_buddies/core/styles/styles.dart';
 import 'package:body_buddies/features/workouts/domain/workouts_repository.dart';
+import 'package:body_buddies/features/workouts/presentation/workouts_menu/presentation/workouts_menu_screen.dart';
 import 'package:body_buddies/features/workouts/presentation/workouts_menu/widgets/new_workout_button.dart';
 import 'package:body_buddies/features/workouts/domain/Entities/workout_entity.dart';
 import 'package:body_buddies/features/workouts/presentation/create_workout/presentation/workout_create_screen.dart';
@@ -133,7 +134,9 @@ class WorkoutCardOnList extends StatelessWidget {
   void removeCurrentWorkout(
       BuildContext context, WorkoutsRepository workoutsRepository, int index) {
     workoutsRepository.deleteWorkout(index, context);
-    Navigator.pushReplacementNamed(context, "/workouts_menu");
+    Navigator.of(context).pushReplacement(
+      MaterialPageRoute(builder: (context) => const WorkoutsMenuScreen()),
+    );
   }
 
   void runCurrentWorkout(

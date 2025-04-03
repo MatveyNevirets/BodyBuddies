@@ -37,9 +37,7 @@ class _HomeScreenState extends State<HomeScreen> {
               const SizedBox(
                 height: Styles.height_of_text_to_widget,
               ),
-              WorkoutFeatureCard(
-                fakeDatabase: widget.fakeWorkoutsDatabase,
-              ),
+              const WorkoutFeatureCard(),
               const SizedBox(
                 height: Styles.big_height_of_text_to_widget / 1.5,
               ),

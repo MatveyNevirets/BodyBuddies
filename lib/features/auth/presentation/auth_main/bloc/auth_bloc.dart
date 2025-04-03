@@ -1,8 +1,6 @@
 import 'dart:async';
-import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
-import 'package:body_buddies/core/widgets/loading_screen.dart';
 import 'package:body_buddies/features/auth/domain/repository/auth_repository.dart';
 import 'package:body_buddies/features/auth/domain/tokens.dart';
 import 'package:body_buddies/internal/application/app_consts.dart';
