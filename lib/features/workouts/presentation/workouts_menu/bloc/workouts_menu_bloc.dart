@@ -1,6 +1,9 @@
+import 'dart:math';
+
 import 'package:bloc/bloc.dart';
+import 'package:body_buddies/features/workouts/domain/Entities/workout_entity.dart';
 import 'package:body_buddies/features/workouts/domain/workouts_repository.dart';
-import 'package:meta/meta.dart';
+import 'package:flutter/cupertino.dart';
 
 part 'workouts_menu_event.dart';
 
@@ -9,20 +12,34 @@ part 'workouts_menu_state.dart';
 class WorkoutsMenuBloc extends Bloc<WorkoutsMenuEvent, WorkoutsMenuState> {
   WorkoutsRepository workoutsRepository;
 
-  WorkoutsMenuBloc(this.workoutsRepository)
-      : super(WorkoutsMenuInitial(workoutsRepository)) {
-    on<AddWorkoutEvent>(onAddCard);
+  WorkoutsMenuBloc(this.workoutsRepository) : super(WorkoutsMenuInitial()) {
+    on<UpdateWorkoutEvent>(_onUpdateCard);
+    on<DeleteWorkoutEvent>(_onDeleteWorkout);
   }
 
-  void onAddCard(AddWorkoutEvent event, Emitter<WorkoutsMenuState> emit) {
-    emit(AddWorkoutState(event.workoutsRepository));
+  void _onUpdateCard(
+      UpdateWorkoutEvent event, Emitter<WorkoutsMenuState> emit) async {
+    emit(LoadingWorkoutState());
+    try {
+      final workouts = await workoutsRepository.fetchAllWorkout(event.context);
+      emit(UpdateWorkoutState(workouts));
+    } catch (e) {
+      throw Exception(
+          "Server error on fetch workout in workouts menu. Error: $e");
+    }
   }
 
-  void onRemoveCard(RemoveWorkoutEvent event, Emitter<WorkoutsMenuState> emit) {
-    emit(AddWorkoutState(event.workoutsRepository));
-  }
+  void _onDeleteWorkout(
+      DeleteWorkoutEvent event, Emitter<WorkoutsMenuState> emit) async {
+    emit(LoadingWorkoutState());
+    try {
+      await workoutsRepository.deleteWorkout(event.index, event.context);
+    } catch (e) {
+      throw Exception(
+          "Server error on fetch workout in workouts menu. Error: $e");
+    }
 
-  void onUpdateCard(UpdateWorkoutEvent event, Emitter<WorkoutsMenuState> emit) {
-    emit(UpdateWorkoutState(event.workoutsRepository));
+    final workouts = await workoutsRepository.fetchAllWorkout(event.context);
+    emit(UpdateWorkoutState(workouts));
   }
 }

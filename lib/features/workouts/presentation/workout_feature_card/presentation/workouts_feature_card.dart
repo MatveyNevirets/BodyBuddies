@@ -1,13 +1,9 @@
-import 'dart:developer';
-
 import 'package:body_buddies/core/colors/colors.dart';
-import 'package:body_buddies/core/widgets/loading_screen.dart';
-import 'package:body_buddies/features/workouts/domain/workouts_repository.dart';
+import 'package:body_buddies/core/strings/strings.dart';
 import 'package:body_buddies/features/workouts/presentation/workout_feature_card/presentation/widgets/calendar_widget.dart';
 import 'package:body_buddies/features/workouts/presentation/workout_feature_card/presentation/widgets/workout_button_widget.dart';
 import 'package:body_buddies/features/workouts/presentation/workout_feature_card/presentation/widgets/workout_container_text.dart';
 import 'package:body_buddies/features/workouts/domain/Entities/workout_entity.dart';
-import 'package:body_buddies/features/workouts/presentation/workouts_menu/domain/fake_workouts_database.dart';
 import 'package:body_buddies/internal/application/di/app_depends_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -69,8 +65,8 @@ class WorkoutFeatureCard extends StatelessWidget {
                                 return WorkoutContainerText(
                                     snapshot.data!.title.toString(), null);
                               } else if (snapshot.hasError) {
-                                throw Exception(
-                                    "Error on Workouts Feature Card error: ${snapshot.error}");
+                                return WorkoutContainerText(
+                                    Strings.empty, null);
                               }
                               return const SpinKitThreeInOut(
                                 color: Colours.white_text_color,

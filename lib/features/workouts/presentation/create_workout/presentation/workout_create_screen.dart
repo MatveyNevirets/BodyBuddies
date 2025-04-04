@@ -6,20 +6,20 @@ import 'package:body_buddies/core/widgets/base_button.dart';
 import 'package:body_buddies/core/widgets/base_snackbar.dart';
 import 'package:body_buddies/features/workouts/domain/Entities/exercise_entity.dart';
 import 'package:body_buddies/features/workouts/domain/Entities/workout_entity.dart';
+import 'package:body_buddies/features/workouts/presentation/workouts_menu/bloc/workouts_menu_bloc.dart';
 import 'package:body_buddies/features/workouts/presentation/workouts_menu/domain/fake_workouts_database.dart';
-import 'package:body_buddies/features/workouts/presentation/workouts_menu/presentation/workouts_menu_screen.dart';
 import 'package:body_buddies/features/workouts/presentation/create_workout/presentation/widgets/exercise_item_on_list.dart';
 import 'package:body_buddies/features/workouts/presentation/create_workout/presentation/widgets/timer_exercise_item_on_list.dart';
 import 'package:body_buddies/internal/application/di/app_depends_provider.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../core/strings/strings.dart';
 import '../../../../../core/styles/styles.dart';
 
 class CreateWorkoutScreen extends StatefulWidget {
   FakeWorkoutsDatabase fakeDB;
-  WorkoutsMenuScreen workoutsMenuScreen;
   List<ExerciseEntity> _exercises = [];
   bool isEditWorkout = false;
   String? selectedWeekday;
@@ -45,17 +45,14 @@ class CreateWorkoutScreen extends StatefulWidget {
       isSun = false;
 
   CreateWorkoutScreen(
-      {super.key,
-      required this.fakeDB,
-      required this.workoutsMenuScreen,
-      required this.screenSize});
+      {super.key, required this.fakeDB, required this.screenSize});
 
   @override
   State<CreateWorkoutScreen> createState() => _CreateWorkoutScreenState();
 }
 
 class _CreateWorkoutScreenState extends State<CreateWorkoutScreen> {
-  void tryToCreateWorkout(BuildContext context, BuildContext thisContext,
+  void tryToCreateWorkout(BuildContext menuContext, BuildContext thisContext,
       int index, TextEditingController titleController) {
     widget.isMon = widget.selectedWeekday == Strings.monday ? true : false;
     widget.isTue = widget.selectedWeekday == Strings.tuesday ? true : false;
@@ -93,13 +90,13 @@ class _CreateWorkoutScreenState extends State<CreateWorkoutScreen> {
         widget._exercises.isNotEmpty &&
         allFieldsFilled) {
       createWorkoutInDatabase(
-          context: context,
+          menuContext: menuContext,
           title: titleController.text.toString(),
           index: index,
           weekday: getNumberWeekday(),
           thisContext: thisContext);
     } else {
-      showSnackBar(context, Strings.not_full_field_error);
+      showSnackBar(menuContext, Strings.not_full_field_error);
     }
   }
 
@@ -124,7 +121,7 @@ class _CreateWorkoutScreenState extends State<CreateWorkoutScreen> {
   }
 
   createWorkoutInDatabase({
-    required BuildContext context,
+    required BuildContext menuContext,
     required BuildContext thisContext,
     required String title,
     required int index,
@@ -138,7 +135,7 @@ class _CreateWorkoutScreenState extends State<CreateWorkoutScreen> {
     bool forearms = false,
     bool chest = false,
     bool cardio = false,
-  }) {
+  }) async {
     List<ExerciseEntity> newExercises = [];
     final workoutsRepostitory =
         AppDependsProvider.of(thisContext).workoutsRepository;
@@ -159,8 +156,8 @@ class _CreateWorkoutScreenState extends State<CreateWorkoutScreen> {
       );
     }
     !widget.isEditWorkout
-        ? workoutsRepostitory.createWorkout(
-            title, weekday, newExercises, context)
+        ? await workoutsRepostitory.createWorkout(
+            title, weekday, newExercises, menuContext)
         : widget.fakeDB.fakeWorkoutEntities[index] = WorkoutEntity(
             title: title,
             weekday: weekday,
@@ -175,7 +172,10 @@ class _CreateWorkoutScreenState extends State<CreateWorkoutScreen> {
             cardio: cardio,
             exercises: newExercises);
 
-    Navigator.of(context).pop(true);
+    menuContext
+        .read<WorkoutsMenuBloc>()
+        .add(UpdateWorkoutEvent(context: menuContext));
+    Navigator.of(menuContext).pop(true);
   }
 
   late TextEditingController titleTextFieldController;

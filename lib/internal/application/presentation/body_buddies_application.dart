@@ -12,6 +12,7 @@ import 'package:body_buddies/features/workouts/presentation/add_your_exercise/pr
 import 'package:body_buddies/features/workouts/presentation/create_workout/presentation/workout_create_screen.dart';
 import 'package:body_buddies/features/workouts/presentation/current_workout/presentation/current_workout_screen.dart';
 import 'package:body_buddies/features/workouts/presentation/workouts_menu/domain/exercises_database.dart';
+import 'package:body_buddies/features/workouts/presentation/workouts_menu/presentation/workouts_menu_page.dart';
 import 'package:body_buddies/features/workouts/presentation/workouts_menu/presentation/workouts_menu_screen.dart';
 import 'package:body_buddies/internal/application/di/app_depends_provider.dart';
 import 'package:body_buddies/internal/home/presentation/bloc/home_bloc.dart';
@@ -34,7 +35,6 @@ class BodyBuddiesApp extends StatelessWidget {
   Widget build(BuildContext context) {
     final Size screenSize = Size(
         MediaQuery.sizeOf(context).width, MediaQuery.sizeOf(context).height);
-    WorkoutsMenuScreen workoutsMenuScreen = const WorkoutsMenuScreen();
 
     final appDepends = AppDependsProvider.of(context);
 
@@ -62,10 +62,9 @@ class BodyBuddiesApp extends StatelessWidget {
                 ),
               ),
           "auth/signup": (context) => SignUpScreen(),
-          "/workouts_menu": (context) => workoutsMenuScreen,
+          "/workouts_menu": (context) => const WorkoutsMenuPage(),
           "/workouts_menu/create_workout/": (context) => CreateWorkoutScreen(
                 fakeDB: fakeWorkoutsDatabase,
-                workoutsMenuScreen: workoutsMenuScreen,
                 screenSize: screenSize,
               ),
           "/workouts_menu/create_workout/add_exercise/": (context) =>

@@ -3,19 +3,15 @@
 part of 'workouts_menu_bloc.dart';
 
 @immutable
-sealed class WorkoutsMenuState {
-  WorkoutsRepository workoutsRepository;
-  WorkoutsMenuState(this.workoutsRepository);
-}
+sealed class WorkoutsMenuState {}
 
 final class WorkoutsMenuInitial extends WorkoutsMenuState {
-  WorkoutsMenuInitial(super.workoutsRepository);
-}
-
-class AddWorkoutState extends WorkoutsMenuState {
-  AddWorkoutState(super.workoutsRepository);
+  WorkoutsMenuInitial();
 }
 
 class UpdateWorkoutState extends WorkoutsMenuState {
-  UpdateWorkoutState(super.workoutsRepository);
+  List<WorkoutEntity> workouts;
+  UpdateWorkoutState(this.workouts);
 }
+
+class LoadingWorkoutState extends WorkoutsMenuState {}

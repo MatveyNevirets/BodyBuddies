@@ -1,19 +1,19 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 part of 'workouts_menu_bloc.dart';
 
 @immutable
 sealed class WorkoutsMenuEvent {
-  final WorkoutsRepository workoutsRepository;
-  const WorkoutsMenuEvent(this.workoutsRepository);
-}
-
-class AddWorkoutEvent extends WorkoutsMenuEvent {
-  const AddWorkoutEvent(super.workoutsRepository);
+  BuildContext context;
+  WorkoutsMenuEvent({
+    required this.context,
+  });
 }
 
 class UpdateWorkoutEvent extends WorkoutsMenuEvent {
-  const UpdateWorkoutEvent(super.workoutsRepository);
+  UpdateWorkoutEvent({required super.context});
 }
 
-class RemoveWorkoutEvent extends WorkoutsMenuEvent {
-  const RemoveWorkoutEvent(super.workoutsRepository);
+class DeleteWorkoutEvent extends WorkoutsMenuEvent {
+  int index;
+  DeleteWorkoutEvent({required super.context, required this.index});
 }

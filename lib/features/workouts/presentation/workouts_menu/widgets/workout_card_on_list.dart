@@ -2,12 +2,14 @@
 
 import 'package:body_buddies/core/styles/styles.dart';
 import 'package:body_buddies/features/workouts/domain/workouts_repository.dart';
+import 'package:body_buddies/features/workouts/presentation/workouts_menu/bloc/workouts_menu_bloc.dart';
 import 'package:body_buddies/features/workouts/presentation/workouts_menu/presentation/workouts_menu_screen.dart';
 import 'package:body_buddies/features/workouts/presentation/workouts_menu/widgets/new_workout_button.dart';
 import 'package:body_buddies/features/workouts/domain/Entities/workout_entity.dart';
 import 'package:body_buddies/features/workouts/presentation/create_workout/presentation/workout_create_screen.dart';
 import 'package:body_buddies/internal/application/di/app_depends_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../core/colors/colors.dart';
 import '../../../../../core/strings/strings.dart';
@@ -31,6 +33,14 @@ class WorkoutCardOnList extends StatelessWidget {
     openWorkout() {
       Navigator.of(context)
           .pushNamed("workouts_menu/current_workout/", arguments: [workout, 0]);
+    }
+
+    Future<void> removeCurrentWorkout(
+        WorkoutsRepository workoutsRepository, int index) async {
+      await workoutsRepository.deleteWorkout(index, context);
+      context
+          .read<WorkoutsMenuBloc>()
+          .add(UpdateWorkoutEvent(context: context));
     }
 
     return GestureDetector(
@@ -90,8 +100,8 @@ class WorkoutCardOnList extends StatelessWidget {
                             ),
                           ),
                           IconButton(
-                            onPressed: () => removeCurrentWorkout(
-                                context, workoutsRepository, index),
+                            onPressed: () =>
+                                removeCurrentWorkout(workoutsRepository, index),
                             color: Colours.workoutCardForegroundColor,
                             icon: const Icon(
                               Icons.delete,
@@ -129,14 +139,6 @@ class WorkoutCardOnList extends StatelessWidget {
   void editCurrentWorkout(BuildContext context, WorkoutEntity workout) {
     Navigator.of(context).pushNamed("/workouts_menu/create_workout/",
         arguments: [context, workout, true]);
-  }
-
-  void removeCurrentWorkout(
-      BuildContext context, WorkoutsRepository workoutsRepository, int index) {
-    workoutsRepository.deleteWorkout(index, context);
-    Navigator.of(context).pushReplacement(
-      MaterialPageRoute(builder: (context) => const WorkoutsMenuScreen()),
-    );
   }
 
   void runCurrentWorkout(
