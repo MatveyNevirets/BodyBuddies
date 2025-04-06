@@ -60,12 +60,21 @@ abstract class Colours {
 
   static Color workoutTextColor = const Color.fromARGB(255, 35, 74, 165);
 
+  // static const Color workout_card_background_color =
+  //     Color.fromARGB(255, 110, 121, 158);
+  // static const workoutCardForegroundColor = Color.fromARGB(255, 208, 219, 253);
+
   static const Color workout_card_background_color =
-      Color.fromARGB(255, 110, 121, 158);
-  static const workoutCardForegroundColor = Color.fromARGB(255, 208, 219, 253);
+      Color.fromARGB(255, 131, 172, 226);
+  static const workoutCardForegroundColor = Color.fromARGB(255, 255, 255, 255);
+
+  // static var journalGradientColors = [
+  //   const Color.fromARGB(255, 111, 122, 159),
+  //   const Color.fromARGB(255, 20, 23, 34)
+  // ];
 
   static var journalGradientColors = [
-    const Color.fromARGB(255, 111, 122, 159),
-    const Color.fromARGB(255, 20, 23, 34)
+    const Color.fromARGB(255, 105, 128, 231),
+    const Color.fromARGB(255, 131, 172, 226),
   ];
 }

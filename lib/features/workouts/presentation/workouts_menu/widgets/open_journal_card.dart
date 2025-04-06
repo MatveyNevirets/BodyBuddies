@@ -32,7 +32,7 @@ class OpenWorkoutsJournal extends StatelessWidget {
               height: MediaQuery.sizeOf(context).height / 5,
               decoration: BoxDecoration(
                   gradient: LinearGradient(
-                      stops: const [70, 100],
+                      stops: const [0, 100],
                       begin: Alignment.topCenter,
                       end: Alignment.bottomCenter,
                       colors: Colours.journalGradientColors),

@@ -1,51 +1,47 @@
 // ignore_for_file: must_be_immutable
 
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:body_buddies/core/widgets/app_bar.dart';
 import 'package:body_buddies/core/widgets/base_button.dart';
-import 'package:body_buddies/features/workouts/domain/Entities/exercise_entity.dart';
-import 'package:body_buddies/features/workouts/presentation/workouts_menu/domain/exercises_database.dart';
+import 'package:body_buddies/core/widgets/loading_screen.dart';
+import 'package:body_buddies/features/workouts/domain/Entities/exercise_on_list_entity.dart';
+import 'package:body_buddies/features/workouts/domain/workouts_repository.dart';
+import 'package:body_buddies/features/workouts/presentation/add_exercise/bloc/exercises_bloc.dart';
+import 'package:body_buddies/internal/application/di/app_depends_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../core/colors/colors.dart';
 import '../../../../../core/strings/strings.dart';
 import '../../../../../core/styles/styles.dart';
 
-class AddExerciseScreen extends StatefulWidget {
-  Exercises exercises;
-
-  AddExerciseScreen({super.key, required this.exercises});
-
-  @override
-  State<AddExerciseScreen> createState() => _AddExerciseScreenState();
-}
-
-class _AddExerciseScreenState extends State<AddExerciseScreen> {
-  List<ExerciseEntity> filteredExercises = [];
-
+class AddExerciseScreen extends StatelessWidget {
   final searchTextFieldController = TextEditingController();
 
-  @override
-  void initState() {
-    super.initState();
-    searchExercises();
-    searchTextFieldController.addListener(searchExercises);
-  }
+  AddExerciseScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    void searchExercises() {
+      String query =
+          searchTextFieldController.text.toLowerCase().replaceAll(" ", "");
+      context.read<ExercisesBloc>().add(SearchEvent(context, query));
+    }
+
+    searchTextFieldController.addListener(searchExercises);
+    final workoutRepository = AppDependsProvider.of(context).workoutsRepository;
+
     return Scaffold(
       appBar: createAppBarWidget(
           appbarTitle: Strings.change_exercise, context: context),
-      body: Container(
-        decoration: BoxDecoration(
-            //color: Colours.workout_card_background_color,
-            borderRadius: BorderRadius.circular(8)),
-        margin: const EdgeInsets.all(16),
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
         child: Card(
+          shadowColor: Color.fromARGB(255, 169, 192, 223),
           color: Colours.workout_card_background_color,
-          elevation: 4,
+          elevation: 100,
           child: Padding(
             padding: const EdgeInsets.all(16),
             child: Column(
@@ -80,16 +76,13 @@ class _AddExerciseScreenState extends State<AddExerciseScreen> {
                 const SizedBox(
                   height: 16,
                 ),
-                Expanded(
-                  child: filteredExercises.isNotEmpty
-                      ? buildHasDataList()
-                      : buildHasntDataContainer(),
-                ),
+                buildExercisesListView(workoutRepository),
                 const SizedBox(
                   height: 16,
                 ),
                 BaseButton(
-                    onClick: () async => await addYourExercise(context),
+                    onClick: () async => print("Hey"),
+                    // onClick: () async => await addYourExercise(context),
                     buttonText: Strings.add_yourself,
                     backgroundColor: Colours.workoutCardForegroundColor,
                     color: Colours.workout_card_background_color,
@@ -105,91 +98,68 @@ class _AddExerciseScreenState extends State<AddExerciseScreen> {
     );
   }
 
-  Container buildHasntDataContainer() {
-    return Container(
-      decoration: BoxDecoration(
-          color: Colours.workoutCardForegroundColor,
-          borderRadius: BorderRadius.circular(8)),
-      child: Center(
-        child: Text(
-          Strings.empty,
-          style: Styles.title_text_style,
-        ),
-      ),
-    );
-  }
-
-  Container buildHasDataList() {
-    return Container(
+  Expanded buildExercisesListView(WorkoutsRepository workoutsRepository) {
+    return Expanded(
+        child: Container(
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(8),
           color: Colours.workoutCardForegroundColor),
       padding: const EdgeInsets.all(8),
-      child: ListView.builder(
-          itemCount: filteredExercises.length,
-          itemBuilder: (context, index) {
-            return GestureDetector(
-              onTap: () => addExercise(context, index),
-              child: Card(
-                  color: Colours.workout_card_background_color,
-                  child: Padding(
-                    padding: const EdgeInsets.all(4),
-                    child: Row(
-                      children: [
-                        const Image(
-                          image: AssetImage(
-                            "lib/assets/images/workout_image.png",
-                          ),
-                          height: 70,
-                        ),
-                        Expanded(
-                          child: Padding(
-                            padding: const EdgeInsets.all(8),
-                            child: Text(
-                              truncateText(filteredExercises[index].title, 50),
-                              style: Styles.add_exercise_text_style,
-                              textAlign: TextAlign.center,
+      child: BlocBuilder<ExercisesBloc, ExercisesState>(
+        builder: (context, state) {
+          if (state is SearchExericsesState) {
+            return ListView.builder(
+              itemCount: state.exercises.length,
+              itemBuilder: (context, index) {
+                return GestureDetector(
+                  onTap: () => addExercise(context, index, state),
+                  child: Card(
+                      color: Colours.workout_card_background_color,
+                      child: Padding(
+                        padding: const EdgeInsets.all(4),
+                        child: Row(
+                          children: [
+                            const Image(
+                              image: AssetImage(
+                                "lib/assets/images/workout_image.png",
+                              ),
+                              height: 70,
                             ),
-                          ),
+                            Expanded(
+                              child: Padding(
+                                padding: const EdgeInsets.all(8),
+                                child: Text(
+                                  truncateText(
+                                      state.exercises[index].title, 50),
+                                  style: Styles.add_exercise_text_style,
+                                  textAlign: TextAlign.center,
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
-                      ],
-                    ),
-                  )),
+                      )),
+                );
+              },
             );
-          }),
-    );
+          } else {
+            return const LoadingScreen();
+          }
+        },
+      ),
+    ));
   }
 
-  void addExercise(BuildContext context, int index) {
-    final newExercise = filteredExercises[index];
+  void addExercise(
+      BuildContext context, int index, SearchExericsesState state) {
+    final newExercise = state.exercises[index];
     Navigator.of(context).pop(newExercise);
-  }
-
-  void searchExercises() {
-    String query =
-        searchTextFieldController.text.toLowerCase().replaceAll(" ", "");
-
-    if (query.isNotEmpty) {
-      filteredExercises =
-          widget.exercises.exercises.where((ExerciseEntity entity) {
-        return entity.title.toLowerCase().replaceAll(" ", "").contains(query);
-      }).toList();
-    } else if (query.isEmpty) {
-      filteredExercises = widget.exercises.exercises;
-    }
-    setState(() {});
   }
 
   Future<void> addYourExercise(BuildContext context) async {
     final createdExercise = await Navigator.of(context).pushNamed(
             "/workouts_menu/create_workout/add_exercise/add_your_exercise/")
-        as ExerciseEntity?;
-
-    setState(() {
-      createdExercise != null
-          ? widget.exercises.exercises.add(createdExercise)
-          : widget.exercises;
-    });
+        as ExerciseOnListEntity?;
   }
 
   String truncateText(String text, int maxLength) {

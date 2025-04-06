@@ -5,7 +5,7 @@ import 'package:body_buddies/features/useful/advices/presentation/advices_page.d
 import 'package:body_buddies/features/useful/advices/presentation/current_advice_screen.dart';
 import 'package:body_buddies/features/useful/bench_press_calculator/presentation/bench_press_calculator_page.dart';
 import 'package:body_buddies/features/useful/made_workouts/presentation/made_workouts_page.dart';
-import 'package:body_buddies/features/workouts/presentation/add_exercise/presentation/bloc/add_exercise_cubit.dart';
+import 'package:body_buddies/features/workouts/presentation/add_exercise/presentation/add_exercise_page.dart';
 import 'package:body_buddies/features/workouts/presentation/add_exercise/presentation/add_exercise_screen.dart';
 import 'package:body_buddies/features/workouts/presentation/add_your_exercise/presentation/bloc/add_your_exercise_cubit.dart';
 import 'package:body_buddies/features/workouts/presentation/add_your_exercise/presentation/add_your_exercise_screen.dart';
@@ -13,7 +13,6 @@ import 'package:body_buddies/features/workouts/presentation/create_workout/prese
 import 'package:body_buddies/features/workouts/presentation/current_workout/presentation/current_workout_screen.dart';
 import 'package:body_buddies/features/workouts/presentation/workouts_menu/domain/exercises_database.dart';
 import 'package:body_buddies/features/workouts/presentation/workouts_menu/presentation/workouts_menu_page.dart';
-import 'package:body_buddies/features/workouts/presentation/workouts_menu/presentation/workouts_menu_screen.dart';
 import 'package:body_buddies/internal/application/di/app_depends_provider.dart';
 import 'package:body_buddies/internal/home/presentation/bloc/home_bloc.dart';
 import 'package:body_buddies/features/workouts/presentation/workouts_menu/domain/fake_workouts_database.dart';
@@ -68,12 +67,7 @@ class BodyBuddiesApp extends StatelessWidget {
                 screenSize: screenSize,
               ),
           "/workouts_menu/create_workout/add_exercise/": (context) =>
-              BlocProvider(
-                create: (BuildContext context) => AddExerciseCubit(),
-                child: AddExerciseScreen(
-                  exercises: exercises,
-                ),
-              ),
+              const AddExercisePage(),
           "/workouts_menu/create_workout/add_exercise/add_your_exercise/":
               (context) => BlocProvider(
                     create: (BuildContext context) => AddYourExerciseCubit(),

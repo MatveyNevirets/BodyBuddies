@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:body_buddies/features/workouts/data/Models/exercise_entity.dart';
 import 'package:body_buddies/features/workouts/data/Models/workout_entity.dart';
 import 'package:body_buddies/features/workouts/domain/Entities/exercise_entity.dart';
+import 'package:body_buddies/features/workouts/domain/Entities/exercise_on_list_entity.dart';
 import 'package:body_buddies/features/workouts/domain/workouts_repository.dart';
 import 'package:flutter/widgets.dart';
 
@@ -35,6 +36,18 @@ class MockWorkoutsRepository implements WorkoutsRepository {
     _workouts[index].title = title ?? _workouts[index].title;
     _workouts[index].weekday = weekday ?? _workouts[index].weekday;
     _workouts[index].exercises = exercises ?? _workouts[index].exercises;
+  }
+
+  @override
+  Future<List<ExerciseOnListEntity>> fetchAllExercisesToAddList(
+      BuildContext context) async {
+    List<ExerciseOnListEntity> exercises = [
+      ExerciseOnListEntity(isExercise: true, title: "Жим лежа"),
+      ExerciseOnListEntity(isExercise: false, title: "Планка"),
+    ];
+
+    await Future.delayed(const Duration(seconds: 3));
+    return exercises;
   }
 }
 

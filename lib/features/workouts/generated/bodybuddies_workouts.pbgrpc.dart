@@ -53,6 +53,18 @@ class WorkoutsRpcClient extends $grpc.Client {
       '/WorkoutsRpc/DeleteExercise',
       ($0.ExerciseDto value) => value.writeToBuffer(),
       ($core.List<$core.int> value) => $0.ResponseDto.fromBuffer(value));
+  static final _$addExerciseToAllExercises = $grpc.ClientMethod<$0.ExerciseOnListDto, $0.ResponseDto>(
+      '/WorkoutsRpc/AddExerciseToAllExercises',
+      ($0.ExerciseOnListDto value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) => $0.ResponseDto.fromBuffer(value));
+  static final _$deleteExerciseToAllExercises = $grpc.ClientMethod<$0.ExerciseOnListDto, $0.ResponseDto>(
+      '/WorkoutsRpc/DeleteExerciseToAllExercises',
+      ($0.ExerciseOnListDto value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) => $0.ResponseDto.fromBuffer(value));
+  static final _$fetchAllExercises = $grpc.ClientMethod<$0.RequestDto, $0.AllExercisesDto>(
+      '/WorkoutsRpc/FetchAllExercises',
+      ($0.RequestDto value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) => $0.AllExercisesDto.fromBuffer(value));
 
   WorkoutsRpcClient($grpc.ClientChannel channel,
       {$grpc.CallOptions? options,
@@ -90,6 +102,18 @@ class WorkoutsRpcClient extends $grpc.Client {
 
   $grpc.ResponseFuture<$0.ResponseDto> deleteExercise($0.ExerciseDto request, {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$deleteExercise, request, options: options);
+  }
+
+  $grpc.ResponseFuture<$0.ResponseDto> addExerciseToAllExercises($0.ExerciseOnListDto request, {$grpc.CallOptions? options}) {
+    return $createUnaryCall(_$addExerciseToAllExercises, request, options: options);
+  }
+
+  $grpc.ResponseFuture<$0.ResponseDto> deleteExerciseToAllExercises($0.ExerciseOnListDto request, {$grpc.CallOptions? options}) {
+    return $createUnaryCall(_$deleteExerciseToAllExercises, request, options: options);
+  }
+
+  $grpc.ResponseFuture<$0.AllExercisesDto> fetchAllExercises($0.RequestDto request, {$grpc.CallOptions? options}) {
+    return $createUnaryCall(_$fetchAllExercises, request, options: options);
   }
 }
 
@@ -154,6 +178,27 @@ abstract class WorkoutsRpcServiceBase extends $grpc.Service {
         false,
         ($core.List<$core.int> value) => $0.ExerciseDto.fromBuffer(value),
         ($0.ResponseDto value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$0.ExerciseOnListDto, $0.ResponseDto>(
+        'AddExerciseToAllExercises',
+        addExerciseToAllExercises_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) => $0.ExerciseOnListDto.fromBuffer(value),
+        ($0.ResponseDto value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$0.ExerciseOnListDto, $0.ResponseDto>(
+        'DeleteExerciseToAllExercises',
+        deleteExerciseToAllExercises_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) => $0.ExerciseOnListDto.fromBuffer(value),
+        ($0.ResponseDto value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$0.RequestDto, $0.AllExercisesDto>(
+        'FetchAllExercises',
+        fetchAllExercises_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) => $0.RequestDto.fromBuffer(value),
+        ($0.AllExercisesDto value) => value.writeToBuffer()));
   }
 
   $async.Future<$0.AllWorkoutsDto> fetchAllWorkouts_Pre($grpc.ServiceCall call, $async.Future<$0.RequestDto> request) async {
@@ -188,6 +233,18 @@ abstract class WorkoutsRpcServiceBase extends $grpc.Service {
     return deleteExercise(call, await request);
   }
 
+  $async.Future<$0.ResponseDto> addExerciseToAllExercises_Pre($grpc.ServiceCall call, $async.Future<$0.ExerciseOnListDto> request) async {
+    return addExerciseToAllExercises(call, await request);
+  }
+
+  $async.Future<$0.ResponseDto> deleteExerciseToAllExercises_Pre($grpc.ServiceCall call, $async.Future<$0.ExerciseOnListDto> request) async {
+    return deleteExerciseToAllExercises(call, await request);
+  }
+
+  $async.Future<$0.AllExercisesDto> fetchAllExercises_Pre($grpc.ServiceCall call, $async.Future<$0.RequestDto> request) async {
+    return fetchAllExercises(call, await request);
+  }
+
   $async.Future<$0.AllWorkoutsDto> fetchAllWorkouts($grpc.ServiceCall call, $0.RequestDto request);
   $async.Future<$0.ResponseDto> addWorkout($grpc.ServiceCall call, $0.WorkoutDto request);
   $async.Future<$0.ResponseDto> deleteWorkout($grpc.ServiceCall call, $0.WorkoutDto request);
@@ -196,4 +253,7 @@ abstract class WorkoutsRpcServiceBase extends $grpc.Service {
   $async.Future<$0.ResponseDto> addExercise($grpc.ServiceCall call, $0.ExerciseDto request);
   $async.Future<$0.ResponseDto> updateExercise($grpc.ServiceCall call, $0.ExerciseDto request);
   $async.Future<$0.ResponseDto> deleteExercise($grpc.ServiceCall call, $0.ExerciseDto request);
+  $async.Future<$0.ResponseDto> addExerciseToAllExercises($grpc.ServiceCall call, $0.ExerciseOnListDto request);
+  $async.Future<$0.ResponseDto> deleteExerciseToAllExercises($grpc.ServiceCall call, $0.ExerciseOnListDto request);
+  $async.Future<$0.AllExercisesDto> fetchAllExercises($grpc.ServiceCall call, $0.RequestDto request);
 }

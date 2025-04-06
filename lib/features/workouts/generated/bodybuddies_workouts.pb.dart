@@ -95,6 +95,50 @@ class ResponseDto extends $pb.GeneratedMessage {
   void clearMessage() => clearField(1);
 }
 
+class AllExercisesDto extends $pb.GeneratedMessage {
+  factory AllExercisesDto({
+    $core.Iterable<ExerciseOnListDto>? exercises,
+  }) {
+    final $result = create();
+    if (exercises != null) {
+      $result.exercises.addAll(exercises);
+    }
+    return $result;
+  }
+  AllExercisesDto._() : super();
+  factory AllExercisesDto.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory AllExercisesDto.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'AllExercisesDto', createEmptyInstance: create)
+    ..pc<ExerciseOnListDto>(1, _omitFieldNames ? '' : 'exercises', $pb.PbFieldType.PM, subBuilder: ExerciseOnListDto.create)
+    ..hasRequiredFields = false
+  ;
+
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  AllExercisesDto clone() => AllExercisesDto()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  AllExercisesDto copyWith(void Function(AllExercisesDto) updates) => super.copyWith((message) => updates(message as AllExercisesDto)) as AllExercisesDto;
+
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static AllExercisesDto create() => AllExercisesDto._();
+  AllExercisesDto createEmptyInstance() => create();
+  static $pb.PbList<AllExercisesDto> createRepeated() => $pb.PbList<AllExercisesDto>();
+  @$core.pragma('dart2js:noInline')
+  static AllExercisesDto getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<AllExercisesDto>(create);
+  static AllExercisesDto? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.List<ExerciseOnListDto> get exercises => $_getList(0);
+}
+
 class AllWorkoutsDto extends $pb.GeneratedMessage {
   factory AllWorkoutsDto({
     $core.Iterable<WorkoutDto>? workouts,
@@ -237,6 +281,84 @@ class WorkoutDto extends $pb.GeneratedMessage {
 
   @$pb.TagNumber(5)
   $core.List<ExerciseDto> get exercises => $_getList(4);
+}
+
+class ExerciseOnListDto extends $pb.GeneratedMessage {
+  factory ExerciseOnListDto({
+    $core.String? id,
+    $core.String? title,
+    $core.bool? isExercise,
+  }) {
+    final $result = create();
+    if (id != null) {
+      $result.id = id;
+    }
+    if (title != null) {
+      $result.title = title;
+    }
+    if (isExercise != null) {
+      $result.isExercise = isExercise;
+    }
+    return $result;
+  }
+  ExerciseOnListDto._() : super();
+  factory ExerciseOnListDto.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory ExerciseOnListDto.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'ExerciseOnListDto', createEmptyInstance: create)
+    ..aOS(1, _omitFieldNames ? '' : 'id')
+    ..aOS(2, _omitFieldNames ? '' : 'title')
+    ..aOB(3, _omitFieldNames ? '' : 'isExercise', protoName: 'isExercise')
+    ..hasRequiredFields = false
+  ;
+
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  ExerciseOnListDto clone() => ExerciseOnListDto()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  ExerciseOnListDto copyWith(void Function(ExerciseOnListDto) updates) => super.copyWith((message) => updates(message as ExerciseOnListDto)) as ExerciseOnListDto;
+
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static ExerciseOnListDto create() => ExerciseOnListDto._();
+  ExerciseOnListDto createEmptyInstance() => create();
+  static $pb.PbList<ExerciseOnListDto> createRepeated() => $pb.PbList<ExerciseOnListDto>();
+  @$core.pragma('dart2js:noInline')
+  static ExerciseOnListDto getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<ExerciseOnListDto>(create);
+  static ExerciseOnListDto? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get id => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set id($core.String v) { $_setString(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasId() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearId() => clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.String get title => $_getSZ(1);
+  @$pb.TagNumber(2)
+  set title($core.String v) { $_setString(1, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasTitle() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearTitle() => clearField(2);
+
+  @$pb.TagNumber(3)
+  $core.bool get isExercise => $_getBF(2);
+  @$pb.TagNumber(3)
+  set isExercise($core.bool v) { $_setBool(2, v); }
+  @$pb.TagNumber(3)
+  $core.bool hasIsExercise() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearIsExercise() => clearField(3);
 }
 
 class ExerciseDto extends $pb.GeneratedMessage {

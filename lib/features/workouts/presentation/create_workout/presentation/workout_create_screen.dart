@@ -5,6 +5,7 @@ import 'package:body_buddies/core/widgets/app_bar.dart';
 import 'package:body_buddies/core/widgets/base_button.dart';
 import 'package:body_buddies/core/widgets/base_snackbar.dart';
 import 'package:body_buddies/features/workouts/domain/Entities/exercise_entity.dart';
+import 'package:body_buddies/features/workouts/domain/Entities/exercise_on_list_entity.dart';
 import 'package:body_buddies/features/workouts/domain/Entities/workout_entity.dart';
 import 'package:body_buddies/features/workouts/presentation/workouts_menu/bloc/workouts_menu_bloc.dart';
 import 'package:body_buddies/features/workouts/presentation/workouts_menu/domain/fake_workouts_database.dart';
@@ -413,13 +414,17 @@ class _CreateWorkoutScreenState extends State<CreateWorkoutScreen> {
   }
 
   void goToAddExercise(BuildContext buildContext) async {
-    final ExerciseEntity? exercise = await Navigator.pushNamed(
+    final ExerciseOnListEntity? exercise = await Navigator.pushNamed(
             context, "/workouts_menu/create_workout/add_exercise/")
-        as ExerciseEntity?;
+        as ExerciseOnListEntity?;
 
     if (exercise != null) {
       setState(() {
-        widget._exercises.add(exercise);
+        ExerciseEntity newExercise = ExerciseEntity(
+            title: exercise.title,
+            isExercise: exercise.isExercise,
+            isTimerExercise: exercise.isExercise ? false : true);
+        widget._exercises.add(newExercise);
       });
     } else {
       return null;

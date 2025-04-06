@@ -10,12 +10,21 @@ service WorkoutsRpc {
     rpc AddExercise (ExerciseDto) returns (ResponseDto);
     rpc UpdateExercise (ExerciseDto) returns (ResponseDto);
     rpc DeleteExercise (ExerciseDto) returns (ResponseDto);
+
+    rpc AddExerciseToAllExercises (ExerciseOnListDto) returns (ResponseDto);
+    rpc DeleteExerciseToAllExercises (ExerciseOnListDto) returns (ResponseDto);
+
+    rpc FetchAllExercises (RequestDto) returns (AllExercisesDto);
 }
 
 message RequestDto {}
 
 message ResponseDto {
     string message = 1;
+}
+
+message AllExercisesDto {
+    repeated ExerciseOnListDto exercises = 1;
 }
 
 message AllWorkoutsDto {
@@ -28,6 +37,12 @@ message WorkoutDto {
     string title = 3;
     string weekday = 4;
     repeated ExerciseDto exercises = 5;
+}
+
+message ExerciseOnListDto {
+    string id = 1;
+    string title = 2;
+    bool isExercise = 3;
 }
 
 message ExerciseDto {

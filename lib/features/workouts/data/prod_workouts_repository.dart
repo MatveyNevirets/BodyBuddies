@@ -3,6 +3,7 @@ import 'dart:developer';
 
 import 'package:body_buddies/features/workouts/data/Models/workout_entity.dart';
 import 'package:body_buddies/features/workouts/domain/Entities/exercise_entity.dart';
+import 'package:body_buddies/features/workouts/domain/Entities/exercise_on_list_entity.dart';
 import 'package:body_buddies/features/workouts/domain/workouts_repository.dart';
 import 'package:body_buddies/features/workouts/domain/Entities/workout_entity.dart';
 import 'package:body_buddies/features/workouts/generated/bodybuddies_workouts.pbgrpc.dart';
@@ -120,6 +121,32 @@ class ProdWorkoutsRepository implements WorkoutsRepository {
       String? title, int? weekday, List<ExerciseEntity>? exercises, int index) {
     throw UnimplementedError();
   }
+
+  @override
+  Future<List<ExerciseOnListEntity>> fetchAllExercisesToAddList(
+      BuildContext context) async {
+    final storage = AppDependsProvider.of(context).secureStorage;
+    try {
+      final tokenJson = await storage.read(AppConsts.tokenKey);
+      final tokenMap = jsonDecode(tokenJson);
+      final token = tokenMap['access_token'];
+
+      final response = await _client.fetchAllExercises(RequestDto(),
+          options: CallOptions(metadata: {"token": token}));
+
+      return convertExerciseToListFromDto(response.exercises);
+    } on Object catch (error, stack) {
+      throw Exception("Error: $error and stack: $stack");
+    }
+  }
+}
+
+List<ExerciseOnListEntity> convertExerciseToListFromDto(
+    List<ExerciseOnListDto> exercises) {
+  return exercises
+      .map((exericse) => ExerciseOnListEntity(
+          title: exericse.title, isExercise: exericse.isExercise))
+      .toList();
 }
 
 List<ExerciseEntity> convertExerciseFromDto(List<ExerciseDto> exerciseDto) {

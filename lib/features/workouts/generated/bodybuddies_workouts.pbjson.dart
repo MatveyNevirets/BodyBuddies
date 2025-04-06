@@ -34,6 +34,19 @@ const ResponseDto$json = {
 final $typed_data.Uint8List responseDtoDescriptor = $convert.base64Decode(
     'CgtSZXNwb25zZUR0bxIYCgdtZXNzYWdlGAEgASgJUgdtZXNzYWdl');
 
+@$core.Deprecated('Use allExercisesDtoDescriptor instead')
+const AllExercisesDto$json = {
+  '1': 'AllExercisesDto',
+  '2': [
+    {'1': 'exercises', '3': 1, '4': 3, '5': 11, '6': '.ExerciseOnListDto', '10': 'exercises'},
+  ],
+};
+
+/// Descriptor for `AllExercisesDto`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List allExercisesDtoDescriptor = $convert.base64Decode(
+    'Cg9BbGxFeGVyY2lzZXNEdG8SMAoJZXhlcmNpc2VzGAEgAygLMhIuRXhlcmNpc2VPbkxpc3REdG'
+    '9SCWV4ZXJjaXNlcw==');
+
 @$core.Deprecated('Use allWorkoutsDtoDescriptor instead')
 const AllWorkoutsDto$json = {
   '1': 'AllWorkoutsDto',
@@ -64,6 +77,21 @@ final $typed_data.Uint8List workoutDtoDescriptor = $convert.base64Decode(
     'CgpXb3Jrb3V0RHRvEg4KAmlkGAEgASgJUgJpZBIbCglhdXRob3JfaWQYAiABKAlSCGF1dGhvck'
     'lkEhQKBXRpdGxlGAMgASgJUgV0aXRsZRIYCgd3ZWVrZGF5GAQgASgJUgd3ZWVrZGF5EioKCWV4'
     'ZXJjaXNlcxgFIAMoCzIMLkV4ZXJjaXNlRHRvUglleGVyY2lzZXM=');
+
+@$core.Deprecated('Use exerciseOnListDtoDescriptor instead')
+const ExerciseOnListDto$json = {
+  '1': 'ExerciseOnListDto',
+  '2': [
+    {'1': 'id', '3': 1, '4': 1, '5': 9, '10': 'id'},
+    {'1': 'title', '3': 2, '4': 1, '5': 9, '10': 'title'},
+    {'1': 'isExercise', '3': 3, '4': 1, '5': 8, '10': 'isExercise'},
+  ],
+};
+
+/// Descriptor for `ExerciseOnListDto`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List exerciseOnListDtoDescriptor = $convert.base64Decode(
+    'ChFFeGVyY2lzZU9uTGlzdER0bxIOCgJpZBgBIAEoCVICaWQSFAoFdGl0bGUYAiABKAlSBXRpdG'
+    'xlEh4KCmlzRXhlcmNpc2UYAyABKAhSCmlzRXhlcmNpc2U=');
 
 @$core.Deprecated('Use exerciseDtoDescriptor instead')
 const ExerciseDto$json = {
