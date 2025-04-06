@@ -15,6 +15,7 @@ class ExercisesBloc extends Bloc<ExercisesEvent, ExercisesState> {
   ExercisesBloc(this.workoutsRepository) : super(InitState()) {
     on<InitializeEvent>(_initializeExercises);
     on<SearchEvent>(_searchExercises);
+    on<AddYourExerciseEvent>(_addYourExercise);
   }
 
   Future<void> _initializeExercises(
@@ -22,6 +23,18 @@ class ExercisesBloc extends Bloc<ExercisesEvent, ExercisesState> {
     emit(LoadingState());
     allExercises =
         await workoutsRepository.fetchAllExercisesToAddList(event.context);
+    emit(SearchExericsesState(exercises: allExercises));
+  }
+
+  void _addYourExercise(
+      AddYourExerciseEvent event, Emitter<ExercisesState> emit) {
+    emit(LoadingState());
+    final newExercise = event.exercise;
+
+    if (newExercise != null) {
+      allExercises.add(newExercise);
+    }
+
     emit(SearchExericsesState(exercises: allExercises));
   }
 

@@ -1,4 +1,4 @@
-// ignore_for_file: must_be_immutable
+// ignore_for_file: must_be_immutable, use_build_context_synchronously
 
 import 'dart:async';
 
@@ -31,6 +31,16 @@ class AddExerciseScreen extends StatelessWidget {
 
     searchTextFieldController.addListener(searchExercises);
     final workoutRepository = AppDependsProvider.of(context).workoutsRepository;
+
+    Future<void> addYourExercise(BuildContext context) async {
+      final createdExercise = await Navigator.of(context).pushNamed(
+              "/workouts_menu/create_workout/add_exercise/add_your_exercise/")
+          as ExerciseOnListEntity?;
+
+      context
+          .read<ExercisesBloc>()
+          .add(AddYourExerciseEvent(context, createdExercise));
+    }
 
     return Scaffold(
       appBar: createAppBarWidget(
@@ -79,7 +89,7 @@ class AddExerciseScreen extends StatelessWidget {
                   height: 16,
                 ),
                 BaseButton(
-                    onClick: () async => print("Hey"),
+                    onClick: () async => await addYourExercise(context),
                     // onClick: () async => await addYourExercise(context),
                     buttonText: Strings.add_yourself,
                     backgroundColor: Colours.workoutCardForegroundColor,
@@ -152,12 +162,6 @@ class AddExerciseScreen extends StatelessWidget {
       BuildContext context, int index, SearchExericsesState state) {
     final newExercise = state.exercises[index];
     Navigator.of(context).pop(newExercise);
-  }
-
-  Future<void> addYourExercise(BuildContext context) async {
-    final createdExercise = await Navigator.of(context).pushNamed(
-            "/workouts_menu/create_workout/add_exercise/add_your_exercise/")
-        as ExerciseOnListEntity?;
   }
 
   String truncateText(String text, int maxLength) {

@@ -1,7 +1,7 @@
 import 'package:body_buddies/core/widgets/app_bar.dart';
 import 'package:body_buddies/core/widgets/base_button.dart';
 import 'package:body_buddies/core/widgets/base_snackbar.dart';
-import 'package:body_buddies/features/workouts/domain/Entities/exercise_entity.dart';
+import 'package:body_buddies/features/workouts/domain/Entities/exercise_on_list_entity.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../core/colors/colors.dart';
@@ -145,10 +145,10 @@ class _AddYourExerciseScreenState extends State<AddYourExerciseScreen> {
     String title,
     bool isTimerExercise,
   ) {
-    ExerciseEntity newExercise = ExerciseEntity(
-        title: title,
-        isExercise: !isTimerExercise,
-        isTimerExercise: isTimerExercise);
+    final newExercise = ExerciseOnListEntity(
+      title: title,
+      isExercise: !isTimerExercise,
+    );
     Navigator.of(context).pop(newExercise);
   }
 }
