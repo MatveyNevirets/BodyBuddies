@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:bloc/bloc.dart';
 import 'package:body_buddies/features/workouts/domain/Entities/workout_entity.dart';
 import 'package:body_buddies/features/workouts/domain/workouts_repository.dart';

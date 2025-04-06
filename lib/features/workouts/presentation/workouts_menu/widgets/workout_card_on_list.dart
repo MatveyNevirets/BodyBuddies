@@ -1,4 +1,4 @@
-// ignore_for_file: must_be_immutable
+// ignore_for_file: must_be_immutable, use_build_context_synchronously
 
 import 'package:body_buddies/core/styles/styles.dart';
 import 'package:body_buddies/features/workouts/domain/workouts_repository.dart';

@@ -1,7 +1,6 @@
 // ignore_for_file: must_be_immutable
 
 import 'dart:async';
-import 'dart:developer';
 
 import 'package:body_buddies/core/widgets/app_bar.dart';
 import 'package:body_buddies/core/widgets/base_button.dart';
@@ -39,7 +38,6 @@ class AddExerciseScreen extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Card(
-          shadowColor: Color.fromARGB(255, 169, 192, 223),
           color: Colours.workout_card_background_color,
           elevation: 100,
           child: Padding(

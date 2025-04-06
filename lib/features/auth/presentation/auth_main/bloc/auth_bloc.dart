@@ -25,6 +25,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     try {
       final data = await storage.read(AppConsts.tokenKey);
       final tokens = Tokens.fromJson(data);
+      if (tokens.accessToken.isEmpty) throw Exception("You're not authorized");
       emit(UserHasAuthtorized());
     } on Object catch (e, st) {
       emit(UserNotAuthtorized());

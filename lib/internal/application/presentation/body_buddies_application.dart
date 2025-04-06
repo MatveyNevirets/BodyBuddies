@@ -6,7 +6,6 @@ import 'package:body_buddies/features/useful/advices/presentation/current_advice
 import 'package:body_buddies/features/useful/bench_press_calculator/presentation/bench_press_calculator_page.dart';
 import 'package:body_buddies/features/useful/made_workouts/presentation/made_workouts_page.dart';
 import 'package:body_buddies/features/workouts/presentation/add_exercise/presentation/add_exercise_page.dart';
-import 'package:body_buddies/features/workouts/presentation/add_exercise/presentation/add_exercise_screen.dart';
 import 'package:body_buddies/features/workouts/presentation/add_your_exercise/presentation/bloc/add_your_exercise_cubit.dart';
 import 'package:body_buddies/features/workouts/presentation/add_your_exercise/presentation/add_your_exercise_screen.dart';
 import 'package:body_buddies/features/workouts/presentation/create_workout/presentation/workout_create_screen.dart';

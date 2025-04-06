@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'package:body_buddies/features/workouts/domain/Entities/exercise_entity.dart';
 import 'package:body_buddies/features/workouts/domain/Entities/workout_entity.dart';
 

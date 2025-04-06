@@ -1,3 +1,5 @@
+// ignore_for_file: overridden_fields
+
 import 'package:body_buddies/features/workouts/domain/Entities/exercise_entity.dart';
 
 class ExerciseModel extends ExerciseEntity {

@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:bloc/bloc.dart';
 import 'package:body_buddies/features/workouts/domain/Entities/exercise_on_list_entity.dart';
 import 'package:body_buddies/features/workouts/domain/workouts_repository.dart';

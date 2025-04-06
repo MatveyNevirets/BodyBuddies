@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:body_buddies/core/colors/colors.dart';
 import 'package:body_buddies/core/widgets/base_snackbar.dart';
 import 'package:body_buddies/core/widgets/loading_screen.dart';
