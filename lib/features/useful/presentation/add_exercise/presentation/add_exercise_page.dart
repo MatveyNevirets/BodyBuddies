@@ -1,5 +1,5 @@
-import 'package:body_buddies/features/workouts/presentation/add_exercise/bloc/exercises_bloc.dart';
-import 'package:body_buddies/features/workouts/presentation/add_exercise/presentation/add_exercise_screen.dart';
+import 'package:body_buddies/features/useful/presentation/add_exercise/bloc/exercises_bloc.dart';
+import 'package:body_buddies/features/useful/presentation/add_exercise/presentation/add_exercise_screen.dart';
 import 'package:body_buddies/internal/application/di/app_depends_provider.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -9,11 +9,11 @@ class AddExercisePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final workoutRepository = AppDependsProvider.of(context).workoutsRepository;
+    final usefulRepository = AppDependsProvider.of(context).usefulRepository;
 
     return BlocProvider(
       create: (BuildContext context) =>
-          ExercisesBloc(workoutRepository)..add(InitializeEvent(context)),
+          ExercisesBloc(usefulRepository)..add(InitializeEvent(context)),
       child: AddExerciseScreen(),
     );
   }

@@ -1,6 +1,6 @@
 // ignore_for_file: file_names
 
-import 'package:body_buddies/features/useful/advices/domain/entity/advice_entity.dart';
+import 'package:body_buddies/features/useful/presentation/advices/domain/entity/advice_entity.dart';
 
 abstract class FakeAdvicesDb {
   static List<AdviceEntity> advices = [

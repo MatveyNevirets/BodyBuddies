@@ -1,7 +1,7 @@
 import 'package:body_buddies/core/colors/colors.dart';
 import 'package:body_buddies/core/data/fakeAdvicesDb.dart';
 import 'package:body_buddies/core/styles/styles.dart';
-import 'package:body_buddies/features/useful/advices/domain/entity/advice_entity.dart';
+import 'package:body_buddies/features/useful/presentation/advices/domain/entity/advice_entity.dart';
 import 'package:flutter/material.dart';
 
 GestureDetector buildAdviceCard(BuildContext context, int index) {

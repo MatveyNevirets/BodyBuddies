@@ -1,6 +1,10 @@
+import 'dart:convert';
+
 import 'package:bloc/bloc.dart';
-import 'package:body_buddies/features/useful/advices/domain/entity/exercise_on_list_entity.dart';
-import 'package:body_buddies/features/workouts/domain/workouts_repository.dart';
+import 'package:body_buddies/features/useful/presentation/advices/domain/entity/exercise_on_list_entity.dart';
+import 'package:body_buddies/features/useful/presentation/advices/domain/useful_repository.dart';
+import 'package:body_buddies/internal/application/app_consts.dart';
+import 'package:body_buddies/internal/application/di/app_depends_provider.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -8,11 +12,11 @@ part 'exercises_event.dart';
 part 'exercises_state.dart';
 
 class ExercisesBloc extends Bloc<ExercisesEvent, ExercisesState> {
-  WorkoutsRepository workoutsRepository;
+  UsefulRepository usefulRepository;
   List<ExerciseOnListEntity> allExercises = [];
   List<ExerciseOnListEntity> filteredExercises = [];
 
-  ExercisesBloc(this.workoutsRepository) : super(InitState()) {
+  ExercisesBloc(this.usefulRepository) : super(InitState()) {
     on<InitializeEvent>(_initializeExercises);
     on<SearchEvent>(_searchExercises);
     on<AddYourExerciseEvent>(_addYourExercise);
@@ -21,9 +25,18 @@ class ExercisesBloc extends Bloc<ExercisesEvent, ExercisesState> {
   Future<void> _initializeExercises(
       InitializeEvent event, Emitter<ExercisesState> emit) async {
     emit(LoadingState());
-    allExercises =
-        await workoutsRepository.fetchAllExercisesToAddList(event.context);
-    emit(SearchExericsesState(exercises: allExercises));
+    try {
+      final storage = AppDependsProvider.of(event.context).secureStorage;
+
+      final jsonToken = await storage.read(AppConsts.tokenKey);
+      final mapToken = jsonDecode(jsonToken);
+      final token = mapToken['access_token'];
+
+      allExercises = await usefulRepository.fetchExercises(token);
+      emit(SearchExericsesState(exercises: allExercises));
+    } on Object catch (error, stack) {
+      throw Exception("Error: $error, StackTrace: $stack");
+    }
   }
 
   void _addYourExercise(

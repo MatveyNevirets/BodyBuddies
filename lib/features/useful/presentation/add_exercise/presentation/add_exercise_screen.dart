@@ -5,9 +5,10 @@ import 'dart:async';
 import 'package:body_buddies/core/widgets/app_bar.dart';
 import 'package:body_buddies/core/widgets/base_button.dart';
 import 'package:body_buddies/core/widgets/loading_screen.dart';
-import 'package:body_buddies/features/useful/advices/domain/entity/exercise_on_list_entity.dart';
+import 'package:body_buddies/features/useful/presentation/advices/domain/entity/exercise_on_list_entity.dart';
+import 'package:body_buddies/features/useful/presentation/advices/domain/useful_repository.dart';
 import 'package:body_buddies/features/workouts/domain/workouts_repository.dart';
-import 'package:body_buddies/features/workouts/presentation/add_exercise/bloc/exercises_bloc.dart';
+import 'package:body_buddies/features/useful/presentation/add_exercise/bloc/exercises_bloc.dart';
 import 'package:body_buddies/internal/application/di/app_depends_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -30,7 +31,7 @@ class AddExerciseScreen extends StatelessWidget {
     }
 
     searchTextFieldController.addListener(searchExercises);
-    final workoutRepository = AppDependsProvider.of(context).workoutsRepository;
+    final usefulRepository = AppDependsProvider.of(context).usefulRepository;
 
     Future<void> addYourExercise(BuildContext context) async {
       final createdExercise = await Navigator.of(context).pushNamed(
@@ -84,7 +85,7 @@ class AddExerciseScreen extends StatelessWidget {
                 const SizedBox(
                   height: 16,
                 ),
-                buildExercisesListView(workoutRepository),
+                buildExercisesListView(),
                 const SizedBox(
                   height: 16,
                 ),
@@ -106,7 +107,7 @@ class AddExerciseScreen extends StatelessWidget {
     );
   }
 
-  Expanded buildExercisesListView(WorkoutsRepository workoutsRepository) {
+  Expanded buildExercisesListView() {
     return Expanded(
         child: Container(
       decoration: BoxDecoration(

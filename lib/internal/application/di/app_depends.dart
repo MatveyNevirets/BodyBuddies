@@ -3,7 +3,7 @@ import 'dart:developer';
 import 'package:body_buddies/features/auth/data/repository/mock_auth_repository.dart';
 import 'package:body_buddies/features/auth/data/repository/prod_auth_repository.dart';
 import 'package:body_buddies/features/auth/domain/repository/auth_repository.dart';
-import 'package:body_buddies/features/useful/advices/domain/useful_repository.dart';
+import 'package:body_buddies/features/useful/presentation/advices/domain/useful_repository.dart';
 import 'package:body_buddies/features/useful/data/mock_useful_repository.dart';
 import 'package:body_buddies/features/useful/data/prod_useful_repository.dart';
 import 'package:body_buddies/features/workouts/data/mock_workouts_repository.dart';

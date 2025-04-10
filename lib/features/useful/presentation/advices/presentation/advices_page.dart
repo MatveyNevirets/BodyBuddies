@@ -1,5 +1,5 @@
-import 'package:body_buddies/features/useful/advices/presentation/advices_screen.dart';
-import 'package:body_buddies/features/useful/advices/presentation/bloc/advices_bloc.dart';
+import 'package:body_buddies/features/useful/presentation/advices/presentation/advices_screen.dart';
+import 'package:body_buddies/features/useful/presentation/advices/presentation/bloc/advices_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

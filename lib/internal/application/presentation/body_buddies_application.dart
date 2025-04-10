@@ -1,11 +1,11 @@
 import 'package:body_buddies/core/colors/colors.dart';
 import 'package:body_buddies/features/auth/presentation/auth_main/auth_page.dart';
 import 'package:body_buddies/features/auth/presentation/signup/signup_screen.dart';
-import 'package:body_buddies/features/useful/advices/presentation/advices_page.dart';
-import 'package:body_buddies/features/useful/advices/presentation/current_advice_screen.dart';
-import 'package:body_buddies/features/useful/bench_press_calculator/presentation/bench_press_calculator_page.dart';
-import 'package:body_buddies/features/useful/made_workouts/presentation/made_workouts_page.dart';
-import 'package:body_buddies/features/workouts/presentation/add_exercise/presentation/add_exercise_page.dart';
+import 'package:body_buddies/features/useful/presentation/advices/presentation/advices_page.dart';
+import 'package:body_buddies/features/useful/presentation/advices/presentation/current_advice_screen.dart';
+import 'package:body_buddies/features/useful/presentation/bench_press_calculator/presentation/bench_press_calculator_page.dart';
+import 'package:body_buddies/features/useful/presentation/made_workouts/presentation/made_workouts_page.dart';
+import 'package:body_buddies/features/useful/presentation/add_exercise/presentation/add_exercise_page.dart';
 import 'package:body_buddies/features/workouts/presentation/add_your_exercise/presentation/bloc/add_your_exercise_cubit.dart';
 import 'package:body_buddies/features/workouts/presentation/add_your_exercise/presentation/add_your_exercise_screen.dart';
 import 'package:body_buddies/features/workouts/presentation/create_workout/presentation/workout_create_screen.dart';
