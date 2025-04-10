@@ -1,6 +1,7 @@
+import 'package:body_buddies/features/useful/domain/entity/advice_entity.dart';
 import 'package:body_buddies/features/useful/generated/bodybuddies_micro_features.pbgrpc.dart';
-import 'package:body_buddies/features/useful/presentation/advices/domain/entity/exercise_on_list_entity.dart';
-import 'package:body_buddies/features/useful/presentation/advices/domain/useful_repository.dart';
+import 'package:body_buddies/features/useful/domain/entity/exercise_on_list_entity.dart';
+import 'package:body_buddies/features/useful/domain/useful_repository.dart';
 import 'package:body_buddies/internal/application/app_consts.dart';
 import 'package:grpc/grpc_or_grpcweb.dart';
 
@@ -35,4 +36,10 @@ class ProdUsefulRepository implements UsefulRepository {
 
   @override
   String get name => "Prod useful repository";
+
+  @override
+  Future<List<AdviceEntity>> fetchAdvices(String token) {
+    // TODO: implement fetchAdvices
+    throw UnimplementedError();
+  }
 }

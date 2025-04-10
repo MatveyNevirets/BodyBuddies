@@ -1,8 +1,8 @@
 import 'dart:convert';
 
 import 'package:bloc/bloc.dart';
-import 'package:body_buddies/features/useful/presentation/advices/domain/entity/exercise_on_list_entity.dart';
-import 'package:body_buddies/features/useful/presentation/advices/domain/useful_repository.dart';
+import 'package:body_buddies/features/useful/domain/entity/exercise_on_list_entity.dart';
+import 'package:body_buddies/features/useful/domain/useful_repository.dart';
 import 'package:body_buddies/internal/application/app_consts.dart';
 import 'package:body_buddies/internal/application/di/app_depends_provider.dart';
 import 'package:equatable/equatable.dart';

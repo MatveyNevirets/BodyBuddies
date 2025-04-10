@@ -1,7 +1,7 @@
 import 'package:body_buddies/core/colors/colors.dart';
 import 'package:body_buddies/core/strings/strings.dart';
 import 'package:body_buddies/core/widgets/app_bar.dart';
-import 'package:body_buddies/features/useful/presentation/advices/domain/entity/advice_entity.dart';
+import 'package:body_buddies/features/useful/domain/entity/advice_entity.dart';
 import 'package:flutter/material.dart';
 
 class CurrentAdviceScreen extends StatelessWidget {
@@ -24,13 +24,8 @@ class CurrentAdviceScreen extends StatelessWidget {
               padding: const EdgeInsets.all(16),
               child: Column(
                 children: [
-                  Row(
-                    children: [
-                      Text(
-                        currentAdvice.title,
-                      ),
-                      Text(currentAdvice.dateTime),
-                    ],
+                  Text(
+                    currentAdvice.title,
                   ),
                   Text(currentAdvice.bodyText),
                 ],

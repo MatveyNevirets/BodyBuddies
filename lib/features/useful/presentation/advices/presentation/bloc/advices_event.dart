@@ -6,3 +6,5 @@ sealed class AdvicesEvent extends Equatable {
   @override
   List<Object> get props => [];
 }
+
+class FetchAdvicesEvent extends AdvicesEvent {}

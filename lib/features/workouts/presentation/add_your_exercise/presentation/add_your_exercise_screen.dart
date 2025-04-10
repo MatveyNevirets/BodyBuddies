@@ -1,7 +1,7 @@
 import 'package:body_buddies/core/widgets/app_bar.dart';
 import 'package:body_buddies/core/widgets/base_button.dart';
 import 'package:body_buddies/core/widgets/base_snackbar.dart';
-import 'package:body_buddies/features/useful/presentation/advices/domain/entity/exercise_on_list_entity.dart';
+import 'package:body_buddies/features/useful/domain/entity/exercise_on_list_entity.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../core/colors/colors.dart';

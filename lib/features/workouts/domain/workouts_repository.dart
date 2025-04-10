@@ -1,5 +1,5 @@
 import 'package:body_buddies/features/workouts/domain/Entities/exercise_entity.dart';
-import 'package:body_buddies/features/useful/presentation/advices/domain/entity/exercise_on_list_entity.dart';
+import 'package:body_buddies/features/useful/domain/entity/exercise_on_list_entity.dart';
 import 'package:body_buddies/features/workouts/domain/Entities/workout_entity.dart';
 import 'package:flutter/widgets.dart';
 
