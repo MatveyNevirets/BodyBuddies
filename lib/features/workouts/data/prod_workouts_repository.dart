@@ -17,7 +17,9 @@ class ProdWorkoutsRepository implements WorkoutsRepository {
 
   ProdWorkoutsRepository() {
     final channel = GrpcOrGrpcWebClientChannel.toSingleEndpoint(
-        host: "185.43.5.250", port: 4002, transportSecure: false);
+        host: AppConsts.hostAddress,
+        port: AppConsts.workoutsPort,
+        transportSecure: false);
 
     _client = WorkoutsRpcClient(channel);
   }

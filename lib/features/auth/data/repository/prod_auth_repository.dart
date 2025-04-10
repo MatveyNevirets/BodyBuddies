@@ -1,5 +1,6 @@
 import 'package:body_buddies/features/auth/domain/repository/auth_repository.dart';
 import 'package:body_buddies/features/auth/generated/bodybuddies_auth.pbgrpc.dart';
+import 'package:body_buddies/internal/application/app_consts.dart';
 import 'package:grpc/grpc_or_grpcweb.dart';
 
 class ProdAuthRepository implements AuthRepository {
@@ -10,7 +11,9 @@ class ProdAuthRepository implements AuthRepository {
 
   ProdAuthRepository() {
     final channel = GrpcOrGrpcWebClientChannel.toSingleEndpoint(
-        host: "185.43.5.250", port: 4001, transportSecure: false);
+        host: AppConsts.hostAddress,
+        port: AppConsts.authPort,
+        transportSecure: false);
     _client = AuthRpcClient(channel);
   }
 

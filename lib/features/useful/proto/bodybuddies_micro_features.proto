@@ -1,0 +1,70 @@
+syntax="proto3";
+
+service MicroFeaturesRpc {
+    rpc FetchAllExercises (RequestDto) returns (AllExercisesDto);
+    rpc FetchAllWorkouts (RequestDto) returns (AllWorkoutsDto);
+    rpc FetchAllAdvices (RequestDto) returns (AllAdvicesDto);
+
+    rpc AddWorkout (WorkoutDto) returns (ResponseDto);
+    rpc AddExercise (ExerciseDto) returns (ResponseDto);
+    rpc DeleteWorkout (WorkoutDto) returns (ResponseDto);
+    rpc DeleteExercise (ExerciseDto) returns (ResponseDto);
+
+    rpc AddExerciseToAllExercises (ExerciseOnListDto) returns (ResponseDto);
+    rpc DeleteExerciseToAllExercises (ExerciseOnListDto) returns (ResponseDto);
+
+    rpc AddAdvice (AdviceDto) returns (ResponseDto);
+    rpc DeleteAdvice (AdviceDto) returns (ResponseDto);
+   
+}
+
+message RequestDto {}
+
+message ResponseDto {
+    string message = 1;
+}
+
+message AllExercisesDto {
+    repeated ExerciseOnListDto exercises = 1;
+}
+
+message ExerciseOnListDto {
+    string id = 1;
+    string title = 2;
+    bool isExercise = 3;
+}
+
+message AllAdvicesDto {
+    repeated AdviceDto advices = 1;
+}
+
+message AdviceDto {
+    string id = 1;
+    string title = 2;
+    string body = 3;
+}
+
+message AllWorkoutsDto {
+    repeated WorkoutDto workouts = 1;
+}
+
+message WorkoutDto {
+    string id = 1;
+    string title = 2;
+    repeated ExerciseDto exercises = 4;
+}
+
+message ExerciseDto {
+    string id = 1;
+    string workout_id = 2;
+    string title = 3;
+    bool isExercise = 4;
+    bool isTimerExercise = 5;
+    string weight = 6; 
+    string reps = 7;
+    string sets = 8;
+    string exerciseTimeMinutes = 9;
+    string exerciseTimeSeconds = 10;
+    string restTimeMinutes = 11;
+    string restTimeSeconds = 12;
+}

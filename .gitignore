@@ -47,6 +47,4 @@ app.*.map.json
 
 # Ignore Gradle build output directory
 build
-lib/features/auth/data/repository/prod_auth_repository.dart
-lib/features/workouts/data/prod_workouts_repository.dart
 lib/internal/application/app_consts.dart
