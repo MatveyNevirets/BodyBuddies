@@ -5,7 +5,7 @@ import 'dart:async';
 import 'package:body_buddies/core/widgets/app_bar.dart';
 import 'package:body_buddies/core/widgets/base_button.dart';
 import 'package:body_buddies/core/widgets/loading_screen.dart';
-import 'package:body_buddies/features/workouts/domain/Entities/exercise_on_list_entity.dart';
+import 'package:body_buddies/features/useful/advices/domain/entity/exercise_on_list_entity.dart';
 import 'package:body_buddies/features/workouts/domain/workouts_repository.dart';
 import 'package:body_buddies/features/workouts/presentation/add_exercise/bloc/exercises_bloc.dart';
 import 'package:body_buddies/internal/application/di/app_depends_provider.dart';

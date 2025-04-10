@@ -5,9 +5,9 @@ import 'package:body_buddies/core/widgets/app_bar.dart';
 import 'package:body_buddies/core/widgets/base_button.dart';
 import 'package:body_buddies/core/widgets/base_snackbar.dart';
 import 'package:body_buddies/features/workouts/domain/Entities/exercise_entity.dart';
-import 'package:body_buddies/features/workouts/domain/Entities/exercise_on_list_entity.dart';
+import 'package:body_buddies/features/useful/advices/domain/entity/exercise_on_list_entity.dart';
 import 'package:body_buddies/features/workouts/domain/Entities/workout_entity.dart';
-import 'package:body_buddies/features/workouts/presentation/workouts_menu/bloc/workouts_menu_bloc.dart';
+import 'package:body_buddies/features/workouts/presentation/workouts_menu/presentation/bloc/workouts_menu_bloc.dart';
 import 'package:body_buddies/features/workouts/presentation/workouts_menu/domain/fake_workouts_database.dart';
 import 'package:body_buddies/features/workouts/presentation/create_workout/presentation/widgets/exercise_item_on_list.dart';
 import 'package:body_buddies/features/workouts/presentation/create_workout/presentation/widgets/timer_exercise_item_on_list.dart';
@@ -156,27 +156,18 @@ class _CreateWorkoutScreenState extends State<CreateWorkoutScreen> {
         ),
       );
     }
-    !widget.isEditWorkout
-        ? await workoutsRepostitory.createWorkout(
-            title, weekday, newExercises, menuContext)
-        : widget.fakeDB.fakeWorkoutEntities[index] = WorkoutEntity(
-            title: title,
-            weekday: weekday,
-            abs: abs,
-            shoulders: shoulders,
-            legs: legs,
-            triceps: triceps,
-            biceps: biceps,
-            back: back,
-            forearms: forearms,
-            chest: chest,
-            cardio: cardio,
-            exercises: newExercises);
+    if (!widget.isEditWorkout) {
+      await workoutsRepostitory.createWorkout(
+          title, weekday, newExercises, menuContext);
+    } else {
+      await workoutsRepostitory.updateWorkout(
+          title, weekday, newExercises, index, context);
+    }
 
     menuContext
         .read<WorkoutsMenuBloc>()
         .add(UpdateWorkoutEvent(context: menuContext));
-    Navigator.of(menuContext).pop(true);
+    Navigator.of(menuContext).pop();
   }
 
   late TextEditingController titleTextFieldController;

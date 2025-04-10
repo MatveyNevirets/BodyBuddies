@@ -3,6 +3,9 @@ import 'dart:developer';
 import 'package:body_buddies/features/auth/data/repository/mock_auth_repository.dart';
 import 'package:body_buddies/features/auth/data/repository/prod_auth_repository.dart';
 import 'package:body_buddies/features/auth/domain/repository/auth_repository.dart';
+import 'package:body_buddies/features/useful/advices/domain/useful_repository.dart';
+import 'package:body_buddies/features/useful/data/mock_useful_repository.dart';
+import 'package:body_buddies/features/useful/data/prod_useful_repository.dart';
 import 'package:body_buddies/features/workouts/data/mock_workouts_repository.dart';
 import 'package:body_buddies/features/workouts/data/prod_workouts_repository.dart';
 import 'package:body_buddies/features/workouts/domain/workouts_repository.dart';
@@ -13,12 +16,13 @@ import 'package:body_buddies/services/secure_storage/i_secure_storage.dart';
 typedef OnProgress = Function(String name, String progress);
 typedef OnError = Function(String name, Object error, StackTrace? stack);
 
-enum Depends { auth, workouts, secureStorage }
+enum Depends { auth, workouts, useful, secureStorage }
 
 class AppDepends {
   final AppEnv appEnv;
   late final AuthRepository repository;
   late final WorkoutsRepository workoutsRepository;
+  late final UsefulRepository usefulRepository;
   late final SecureStorage secureStorage;
 
   AppDepends(this.appEnv);
@@ -52,6 +56,21 @@ class AppDepends {
           _calculateProgress(Depends.workouts.index, Depends.values.length));
     } on Object catch (error, stack) {
       onError.call(workoutsRepository.name, error, stack);
+    }
+
+    try {
+      final timer = Stopwatch();
+      timer.start();
+      usefulRepository = switch (appEnv) {
+        AppEnv.test => MockUsefulRepository(),
+        AppEnv.prod => ProdUsefulRepository(),
+      };
+      log("Depend ${usefulRepository.name} took ${timer.elapsedMilliseconds}ms to initialize");
+      timer.stop();
+      onProgress.call(usefulRepository.name,
+          _calculateProgress(Depends.useful.index, Depends.values.length));
+    } on Object catch (error, stack) {
+      onError.call(repository.name, error, stack);
     }
 
     try {

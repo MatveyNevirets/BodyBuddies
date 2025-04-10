@@ -3,7 +3,7 @@ import 'dart:developer';
 
 import 'package:body_buddies/features/workouts/data/Models/workout_entity.dart';
 import 'package:body_buddies/features/workouts/domain/Entities/exercise_entity.dart';
-import 'package:body_buddies/features/workouts/domain/Entities/exercise_on_list_entity.dart';
+import 'package:body_buddies/features/useful/advices/domain/entity/exercise_on_list_entity.dart';
 import 'package:body_buddies/features/workouts/domain/workouts_repository.dart';
 import 'package:body_buddies/features/workouts/domain/Entities/workout_entity.dart';
 import 'package:body_buddies/features/workouts/generated/bodybuddies_workouts.pbgrpc.dart';
@@ -117,9 +117,34 @@ class ProdWorkoutsRepository implements WorkoutsRepository {
   }
 
   @override
-  Future<void> updateWorkout(
-      String? title, int? weekday, List<ExerciseEntity>? exercises, int index) {
-    throw UnimplementedError();
+  Future<void> updateWorkout(String? title, int? weekday,
+      List<ExerciseEntity>? exercises, int index, BuildContext context) async {
+    // final storage = AppDependsProvider.of(context).secureStorage;
+    // try {
+    //   final tokenJson = await storage.read(AppConsts.tokenKey);
+    //   final tokenMap = jsonDecode(tokenJson);
+    //   final token = tokenMap['access_token'];
+
+    //   final workoutsDto = await _client.fetchAllWorkouts(RequestDto(),
+    //       options: CallOptions(metadata: {"token": token}));
+    //   final workout = workoutsDto.workouts[index];
+
+    //   await _client.updateWorkout(
+    //       WorkoutDto(
+    //           id: workout.id,
+    //           authorId: workout.authorId,
+    //           title: title ?? workout.title,
+    //           weekday: workout.weekday == weekday.toString()
+    //               ? workout.weekday
+    //               : weekday.toString()),
+    //       options: CallOptions(metadata: {"token": token}));
+
+    //   // for(ExerciseEntity exercise in exercises!) {
+    //   //   await _client.updateExercise(ExerciseDto(id: ))
+    //   // }
+    // } on Object catch (error, stack) {
+    //   throw Exception("Error: $error and stack: $stack");
+    // }
   }
 
   @override
