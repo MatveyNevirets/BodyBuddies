@@ -4,7 +4,7 @@ import 'package:body_buddies/features/auth/presentation/signup/signup_screen.dar
 import 'package:body_buddies/features/useful/presentation/advices/presentation/advices_page.dart';
 import 'package:body_buddies/features/useful/presentation/advices/presentation/current_advice_screen.dart';
 import 'package:body_buddies/features/useful/presentation/bench_press_calculator/presentation/bench_press_calculator_page.dart';
-import 'package:body_buddies/features/useful/presentation/made_workouts/presentation/made_workouts_page.dart';
+import 'package:body_buddies/features/useful/presentation/created_workouts/presentation/created_workouts_page.dart';
 import 'package:body_buddies/features/useful/presentation/add_exercise/presentation/add_exercise_page.dart';
 import 'package:body_buddies/features/workouts/presentation/add_your_exercise/presentation/bloc/add_your_exercise_cubit.dart';
 import 'package:body_buddies/features/workouts/presentation/add_your_exercise/presentation/add_your_exercise_screen.dart';
@@ -87,7 +87,7 @@ class BodyBuddiesApp extends StatelessWidget {
               const BenchPressCalculatorPage(),
           "/advices": (context) => const AdvicesPage(),
           "/advices/current_advice": (context) => const CurrentAdviceScreen(),
-          "/made_workouts": (context) => MadeWorkroutsPage(
+          "/made_workouts": (context) => CreatedWorkroutsPage(
                 fakeWorkoutsDatabase: fakeWorkoutsDatabase,
               ),
         },
