@@ -38,8 +38,17 @@ class ProdUsefulRepository implements UsefulRepository {
   String get name => "Prod useful repository";
 
   @override
-  Future<List<AdviceEntity>> fetchAdvices(String token) {
-    // TODO: implement fetchAdvices
-    throw UnimplementedError();
+  Future<List<AdviceEntity>> fetchAdvices(String token) async {
+    try {
+      final advicesDto = await _client.fetchAllAdvices(RequestDto(),
+          options: CallOptions(metadata: {"token": token}));
+
+      return advicesDto.advices
+          .map((advice) =>
+              AdviceEntity(title: advice.title, bodyText: advice.body))
+          .toList();
+    } on Object catch (error, stack) {
+      throw Exception("Error: $error, StackTrace: $stack");
+    }
   }
 }

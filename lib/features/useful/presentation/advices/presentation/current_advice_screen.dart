@@ -18,17 +18,20 @@ class CurrentAdviceScreen extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: SingleChildScrollView(
-          child: Card(
-            color: Colours.workout_card_background_color,
-            child: Padding(
-              padding: const EdgeInsets.all(16),
-              child: Column(
-                children: [
-                  Text(
-                    currentAdvice.title,
-                  ),
-                  Text(currentAdvice.bodyText),
-                ],
+          child: SizedBox(
+            width: double.maxFinite,
+            child: Card(
+              color: Colours.workout_card_background_color,
+              child: Padding(
+                padding: const EdgeInsets.all(16),
+                child: Column(
+                  children: [
+                    Text(
+                      currentAdvice.title,
+                    ),
+                    Text(currentAdvice.bodyText),
+                  ],
+                ),
               ),
             ),
           ),

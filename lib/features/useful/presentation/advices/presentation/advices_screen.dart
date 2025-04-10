@@ -30,7 +30,7 @@ class AdvicesScreen extends StatelessWidget {
                     itemBuilder: (context, index) {
                       return Column(
                         children: [
-                          buildAdviceCard(context, index),
+                          buildAdviceCard(context, index, state.advices),
                           const SizedBox(
                             height: 5,
                           )
