@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:body_buddies/core/colors/colors.dart';
 import 'package:body_buddies/core/strings/strings.dart';
+import 'package:body_buddies/features/workouts/presentation/create_workout/presentation/workout_create_screen.dart';
 import 'package:body_buddies/features/workouts/presentation/workout_feature_card/presentation/widgets/calendar_widget.dart';
 import 'package:body_buddies/features/workouts/presentation/workout_feature_card/presentation/widgets/workout_button_widget.dart';
 import 'package:body_buddies/features/workouts/presentation/workout_feature_card/presentation/widgets/workout_container_text.dart';
@@ -77,7 +78,9 @@ class WorkoutFeatureCard extends StatelessWidget {
                             builder: (context, snapshot) {
                               if (snapshot.hasData) {
                                 return WorkoutContainerText(
-                                    snapshot.data!.title.toString(), null);
+                                    truncateText(
+                                        snapshot.data!.title.toString(), 18),
+                                    null);
                               } else if (snapshot.hasError) {
                                 return WorkoutContainerText(
                                     Strings.empty, null);
