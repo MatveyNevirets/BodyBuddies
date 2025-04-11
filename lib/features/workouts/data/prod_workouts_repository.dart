@@ -30,14 +30,8 @@ class ProdWorkoutsRepository implements WorkoutsRepository {
   }
 
   @override
-  Future<List<WorkoutEntity>> fetchAllWorkout(BuildContext context) async {
-    final storage = AppDependsProvider.of(context).secureStorage;
-
+  Future<List<WorkoutEntity>> fetchAllWorkout(String token) async {
     try {
-      final tokens = await storage.read(AppConsts.tokenKey);
-      final jsonString = jsonDecode(tokens);
-      final token = jsonString['access_token'];
-
       final response = await _client.fetchAllWorkouts(
         RequestDto(),
         options: CallOptions(
@@ -65,14 +59,8 @@ class ProdWorkoutsRepository implements WorkoutsRepository {
 
   @override
   Future<void> createWorkout(String title, int weekday,
-      List<ExerciseEntity> exercises, BuildContext context) async {
-    final storage = AppDependsProvider.of(context).secureStorage;
-
+      List<ExerciseEntity> exercises, String token) async {
     try {
-      final tokenJson = await storage.read(AppConsts.tokenKey);
-      final tokenMap = jsonDecode(tokenJson);
-      final token = tokenMap['access_token'];
-
       final workoutId = await _client.addWorkout(
           WorkoutDto(title: title, weekday: weekday.toString(), exercises: []),
           options: CallOptions(metadata: {"token": token}));
@@ -100,13 +88,8 @@ class ProdWorkoutsRepository implements WorkoutsRepository {
   }
 
   @override
-  Future<void> deleteWorkout(int index, BuildContext context) async {
-    final storage = AppDependsProvider.of(context).secureStorage;
+  Future<void> deleteWorkout(int index, String token) async {
     try {
-      final tokenJson = await storage.read(AppConsts.tokenKey);
-      final tokenMap = jsonDecode(tokenJson);
-      final token = tokenMap['access_token'];
-
       final workoutsDto = await _client.fetchAllWorkouts(RequestDto(),
           options: CallOptions(metadata: {"token": token}));
       final workouts = workoutsDto.workouts;
@@ -120,7 +103,7 @@ class ProdWorkoutsRepository implements WorkoutsRepository {
 
   @override
   Future<void> updateWorkout(String? title, int? weekday,
-      List<ExerciseEntity>? exercises, int index, BuildContext context) async {
+      List<ExerciseEntity>? exercises, int index, String token) async {
     // final storage = AppDependsProvider.of(context).secureStorage;
     // try {
     //   final tokenJson = await storage.read(AppConsts.tokenKey);

@@ -6,15 +6,15 @@ import 'package:flutter/widgets.dart';
 abstract interface class WorkoutsRepository {
   String get name;
 
-  Future<List<WorkoutEntity>> fetchAllWorkout(BuildContext context);
+  Future<List<WorkoutEntity>> fetchAllWorkout(String token);
 
-  Future<void> createWorkout(String title, int weekday,
-      List<ExerciseEntity> exercises, BuildContext context);
+  Future<void> createWorkout(
+      String title, int weekday, List<ExerciseEntity> exercises, String token);
 
-  Future<void> deleteWorkout(int index, BuildContext context);
+  Future<void> deleteWorkout(int index, String token);
 
   Future<void> updateWorkout(String? title, int? weekday,
-      List<ExerciseEntity>? exercises, int index, BuildContext context);
+      List<ExerciseEntity>? exercises, int index, String token);
 
   Future<List<ExerciseOnListEntity>> fetchAllExercisesToAddList(
       BuildContext context);

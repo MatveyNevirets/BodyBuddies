@@ -1,11 +1,14 @@
 // ignore_for_file: must_be_immutable, use_build_context_synchronously
 
+import 'dart:convert';
+
 import 'package:body_buddies/core/styles/styles.dart';
 import 'package:body_buddies/features/workouts/domain/workouts_repository.dart';
 import 'package:body_buddies/features/workouts/presentation/workouts_menu/presentation/bloc/workouts_menu_bloc.dart';
 import 'package:body_buddies/features/workouts/presentation/workouts_menu/widgets/new_workout_button.dart';
 import 'package:body_buddies/features/workouts/domain/Entities/workout_entity.dart';
 import 'package:body_buddies/features/workouts/presentation/create_workout/presentation/workout_create_screen.dart';
+import 'package:body_buddies/internal/application/app_consts.dart';
 import 'package:body_buddies/internal/application/di/app_depends_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -26,8 +29,7 @@ class WorkoutCardOnList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final workoutsRepository =
-        AppDependsProvider.of(context).workoutsRepository;
+    final depends = AppDependsProvider.of(context);
 
     openWorkout() {
       Navigator.of(context)
@@ -36,10 +38,18 @@ class WorkoutCardOnList extends StatelessWidget {
 
     Future<void> removeCurrentWorkout(
         WorkoutsRepository workoutsRepository, int index) async {
-      await workoutsRepository.deleteWorkout(index, context);
-      context
-          .read<WorkoutsMenuBloc>()
-          .add(UpdateWorkoutEvent(context: context));
+      try {
+        final storage = depends.secureStorage;
+
+        final tokenJson = await storage.read(AppConsts.tokenKey);
+        final tokenMap = jsonDecode(tokenJson);
+        final token = tokenMap['access_token'];
+
+        await workoutsRepository.deleteWorkout(index, token);
+        context.read<WorkoutsMenuBloc>().add(UpdateWorkoutEvent());
+      } on Object catch (error, stack) {
+        throw Exception("Error: $error, StackTrace: $stack");
+      }
     }
 
     return GestureDetector(
@@ -99,8 +109,8 @@ class WorkoutCardOnList extends StatelessWidget {
                             ),
                           ),
                           IconButton(
-                            onPressed: () =>
-                                removeCurrentWorkout(workoutsRepository, index),
+                            onPressed: () => removeCurrentWorkout(
+                                depends.workoutsRepository, index),
                             color: Colours.workoutCardForegroundColor,
                             icon: const Icon(
                               Icons.delete,
@@ -114,10 +124,6 @@ class WorkoutCardOnList extends StatelessWidget {
                   Text(
                     truncateText(workout.title!, 10),
                     style: Styles.workout_text_style,
-                  ),
-                  Text(
-                    truncateText(getMusclesGroupOnString(), 20),
-                    style: Styles.workout_text_style2,
                   ),
                   const SizedBox(
                     height: 6,
@@ -146,22 +152,6 @@ class WorkoutCardOnList extends StatelessWidget {
     Navigator.of(context)
         .pushNamed("workouts_menu/run_workout/", arguments: workout);
   }
-
-  String getMusclesGroupOnString() {
-    List<String> groups = [];
-
-    if (workout.abs) groups.add(Strings.abs);
-    if (workout.forearms) groups.add(Strings.forearms);
-    if (workout.biceps) groups.add(Strings.biceps);
-    if (workout.back) groups.add(Strings.back);
-    if (workout.chest) groups.add(Strings.chest);
-    if (workout.triceps) groups.add(Strings.triceps);
-    if (workout.shoulders) groups.add(Strings.shoulders);
-    if (workout.cardio) groups.add(Strings.cardio);
-    if (workout.legs) groups.add(Strings.legs);
-
-    return groups.toString().substring(1, groups.toString().length - 1);
-  }
 }
 
 String getDayOfWeekOnString(WorkoutEntity workout) {
@@ -180,6 +170,6 @@ String getDayOfWeekOnString(WorkoutEntity workout) {
   } else if (workout.weekday == 7) {
     return Strings.sun;
   } else {
-    return Strings.empty;
+    return "--";
   }
 }

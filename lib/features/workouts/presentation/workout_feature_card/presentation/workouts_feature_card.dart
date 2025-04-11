@@ -1,9 +1,12 @@
+import 'dart:convert';
+
 import 'package:body_buddies/core/colors/colors.dart';
 import 'package:body_buddies/core/strings/strings.dart';
 import 'package:body_buddies/features/workouts/presentation/workout_feature_card/presentation/widgets/calendar_widget.dart';
 import 'package:body_buddies/features/workouts/presentation/workout_feature_card/presentation/widgets/workout_button_widget.dart';
 import 'package:body_buddies/features/workouts/presentation/workout_feature_card/presentation/widgets/workout_container_text.dart';
 import 'package:body_buddies/features/workouts/domain/Entities/workout_entity.dart';
+import 'package:body_buddies/internal/application/app_consts.dart';
 import 'package:body_buddies/internal/application/di/app_depends_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -19,18 +22,29 @@ class WorkoutFeatureCard extends StatelessWidget {
     void openWorkoutsMenuScreen() =>
         Navigator.of(context).pushNamed("/workouts_menu");
 
-    final workoutRepository = AppDependsProvider.of(context).workoutsRepository;
+    final depends = AppDependsProvider.of(context);
 
     Future<WorkoutEntity> getTodayWorkout() async {
-      final thisWeekDay = DateTime.now().weekday;
-      final workoutsList = await workoutRepository.fetchAllWorkout(context);
+      try {
+        final storage = depends.secureStorage;
 
-      for (int i = 0; i < workoutsList.length; i++) {
-        if (workoutsList[i].weekday == thisWeekDay) {
-          return workoutsList[i];
+        final tokenJson = await storage.read(AppConsts.tokenKey);
+        final tokenMap = jsonDecode(tokenJson);
+        final token = tokenMap['access_token'];
+
+        final thisWeekDay = DateTime.now().weekday;
+        final workoutsList =
+            await depends.workoutsRepository.fetchAllWorkout(token);
+
+        for (int i = 0; i < workoutsList.length; i++) {
+          if (workoutsList[i].weekday == thisWeekDay) {
+            return workoutsList[i];
+          }
         }
+        return workoutsList[0];
+      } on Object catch (error, stack) {
+        throw Exception("Error: $error, StackTrace: $stack");
       }
-      return workoutsList[0];
     }
 
     void runCurrentWorkout(

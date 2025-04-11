@@ -9,12 +9,12 @@ class WorkoutsMenuPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final workoutsRepository =
-        AppDependsProvider.of(context).workoutsRepository;
+    final depends = AppDependsProvider.of(context);
 
     return BlocProvider(
-      create: (BuildContext context) => WorkoutsMenuBloc(workoutsRepository)
-        ..add(UpdateWorkoutEvent(context: context)),
+      create: (BuildContext context) =>
+          WorkoutsMenuBloc(depends.workoutsRepository, depends.secureStorage)
+            ..add(UpdateWorkoutEvent()),
       child: const WorkoutsMenuScreen(),
     );
   }

@@ -14,9 +14,11 @@ class CreatedWorkroutsPage extends StatelessWidget {
     final depends = AppDependsProvider.of(context);
 
     return BlocProvider(
-      create: (BuildContext context) =>
-          CreatedWorkoutsBloc(depends.usefulRepository, depends.secureStorage)
-            ..add(FetchWorkoutsEvent()),
+      create: (BuildContext context) => CreatedWorkoutsBloc(
+          depends.usefulRepository,
+          depends.secureStorage,
+          depends.workoutsRepository)
+        ..add(FetchWorkoutsEvent()),
       child: const CreatedWorkoutsScreen(),
     );
   }

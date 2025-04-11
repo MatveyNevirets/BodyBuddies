@@ -17,4 +17,11 @@ class FetchCreatedWorkoutsState extends CreatedWorkoutsState {
   });
 }
 
+class CreatedWorkoutAddedState extends CreatedWorkoutsState {
+  String message;
+  CreatedWorkoutAddedState({
+    required this.message,
+  });
+}
+
 class LoadingState extends CreatedWorkoutsState {}

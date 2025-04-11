@@ -2,18 +2,11 @@
 part of 'workouts_menu_bloc.dart';
 
 @immutable
-sealed class WorkoutsMenuEvent {
-  BuildContext context;
-  WorkoutsMenuEvent({
-    required this.context,
-  });
-}
+sealed class WorkoutsMenuEvent {}
 
-class UpdateWorkoutEvent extends WorkoutsMenuEvent {
-  UpdateWorkoutEvent({required super.context});
-}
+class UpdateWorkoutEvent extends WorkoutsMenuEvent {}
 
 class DeleteWorkoutEvent extends WorkoutsMenuEvent {
   int index;
-  DeleteWorkoutEvent({required super.context, required this.index});
+  DeleteWorkoutEvent({required this.index});
 }

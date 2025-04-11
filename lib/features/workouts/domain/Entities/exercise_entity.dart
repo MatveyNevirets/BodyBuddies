@@ -1,14 +1,6 @@
 class ExerciseEntity {
   String title;
-  bool chest,
-      legs,
-      shoulders,
-      forearms,
-      triceps,
-      biceps,
-      abs,
-      isExercise,
-      isTimerExercise;
+  bool isExercise, isTimerExercise;
   int sets,
       currentSets,
       reps,
@@ -21,14 +13,7 @@ class ExerciseEntity {
 
   ExerciseEntity(
       {required this.title,
-      this.chest = false,
-      this.legs = false,
       this.currentSets = 1,
-      this.shoulders = false,
-      this.forearms = false,
-      this.triceps = false,
-      this.biceps = false,
-      this.abs = false,
       this.reps = 0,
       this.sets = 0,
       this.timerTimeSeconds = 0,

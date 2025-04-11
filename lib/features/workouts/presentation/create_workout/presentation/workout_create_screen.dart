@@ -1,5 +1,7 @@
 // ignore_for_file: must_be_immutable, use_build_context_synchronously
 
+import 'dart:convert';
+
 import 'package:body_buddies/core/colors/colors.dart';
 import 'package:body_buddies/core/widgets/app_bar.dart';
 import 'package:body_buddies/core/widgets/base_button.dart';
@@ -11,6 +13,7 @@ import 'package:body_buddies/features/workouts/presentation/workouts_menu/presen
 import 'package:body_buddies/features/workouts/presentation/workouts_menu/domain/fake_workouts_database.dart';
 import 'package:body_buddies/features/workouts/presentation/create_workout/presentation/widgets/exercise_item_on_list.dart';
 import 'package:body_buddies/features/workouts/presentation/create_workout/presentation/widgets/timer_exercise_item_on_list.dart';
+import 'package:body_buddies/internal/application/app_consts.dart';
 import 'package:body_buddies/internal/application/di/app_depends_provider.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
@@ -53,8 +56,13 @@ class CreateWorkoutScreen extends StatefulWidget {
 }
 
 class _CreateWorkoutScreenState extends State<CreateWorkoutScreen> {
-  void tryToCreateWorkout(BuildContext menuContext, BuildContext thisContext,
-      int index, TextEditingController titleController) {
+  Future<void> tryToCreateWorkout(
+      BuildContext menuContext,
+      BuildContext thisContext,
+      int index,
+      TextEditingController titleController) async {
+    final depends = AppDependsProvider.of(thisContext);
+
     widget.isMon = widget.selectedWeekday == Strings.monday ? true : false;
     widget.isTue = widget.selectedWeekday == Strings.tuesday ? true : false;
     widget.isWed = widget.selectedWeekday == Strings.wednesday ? true : false;
@@ -63,21 +71,23 @@ class _CreateWorkoutScreenState extends State<CreateWorkoutScreen> {
     widget.isSat = widget.selectedWeekday == Strings.saturday ? true : false;
     widget.isSun = widget.selectedWeekday == Strings.sunday ? true : false;
 
-    bool allFieldsFilled = true;
+    List<ExerciseEntity> newExercises = [];
+
     for (var exercise in widget._exercises) {
-      if (exercise.isExercise) {
-        if (exercise.kilograms == 0 ||
-            exercise.sets == 0 ||
-            exercise.reps == 0) {
-          allFieldsFilled = false;
-          break;
-        }
-      } else if (exercise.isTimerExercise) {
-        if (exercise.sets == 0) {
-          allFieldsFilled = false;
-          break;
-        }
-      }
+      newExercises.add(
+        ExerciseEntity(
+          title: exercise.title,
+          isExercise: exercise.isExercise,
+          isTimerExercise: exercise.isTimerExercise,
+          kilograms: exercise.kilograms,
+          sets: exercise.sets,
+          reps: exercise.reps,
+          timerTimeMinutes: exercise.timerTimeMinutes,
+          timerTimeSeconds: exercise.timerTimeSeconds,
+          restTimeInSeconds: exercise.restTimeInSeconds,
+          restTimeInMinutes: exercise.restTimeInMinutes,
+        ),
+      );
     }
 
     if (titleController.text.toString() != "" &&
@@ -88,14 +98,34 @@ class _CreateWorkoutScreenState extends State<CreateWorkoutScreen> {
             widget.isFri ||
             widget.isSat ||
             widget.isSun) &&
-        widget._exercises.isNotEmpty &&
-        allFieldsFilled) {
-      createWorkoutInDatabase(
-          menuContext: menuContext,
-          title: titleController.text.toString(),
-          index: index,
-          weekday: getNumberWeekday(),
-          thisContext: thisContext);
+        widget._exercises.isNotEmpty) {
+      try {
+        final storage = depends.secureStorage;
+
+        final tokenJson = await storage.read(AppConsts.tokenKey);
+        final tokenMap = jsonDecode(tokenJson);
+        final token = tokenMap['access_token'];
+
+        if (!widget.isEditWorkout) {
+          await depends.workoutsRepository.createWorkout(
+              titleController.text.toString(),
+              getNumberWeekday(),
+              newExercises,
+              token);
+        } else {
+          await depends.workoutsRepository.updateWorkout(
+              titleController.text.toString(),
+              getNumberWeekday(),
+              newExercises,
+              index,
+              token);
+        }
+
+        menuContext.read<WorkoutsMenuBloc>().add(UpdateWorkoutEvent());
+        Navigator.of(menuContext).pop();
+      } on Object catch (error, stack) {
+        throw Exception("Error: $error, StackTrace: $stack");
+      }
     } else {
       showSnackBar(menuContext, Strings.not_full_field_error);
     }
@@ -119,55 +149,6 @@ class _CreateWorkoutScreenState extends State<CreateWorkoutScreen> {
     } else {
       return -1;
     }
-  }
-
-  createWorkoutInDatabase({
-    required BuildContext menuContext,
-    required BuildContext thisContext,
-    required String title,
-    required int index,
-    int weekday = -1,
-    bool abs = false,
-    bool shoulders = false,
-    bool legs = false,
-    bool triceps = false,
-    bool biceps = false,
-    bool back = false,
-    bool forearms = false,
-    bool chest = false,
-    bool cardio = false,
-  }) async {
-    List<ExerciseEntity> newExercises = [];
-    final workoutsRepostitory =
-        AppDependsProvider.of(thisContext).workoutsRepository;
-    for (var exercise in widget._exercises) {
-      newExercises.add(
-        ExerciseEntity(
-          title: exercise.title,
-          isExercise: exercise.isExercise,
-          isTimerExercise: exercise.isTimerExercise,
-          kilograms: exercise.kilograms,
-          sets: exercise.sets,
-          reps: exercise.reps,
-          timerTimeMinutes: exercise.timerTimeMinutes,
-          timerTimeSeconds: exercise.timerTimeSeconds,
-          restTimeInSeconds: exercise.restTimeInSeconds,
-          restTimeInMinutes: exercise.restTimeInMinutes,
-        ),
-      );
-    }
-    if (!widget.isEditWorkout) {
-      await workoutsRepostitory.createWorkout(
-          title, weekday, newExercises, menuContext);
-    } else {
-      await workoutsRepostitory.updateWorkout(
-          title, weekday, newExercises, index, context);
-    }
-
-    menuContext
-        .read<WorkoutsMenuBloc>()
-        .add(UpdateWorkoutEvent(context: menuContext));
-    Navigator.of(menuContext).pop();
   }
 
   late TextEditingController titleTextFieldController;

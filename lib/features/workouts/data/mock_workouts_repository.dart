@@ -9,7 +9,7 @@ import 'package:flutter/widgets.dart';
 
 class MockWorkoutsRepository implements WorkoutsRepository {
   @override
-  Future<List<WorkoutModel>> fetchAllWorkout(BuildContext context) async {
+  Future<List<WorkoutModel>> fetchAllWorkout(String token) async {
     await Future.delayed(const Duration(seconds: 3));
     log("Loading has been ended");
     return _workouts;
@@ -20,19 +20,19 @@ class MockWorkoutsRepository implements WorkoutsRepository {
 
   @override
   Future<void> createWorkout(String title, int weekday,
-      List<ExerciseEntity> exercises, BuildContext context) async {
+      List<ExerciseEntity> exercises, String token) async {
     _workouts.add(
         WorkoutModel(title: title, weekday: weekday, exercises: exercises));
   }
 
   @override
-  Future<void> deleteWorkout(int index, BuildContext context) async {
+  Future<void> deleteWorkout(int index, String token) async {
     _workouts.removeAt(index);
   }
 
   @override
   Future<void> updateWorkout(String? title, int? weekday,
-      List<ExerciseEntity>? exercises, int index, BuildContext context) async {
+      List<ExerciseEntity>? exercises, int index, String token) async {
     _workouts[index].title = title ?? _workouts[index].title;
     _workouts[index].weekday = weekday ?? _workouts[index].weekday;
     _workouts[index].exercises = exercises ?? _workouts[index].exercises;
