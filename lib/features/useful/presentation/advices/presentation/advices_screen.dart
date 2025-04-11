@@ -1,5 +1,4 @@
 import 'package:body_buddies/core/colors/colors.dart';
-import 'package:body_buddies/core/data/fakeAdvicesDb.dart';
 import 'package:body_buddies/core/strings/strings.dart';
 import 'package:body_buddies/core/widgets/app_bar.dart';
 import 'package:body_buddies/core/widgets/loading_screen.dart';

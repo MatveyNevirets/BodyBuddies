@@ -2,6 +2,7 @@ import 'package:body_buddies/features/useful/domain/entity/advice_entity.dart';
 import 'package:body_buddies/features/useful/generated/bodybuddies_micro_features.pbgrpc.dart';
 import 'package:body_buddies/features/useful/domain/entity/exercise_on_list_entity.dart';
 import 'package:body_buddies/features/useful/domain/useful_repository.dart';
+import 'package:body_buddies/features/workouts/domain/Entities/exercise_entity.dart';
 import 'package:body_buddies/features/workouts/domain/Entities/workout_entity.dart';
 import 'package:body_buddies/internal/application/app_consts.dart';
 import 'package:grpc/grpc_or_grpcweb.dart';
@@ -54,8 +55,33 @@ class ProdUsefulRepository implements UsefulRepository {
   }
 
   @override
-  Future<List<WorkoutEntity>> fetchCreatedWorkouts(String token) {
-    // TODO: implement fetchCreatedWorkouts
-    throw UnimplementedError();
+  Future<List<WorkoutEntity>> fetchCreatedWorkouts(String token) async {
+    try {
+      final workouts = await _client.fetchAllWorkouts(RequestDto(),
+          options: CallOptions(metadata: {"token": token}));
+
+      return workouts.workouts
+          .map((workout) => WorkoutEntity(
+              title: workout.title,
+              exercises: workout.exercises
+                  .map(
+                    (exercise) => ExerciseEntity(
+                      title: exercise.title,
+                      kilograms: double.parse(exercise.weight),
+                      reps: int.parse(exercise.reps),
+                      timerTimeMinutes: int.parse(exercise.exerciseTimeMinutes),
+                      timerTimeSeconds: int.parse(exercise.exerciseTimeSeconds),
+                      restTimeInMinutes: int.parse(exercise.restTimeMinutes),
+                      restTimeInSeconds: int.parse(exercise.restTimeSeconds),
+                      sets: int.parse(exercise.sets),
+                      isExercise: exercise.isExercise,
+                      isTimerExercise: exercise.isTimerExercise,
+                    ),
+                  )
+                  .toList()))
+          .toList();
+    } on Object catch (error, stack) {
+      throw Exception("Error: $error, StackTrace: $stack");
+    }
   }
 }
