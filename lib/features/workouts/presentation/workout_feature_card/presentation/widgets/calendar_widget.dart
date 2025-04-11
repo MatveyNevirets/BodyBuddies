@@ -25,14 +25,16 @@ class CalendarWidget extends StatelessWidget {
         ),
         Positioned(
           top: height / 1.9,
-          left: width / 4.5,
-          child: Text(
-            text,
-            style: TextStyle(
-                fontSize: height / 4.5,
-                fontWeight: FontWeight.bold,
-                color: Colours.white_text_color,
-                fontFamily: "AqumTwo"),
+          left: width / 4.2,
+          child: Center(
+            child: Text(
+              text,
+              style: TextStyle(
+                  fontSize: height / 4.5,
+                  fontWeight: FontWeight.bold,
+                  color: Colours.white_text_color,
+                  fontFamily: "AqumTwo"),
+            ),
           ),
         )
       ],

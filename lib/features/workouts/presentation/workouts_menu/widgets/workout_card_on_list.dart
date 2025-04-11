@@ -154,22 +154,30 @@ class WorkoutCardOnList extends StatelessWidget {
   }
 }
 
-String getDayOfWeekOnString(WorkoutEntity workout) {
-  if (workout.weekday == 1) {
-    return Strings.mon;
-  } else if (workout.weekday == 2) {
-    return Strings.tue;
-  } else if (workout.weekday == 3) {
-    return Strings.wed;
-  } else if (workout.weekday == 4) {
-    return Strings.thur;
-  } else if (workout.weekday == 5) {
-    return Strings.fri;
-  } else if (workout.weekday == 6) {
-    return Strings.sat;
-  } else if (workout.weekday == 7) {
-    return Strings.sun;
-  } else {
-    return "--";
-  }
+String getDayOfWeekOnString(WorkoutEntity workout, {bool isFullText = false}) {
+  final List<String> shortNames = [
+    Strings.mon,
+    Strings.tue,
+    Strings.wed,
+    Strings.thur,
+    Strings.fri,
+    Strings.sat,
+    Strings.sun,
+  ];
+
+  final List<String> fullNames = [
+    Strings.monday,
+    Strings.tuesday,
+    Strings.wednesday,
+    Strings.thursday,
+    Strings.friday,
+    Strings.saturday,
+    Strings.sunday,
+  ];
+
+  if (workout.weekday < 1 || workout.weekday > 7) return "--";
+
+  return isFullText
+      ? fullNames[workout.weekday - 1]
+      : shortNames[workout.weekday - 1];
 }

@@ -14,13 +14,16 @@ class WorkoutContainerText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      height: 40,
       decoration: BoxDecoration(
           border: Border.all(width: 3, color: Colours.white_text_color),
           borderRadius: BorderRadius.circular(4)),
       padding: EdgeInsets.all(padding ?? 4),
-      child: Text(
-        title,
-        style: Styles.workouts_containers_text_style,
+      child: Center(
+        child: Text(
+          title,
+          style: Styles.workouts_containers_text_style,
+        ),
       ),
     );
   }

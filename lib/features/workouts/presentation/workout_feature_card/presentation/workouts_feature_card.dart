@@ -7,6 +7,7 @@ import 'package:body_buddies/features/workouts/presentation/workout_feature_card
 import 'package:body_buddies/features/workouts/presentation/workout_feature_card/presentation/widgets/workout_button_widget.dart';
 import 'package:body_buddies/features/workouts/presentation/workout_feature_card/presentation/widgets/workout_container_text.dart';
 import 'package:body_buddies/features/workouts/domain/Entities/workout_entity.dart';
+import 'package:body_buddies/features/workouts/presentation/workouts_menu/widgets/workout_card_on_list.dart';
 import 'package:body_buddies/internal/application/app_consts.dart';
 import 'package:body_buddies/internal/application/di/app_depends_provider.dart';
 import 'package:flutter/cupertino.dart';
@@ -92,9 +93,28 @@ class WorkoutFeatureCard extends StatelessWidget {
                             },
                           ),
                           const SizedBox(
-                            height: Styles.height_of_text_to_widget * 4,
+                            height: Styles.height_of_text_to_widget * 3,
                           ),
-                          WorkoutContainerText("Грудь, бицепс", 12),
+                          FutureBuilder(
+                            future: getTodayWorkout(),
+                            builder: (context, snapshot) {
+                              if (snapshot.hasData) {
+                                return WorkoutContainerText(
+                                    truncateText(
+                                        getDayOfWeekOnString(snapshot.data!,
+                                            isFullText: true),
+                                        18),
+                                    null);
+                              } else if (snapshot.hasError) {
+                                return WorkoutContainerText(
+                                    Strings.empty, null);
+                              }
+                              return const SpinKitThreeInOut(
+                                color: Colours.white_text_color,
+                                size: 30,
+                              );
+                            },
+                          ),
                         ],
                       ),
                       const Expanded(
@@ -104,7 +124,7 @@ class WorkoutFeatureCard extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
                           CalendarWidget(
-                              height: 40, width: 40, text: getDate()),
+                              height: 40, width: 45, text: getDate()),
                           const SizedBox(
                             height: 30,
                           ),
@@ -126,10 +146,11 @@ class WorkoutFeatureCard extends StatelessWidget {
   }
 
   String getDate() {
-    final day = DateTime.now().day;
+    final day = DateTime.now().day - 10;
     final month = DateTime.now().month;
 
-    final date = "$day.${month.toString().padLeft(2, '0')}";
+    final date =
+        "${day.toString().padLeft(2, '0')}.${month.toString().padLeft(2, '0')}";
     return date;
   }
 }
