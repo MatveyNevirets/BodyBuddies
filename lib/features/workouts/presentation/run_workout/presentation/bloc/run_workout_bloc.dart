@@ -1,5 +1,11 @@
+import 'dart:convert';
+
 import 'package:bloc/bloc.dart';
 import 'package:body_buddies/features/workouts/domain/Entities/exercise_entity.dart';
+import 'package:body_buddies/features/workouts/domain/Entities/workout_entity.dart';
+import 'package:body_buddies/features/workouts/domain/workouts_repository.dart';
+import 'package:body_buddies/internal/application/app_consts.dart';
+import 'package:body_buddies/services/secure_storage/i_secure_storage.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
@@ -9,13 +15,17 @@ part 'run_workout_event.dart';
 part 'run_workout_state.dart';
 
 class RunWorkoutBloc extends Bloc<RunWorkoutEvent, RunWorkoutState> {
+  WorkoutsRepository workoutsRepository;
+  SecureStorage storage;
+
   List<ExerciseEntity> exercises;
   int currentExercise = 0;
   int currentSets = 1;
 
   int workoutTimerDuration = 0;
 
-  RunWorkoutBloc(this.exercises, this.currentExercise)
+  RunWorkoutBloc(this.exercises, this.currentExercise, this.workoutsRepository,
+      this.storage)
       : super(WorkoutInProcess(
             exercises: exercises,
             currentExercise: currentExercise,
@@ -26,6 +36,7 @@ class RunWorkoutBloc extends Bloc<RunWorkoutEvent, RunWorkoutState> {
   }
 
   onExerciseStarted(ExerciseRunEvent event, Emitter<RunWorkoutState> emit) {
+    emit(LoadingState(exercises: [], currentExercise: 0, duration: 0));
     exercises[currentExercise].currentSets = currentSets;
     emit(
       WorkoutInProcess(
@@ -35,7 +46,17 @@ class RunWorkoutBloc extends Bloc<RunWorkoutEvent, RunWorkoutState> {
     );
   }
 
-  onWorkoutCompete(WorkoutCompleteEvent event, Emitter<RunWorkoutState> emit) {
+  onWorkoutCompete(
+      WorkoutCompleteEvent event, Emitter<RunWorkoutState> emit) async {
+    emit(LoadingState(exercises: [], currentExercise: 0, duration: 0));
+
+    final jsonToken = await storage.read(AppConsts.tokenKey);
+    final mapToken = jsonDecode(jsonToken);
+    final token = mapToken['access_token'];
+
+    await workoutsRepository.addJournalWorkout(
+        event.workoutEntity, event.workoutTimerDuration.toString());
+
     emit(CompleteWorkout(
         exercises: exercises,
         currentExercise: currentExercise,

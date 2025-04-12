@@ -7,7 +7,6 @@ import 'package:body_buddies/core/widgets/loading_screen.dart';
 import 'package:body_buddies/features/useful/presentation/created_workouts/presentation/bloc/created_workouts_bloc.dart';
 import 'package:body_buddies/features/workouts/presentation/create_workout/presentation/workout_create_screen.dart';
 import 'package:body_buddies/features/workouts/presentation/workouts_menu/widgets/new_workout_button.dart';
-import 'package:body_buddies/features/workouts/domain/Entities/workout_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

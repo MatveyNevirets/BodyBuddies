@@ -45,3 +45,10 @@ class CompleteWorkout extends RunWorkoutState {
       required super.currentExercise,
       required super.duration});
 }
+
+class LoadingState extends RunWorkoutState {
+  LoadingState(
+      {required super.exercises,
+      required super.currentExercise,
+      required super.duration});
+}

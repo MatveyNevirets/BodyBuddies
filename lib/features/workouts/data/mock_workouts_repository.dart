@@ -1,9 +1,10 @@
 import 'dart:developer';
 
-import 'package:body_buddies/features/workouts/data/Models/exercise_entity.dart';
-import 'package:body_buddies/features/workouts/data/Models/workout_entity.dart';
+import 'package:body_buddies/features/workouts/data/Models/exercise_model.dart';
+import 'package:body_buddies/features/workouts/data/Models/workout_model.dart';
 import 'package:body_buddies/features/workouts/domain/Entities/exercise_entity.dart';
 import 'package:body_buddies/features/useful/domain/entity/exercise_on_list_entity.dart';
+import 'package:body_buddies/features/workouts/domain/Entities/workout_entity.dart';
 import 'package:body_buddies/features/workouts/domain/workouts_repository.dart';
 import 'package:flutter/widgets.dart';
 
@@ -49,14 +50,55 @@ class MockWorkoutsRepository implements WorkoutsRepository {
     await Future.delayed(const Duration(seconds: 3));
     return exercises;
   }
+
+  @override
+  Future<void> addJournalWorkout(WorkoutEntity workout, String token) async {
+    await Future.delayed(const Duration(seconds: 2));
+    _journalWorkouts.add(workout);
+  }
+
+  @override
+  Future<void> deleteJournalWorkout(WorkoutEntity workout, String token) async {
+    await Future.delayed(const Duration(seconds: 2));
+    _journalWorkouts.remove(workout);
+  }
+
+  @override
+  Future<List<WorkoutEntity>> fetchJournalWorkouts(String token) async {
+    await Future.delayed(const Duration(seconds: 2));
+    return _journalWorkouts;
+  }
 }
+
+final List<WorkoutEntity> _journalWorkouts = [
+  WorkoutEntity(
+      title: "title",
+      exercises: [
+        ExerciseModel(
+            isExercise: true,
+            title: "Подтягивания",
+            kilograms: 30,
+            restTimeInMinutes: 3,
+            restTimeInSeconds: 0,
+            sets: 5,
+            reps: 6),
+        ExerciseModel(
+            isExercise: true,
+            title: "Тяга штанги в наклоне",
+            kilograms: 75,
+            sets: 4,
+            reps: 6,
+            restTimeInSeconds: 0,
+            restTimeInMinutes: 3),
+      ],
+      date: '02.03.2025',
+      duration: '01:43:21')
+];
 
 final List<WorkoutModel> _workouts = [
   WorkoutModel(
     title: "Тяжёлая среда",
     weekday: 2,
-    back: true,
-    triceps: true,
     exercises: [
       ExerciseModel(
           isExercise: true,
@@ -99,12 +141,12 @@ final List<WorkoutModel> _workouts = [
           restTimeInMinutes: 2,
           restTimeInSeconds: 0),
     ],
+    date: '',
+    duration: '',
   ),
   WorkoutModel(
     title: "Легкая ноги",
     weekday: 4,
-    legs: true,
-    shoulders: true,
     exercises: [
       ExerciseModel(
           isExercise: true,
@@ -165,26 +207,23 @@ final List<WorkoutModel> _workouts = [
     ],
   ),
   WorkoutModel(
-      title: "Timer Exerc",
-      exercises: [
-        ExerciseModel(
-            isTimerExercise: true,
-            title: "Берпс",
-            kilograms: 5,
-            restTimeInMinutes: 0,
-            restTimeInSeconds: 5,
-            timerTimeMinutes: 0,
-            timerTimeSeconds: 10,
-            sets: 3),
-      ],
-      weekday: 2,
-      legs: true,
-      cardio: true),
+    title: "Timer Exerc",
+    exercises: [
+      ExerciseModel(
+          isTimerExercise: true,
+          title: "Берпс",
+          kilograms: 5,
+          restTimeInMinutes: 0,
+          restTimeInSeconds: 5,
+          timerTimeMinutes: 0,
+          timerTimeSeconds: 10,
+          sets: 3),
+    ],
+    weekday: 2,
+  ),
   WorkoutModel(
     title: "Ношке наказание",
     weekday: 1,
-    legs: true,
-    shoulders: true,
     exercises: [
       ExerciseModel(
           isExercise: true,

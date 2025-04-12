@@ -15,5 +15,6 @@ class ExerciseRestEvent extends RunWorkoutEvent {
 }
 
 class WorkoutCompleteEvent extends RunWorkoutEvent {
-  WorkoutCompleteEvent(super.workoutTimerDuration);
+  WorkoutEntity workoutEntity;
+  WorkoutCompleteEvent(super.workoutTimerDuration, this.workoutEntity);
 }

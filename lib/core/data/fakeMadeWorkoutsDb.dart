@@ -7,8 +7,6 @@ abstract class FakeMadeWorkoutsDb {
   static List<WorkoutEntity> workouts = [
     WorkoutEntity(
       title: "Сжечь жир! Я сказал! Сжечь!",
-      back: true,
-      forearms: true,
       weekday: 1,
       exercises: [
         ExerciseEntity(
@@ -55,8 +53,6 @@ abstract class FakeMadeWorkoutsDb {
     ),
     WorkoutEntity(
       title: "Тяжелая Full-body",
-      chest: true,
-      back: true,
       weekday: 3,
       exercises: [
         ExerciseEntity(

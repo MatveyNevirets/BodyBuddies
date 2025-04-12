@@ -1,10 +1,12 @@
 import 'package:body_buddies/core/widgets/base_snackbar.dart';
+import 'package:body_buddies/core/widgets/loading_screen.dart';
 import 'package:body_buddies/features/workouts/domain/Entities/workout_entity.dart';
 import 'package:body_buddies/features/workouts/presentation/workouts_menu/domain/fake_workouts_database.dart';
 import 'package:body_buddies/features/workouts/presentation/run_workout/presentation/bloc/run_workout_bloc.dart';
 import 'package:body_buddies/features/workouts/presentation/run_workout/presentation/widgets/run_exercise_screen.dart';
 import 'package:body_buddies/features/workouts/presentation/run_workout/presentation/widgets/run_timer_exercise_screen.dart';
 import 'package:body_buddies/features/workouts/presentation/run_workout/workout_ticker/workout_ticker.dart';
+import 'package:body_buddies/internal/application/di/app_depends_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -26,9 +28,12 @@ class RunWorkoutScreen extends StatelessWidget {
     WorkoutEntity workoutToJournal =
         WorkoutEntity(title: workout.title, exercises: []);
 
+    final depends = AppDependsProvider.of(context);
+
     return BlocProvider(
       create: (BuildContext blocContext) {
-        final bloc = RunWorkoutBloc(workout.exercises, 0);
+        final bloc = RunWorkoutBloc(workout.exercises, 0,
+            depends.workoutsRepository, depends.secureStorage);
         bloc.exercises[bloc.state.currentExercise].currentSets = 1;
         return bloc;
       },
@@ -36,7 +41,7 @@ class RunWorkoutScreen extends StatelessWidget {
         body: BlocConsumer<RunWorkoutBloc, RunWorkoutState>(
           listener: (context, state) {
             if (state is CompleteWorkout) {
-              completeWorkout(context, workoutToJournal, state.duration);
+              completeWorkout(context);
             }
           },
           builder: (context, state) {
@@ -63,7 +68,7 @@ class RunWorkoutScreen extends StatelessWidget {
                 return RestScreen(ticker, state.duration,
                     state.exercises[state.currentExercise]);
               }
-              return const CircularProgressIndicator();
+              return const LoadingScreen();
             });
           },
         ),
@@ -71,18 +76,7 @@ class RunWorkoutScreen extends StatelessWidget {
     );
   }
 
-  void completeWorkout(
-      BuildContext context, WorkoutEntity workout, int duration) {
-    WorkoutEntity newWorkoutEntity = WorkoutEntity(
-        title: workout.title, exercises: List.from(workout.exercises));
-
-    DateTime currentData = DateTime.now();
-    String dataInFormat =
-        "${currentData.day.toString().padLeft(2, "0")}.${currentData.month.toString().padLeft(2, "0")}.${currentData.year}";
-
-    newWorkoutEntity.allWorkoutLength = getTime(duration);
-    newWorkoutEntity.dateWhenTodo = dataInFormat;
-    fakeWorkoutsDatabase.journalSavedWorkouts.add(newWorkoutEntity);
+  void completeWorkout(BuildContext context) {
     showSnackBar(context, Strings.completedSuccessful);
     Navigator.of(context).pop();
   }

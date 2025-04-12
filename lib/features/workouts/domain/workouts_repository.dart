@@ -18,4 +18,8 @@ abstract interface class WorkoutsRepository {
 
   Future<List<ExerciseOnListEntity>> fetchAllExercisesToAddList(
       BuildContext context);
+
+  Future<void> addJournalWorkout(WorkoutEntity workout, String token);
+  Future<void> deleteJournalWorkout(WorkoutEntity workout, String token);
+  Future<List<WorkoutEntity>> fetchJournalWorkouts(String token);
 }

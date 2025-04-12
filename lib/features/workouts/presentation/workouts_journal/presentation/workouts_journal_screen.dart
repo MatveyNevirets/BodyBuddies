@@ -1,5 +1,6 @@
 import 'package:body_buddies/core/widgets/app_bar.dart';
-import 'package:body_buddies/features/workouts/presentation/workouts_journal/presentation/bloc/workouts_journal_cubit.dart';
+import 'package:body_buddies/core/widgets/loading_screen.dart';
+import 'package:body_buddies/features/workouts/presentation/workouts_journal/presentation/bloc/journal_workouts_bloc.dart';
 import 'package:body_buddies/features/workouts/presentation/workouts_journal/presentation/widgets/journal_workout_card_item.dart';
 import 'package:body_buddies/features/workouts/domain/Entities/workout_entity.dart';
 import 'package:flutter/material.dart';
@@ -23,19 +24,22 @@ class WorkoutsJournalScreen extends StatelessWidget {
           color: Colours.workout_card_background_color,
           child: Container(
             padding: const EdgeInsets.all(16),
-            child: BlocBuilder<WorkoutsJournalCubit, List<WorkoutEntity>>(
+            child: BlocBuilder<JournalWorkoutsBloc, JournalWorkoutsState>(
               builder: (context, state) {
-                return ListView.builder(
-                  itemCount: state.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    return JournalWorkoutCardItem(
-                      state[index],
-                      removeItem: () => context
-                          .read<WorkoutsJournalCubit>()
-                          .removeSavedWorkout(index),
-                    );
-                  },
-                );
+                if (state is FetchJournalState) {
+                  return ListView.builder(
+                    itemCount: state.journalWorkouts.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return JournalWorkoutCardItem(
+                        state.journalWorkouts[index],
+                        removeItem: () => context
+                            .read<JournalWorkoutsBloc>()
+                            .add(DeleteJournalWorkoutEvent(index: index)),
+                      );
+                    },
+                  );
+                }
+                return const LoadingScreen();
               },
             ),
           ),

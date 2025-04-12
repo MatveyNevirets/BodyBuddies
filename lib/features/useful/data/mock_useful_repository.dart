@@ -45,8 +45,6 @@ class MockUsefulRepository implements UsefulRepository {
         WorkoutEntity(
           title: "Тяжёлая среда",
           weekday: 2,
-          back: true,
-          triceps: true,
           exercises: [
             ExerciseEntity(
                 isExercise: true,
@@ -69,8 +67,6 @@ class MockUsefulRepository implements UsefulRepository {
         WorkoutEntity(
           title: "Легкая ноги",
           weekday: 4,
-          legs: true,
-          shoulders: true,
           exercises: [
             ExerciseEntity(
                 isExercise: false,

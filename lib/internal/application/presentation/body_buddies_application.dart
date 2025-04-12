@@ -10,13 +10,13 @@ import 'package:body_buddies/features/workouts/presentation/add_your_exercise/pr
 import 'package:body_buddies/features/workouts/presentation/add_your_exercise/presentation/add_your_exercise_screen.dart';
 import 'package:body_buddies/features/workouts/presentation/create_workout/presentation/workout_create_screen.dart';
 import 'package:body_buddies/features/workouts/presentation/current_workout/presentation/current_workout_screen.dart';
+import 'package:body_buddies/features/workouts/presentation/workouts_journal/presentation/journal_workouts_page.dart';
 import 'package:body_buddies/features/workouts/presentation/workouts_menu/domain/exercises_database.dart';
 import 'package:body_buddies/features/workouts/presentation/workouts_menu/presentation/workouts_menu_page.dart';
 import 'package:body_buddies/internal/application/di/app_depends_provider.dart';
 import 'package:body_buddies/internal/home/presentation/bloc/home_bloc.dart';
 import 'package:body_buddies/features/workouts/presentation/workouts_menu/domain/fake_workouts_database.dart';
 import 'package:body_buddies/features/workouts/presentation/run_workout/presentation/run_workout_screen.dart';
-import 'package:body_buddies/features/workouts/presentation/workouts_journal/presentation/bloc/workouts_journal_cubit.dart';
 import 'package:body_buddies/features/workouts/presentation/workouts_journal/presentation/workouts_journal_screen.dart';
 import 'package:body_buddies/internal/home/presentation/home_screen.dart';
 import 'package:flutter/material.dart';
@@ -74,10 +74,8 @@ class BodyBuddiesApp extends StatelessWidget {
                       exercises: exercises,
                     ),
                   ),
-          "/workouts_menu/workouts_journal/": (context) => BlocProvider(
-              create: (BuildContext context) =>
-                  WorkoutsJournalCubit(fakeWorkoutsDatabase),
-              child: const WorkoutsJournalScreen()),
+          "/workouts_menu/workouts_journal/": (context) =>
+              JournalWorkoutsPage(),
           "workouts_menu/current_workout/": (context) =>
               const WorkoutEntityScreen(),
           "workouts_menu/run_workout/": (context) => RunWorkoutScreen(

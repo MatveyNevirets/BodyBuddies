@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:developer';
 
-import 'package:body_buddies/features/workouts/data/Models/workout_entity.dart';
+import 'package:body_buddies/features/workouts/data/Models/workout_model.dart';
 import 'package:body_buddies/features/workouts/domain/Entities/exercise_entity.dart';
 import 'package:body_buddies/features/useful/domain/entity/exercise_on_list_entity.dart';
 import 'package:body_buddies/features/workouts/domain/workouts_repository.dart';
@@ -148,6 +148,24 @@ class ProdWorkoutsRepository implements WorkoutsRepository {
     } on Object catch (error, stack) {
       throw Exception("Error: $error and stack: $stack");
     }
+  }
+
+  @override
+  Future<void> addJournalWorkout(WorkoutEntity workout, String token) {
+    // TODO: implement addJournalWorkout
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<void> deleteJournalWorkout(WorkoutEntity workout, String token) {
+    // TODO: implement deleteJournalWorkout
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<List<WorkoutEntity>> fetchJournalWorkouts(String token) {
+    // TODO: implement fetchJournalWorkouts
+    throw UnimplementedError();
   }
 }
 

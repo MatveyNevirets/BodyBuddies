@@ -5,25 +5,8 @@ import 'package:body_buddies/features/workouts/domain/Entities/exercise_entity.d
 class ExerciseModel extends ExerciseEntity {
   @override
   String title;
-
   @override
-  @override
-  @override
-  @override
-  @override
-  @override
-  @override
-  @override
-  @override
-  bool chest,
-      legs,
-      shoulders,
-      forearms,
-      triceps,
-      biceps,
-      abs,
-      isExercise,
-      isTimerExercise;
+  bool isExercise, isTimerExercise;
 
   @override
   @override
@@ -45,14 +28,7 @@ class ExerciseModel extends ExerciseEntity {
 
   ExerciseModel(
       {required this.title,
-      this.chest = false,
-      this.legs = false,
       this.currentSets = 1,
-      this.shoulders = false,
-      this.forearms = false,
-      this.triceps = false,
-      this.biceps = false,
-      this.abs = false,
       this.reps = 0,
       this.sets = 0,
       this.timerTimeSeconds = 0,

@@ -321,9 +321,16 @@ class RunTimerExercise extends StatelessWidget {
 
     if (state.exercises.last == exercise &&
         state.exercises.last.currentSets == exercise.sets) {
+      DateTime currentData = DateTime.now();
+      String dataInFormat =
+          "${currentData.day.toString().padLeft(2, "0")}.${currentData.month.toString().padLeft(2, "0")}.${currentData.year}";
+
+      journalWorkout.duration = getTime(workoutTimerDuration);
+      journalWorkout.date = dataInFormat;
+
       context
           .read<RunWorkoutBloc>()
-          .add(WorkoutCompleteEvent(workoutTimerDuration));
+          .add(WorkoutCompleteEvent(workoutTimerDuration, journalWorkout));
     } else {
       context
           .read<RunWorkoutBloc>()

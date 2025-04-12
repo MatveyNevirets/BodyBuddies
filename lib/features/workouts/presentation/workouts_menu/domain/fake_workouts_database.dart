@@ -6,8 +6,6 @@ class FakeWorkoutsDatabase {
     WorkoutEntity(
       title: "Тяжёлая среда",
       weekday: 2,
-      back: true,
-      triceps: true,
       exercises: [
         ExerciseEntity(
             isExercise: true,
@@ -54,8 +52,6 @@ class FakeWorkoutsDatabase {
     WorkoutEntity(
       title: "Легкая ноги",
       weekday: 4,
-      legs: true,
-      shoulders: true,
       exercises: [
         ExerciseEntity(
             isExercise: true,
@@ -116,26 +112,23 @@ class FakeWorkoutsDatabase {
       ],
     ),
     WorkoutEntity(
-        title: "Timer Exerc",
-        exercises: [
-          ExerciseEntity(
-              isTimerExercise: true,
-              title: "Берпс",
-              kilograms: 5,
-              restTimeInMinutes: 0,
-              restTimeInSeconds: 5,
-              timerTimeMinutes: 0,
-              timerTimeSeconds: 10,
-              sets: 3),
-        ],
-        weekday: 2,
-        legs: true,
-        cardio: true),
+      title: "Timer Exerc",
+      exercises: [
+        ExerciseEntity(
+            isTimerExercise: true,
+            title: "Берпс",
+            kilograms: 5,
+            restTimeInMinutes: 0,
+            restTimeInSeconds: 5,
+            timerTimeMinutes: 0,
+            timerTimeSeconds: 10,
+            sets: 3),
+      ],
+      weekday: 2,
+    ),
     WorkoutEntity(
       title: "Ношке наказание",
       weekday: 1,
-      legs: true,
-      shoulders: true,
       exercises: [
         ExerciseEntity(
             isExercise: true,
@@ -226,7 +219,7 @@ class FakeWorkoutsDatabase {
               restTimeInMinutes: 2,
               restTimeInSeconds: 0),
         ],
-        dateWhenTodo: "08.02.2025"),
+        date: "08.02.2025"),
   ];
 
   WorkoutEntity getWorkout(int index) => fakeWorkoutEntities[index];
