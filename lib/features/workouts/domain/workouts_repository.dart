@@ -16,9 +16,6 @@ abstract interface class WorkoutsRepository {
   Future<void> updateWorkout(String? title, int? weekday,
       List<ExerciseEntity>? exercises, int index, String token);
 
-  Future<List<ExerciseOnListEntity>> fetchAllExercisesToAddList(
-      BuildContext context);
-
   Future<void> addJournalWorkout(WorkoutEntity workout, String token);
   Future<void> deleteJournalWorkout(WorkoutEntity workout, String token);
   Future<List<WorkoutEntity>> fetchJournalWorkouts(String token);

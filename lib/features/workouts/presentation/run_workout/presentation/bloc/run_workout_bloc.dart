@@ -49,18 +49,17 @@ class RunWorkoutBloc extends Bloc<RunWorkoutEvent, RunWorkoutState> {
   onWorkoutCompete(
       WorkoutCompleteEvent event, Emitter<RunWorkoutState> emit) async {
     emit(LoadingState(exercises: [], currentExercise: 0, duration: 0));
+    try {
+      final jsonToken = await storage.read(AppConsts.tokenKey);
+      final mapToken = jsonDecode(jsonToken);
+      final token = mapToken['access_token'];
 
-    final jsonToken = await storage.read(AppConsts.tokenKey);
-    final mapToken = jsonDecode(jsonToken);
-    final token = mapToken['access_token'];
+      await workoutsRepository.addJournalWorkout(event.workoutEntity, token);
 
-    await workoutsRepository.addJournalWorkout(
-        event.workoutEntity, event.workoutTimerDuration.toString());
-
-    emit(CompleteWorkout(
-        exercises: exercises,
-        currentExercise: currentExercise,
-        duration: event.workoutTimerDuration));
+      emit(CompleteWorkout(exercises: [], currentExercise: 0, duration: 0));
+    } on Object catch (error, stack) {
+      throw Exception("Error: $error, StackTrace: $stack");
+    }
   }
 
   onWorkoutRested(ExerciseRestEvent event, Emitter<RunWorkoutState> emit) {

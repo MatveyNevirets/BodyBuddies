@@ -35,6 +35,9 @@ class JournalWorkoutsBloc
 
       await workoutsRepository.deleteJournalWorkout(
           journalWorkouts[event.index], token);
+
+      journalWorkouts = await workoutsRepository.fetchJournalWorkouts(token);
+
       emit(FetchJournalState(journalWorkouts: journalWorkouts));
     } on Object catch (error, stack) {
       throw Exception("Error: $error, StackTrace: $stack");
@@ -51,6 +54,7 @@ class JournalWorkoutsBloc
       final token = mapToken['access_token'];
 
       await workoutsRepository.addJournalWorkout(event.journalWorkout, token);
+
       emit(FetchJournalState(journalWorkouts: journalWorkouts));
     } on Object catch (error, stack) {
       throw Exception("Error: $error, StackTrace: $stack");

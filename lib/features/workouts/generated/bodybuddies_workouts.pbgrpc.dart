@@ -53,18 +53,22 @@ class WorkoutsRpcClient extends $grpc.Client {
       '/WorkoutsRpc/DeleteExercise',
       ($0.ExerciseDto value) => value.writeToBuffer(),
       ($core.List<$core.int> value) => $0.ResponseDto.fromBuffer(value));
-  static final _$addExerciseToAllExercises = $grpc.ClientMethod<$0.ExerciseOnListDto, $0.ResponseDto>(
-      '/WorkoutsRpc/AddExerciseToAllExercises',
-      ($0.ExerciseOnListDto value) => value.writeToBuffer(),
-      ($core.List<$core.int> value) => $0.ResponseDto.fromBuffer(value));
-  static final _$deleteExerciseToAllExercises = $grpc.ClientMethod<$0.ExerciseOnListDto, $0.ResponseDto>(
-      '/WorkoutsRpc/DeleteExerciseToAllExercises',
-      ($0.ExerciseOnListDto value) => value.writeToBuffer(),
-      ($core.List<$core.int> value) => $0.ResponseDto.fromBuffer(value));
-  static final _$fetchAllExercises = $grpc.ClientMethod<$0.RequestDto, $0.AllExercisesDto>(
-      '/WorkoutsRpc/FetchAllExercises',
+  static final _$fetchJournalWorkouts = $grpc.ClientMethod<$0.RequestDto, $0.AllJournalWorkoutsDto>(
+      '/WorkoutsRpc/FetchJournalWorkouts',
       ($0.RequestDto value) => value.writeToBuffer(),
-      ($core.List<$core.int> value) => $0.AllExercisesDto.fromBuffer(value));
+      ($core.List<$core.int> value) => $0.AllJournalWorkoutsDto.fromBuffer(value));
+  static final _$addJournalWorkout = $grpc.ClientMethod<$0.JournalWorkoutDto, $0.ResponseDto>(
+      '/WorkoutsRpc/AddJournalWorkout',
+      ($0.JournalWorkoutDto value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) => $0.ResponseDto.fromBuffer(value));
+  static final _$deleteJournalWorkout = $grpc.ClientMethod<$0.JournalWorkoutDto, $0.ResponseDto>(
+      '/WorkoutsRpc/DeleteJournalWorkout',
+      ($0.JournalWorkoutDto value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) => $0.ResponseDto.fromBuffer(value));
+  static final _$addJournalExercise = $grpc.ClientMethod<$0.ExerciseDto, $0.ResponseDto>(
+      '/WorkoutsRpc/AddJournalExercise',
+      ($0.ExerciseDto value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) => $0.ResponseDto.fromBuffer(value));
 
   WorkoutsRpcClient($grpc.ClientChannel channel,
       {$grpc.CallOptions? options,
@@ -104,16 +108,20 @@ class WorkoutsRpcClient extends $grpc.Client {
     return $createUnaryCall(_$deleteExercise, request, options: options);
   }
 
-  $grpc.ResponseFuture<$0.ResponseDto> addExerciseToAllExercises($0.ExerciseOnListDto request, {$grpc.CallOptions? options}) {
-    return $createUnaryCall(_$addExerciseToAllExercises, request, options: options);
+  $grpc.ResponseFuture<$0.AllJournalWorkoutsDto> fetchJournalWorkouts($0.RequestDto request, {$grpc.CallOptions? options}) {
+    return $createUnaryCall(_$fetchJournalWorkouts, request, options: options);
   }
 
-  $grpc.ResponseFuture<$0.ResponseDto> deleteExerciseToAllExercises($0.ExerciseOnListDto request, {$grpc.CallOptions? options}) {
-    return $createUnaryCall(_$deleteExerciseToAllExercises, request, options: options);
+  $grpc.ResponseFuture<$0.ResponseDto> addJournalWorkout($0.JournalWorkoutDto request, {$grpc.CallOptions? options}) {
+    return $createUnaryCall(_$addJournalWorkout, request, options: options);
   }
 
-  $grpc.ResponseFuture<$0.AllExercisesDto> fetchAllExercises($0.RequestDto request, {$grpc.CallOptions? options}) {
-    return $createUnaryCall(_$fetchAllExercises, request, options: options);
+  $grpc.ResponseFuture<$0.ResponseDto> deleteJournalWorkout($0.JournalWorkoutDto request, {$grpc.CallOptions? options}) {
+    return $createUnaryCall(_$deleteJournalWorkout, request, options: options);
+  }
+
+  $grpc.ResponseFuture<$0.ResponseDto> addJournalExercise($0.ExerciseDto request, {$grpc.CallOptions? options}) {
+    return $createUnaryCall(_$addJournalExercise, request, options: options);
   }
 }
 
@@ -178,27 +186,34 @@ abstract class WorkoutsRpcServiceBase extends $grpc.Service {
         false,
         ($core.List<$core.int> value) => $0.ExerciseDto.fromBuffer(value),
         ($0.ResponseDto value) => value.writeToBuffer()));
-    $addMethod($grpc.ServiceMethod<$0.ExerciseOnListDto, $0.ResponseDto>(
-        'AddExerciseToAllExercises',
-        addExerciseToAllExercises_Pre,
-        false,
-        false,
-        ($core.List<$core.int> value) => $0.ExerciseOnListDto.fromBuffer(value),
-        ($0.ResponseDto value) => value.writeToBuffer()));
-    $addMethod($grpc.ServiceMethod<$0.ExerciseOnListDto, $0.ResponseDto>(
-        'DeleteExerciseToAllExercises',
-        deleteExerciseToAllExercises_Pre,
-        false,
-        false,
-        ($core.List<$core.int> value) => $0.ExerciseOnListDto.fromBuffer(value),
-        ($0.ResponseDto value) => value.writeToBuffer()));
-    $addMethod($grpc.ServiceMethod<$0.RequestDto, $0.AllExercisesDto>(
-        'FetchAllExercises',
-        fetchAllExercises_Pre,
+    $addMethod($grpc.ServiceMethod<$0.RequestDto, $0.AllJournalWorkoutsDto>(
+        'FetchJournalWorkouts',
+        fetchJournalWorkouts_Pre,
         false,
         false,
         ($core.List<$core.int> value) => $0.RequestDto.fromBuffer(value),
-        ($0.AllExercisesDto value) => value.writeToBuffer()));
+        ($0.AllJournalWorkoutsDto value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$0.JournalWorkoutDto, $0.ResponseDto>(
+        'AddJournalWorkout',
+        addJournalWorkout_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) => $0.JournalWorkoutDto.fromBuffer(value),
+        ($0.ResponseDto value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$0.JournalWorkoutDto, $0.ResponseDto>(
+        'DeleteJournalWorkout',
+        deleteJournalWorkout_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) => $0.JournalWorkoutDto.fromBuffer(value),
+        ($0.ResponseDto value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$0.ExerciseDto, $0.ResponseDto>(
+        'AddJournalExercise',
+        addJournalExercise_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) => $0.ExerciseDto.fromBuffer(value),
+        ($0.ResponseDto value) => value.writeToBuffer()));
   }
 
   $async.Future<$0.AllWorkoutsDto> fetchAllWorkouts_Pre($grpc.ServiceCall call, $async.Future<$0.RequestDto> request) async {
@@ -233,16 +248,20 @@ abstract class WorkoutsRpcServiceBase extends $grpc.Service {
     return deleteExercise(call, await request);
   }
 
-  $async.Future<$0.ResponseDto> addExerciseToAllExercises_Pre($grpc.ServiceCall call, $async.Future<$0.ExerciseOnListDto> request) async {
-    return addExerciseToAllExercises(call, await request);
+  $async.Future<$0.AllJournalWorkoutsDto> fetchJournalWorkouts_Pre($grpc.ServiceCall call, $async.Future<$0.RequestDto> request) async {
+    return fetchJournalWorkouts(call, await request);
   }
 
-  $async.Future<$0.ResponseDto> deleteExerciseToAllExercises_Pre($grpc.ServiceCall call, $async.Future<$0.ExerciseOnListDto> request) async {
-    return deleteExerciseToAllExercises(call, await request);
+  $async.Future<$0.ResponseDto> addJournalWorkout_Pre($grpc.ServiceCall call, $async.Future<$0.JournalWorkoutDto> request) async {
+    return addJournalWorkout(call, await request);
   }
 
-  $async.Future<$0.AllExercisesDto> fetchAllExercises_Pre($grpc.ServiceCall call, $async.Future<$0.RequestDto> request) async {
-    return fetchAllExercises(call, await request);
+  $async.Future<$0.ResponseDto> deleteJournalWorkout_Pre($grpc.ServiceCall call, $async.Future<$0.JournalWorkoutDto> request) async {
+    return deleteJournalWorkout(call, await request);
+  }
+
+  $async.Future<$0.ResponseDto> addJournalExercise_Pre($grpc.ServiceCall call, $async.Future<$0.ExerciseDto> request) async {
+    return addJournalExercise(call, await request);
   }
 
   $async.Future<$0.AllWorkoutsDto> fetchAllWorkouts($grpc.ServiceCall call, $0.RequestDto request);
@@ -253,7 +272,8 @@ abstract class WorkoutsRpcServiceBase extends $grpc.Service {
   $async.Future<$0.ResponseDto> addExercise($grpc.ServiceCall call, $0.ExerciseDto request);
   $async.Future<$0.ResponseDto> updateExercise($grpc.ServiceCall call, $0.ExerciseDto request);
   $async.Future<$0.ResponseDto> deleteExercise($grpc.ServiceCall call, $0.ExerciseDto request);
-  $async.Future<$0.ResponseDto> addExerciseToAllExercises($grpc.ServiceCall call, $0.ExerciseOnListDto request);
-  $async.Future<$0.ResponseDto> deleteExerciseToAllExercises($grpc.ServiceCall call, $0.ExerciseOnListDto request);
-  $async.Future<$0.AllExercisesDto> fetchAllExercises($grpc.ServiceCall call, $0.RequestDto request);
+  $async.Future<$0.AllJournalWorkoutsDto> fetchJournalWorkouts($grpc.ServiceCall call, $0.RequestDto request);
+  $async.Future<$0.ResponseDto> addJournalWorkout($grpc.ServiceCall call, $0.JournalWorkoutDto request);
+  $async.Future<$0.ResponseDto> deleteJournalWorkout($grpc.ServiceCall call, $0.JournalWorkoutDto request);
+  $async.Future<$0.ResponseDto> addJournalExercise($grpc.ServiceCall call, $0.ExerciseDto request);
 }

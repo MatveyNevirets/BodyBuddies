@@ -6,10 +6,12 @@ class WorkoutModel extends WorkoutEntity {
       required super.exercises,
       required super.weekday,
       super.date,
-      super.duration});
+      super.duration,
+      super.id});
 
   factory WorkoutModel.fromJson(Map<String, dynamic> json) {
     return WorkoutModel(
+        id: json['id'],
         title: json['title'],
         exercises: json['exercises'],
         weekday: json['weekday']);

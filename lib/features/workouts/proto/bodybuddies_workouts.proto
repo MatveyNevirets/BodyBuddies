@@ -11,10 +11,11 @@ service WorkoutsRpc {
     rpc UpdateExercise (ExerciseDto) returns (ResponseDto);
     rpc DeleteExercise (ExerciseDto) returns (ResponseDto);
 
-    rpc AddExerciseToAllExercises (ExerciseOnListDto) returns (ResponseDto);
-    rpc DeleteExerciseToAllExercises (ExerciseOnListDto) returns (ResponseDto);
+    rpc FetchJournalWorkouts (RequestDto) returns (AllJournalWorkoutsDto);
+    rpc AddJournalWorkout (JournalWorkoutDto) returns (ResponseDto);
+    rpc DeleteJournalWorkout (JournalWorkoutDto) returns (ResponseDto);
 
-    rpc FetchAllExercises (RequestDto) returns (AllExercisesDto);
+    rpc AddJournalExercise (ExerciseDto) returns (ResponseDto);
 }
 
 message RequestDto {}
@@ -23,12 +24,12 @@ message ResponseDto {
     string message = 1;
 }
 
-message AllExercisesDto {
-    repeated ExerciseOnListDto exercises = 1;
-}
-
 message AllWorkoutsDto {
     repeated WorkoutDto workouts = 1;
+}
+
+message AllJournalWorkoutsDto {
+    repeated JournalWorkoutDto workouts = 1;
 }
 
 message WorkoutDto {
@@ -39,10 +40,13 @@ message WorkoutDto {
     repeated ExerciseDto exercises = 5;
 }
 
-message ExerciseOnListDto {
+message JournalWorkoutDto {
     string id = 1;
-    string title = 2;
-    bool isExercise = 3;
+    string author_id = 2;
+    string title = 3;
+    string duration = 4;
+    string date = 5;
+    repeated ExerciseDto exercises = 6;
 }
 
 message ExerciseDto {

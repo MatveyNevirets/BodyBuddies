@@ -42,6 +42,7 @@ class ProdWorkoutsRepository implements WorkoutsRepository {
       List<WorkoutDto> workoutsDto = response.workouts;
       final workouts = workoutsDto
           .map((dto) => WorkoutModel(
+              id: int.parse(dto.id),
               title: dto.title,
               weekday: int.parse(dto.weekday),
               exercises: convertExerciseFromDto(dto.exercises)))
@@ -133,48 +134,70 @@ class ProdWorkoutsRepository implements WorkoutsRepository {
   }
 
   @override
-  Future<List<ExerciseOnListEntity>> fetchAllExercisesToAddList(
-      BuildContext context) async {
-    final storage = AppDependsProvider.of(context).secureStorage;
+  Future<void> addJournalWorkout(WorkoutEntity workout, String token) async {
     try {
-      final tokenJson = await storage.read(AppConsts.tokenKey);
-      final tokenMap = jsonDecode(tokenJson);
-      final token = tokenMap['access_token'];
-
-      final response = await _client.fetchAllExercises(RequestDto(),
+      final response = await _client.addJournalWorkout(
+          JournalWorkoutDto(
+              duration: workout.duration,
+              title: workout.title,
+              date: workout.date),
           options: CallOptions(metadata: {"token": token}));
 
-      return convertExerciseToListFromDto(response.exercises);
+      for (ExerciseEntity exercise in workout.exercises) {
+        await _client.addJournalExercise(
+            ExerciseDto(
+              workoutId: response.message,
+              title: exercise.title,
+              weight: exercise.kilograms.toString(),
+              reps: exercise.reps.toString(),
+              sets: exercise.sets.toString(),
+              restTimeMinutes: exercise.restTimeInMinutes.toString(),
+              restTimeSeconds: exercise.restTimeInSeconds.toString(),
+              exerciseTimeMinutes: exercise.timerTimeMinutes.toString(),
+              exerciseTimeSeconds: exercise.timerTimeSeconds.toString(),
+              isExercise: exercise.isExercise,
+              isTimerExercise: exercise.isTimerExercise,
+            ),
+            options: CallOptions(metadata: {"token": token}));
+      }
     } on Object catch (error, stack) {
-      throw Exception("Error: $error and stack: $stack");
+      throw Exception("Error: $error, StackTrace: $stack");
     }
   }
 
   @override
-  Future<void> addJournalWorkout(WorkoutEntity workout, String token) {
-    // TODO: implement addJournalWorkout
-    throw UnimplementedError();
+  Future<void> deleteJournalWorkout(WorkoutEntity workout, String token) async {
+    try {
+      await _client.deleteJournalWorkout(
+          JournalWorkoutDto(
+              id: workout.id.toString(),
+              title: workout.title,
+              date: workout.date,
+              duration: workout.duration),
+          options: CallOptions(metadata: {"token": token}));
+    } on Object catch (error, stack) {
+      throw Exception("Error: $error, StackTrace: $stack");
+    }
   }
 
   @override
-  Future<void> deleteJournalWorkout(WorkoutEntity workout, String token) {
-    // TODO: implement deleteJournalWorkout
-    throw UnimplementedError();
-  }
+  Future<List<WorkoutEntity>> fetchJournalWorkouts(String token) async {
+    try {
+      final response = await _client.fetchJournalWorkouts(RequestDto(),
+          options: CallOptions(metadata: {"token": token}));
 
-  @override
-  Future<List<WorkoutEntity>> fetchJournalWorkouts(String token) {
-    // TODO: implement fetchJournalWorkouts
-    throw UnimplementedError();
+      return response.workouts
+          .map((workout) => WorkoutEntity(
+              id: int.tryParse(workout.id),
+              title: workout.title,
+              exercises: convertExerciseFromDto(workout.exercises),
+              date: workout.date,
+              duration: workout.duration))
+          .toList();
+    } on Object catch (error, stack) {
+      throw Exception("Error: $error, StackTrace: $stack");
+    }
   }
-}
-
-List<ExerciseOnListEntity> convertExerciseToListFromDto(
-    List<ExerciseOnListDto> exercises) {
-  return exercises
-      .map((exericse) => ExerciseOnListEntity(
-          title: exericse.title, isExercise: exericse.isExercise))
-      .toList();
 }
 
 List<ExerciseEntity> convertExerciseFromDto(List<ExerciseDto> exerciseDto) {
