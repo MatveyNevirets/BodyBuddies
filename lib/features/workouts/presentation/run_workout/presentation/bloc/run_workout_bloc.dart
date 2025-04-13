@@ -36,7 +36,7 @@ class RunWorkoutBloc extends Bloc<RunWorkoutEvent, RunWorkoutState> {
   }
 
   onExerciseStarted(ExerciseRunEvent event, Emitter<RunWorkoutState> emit) {
-    emit(LoadingState(exercises: [], currentExercise: 0, duration: 0));
+    emit(LoadingState(exercises: const [], currentExercise: 0, duration: 0));
     exercises[currentExercise].currentSets = currentSets;
     emit(
       WorkoutInProcess(
@@ -48,7 +48,7 @@ class RunWorkoutBloc extends Bloc<RunWorkoutEvent, RunWorkoutState> {
 
   onWorkoutCompete(
       WorkoutCompleteEvent event, Emitter<RunWorkoutState> emit) async {
-    emit(LoadingState(exercises: [], currentExercise: 0, duration: 0));
+    emit(LoadingState(exercises: const [], currentExercise: 0, duration: 0));
     try {
       final jsonToken = await storage.read(AppConsts.tokenKey);
       final mapToken = jsonDecode(jsonToken);
@@ -56,7 +56,8 @@ class RunWorkoutBloc extends Bloc<RunWorkoutEvent, RunWorkoutState> {
 
       await workoutsRepository.addJournalWorkout(event.workoutEntity, token);
 
-      emit(CompleteWorkout(exercises: [], currentExercise: 0, duration: 0));
+      emit(CompleteWorkout(
+          exercises: const [], currentExercise: 0, duration: 0));
     } on Object catch (error, stack) {
       throw Exception("Error: $error, StackTrace: $stack");
     }

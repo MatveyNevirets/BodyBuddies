@@ -1,15 +1,11 @@
-import 'dart:convert';
 import 'dart:developer';
 
 import 'package:body_buddies/features/workouts/data/Models/workout_model.dart';
 import 'package:body_buddies/features/workouts/domain/Entities/exercise_entity.dart';
-import 'package:body_buddies/features/useful/domain/entity/exercise_on_list_entity.dart';
 import 'package:body_buddies/features/workouts/domain/workouts_repository.dart';
 import 'package:body_buddies/features/workouts/domain/Entities/workout_entity.dart';
 import 'package:body_buddies/features/workouts/generated/bodybuddies_workouts.pbgrpc.dart';
 import 'package:body_buddies/internal/application/app_consts.dart';
-import 'package:body_buddies/internal/application/di/app_depends_provider.dart';
-import 'package:flutter/widgets.dart';
 import 'package:grpc/grpc_or_grpcweb.dart';
 
 class ProdWorkoutsRepository implements WorkoutsRepository {
@@ -104,33 +100,29 @@ class ProdWorkoutsRepository implements WorkoutsRepository {
 
   @override
   Future<void> updateWorkout(String? title, int? weekday,
-      List<ExerciseEntity>? exercises, int index, String token) async {
-    // final storage = AppDependsProvider.of(context).secureStorage;
-    // try {
-    //   final tokenJson = await storage.read(AppConsts.tokenKey);
-    //   final tokenMap = jsonDecode(tokenJson);
-    //   final token = tokenMap['access_token'];
+      List<ExerciseEntity>? exercises, int id, String token) async {
+    await _client.updateWorkout(
+        WorkoutDto(
+            id: id.toString(), title: title!, weekday: weekday.toString()),
+        options: CallOptions(metadata: {"token": token}));
 
-    //   final workoutsDto = await _client.fetchAllWorkouts(RequestDto(),
-    //       options: CallOptions(metadata: {"token": token}));
-    //   final workout = workoutsDto.workouts[index];
-
-    //   await _client.updateWorkout(
-    //       WorkoutDto(
-    //           id: workout.id,
-    //           authorId: workout.authorId,
-    //           title: title ?? workout.title,
-    //           weekday: workout.weekday == weekday.toString()
-    //               ? workout.weekday
-    //               : weekday.toString()),
-    //       options: CallOptions(metadata: {"token": token}));
-
-    //   // for(ExerciseEntity exercise in exercises!) {
-    //   //   await _client.updateExercise(ExerciseDto(id: ))
-    //   // }
-    // } on Object catch (error, stack) {
-    //   throw Exception("Error: $error and stack: $stack");
-    // }
+    for (ExerciseEntity exercise in exercises!) {
+      await _client.updateExercise(
+          ExerciseDto(
+            workoutId: id.toString(),
+            title: exercise.title,
+            weight: exercise.kilograms.toString(),
+            reps: exercise.reps.toString(),
+            sets: exercise.sets.toString(),
+            restTimeMinutes: exercise.restTimeInMinutes.toString(),
+            restTimeSeconds: exercise.restTimeInSeconds.toString(),
+            exerciseTimeMinutes: exercise.timerTimeMinutes.toString(),
+            exerciseTimeSeconds: exercise.timerTimeSeconds.toString(),
+            isExercise: exercise.isExercise,
+            isTimerExercise: exercise.isTimerExercise,
+          ),
+          options: CallOptions(metadata: {"token": token}));
+    }
   }
 
   @override

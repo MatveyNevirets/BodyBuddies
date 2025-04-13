@@ -5,6 +5,8 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class JournalWorkoutsPage extends StatelessWidget {
+  const JournalWorkoutsPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     final depends = AppDependsProvider.of(context);
@@ -13,7 +15,7 @@ class JournalWorkoutsPage extends StatelessWidget {
       create: (BuildContext context) =>
           JournalWorkoutsBloc(depends.workoutsRepository, depends.secureStorage)
             ..add(FetchJournalEvent()),
-      child: WorkoutsJournalScreen(),
+      child: const WorkoutsJournalScreen(),
     );
   }
 }

@@ -17,7 +17,6 @@ import 'package:body_buddies/internal/application/di/app_depends_provider.dart';
 import 'package:body_buddies/internal/home/presentation/bloc/home_bloc.dart';
 import 'package:body_buddies/features/workouts/presentation/workouts_menu/domain/fake_workouts_database.dart';
 import 'package:body_buddies/features/workouts/presentation/run_workout/presentation/run_workout_screen.dart';
-import 'package:body_buddies/features/workouts/presentation/workouts_journal/presentation/workouts_journal_screen.dart';
 import 'package:body_buddies/internal/home/presentation/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';

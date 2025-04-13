@@ -1,6 +1,7 @@
 // ignore_for_file: must_be_immutable, use_build_context_synchronously
 
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:body_buddies/core/colors/colors.dart';
 import 'package:body_buddies/core/widgets/app_bar.dart';
@@ -59,8 +60,10 @@ class _CreateWorkoutScreenState extends State<CreateWorkoutScreen> {
   Future<void> tryToCreateWorkout(
       BuildContext menuContext,
       BuildContext thisContext,
-      int index,
+      int id,
       TextEditingController titleController) async {
+    log("Id: $id");
+
     final depends = AppDependsProvider.of(thisContext);
 
     widget.isMon = widget.selectedWeekday == Strings.monday ? true : false;
@@ -117,7 +120,7 @@ class _CreateWorkoutScreenState extends State<CreateWorkoutScreen> {
               titleController.text.toString(),
               getNumberWeekday(),
               newExercises,
-              index,
+              id,
               token);
         }
 
@@ -165,7 +168,7 @@ class _CreateWorkoutScreenState extends State<CreateWorkoutScreen> {
     widget.isEditWorkout = modalRouteData[2] as bool;
 
     final workoutEntity = modalRouteData[1] as WorkoutEntity;
-    int workoutIndex = 0;
+    int workoutId = 0;
 
     if (const ListEquality()
         .equals(workoutEntity.exercises, widget._exercises)) {
@@ -180,18 +183,7 @@ class _CreateWorkoutScreenState extends State<CreateWorkoutScreen> {
       titleTextFieldController.text =
           widget.isEditWorkout ? workoutEntity.title.toString() : "";
 
-      int getIndexIfEdit() {
-        for (int i = 0; i < widget.fakeDB.fakeWorkoutEntities.length; i++) {
-          if (const ListEquality().equals(
-              widget.fakeDB.fakeWorkoutEntities[i].exercises,
-              widget._exercises)) {
-            return i;
-          }
-        }
-        return 0;
-      }
-
-      workoutIndex = getIndexIfEdit();
+      workoutId = workoutEntity.id!;
     }
 
     final workoutsMenuContext = modalRouteData[0] as BuildContext;
@@ -359,7 +351,7 @@ class _CreateWorkoutScreenState extends State<CreateWorkoutScreen> {
                   ),
                   BaseButton(
                     onClick: () => tryToCreateWorkout(workoutsMenuContext,
-                        context, workoutIndex, titleTextFieldController),
+                        context, workoutId, titleTextFieldController),
                     buttonText: Strings.done,
                     icon: null,
                     isElevated: true,
