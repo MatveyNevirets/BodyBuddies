@@ -106,8 +106,17 @@ class ProdWorkoutsRepository implements WorkoutsRepository {
             id: id.toString(), title: title!, weekday: weekday.toString()),
         options: CallOptions(metadata: {"token": token}));
 
+    final workout = await _client.fetchWorkout(WorkoutDto(title: title),
+        options: CallOptions(metadata: {"token": token}));
+
+    for (ExerciseDto exercise in workout.exercises) {
+      await _client.deleteExercise(
+          ExerciseDto(workoutId: id.toString(), title: exercise.title),
+          options: CallOptions(metadata: {"token": token}));
+    }
+
     for (ExerciseEntity exercise in exercises!) {
-      await _client.updateExercise(
+      await _client.addExercise(
           ExerciseDto(
             workoutId: id.toString(),
             title: exercise.title,
