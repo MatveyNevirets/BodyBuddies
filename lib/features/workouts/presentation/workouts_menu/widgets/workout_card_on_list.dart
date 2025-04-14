@@ -55,6 +55,8 @@ class WorkoutCardOnList extends StatelessWidget {
     return GestureDetector(
       onTap: () => openWorkout(),
       child: Card(
+        elevation: 2,
+        shadowColor: Colours.background_news_card_color,
         color: Colours.workout_card_background_color,
         child: Container(
           padding: EdgeInsets.only(

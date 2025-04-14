@@ -59,7 +59,7 @@ abstract class Strings {
   static const String start = "Начнём!";
   static const String start2 = "Начать";
 
-  static String diet = "Питание";
+  static String water = "Вода";
   static String useful = "Полезное";
 
   static String you_need_more = "Тебе осталось:";

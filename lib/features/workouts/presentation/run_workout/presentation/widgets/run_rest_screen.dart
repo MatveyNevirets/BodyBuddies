@@ -36,18 +36,20 @@ class RestScreen extends StatelessWidget {
               padding: const EdgeInsets.all(16),
               height: double.maxFinite,
               width: double.maxFinite,
-              child: Column(
-                children: [
-                  buildWorkoutTimeWidget(context),
-                  const SizedBox(
-                    height: 16,
-                  ),
-                  buildRestTextWidget(context),
-                  const SizedBox(
-                    height: 32,
-                  ),
-                  buildSkipButton(context),
-                ],
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    buildWorkoutTimeWidget(context),
+                    const SizedBox(
+                      height: 16,
+                    ),
+                    buildRestTextWidget(context),
+                    const SizedBox(
+                      height: 32,
+                    ),
+                    buildSkipButton(context),
+                  ],
+                ),
               ),
             ),
           ),

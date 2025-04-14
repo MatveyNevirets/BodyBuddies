@@ -44,32 +44,30 @@ class RunTimerExercise extends StatelessWidget {
               padding: const EdgeInsets.all(16),
               height: double.maxFinite,
               width: double.maxFinite,
-              child: Wrap(
-                children: [
-                  Column(
-                    children: [
-                      buildTimeAndSetsWidget(exercise, ticker),
-                      const SizedBox(
-                        height: 16,
-                      ),
-                      SizedBox(
-                          width: double.maxFinite,
-                          child: buildWorkoutTitleWidget(exercise.title)),
-                      const SizedBox(
-                        height: 16,
-                      ),
-                      buildExerciseTimerWidget(context),
-                      const SizedBox(
-                        height: 16,
-                      ),
-                      buildInputFieldsWidget(exercise),
-                      const SizedBox(
-                        height: 24,
-                      ),
-                      buildDoneButton(context),
-                    ],
-                  ),
-                ],
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    buildTimeAndSetsWidget(exercise, ticker),
+                    const SizedBox(
+                      height: 16,
+                    ),
+                    SizedBox(
+                        width: double.maxFinite,
+                        child: buildWorkoutTitleWidget(exercise.title)),
+                    const SizedBox(
+                      height: 16,
+                    ),
+                    buildExerciseTimerWidget(context),
+                    const SizedBox(
+                      height: 16,
+                    ),
+                    buildInputFieldsWidget(exercise),
+                    const SizedBox(
+                      height: 24,
+                    ),
+                    buildDoneButton(context),
+                  ],
+                ),
               ),
             ),
           ),

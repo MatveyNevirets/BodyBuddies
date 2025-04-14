@@ -25,7 +25,6 @@ class OpenWorkoutsJournal extends StatelessWidget {
         GestureDetector(
           onTap: () => openJournal(context),
           child: Card(
-            elevation: 4,
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
             child: Container(
@@ -36,6 +35,12 @@ class OpenWorkoutsJournal extends StatelessWidget {
                       begin: Alignment.topCenter,
                       end: Alignment.bottomCenter,
                       colors: Colours.journalGradientColors),
+                  boxShadow: [
+                    BoxShadow(
+                        color: Colours.journalGradientColors[0],
+                        blurRadius: 3,
+                        spreadRadius: 1)
+                  ],
                   borderRadius: BorderRadius.circular(16)),
               child: Padding(
                 padding:

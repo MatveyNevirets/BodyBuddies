@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../core/strings/strings.dart';
-import '../../../features/nutrition/nutrition_feature_card.dart';
 import '../../../features/useful/useful_feature_card/presentation/useful_feature_card.dart';
 import '../../../features/water_indicator_widget/water_indicator_widget.dart';
 import '../../../features/workouts/presentation/workout_feature_card/presentation/workouts_feature_card.dart';
@@ -26,10 +25,10 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar: createAppBarWidget(
           appbarTitle: Strings.workouts_appbar, context: context),
-      body: Container(
-        margin: Styles.base_margin_size,
-        child: ListView(children: [
-          Column(
+      body: ListView(children: [
+        Padding(
+          padding: const EdgeInsets.all(8),
+          child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const Text(Strings.your_programs_string,
@@ -41,7 +40,7 @@ class _HomeScreenState extends State<HomeScreen> {
               const SizedBox(
                 height: Styles.big_height_of_text_to_widget / 1.5,
               ),
-              Text(Strings.diet, style: Styles.appbar_text_style),
+              Text(Strings.water, style: Styles.appbar_text_style),
               const SizedBox(
                 height: Styles.height_of_text_to_widget,
               ),
@@ -55,10 +54,6 @@ class _HomeScreenState extends State<HomeScreen> {
               const SizedBox(
                 height: Styles.big_height_of_text_to_widget / 1.5,
               ),
-              const NutritionFeatureCard(),
-              const SizedBox(
-                height: Styles.big_height_of_text_to_widget / 1.5,
-              ),
               Text(Strings.useful, style: Styles.appbar_text_style),
               const SizedBox(
                 height: Styles.height_of_text_to_widget,
@@ -66,8 +61,8 @@ class _HomeScreenState extends State<HomeScreen> {
               const UsefulFeatureCard(),
             ],
           ),
-        ]),
-      ),
+        ),
+      ]),
     );
   }
 }

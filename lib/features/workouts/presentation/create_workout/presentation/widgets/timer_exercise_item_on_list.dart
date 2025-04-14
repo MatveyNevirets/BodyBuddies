@@ -135,7 +135,7 @@ class _TimerExerciseItemOnListState extends State<TimerExerciseItemOnList> {
         decoration: BoxDecoration(
             color: Colours.workoutCardForegroundColor,
             borderRadius: BorderRadius.circular(4)),
-        margin: const EdgeInsets.all(8),
+        margin: const EdgeInsets.only(bottom: 8, top: 8),
         height: screenSize.height / 25,
         width: double.maxFinite,
         padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 4),
@@ -167,7 +167,7 @@ class _TimerExerciseItemOnListState extends State<TimerExerciseItemOnList> {
           children: [
             Container(
               width: screenSize.width / 4,
-              height: 30,
+              height: 40,
               padding: const EdgeInsets.all(2),
               decoration: BoxDecoration(
                   color: Colours.workoutCardForegroundColor,
@@ -196,9 +196,9 @@ class _TimerExerciseItemOnListState extends State<TimerExerciseItemOnList> {
                       borderSide: BorderSide(
                           width: 2,
                           color: Colours.workout_card_background_color)),
-                  hintText: Strings.minutes,
-                  hintStyle: Styles.hint_text_field_fill_workout,
-                  contentPadding: const EdgeInsets.only(bottom: 16),
+                  labelText: Strings.minutes,
+                  labelStyle: Styles.hint_text_field_fill_workout,
+                  contentPadding: const EdgeInsets.only(bottom: 14),
                   counterText: '',
                 ),
               ),
@@ -208,7 +208,7 @@ class _TimerExerciseItemOnListState extends State<TimerExerciseItemOnList> {
             ),
             Container(
               width: screenSize.width / 4,
-              height: 30,
+              height: 40,
               padding: const EdgeInsets.all(2),
               decoration: BoxDecoration(
                   color: Colours.workoutCardForegroundColor,
@@ -237,9 +237,9 @@ class _TimerExerciseItemOnListState extends State<TimerExerciseItemOnList> {
                       borderSide: BorderSide(
                           width: 2,
                           color: Colours.workout_card_background_color)),
-                  hintText: Strings.seconds,
-                  hintStyle: Styles.hint_text_field_fill_workout,
-                  contentPadding: const EdgeInsets.only(bottom: 16),
+                  labelText: Strings.seconds,
+                  labelStyle: Styles.hint_text_field_fill_workout,
+                  contentPadding: const EdgeInsets.only(bottom: 14),
                   counterText: '',
                 ),
               ),
@@ -267,7 +267,7 @@ class _TimerExerciseItemOnListState extends State<TimerExerciseItemOnList> {
           children: [
             Container(
               width: screenSize.width / 4,
-              height: 30,
+              height: 40,
               padding: const EdgeInsets.all(2),
               decoration: BoxDecoration(
                   color: Colours.workoutCardForegroundColor,
@@ -295,9 +295,9 @@ class _TimerExerciseItemOnListState extends State<TimerExerciseItemOnList> {
                       borderSide: BorderSide(
                           width: 2,
                           color: Colours.workout_card_background_color)),
-                  hintText: Strings.sets,
-                  hintStyle: Styles.hint_text_field_fill_workout,
-                  contentPadding: const EdgeInsets.only(bottom: 16),
+                  labelText: Strings.sets,
+                  labelStyle: Styles.hint_text_field_fill_workout,
+                  contentPadding: const EdgeInsets.only(bottom: 14),
                   counterText: '',
                 ),
               ),
@@ -307,7 +307,7 @@ class _TimerExerciseItemOnListState extends State<TimerExerciseItemOnList> {
             ),
             Container(
               width: screenSize.width / 4,
-              height: 30,
+              height: 40,
               padding: const EdgeInsets.all(2),
               decoration: BoxDecoration(
                   color: Colours.workoutCardForegroundColor,
@@ -336,9 +336,9 @@ class _TimerExerciseItemOnListState extends State<TimerExerciseItemOnList> {
                       borderSide: BorderSide(
                           width: 2,
                           color: Colours.workout_card_background_color)),
-                  hintText: Strings.weight,
-                  hintStyle: Styles.hint_text_field_fill_workout,
-                  contentPadding: const EdgeInsets.only(bottom: 16),
+                  labelText: Strings.weight,
+                  labelStyle: Styles.hint_text_field_fill_workout,
+                  contentPadding: const EdgeInsets.only(bottom: 14),
                   counterText: '',
                 ),
               ),
@@ -366,7 +366,7 @@ class _TimerExerciseItemOnListState extends State<TimerExerciseItemOnList> {
           children: [
             Container(
               width: screenSize.width / 4,
-              height: 30,
+              height: 40,
               padding: const EdgeInsets.all(2),
               decoration: BoxDecoration(
                   color: Colours.workoutCardForegroundColor,
@@ -395,9 +395,9 @@ class _TimerExerciseItemOnListState extends State<TimerExerciseItemOnList> {
                       borderSide: BorderSide(
                           width: 2,
                           color: Colours.workout_card_background_color)),
-                  hintText: Strings.minutes,
-                  hintStyle: Styles.hint_text_field_fill_workout,
-                  contentPadding: const EdgeInsets.only(bottom: 16),
+                  labelText: Strings.minutes,
+                  labelStyle: Styles.hint_text_field_fill_workout,
+                  contentPadding: const EdgeInsets.only(bottom: 14),
                   counterText: '',
                 ),
               ),
@@ -407,7 +407,7 @@ class _TimerExerciseItemOnListState extends State<TimerExerciseItemOnList> {
             ),
             Container(
               width: screenSize.width / 4,
-              height: 30,
+              height: 40,
               padding: const EdgeInsets.all(2),
               decoration: BoxDecoration(
                   color: Colours.workoutCardForegroundColor,
@@ -436,9 +436,9 @@ class _TimerExerciseItemOnListState extends State<TimerExerciseItemOnList> {
                       borderSide: BorderSide(
                           width: 2,
                           color: Colours.workout_card_background_color)),
-                  hintText: Strings.seconds,
-                  hintStyle: Styles.hint_text_field_fill_workout,
-                  contentPadding: const EdgeInsets.only(bottom: 16),
+                  labelText: Strings.seconds,
+                  labelStyle: Styles.hint_text_field_fill_workout,
+                  contentPadding: const EdgeInsets.only(bottom: 14),
                   counterText: '',
                 ),
               ),

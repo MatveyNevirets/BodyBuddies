@@ -56,91 +56,102 @@ class WorkoutFeatureCard extends StatelessWidget {
           arguments: await getTodayWorkout().then((workout) => workout));
     }
 
-    return GestureDetector(
-      onTap: () => openWorkoutsMenuScreen(),
-      child: Wrap(
-        children: [
-          Stack(
-            children: [
-              const Image(
-                  image: AssetImage(
-                      "lib/assets/images/WorkoutsCardBackground.png")),
-              Positioned(
-                child: Container(
-                  margin: Styles.base_margin_size * 1.25,
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          FutureBuilder(
-                            future: getTodayWorkout(),
-                            builder: (context, snapshot) {
-                              if (snapshot.hasData) {
-                                return WorkoutContainerText(
-                                    truncateText(
-                                        snapshot.data!.title.toString(), 18),
-                                    null);
-                              } else if (snapshot.hasError) {
-                                return WorkoutContainerText(
-                                    Strings.empty, null);
-                              }
-                              return const SpinKitThreeInOut(
-                                color: Colours.white_text_color,
-                                size: 30,
-                              );
-                            },
-                          ),
-                          const SizedBox(
-                            height: Styles.height_of_text_to_widget * 3,
-                          ),
-                          FutureBuilder(
-                            future: getTodayWorkout(),
-                            builder: (context, snapshot) {
-                              if (snapshot.hasData) {
-                                return WorkoutContainerText(
-                                    truncateText(
-                                        getDayOfWeekOnString(snapshot.data!,
-                                            isFullText: true),
-                                        18),
-                                    null);
-                              } else if (snapshot.hasError) {
-                                return WorkoutContainerText(
-                                    Strings.empty, null);
-                              }
-                              return const SpinKitThreeInOut(
-                                color: Colours.white_text_color,
-                                size: 30,
-                              );
-                            },
-                          ),
-                        ],
-                      ),
-                      const Expanded(
-                        child: SizedBox(),
-                      ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: [
-                          CalendarWidget(
-                              height: 40, width: 45, text: getDate()),
-                          const SizedBox(
-                            height: 30,
-                          ),
-                          WorkoutButtonWidget(
-                            () => runCurrentWorkout(context),
-                            const Size(80, 45),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: GestureDetector(
+        onTap: () => openWorkoutsMenuScreen(),
+        child: Wrap(
+          children: [
+            Stack(
+              children: [
+                Container(
+                  decoration: BoxDecoration(boxShadow: const [
+                    BoxShadow(
+                        color: Colours.workout_card_background_color,
+                        blurRadius: 4,
+                        spreadRadius: 1)
+                  ], borderRadius: BorderRadius.circular(8)),
+                  child: const Image(
+                      image: AssetImage(
+                          "lib/assets/images/WorkoutsCardBackground.png")),
                 ),
-              )
-            ],
-          )
-        ],
+                Positioned(
+                  child: Container(
+                    margin: Styles.base_margin_size * 1.25,
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            FutureBuilder(
+                              future: getTodayWorkout(),
+                              builder: (context, snapshot) {
+                                if (snapshot.hasData) {
+                                  return WorkoutContainerText(
+                                      truncateText(
+                                          snapshot.data!.title.toString(), 18),
+                                      null);
+                                } else if (snapshot.hasError) {
+                                  return WorkoutContainerText(
+                                      Strings.empty, null);
+                                }
+                                return const SpinKitThreeInOut(
+                                  color: Colours.white_text_color,
+                                  size: 30,
+                                );
+                              },
+                            ),
+                            const SizedBox(
+                              height: Styles.height_of_text_to_widget * 3,
+                            ),
+                            FutureBuilder(
+                              future: getTodayWorkout(),
+                              builder: (context, snapshot) {
+                                if (snapshot.hasData) {
+                                  return WorkoutContainerText(
+                                      truncateText(
+                                          getDayOfWeekOnString(snapshot.data!,
+                                              isFullText: true),
+                                          18),
+                                      null);
+                                } else if (snapshot.hasError) {
+                                  return WorkoutContainerText(
+                                      Strings.empty, null);
+                                }
+                                return const SpinKitThreeInOut(
+                                  color: Colours.white_text_color,
+                                  size: 30,
+                                );
+                              },
+                            ),
+                          ],
+                        ),
+                        const Expanded(
+                          child: SizedBox(),
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: [
+                            CalendarWidget(
+                                height: 40, width: 45, text: getDate()),
+                            const SizedBox(
+                              height: 30,
+                            ),
+                            WorkoutButtonWidget(
+                              () => runCurrentWorkout(context),
+                              const Size(80, 45),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                )
+              ],
+            )
+          ],
+        ),
       ),
     );
   }

@@ -43,22 +43,20 @@ class RunExerciseScreen extends StatelessWidget {
               padding: const EdgeInsets.all(16),
               height: double.maxFinite,
               width: double.maxFinite,
-              child: Wrap(
-                children: [
-                  Column(
-                    children: [
-                      buildTimeAndSetsWidget(exercise, ticker),
-                      const SizedBox(
-                        height: 16,
-                      ),
-                      buildBodyWidgets(),
-                      const SizedBox(
-                        height: 32,
-                      ),
-                      buildDoneButton(context),
-                    ],
-                  ),
-                ],
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    buildTimeAndSetsWidget(exercise, ticker),
+                    const SizedBox(
+                      height: 16,
+                    ),
+                    buildBodyWidgets(),
+                    const SizedBox(
+                      height: 32,
+                    ),
+                    buildDoneButton(context),
+                  ],
+                ),
               ),
             ),
           ),

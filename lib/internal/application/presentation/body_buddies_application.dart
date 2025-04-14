@@ -74,7 +74,7 @@ class BodyBuddiesApp extends StatelessWidget {
                     ),
                   ),
           "/workouts_menu/workouts_journal/": (context) =>
-              JournalWorkoutsPage(),
+              const JournalWorkoutsPage(),
           "workouts_menu/current_workout/": (context) =>
               const WorkoutEntityScreen(),
           "workouts_menu/run_workout/": (context) => RunWorkoutScreen(
@@ -89,6 +89,7 @@ class BodyBuddiesApp extends StatelessWidget {
               ),
         },
         initialRoute: "auth/",
+        // initialRoute: "/",
       ),
     );
   }

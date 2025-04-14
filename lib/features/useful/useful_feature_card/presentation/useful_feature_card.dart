@@ -1,3 +1,4 @@
+import 'package:body_buddies/core/colors/colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -9,101 +10,151 @@ class UsefulFeatureCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Wrap(
-      children: [
-        Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                GestureDetector(
-                  onTap: () => openPage(context, "/bench_press_calculator"),
-                  child: Stack(
-                    children: [
-                      const Image(
-                        image: AssetImage(
-                            "lib/assets/images/bench_press_calculator_background.png"),
-                        height: 160,
-                        width: 160,
-                      ),
-                      Positioned(
-                          left: 23,
-                          top: 115,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                Strings.calculator,
-                                style: Styles.advices_containers_text_style,
-                              ),
-                              Text(
-                                Strings.bench_presses,
-                                style: Styles.advices_containers_text_style,
-                              ),
-                            ],
-                          )),
-                    ],
-                  ),
-                ),
-                const SizedBox(
-                  width: Styles.height_of_text_to_widget / 2,
-                ),
-                GestureDetector(
-                  onTap: () => openPage(context, "/advices"),
-                  child: Stack(
-                    children: [
-                      const Image(
-                        image: AssetImage(
-                            "lib/assets/images/advice_background.png"),
-                        height: 160,
-                        width: 160,
-                      ),
-                      Positioned(
-                          left: 23,
-                          top: 115,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                Strings.advices,
-                                style: Styles.advices_containers_text_style,
-                              ),
-                              Text(
-                                Strings.beginners,
-                                style: Styles.advices_containers_text_style,
-                              ),
-                            ],
-                          )),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(
-              height: Styles.base_margin_size_double / 2,
-            ),
-            GestureDetector(
-              onTap: () => openPage(context, "/made_workouts"),
-              child: Stack(
+    return Padding(
+      padding: const EdgeInsets.all(6),
+      child: Wrap(
+        children: [
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  const Image(
-                    image: AssetImage(
-                        "lib/assets/images/done_workouts_background.png"),
+                  Expanded(
+                    flex: 15,
+                    child: GestureDetector(
+                      onTap: () => openPage(context, "/bench_press_calculator"),
+                      child: Stack(
+                        children: [
+                          Container(
+                            decoration: BoxDecoration(boxShadow: [
+                              BoxShadow(
+                                  color:
+                                      Colours.greenContainerGradientColors[0],
+                                  blurRadius: 3,
+                                  spreadRadius: 0.2),
+                              BoxShadow(
+                                  color:
+                                      Colours.greenContainerGradientColors[1],
+                                  blurRadius: 3,
+                                  spreadRadius: 0.2),
+                            ], borderRadius: BorderRadius.circular(8)),
+                            child: const Image(
+                              image: AssetImage(
+                                  "lib/assets/images/bench_press_calculator_background.png"),
+                            ),
+                          ),
+                          Positioned(
+                              left: 23,
+                              top: 115,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    Strings.calculator,
+                                    style: Styles.advices_containers_text_style,
+                                  ),
+                                  Text(
+                                    Strings.bench_presses,
+                                    style: Styles.advices_containers_text_style,
+                                  ),
+                                ],
+                              )),
+                        ],
+                      ),
+                    ),
                   ),
-                  Positioned(
-                      left: 22,
-                      top: 130,
-                      child: Text(
-                        "готовые программы тренировок",
-                        style: Styles.advices_containers_text_style,
-                      )),
+                  const Expanded(
+                    child: SizedBox(),
+                  ),
+                  Expanded(
+                    flex: 15,
+                    child: GestureDetector(
+                      onTap: () => openPage(context, "/advices"),
+                      child: Stack(
+                        children: [
+                          Container(
+                            decoration: BoxDecoration(boxShadow: [
+                              BoxShadow(
+                                color: Colours.yellowDark,
+                                blurRadius: 2,
+                                spreadRadius: 0.2,
+                                offset: const Offset(0, 1),
+                              ),
+                              BoxShadow(
+                                  color: Colours.yellow,
+                                  offset: const Offset(0, -2),
+                                  blurRadius: 2,
+                                  spreadRadius: 0.2),
+                            ], borderRadius: BorderRadius.circular(8)),
+                            child: const Image(
+                              image: AssetImage(
+                                  "lib/assets/images/advice_background.png"),
+                            ),
+                          ),
+                          Positioned(
+                              left: 23,
+                              top: 115,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    Strings.advices,
+                                    style: Styles.advices_containers_text_style,
+                                  ),
+                                  Text(
+                                    Strings.beginners,
+                                    style: Styles.advices_containers_text_style,
+                                  ),
+                                ],
+                              )),
+                        ],
+                      ),
+                    ),
+                  ),
                 ],
               ),
-            ),
-          ],
-        ),
-      ],
+              SizedBox(
+                height: MediaQuery.sizeOf(context).height / 80,
+              ),
+              GestureDetector(
+                onTap: () => openPage(context, "/made_workouts"),
+                child: Stack(
+                  children: [
+                    Container(
+                      decoration: BoxDecoration(boxShadow: [
+                        BoxShadow(
+                          color: Colours.redContainerGradientColors[1],
+                          blurRadius: 3,
+                          spreadRadius: 0.2,
+                          offset: const Offset(0, 1),
+                        ),
+                        BoxShadow(
+                            color: Colours.redContainerGradientColors[0],
+                            offset: const Offset(0, -2),
+                            blurRadius: 3,
+                            spreadRadius: 0.2),
+                      ], borderRadius: BorderRadius.circular(8)),
+                      child: const Image(
+                        image: AssetImage(
+                            "lib/assets/images/done_workouts_background.png"),
+                      ),
+                    ),
+                    Positioned(
+                        left: 22,
+                        top: 130,
+                        child: Text(
+                          "готовые программы тренировок",
+                          style: Styles.advices_containers_text_style,
+                        )),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
     );
   }
 

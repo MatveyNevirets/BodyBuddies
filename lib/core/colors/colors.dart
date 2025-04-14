@@ -39,8 +39,8 @@ abstract class Colours {
   ];
 
   static const List<Color> greenContainerGradientColors = [
-    Color.fromARGB(255, 41, 228, 54),
-    Color.fromARGB(255, 57, 170, 31),
+    Color.fromARGB(255, 80, 219, 89),
+    Color.fromARGB(255, 43, 165, 15),
   ];
 
   static const List<Color> yellowContainerGradientColors = [
@@ -49,8 +49,8 @@ abstract class Colours {
   ];
 
   static const List<Color> redContainerGradientColors = [
-    Color.fromARGB(255, 228, 41, 41),
-    Color.fromARGB(255, 170, 31, 31),
+    Color.fromARGB(255, 181, 48, 28),
+    Color.fromARGB(255, 0, 0, 0),
   ];
 
   static const List<Color> newsCardGradientColor = [
@@ -77,4 +77,8 @@ abstract class Colours {
     const Color.fromARGB(255, 105, 128, 231),
     const Color.fromARGB(255, 131, 172, 226),
   ];
+
+  static var yellow = const Color.fromARGB(255, 241, 245, 30);
+
+  static var yellowDark = const Color.fromARGB(255, 81, 54, 0);
 }

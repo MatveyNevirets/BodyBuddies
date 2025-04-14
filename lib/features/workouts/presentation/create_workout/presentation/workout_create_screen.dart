@@ -27,7 +27,6 @@ class CreateWorkoutScreen extends StatefulWidget {
   FakeWorkoutsDatabase fakeDB;
   List<ExerciseEntity> _exercises = [];
   bool isEditWorkout = false;
-  String? selectedWeekday;
 
   final Size screenSize;
 
@@ -41,14 +40,6 @@ class CreateWorkoutScreen extends StatefulWidget {
     Strings.sunday,
   ];
 
-  bool isMon = false,
-      isTue = false,
-      isWed = false,
-      isTh = false,
-      isFri = false,
-      isSat = false,
-      isSun = false;
-
   CreateWorkoutScreen(
       {super.key, required this.fakeDB, required this.screenSize});
 
@@ -57,22 +48,15 @@ class CreateWorkoutScreen extends StatefulWidget {
 }
 
 class _CreateWorkoutScreenState extends State<CreateWorkoutScreen> {
+  String? selectedWeekday;
+
   Future<void> tryToCreateWorkout(
+      int weekday,
       BuildContext menuContext,
       BuildContext thisContext,
       int id,
       TextEditingController titleController) async {
-    log("Id: $id");
-
     final depends = AppDependsProvider.of(thisContext);
-
-    widget.isMon = widget.selectedWeekday == Strings.monday ? true : false;
-    widget.isTue = widget.selectedWeekday == Strings.tuesday ? true : false;
-    widget.isWed = widget.selectedWeekday == Strings.wednesday ? true : false;
-    widget.isTh = widget.selectedWeekday == Strings.thursday ? true : false;
-    widget.isFri = widget.selectedWeekday == Strings.friday ? true : false;
-    widget.isSat = widget.selectedWeekday == Strings.saturday ? true : false;
-    widget.isSun = widget.selectedWeekday == Strings.sunday ? true : false;
 
     List<ExerciseEntity> newExercises = [];
 
@@ -94,13 +78,7 @@ class _CreateWorkoutScreenState extends State<CreateWorkoutScreen> {
     }
 
     if (titleController.text.toString() != "" &&
-        (widget.isMon ||
-            widget.isTue ||
-            widget.isWed ||
-            widget.isTh ||
-            widget.isFri ||
-            widget.isSat ||
-            widget.isSun) &&
+        (selectedWeekday != null) &&
         widget._exercises.isNotEmpty) {
       try {
         final storage = depends.secureStorage;
@@ -111,14 +89,14 @@ class _CreateWorkoutScreenState extends State<CreateWorkoutScreen> {
 
         if (!widget.isEditWorkout) {
           await depends.workoutsRepository.createWorkout(
-              titleController.text.toString(),
-              getNumberWeekday(),
-              newExercises,
-              token);
+              titleController.text.toString(), weekday, newExercises, token);
         } else {
+          log("${getNumberWeekday().toString()}");
+          log("${selectedWeekday}");
+          log("${weekday}");
           await depends.workoutsRepository.updateWorkout(
               titleController.text.toString(),
-              getNumberWeekday(),
+              weekday,
               newExercises,
               id,
               token);
@@ -135,19 +113,21 @@ class _CreateWorkoutScreenState extends State<CreateWorkoutScreen> {
   }
 
   int getNumberWeekday() {
-    if (widget.isMon) {
+    log("GetNumber ${selectedWeekday}");
+
+    if (selectedWeekday == Strings.monday) {
       return 1;
-    } else if (widget.isTue) {
+    } else if (selectedWeekday == Strings.tuesday) {
       return 2;
-    } else if (widget.isWed) {
+    } else if (selectedWeekday == Strings.wednesday) {
       return 3;
-    } else if (widget.isTh) {
+    } else if (selectedWeekday == Strings.thursday) {
       return 4;
-    } else if (widget.isFri) {
+    } else if (selectedWeekday == Strings.friday) {
       return 5;
-    } else if (widget.isSat) {
+    } else if (selectedWeekday == Strings.saturday) {
       return 6;
-    } else if (widget.isSun) {
+    } else if (selectedWeekday == Strings.sunday) {
       return 7;
     } else {
       return -1;
@@ -179,7 +159,7 @@ class _CreateWorkoutScreenState extends State<CreateWorkoutScreen> {
     }
 
     if (widget.isEditWorkout) {
-      widget.selectedWeekday = widget.daysOfWeek[workoutEntity.weekday - 1];
+      selectedWeekday = widget.daysOfWeek[workoutEntity.weekday - 1];
       titleTextFieldController.text =
           widget.isEditWorkout ? workoutEntity.title.toString() : "";
 
@@ -322,7 +302,7 @@ class _CreateWorkoutScreenState extends State<CreateWorkoutScreen> {
                           ),
                         ),
                       ),
-                      value: widget.selectedWeekday,
+                      value: selectedWeekday,
                       hint: Center(
                           child: Text(
                         Strings.day,
@@ -341,7 +321,10 @@ class _CreateWorkoutScreenState extends State<CreateWorkoutScreen> {
                       }).toList(),
                       onChanged: (String? newValue) {
                         setState(() {
-                          widget.selectedWeekday = newValue;
+                          log("changed $newValue");
+                          selectedWeekday = newValue;
+                          log("${selectedWeekday}");
+                          log(getNumberWeekday().toString());
                         });
                       },
                     ),
@@ -350,8 +333,12 @@ class _CreateWorkoutScreenState extends State<CreateWorkoutScreen> {
                     height: 30,
                   ),
                   BaseButton(
-                    onClick: () => tryToCreateWorkout(workoutsMenuContext,
-                        context, workoutId, titleTextFieldController),
+                    onClick: () => tryToCreateWorkout(
+                        getNumberWeekday(),
+                        workoutsMenuContext,
+                        context,
+                        workoutId,
+                        titleTextFieldController),
                     buttonText: Strings.done,
                     icon: null,
                     isElevated: true,

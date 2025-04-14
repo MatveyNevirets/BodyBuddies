@@ -168,7 +168,7 @@ abstract class Styles {
         Shadow(
             blurRadius: 4,
             color: Color.fromARGB(64, 255, 255, 255),
-            offset: Offset(0, 4))
+            offset: Offset(0, 2))
       ],
       fontFamily: 'AqumTwo',
       fontSize: 24,

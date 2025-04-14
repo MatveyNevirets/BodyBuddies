@@ -139,7 +139,7 @@ class _ExerciseItemOnListState extends State<ExerciseItemOnList> {
         decoration: BoxDecoration(
             color: Colours.workoutCardForegroundColor,
             borderRadius: BorderRadius.circular(4)),
-        margin: const EdgeInsets.all(8),
+        margin: const EdgeInsets.only(bottom: 8, top: 8),
         height: screenSize.height / 25,
         width: double.maxFinite,
         padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 4),
@@ -172,7 +172,7 @@ class _ExerciseItemOnListState extends State<ExerciseItemOnList> {
           children: [
             Container(
               width: screenSize.width / 4,
-              height: 30,
+              height: 40,
               padding: const EdgeInsets.all(2),
               decoration: BoxDecoration(
                   color: Colours.workoutCardForegroundColor,
@@ -201,8 +201,8 @@ class _ExerciseItemOnListState extends State<ExerciseItemOnList> {
                       borderSide: BorderSide(
                           width: 2,
                           color: Colours.workout_card_background_color)),
-                  hintText: Strings.minutes,
-                  hintStyle: Styles.hint_text_field_fill_workout,
+                  labelText: Strings.minutes,
+                  labelStyle: Styles.hint_text_field_fill_workout,
                   contentPadding: const EdgeInsets.only(bottom: 16),
                   counterText: '',
                 ),
@@ -213,7 +213,7 @@ class _ExerciseItemOnListState extends State<ExerciseItemOnList> {
             ),
             Container(
               width: screenSize.width / 4,
-              height: 30,
+              height: 40,
               padding: const EdgeInsets.all(2),
               decoration: BoxDecoration(
                   color: Colours.workoutCardForegroundColor,
@@ -242,8 +242,8 @@ class _ExerciseItemOnListState extends State<ExerciseItemOnList> {
                       borderSide: BorderSide(
                           width: 2,
                           color: Colours.workout_card_background_color)),
-                  hintText: Strings.seconds,
-                  hintStyle: Styles.hint_text_field_fill_workout,
+                  labelText: Strings.seconds,
+                  labelStyle: Styles.hint_text_field_fill_workout,
                   contentPadding: const EdgeInsets.only(bottom: 16),
                   counterText: '',
                 ),
@@ -268,7 +268,7 @@ class _ExerciseItemOnListState extends State<ExerciseItemOnList> {
       children: [
         Container(
           width: screenSize.width / 7,
-          height: 30,
+          height: 40,
           padding: const EdgeInsets.all(2),
           decoration: BoxDecoration(
               color: Colours.workoutCardForegroundColor,
@@ -295,9 +295,9 @@ class _ExerciseItemOnListState extends State<ExerciseItemOnList> {
               focusedBorder: const UnderlineInputBorder(
                   borderSide: BorderSide(
                       width: 2, color: Colours.workout_card_background_color)),
-              hintText: Strings.weight,
-              hintStyle: Styles.hint_text_field_fill_workout,
-              contentPadding: const EdgeInsets.only(bottom: 16),
+              labelText: Strings.weight,
+              labelStyle: Styles.hint_text_field_fill_workout,
+              contentPadding: const EdgeInsets.only(bottom: 14),
               counterText: '',
             ),
           ),
@@ -305,7 +305,7 @@ class _ExerciseItemOnListState extends State<ExerciseItemOnList> {
         const Expanded(child: SizedBox()),
         Container(
           width: screenSize.width / 7,
-          height: 30,
+          height: 40,
           padding: const EdgeInsets.all(2),
           decoration: BoxDecoration(
               color: Colours.workoutCardForegroundColor,
@@ -331,9 +331,9 @@ class _ExerciseItemOnListState extends State<ExerciseItemOnList> {
               focusedBorder: const UnderlineInputBorder(
                   borderSide: BorderSide(
                       width: 2, color: Colours.workout_card_background_color)),
-              hintText: Strings.sets,
-              hintStyle: Styles.hint_text_field_fill_workout,
-              contentPadding: const EdgeInsets.only(bottom: 16),
+              labelText: Strings.sets,
+              labelStyle: Styles.hint_text_field_fill_workout,
+              contentPadding: const EdgeInsets.only(bottom: 14),
               counterText: '',
             ),
           ),
@@ -341,7 +341,7 @@ class _ExerciseItemOnListState extends State<ExerciseItemOnList> {
         const Expanded(child: SizedBox()),
         Container(
           width: screenSize.width / 7,
-          height: 30,
+          height: 40,
           padding: const EdgeInsets.all(2),
           decoration: BoxDecoration(
               color: Colours.workoutCardForegroundColor,
@@ -367,14 +367,13 @@ class _ExerciseItemOnListState extends State<ExerciseItemOnList> {
               focusedBorder: const UnderlineInputBorder(
                   borderSide: BorderSide(
                       width: 2, color: Colours.workout_card_background_color)),
-              hintText: Strings.reps,
-              hintStyle: Styles.hint_text_field_fill_workout,
+              labelText: Strings.reps,
+              labelStyle: Styles.hint_text_field_fill_workout,
               contentPadding: const EdgeInsets.only(bottom: 16),
               counterText: '',
             ),
           ),
         ),
-        const SizedBox(width: 8),
       ],
     );
   }
