@@ -28,8 +28,8 @@ class CreateWorkoutScreen extends StatefulWidget {
 
   final Size screenSize;
 
-  String weekdayString = "-1";
-  int weekdayNum = -1;
+  String? weekdayString;
+  int? weekdayNum;
 
   final List<String> daysOfWeek = [
     Strings.monday,
@@ -49,7 +49,7 @@ class CreateWorkoutScreen extends StatefulWidget {
 
 class _CreateWorkoutScreenState extends State<CreateWorkoutScreen> {
   Future<void> tryToCreateWorkout(
-      int weekday,
+      int? weekday,
       BuildContext menuContext,
       BuildContext thisContext,
       int id,
@@ -76,7 +76,7 @@ class _CreateWorkoutScreenState extends State<CreateWorkoutScreen> {
     }
 
     if (titleController.text.toString() != "" &&
-        (widget.weekdayNum != -1) &&
+        (widget.weekdayNum != null) &&
         widget._exercises.isNotEmpty) {
       try {
         final storage = depends.secureStorage;
@@ -87,7 +87,7 @@ class _CreateWorkoutScreenState extends State<CreateWorkoutScreen> {
 
         if (!widget.isEditWorkout) {
           await depends.workoutsRepository.createWorkout(
-              titleController.text.toString(), weekday, newExercises, token);
+              titleController.text.toString(), weekday!, newExercises, token);
         } else {
           await depends.workoutsRepository.updateWorkout(
               titleController.text.toString(),
@@ -138,28 +138,28 @@ class _CreateWorkoutScreenState extends State<CreateWorkoutScreen> {
   @override
   Widget build(BuildContext context) {
     final modalRouteData = ModalRoute.of(context)!.settings.arguments as List;
+
+    final workoutsMenuContext = modalRouteData[0] as BuildContext;
+    final workoutEntity = modalRouteData[1] as WorkoutEntity;
     widget.isEditWorkout = modalRouteData[2] as bool;
 
-    final workoutEntity = modalRouteData[1] as WorkoutEntity;
     int workoutId = 0;
 
-    if (const ListEquality()
-        .equals(workoutEntity.exercises, widget._exercises)) {
-    } else if (!const ListEquality()
-            .equals(workoutEntity.exercises, widget._exercises) &&
-        widget._exercises.isEmpty) {
-      widget._exercises = workoutEntity.exercises;
-    }
-
     if (widget.isEditWorkout) {
+      if (!const ListEquality()
+              .equals(workoutEntity.exercises, widget._exercises) &&
+          widget._exercises.isEmpty) {
+        widget._exercises = workoutEntity.exercises;
+      }
+
       widget.weekdayString = widget.daysOfWeek[workoutEntity.weekday - 1];
+      widget.weekdayNum = getNumberWeekday(widget.weekdayString!);
+
       titleTextFieldController.text =
           widget.isEditWorkout ? workoutEntity.title.toString() : "";
 
       workoutId = workoutEntity.id!;
     }
-
-    final workoutsMenuContext = modalRouteData[0] as BuildContext;
 
     return Scaffold(
       appBar: createAppBarWidget(
