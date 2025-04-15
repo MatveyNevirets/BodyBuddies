@@ -11,7 +11,6 @@ import 'package:body_buddies/features/workouts/domain/Entities/exercise_entity.d
 import 'package:body_buddies/features/useful/domain/entity/exercise_on_list_entity.dart';
 import 'package:body_buddies/features/workouts/domain/Entities/workout_entity.dart';
 import 'package:body_buddies/features/workouts/presentation/workouts_menu/presentation/bloc/workouts_menu_bloc.dart';
-import 'package:body_buddies/features/workouts/presentation/workouts_menu/domain/fake_workouts_database.dart';
 import 'package:body_buddies/features/workouts/presentation/create_workout/presentation/widgets/exercise_item_on_list.dart';
 import 'package:body_buddies/features/workouts/presentation/create_workout/presentation/widgets/timer_exercise_item_on_list.dart';
 import 'package:body_buddies/internal/application/app_consts.dart';
@@ -24,11 +23,13 @@ import '../../../../../core/strings/strings.dart';
 import '../../../../../core/styles/styles.dart';
 
 class CreateWorkoutScreen extends StatefulWidget {
-  FakeWorkoutsDatabase fakeDB;
   List<ExerciseEntity> _exercises = [];
   bool isEditWorkout = false;
 
   final Size screenSize;
+
+  String weekdayString = "-1";
+  int weekdayNum = -1;
 
   final List<String> daysOfWeek = [
     Strings.monday,
@@ -40,16 +41,13 @@ class CreateWorkoutScreen extends StatefulWidget {
     Strings.sunday,
   ];
 
-  CreateWorkoutScreen(
-      {super.key, required this.fakeDB, required this.screenSize});
+  CreateWorkoutScreen({super.key, required this.screenSize});
 
   @override
   State<CreateWorkoutScreen> createState() => _CreateWorkoutScreenState();
 }
 
 class _CreateWorkoutScreenState extends State<CreateWorkoutScreen> {
-  String? selectedWeekday;
-
   Future<void> tryToCreateWorkout(
       int weekday,
       BuildContext menuContext,
@@ -78,7 +76,7 @@ class _CreateWorkoutScreenState extends State<CreateWorkoutScreen> {
     }
 
     if (titleController.text.toString() != "" &&
-        (selectedWeekday != null) &&
+        (widget.weekdayNum != -1) &&
         widget._exercises.isNotEmpty) {
       try {
         final storage = depends.secureStorage;
@@ -91,9 +89,6 @@ class _CreateWorkoutScreenState extends State<CreateWorkoutScreen> {
           await depends.workoutsRepository.createWorkout(
               titleController.text.toString(), weekday, newExercises, token);
         } else {
-          log("${getNumberWeekday().toString()}");
-          log("${selectedWeekday}");
-          log("${weekday}");
           await depends.workoutsRepository.updateWorkout(
               titleController.text.toString(),
               weekday,
@@ -112,22 +107,20 @@ class _CreateWorkoutScreenState extends State<CreateWorkoutScreen> {
     }
   }
 
-  int getNumberWeekday() {
-    log("GetNumber ${selectedWeekday}");
-
-    if (selectedWeekday == Strings.monday) {
+  int getNumberWeekday(String weekday) {
+    if (weekday == Strings.monday) {
       return 1;
-    } else if (selectedWeekday == Strings.tuesday) {
+    } else if (weekday == Strings.tuesday) {
       return 2;
-    } else if (selectedWeekday == Strings.wednesday) {
+    } else if (weekday == Strings.wednesday) {
       return 3;
-    } else if (selectedWeekday == Strings.thursday) {
+    } else if (weekday == Strings.thursday) {
       return 4;
-    } else if (selectedWeekday == Strings.friday) {
+    } else if (weekday == Strings.friday) {
       return 5;
-    } else if (selectedWeekday == Strings.saturday) {
+    } else if (weekday == Strings.saturday) {
       return 6;
-    } else if (selectedWeekday == Strings.sunday) {
+    } else if (weekday == Strings.sunday) {
       return 7;
     } else {
       return -1;
@@ -159,7 +152,7 @@ class _CreateWorkoutScreenState extends State<CreateWorkoutScreen> {
     }
 
     if (widget.isEditWorkout) {
-      selectedWeekday = widget.daysOfWeek[workoutEntity.weekday - 1];
+      widget.weekdayString = widget.daysOfWeek[workoutEntity.weekday - 1];
       titleTextFieldController.text =
           widget.isEditWorkout ? workoutEntity.title.toString() : "";
 
@@ -221,60 +214,58 @@ class _CreateWorkoutScreenState extends State<CreateWorkoutScreen> {
                       borderRadius: BorderRadius.circular(8),
                       color: Colours.workoutCardForegroundColor,
                     ),
-                    child: Expanded(
-                      child: Column(
-                        children: [
-                          SizedBox(
-                            child: ListView.builder(
-                              shrinkWrap: true,
-                              physics: const NeverScrollableScrollPhysics(),
-                              itemCount: widget._exercises.length,
-                              itemBuilder: (context, index) {
-                                if (widget._exercises[index].isExercise) {
-                                  return ExerciseItemOnList(
-                                    context,
-                                    widget.screenSize,
-                                    index,
-                                    widget._exercises,
-                                    widget.isEditWorkout,
-                                    onRemoveItem: () {
-                                      removeItem(index);
-                                    },
-                                  );
-                                } else if (widget
-                                    ._exercises[index].isTimerExercise) {
-                                  return TimerExerciseItemOnList(
-                                    context,
-                                    widget.screenSize,
-                                    index,
-                                    widget._exercises,
-                                    widget.isEditWorkout,
-                                    onRemoveItem: () {
-                                      removeItem(index);
-                                    },
-                                  );
-                                }
-                                return const CircularProgressIndicator();
-                              },
-                            ),
+                    child: Column(
+                      children: [
+                        SizedBox(
+                          child: ListView.builder(
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            itemCount: widget._exercises.length,
+                            itemBuilder: (context, index) {
+                              if (widget._exercises[index].isExercise) {
+                                return ExerciseItemOnList(
+                                  context,
+                                  widget.screenSize,
+                                  index,
+                                  widget._exercises,
+                                  widget.isEditWorkout,
+                                  onRemoveItem: () {
+                                    removeItem(index);
+                                  },
+                                );
+                              } else if (widget
+                                  ._exercises[index].isTimerExercise) {
+                                return TimerExerciseItemOnList(
+                                  context,
+                                  widget.screenSize,
+                                  index,
+                                  widget._exercises,
+                                  widget.isEditWorkout,
+                                  onRemoveItem: () {
+                                    removeItem(index);
+                                  },
+                                );
+                              }
+                              return const CircularProgressIndicator();
+                            },
                           ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          BaseButton(
-                            onClick: () => goToAddExercise(context),
-                            buttonText: Strings.add,
-                            icon: null,
-                            buttonSize: Size(widget.screenSize.width / 1.5,
-                                widget.screenSize.height / 15),
-                            isElevated: true,
-                            radius: 8,
-                            backgroundColor:
-                                Colours.workout_card_background_color,
-                            color: Colours.workoutCardForegroundColor,
-                          ),
-                        ],
-                      ),
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        BaseButton(
+                          onClick: () => goToAddExercise(context),
+                          buttonText: Strings.add,
+                          icon: null,
+                          buttonSize: Size(widget.screenSize.width / 1.5,
+                              widget.screenSize.height / 15),
+                          isElevated: true,
+                          radius: 8,
+                          backgroundColor:
+                              Colours.workout_card_background_color,
+                          color: Colours.workoutCardForegroundColor,
+                        ),
+                      ],
                     ),
                   ),
                   const SizedBox(
@@ -302,7 +293,7 @@ class _CreateWorkoutScreenState extends State<CreateWorkoutScreen> {
                           ),
                         ),
                       ),
-                      value: selectedWeekday,
+                      value: widget.weekdayString,
                       hint: Center(
                           child: Text(
                         Strings.day,
@@ -321,10 +312,7 @@ class _CreateWorkoutScreenState extends State<CreateWorkoutScreen> {
                       }).toList(),
                       onChanged: (String? newValue) {
                         setState(() {
-                          log("changed $newValue");
-                          selectedWeekday = newValue;
-                          log("${selectedWeekday}");
-                          log(getNumberWeekday().toString());
+                          widget.weekdayNum = getNumberWeekday(newValue!);
                         });
                       },
                     ),
@@ -334,7 +322,7 @@ class _CreateWorkoutScreenState extends State<CreateWorkoutScreen> {
                   ),
                   BaseButton(
                     onClick: () => tryToCreateWorkout(
-                        getNumberWeekday(),
+                        widget.weekdayNum,
                         workoutsMenuContext,
                         context,
                         workoutId,

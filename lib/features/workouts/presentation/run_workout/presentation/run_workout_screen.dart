@@ -1,22 +1,20 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'package:body_buddies/core/widgets/base_snackbar.dart';
 import 'package:body_buddies/core/widgets/loading_screen.dart';
 import 'package:body_buddies/features/workouts/domain/Entities/workout_entity.dart';
-import 'package:body_buddies/features/workouts/presentation/workouts_menu/domain/fake_workouts_database.dart';
 import 'package:body_buddies/features/workouts/presentation/run_workout/presentation/bloc/run_workout_bloc.dart';
 import 'package:body_buddies/features/workouts/presentation/run_workout/presentation/widgets/run_exercise_screen.dart';
 import 'package:body_buddies/features/workouts/presentation/run_workout/presentation/widgets/run_timer_exercise_screen.dart';
 import 'package:body_buddies/features/workouts/presentation/run_workout/workout_ticker/workout_ticker.dart';
 import 'package:body_buddies/internal/application/di/app_depends_provider.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../core/strings/strings.dart';
 import 'widgets/run_rest_screen.dart';
 
 class RunWorkoutScreen extends StatelessWidget {
-  FakeWorkoutsDatabase fakeWorkoutsDatabase;
-
-  RunWorkoutScreen({super.key, required this.fakeWorkoutsDatabase});
+  const RunWorkoutScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

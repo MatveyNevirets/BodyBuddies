@@ -1,7 +1,6 @@
 import 'package:body_buddies/core/styles/styles.dart';
 import 'package:body_buddies/core/widgets/app_bar.dart';
 import 'package:body_buddies/features/water_indicator_widget/bloc/water_cups_bloc/water_cups_bloc.dart';
-import 'package:body_buddies/features/workouts/presentation/workouts_menu/domain/fake_workouts_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -11,9 +10,7 @@ import '../../../features/water_indicator_widget/water_indicator_widget.dart';
 import '../../../features/workouts/presentation/workout_feature_card/presentation/workouts_feature_card.dart';
 
 class HomeScreen extends StatefulWidget {
-  final FakeWorkoutsDatabase fakeWorkoutsDatabase;
-
-  const HomeScreen({super.key, required this.fakeWorkoutsDatabase});
+  const HomeScreen({super.key});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();

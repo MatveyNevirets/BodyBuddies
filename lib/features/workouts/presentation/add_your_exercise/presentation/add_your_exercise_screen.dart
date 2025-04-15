@@ -7,12 +7,9 @@ import 'package:flutter/material.dart';
 import '../../../../../core/colors/colors.dart';
 import '../../../../../core/strings/strings.dart';
 import '../../../../../core/styles/styles.dart';
-import '../../workouts_menu/domain/exercises_database.dart';
 
 class AddYourExerciseScreen extends StatefulWidget {
-  final Exercises exercises;
-
-  const AddYourExerciseScreen({super.key, required this.exercises});
+  const AddYourExerciseScreen({super.key});
 
   @override
   State<AddYourExerciseScreen> createState() => _AddYourExerciseScreenState();
