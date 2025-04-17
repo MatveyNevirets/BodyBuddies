@@ -35,6 +35,7 @@ class BodyBuddiesApp extends StatelessWidget {
       appDepends: appDepends,
       child: MaterialApp(
         theme: ThemeData(
+          
             appBarTheme: const AppBarTheme(
           systemOverlayStyle: SystemUiOverlayStyle(
               statusBarColor: Colours.bottom_bar_background_color,
