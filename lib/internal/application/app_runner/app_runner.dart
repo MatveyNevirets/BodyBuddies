@@ -23,8 +23,8 @@ class AppRunner {
             "Error initialize repository: $name Error: $error StackTrace: $stack");
       });
 
-      runApp(
-          AppDependsProvider(appDepends: appDepends, child: BodyBuddiesApp()));
+      runApp(AppDependsProvider(
+          appDepends: appDepends, child: const BodyBuddiesApp()));
 
       WidgetsBinding.instance.addPostFrameCallback((_) {
         WidgetsBinding.instance.allowFirstFrame();

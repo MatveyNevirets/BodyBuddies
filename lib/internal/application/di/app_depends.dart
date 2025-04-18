@@ -6,6 +6,7 @@ import 'package:body_buddies/features/auth/domain/repository/auth_repository.dar
 import 'package:body_buddies/features/useful/domain/useful_repository.dart';
 import 'package:body_buddies/features/useful/data/mock_useful_repository.dart';
 import 'package:body_buddies/features/useful/data/prod_useful_repository.dart';
+import 'package:body_buddies/features/workouts/data/datasources/local/local_workouts_repository.dart';
 import 'package:body_buddies/features/workouts/data/datasources/local/workouts_local_sqlite.dart';
 import 'package:body_buddies/features/workouts/data/datasources/remote/mock_workouts_repository.dart';
 import 'package:body_buddies/features/workouts/data/datasources/remote/prod_workouts_repository.dart';
@@ -19,14 +20,14 @@ import 'package:internet_connection_checker_plus/internet_connection_checker_plu
 typedef OnProgress = Function(String name, String progress);
 typedef OnError = Function(String name, Object error, StackTrace? stack);
 
-enum Depends { auth, workouts, useful, secureStorage, localWorkouts }
+enum Depends { auth, workouts, useful, secureStorage, localDatabase }
 
 class AppDepends {
   final AppEnv appEnv;
   late final AuthRepository repository;
   late final WorkoutsRepository workoutsRepository;
   late final UsefulRepository usefulRepository;
-  late final LocalWorkoutsRepository localWorkoutsRepository;
+  late final LocalDatabase localDatabase;
   late final SecureStorage secureStorage;
 
   AppDepends(this.appEnv);
@@ -92,20 +93,33 @@ class AppDepends {
       } on Object catch (error, stack) {
         onError.call(secureStorage.name, error, stack);
       }
+
+      try {
+        final timer = Stopwatch();
+        timer.start();
+        localDatabase = WorkoutsSQLiteLocalDatabase();
+        localDatabase.initDatabase();
+        log("Depend ${localDatabase.name} took ${timer.elapsedMilliseconds}ms to initialize");
+        timer.stop();
+        onProgress.call(
+            localDatabase.name,
+            _calculateProgress(
+                Depends.localDatabase.index, Depends.values.length));
+      } on Object catch (error, stack) {
+        onError.call(workoutsRepository.name, error, stack);
+      }
     } else {
       try {
         final timer = Stopwatch();
         timer.start();
-        localWorkoutsRepository = WorkoutsLocalSQLite();
-        localWorkoutsRepository.initDatabase();
-        log("Depend ${localWorkoutsRepository.name} took ${timer.elapsedMilliseconds}ms to initialize");
+        repository = MockAuthRepository();
+
+        log("Depend ${repository.name} took ${timer.elapsedMilliseconds}ms to initialize");
         timer.stop();
-        onProgress.call(
-            localWorkoutsRepository.name,
-            _calculateProgress(
-                Depends.localWorkouts.index, Depends.values.length));
+        onProgress.call(repository.name,
+            _calculateProgress(Depends.auth.index, Depends.values.length));
       } on Object catch (error, stack) {
-        onError.call(localWorkoutsRepository.name, error, stack);
+        onError.call(repository.name, error, stack);
       }
 
       try {
@@ -123,14 +137,30 @@ class AppDepends {
       try {
         final timer = Stopwatch();
         timer.start();
-        repository = MockAuthRepository();
-
-        log("Depend ${repository.name} took ${timer.elapsedMilliseconds}ms to initialize");
+        workoutsRepository = LocalWorkoutsRepository();
+        log("Depend ${workoutsRepository.name} took ${timer.elapsedMilliseconds}ms to initialize");
         timer.stop();
-        onProgress.call(repository.name,
-            _calculateProgress(Depends.auth.index, Depends.values.length));
+        onProgress.call(
+            workoutsRepository.name,
+            _calculateProgress(
+                Depends.localDatabase.index, Depends.values.length));
       } on Object catch (error, stack) {
-        onError.call(repository.name, error, stack);
+        onError.call(workoutsRepository.name, error, stack);
+      }
+
+      try {
+        final timer = Stopwatch();
+        timer.start();
+        localDatabase = WorkoutsSQLiteLocalDatabase();
+        localDatabase.initDatabase();
+        log("Depend ${localDatabase.name} took ${timer.elapsedMilliseconds}ms to initialize");
+        timer.stop();
+        onProgress.call(
+            localDatabase.name,
+            _calculateProgress(
+                Depends.localDatabase.index, Depends.values.length));
+      } on Object catch (error, stack) {
+        onError.call(workoutsRepository.name, error, stack);
       }
     }
   }

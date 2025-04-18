@@ -1,25 +1,9 @@
-import 'package:body_buddies/features/workouts/domain/Entities/exercise_entity.dart';
-import 'package:body_buddies/features/workouts/domain/Entities/workout_entity.dart';
 import 'package:body_buddies/features/workouts/domain/local_workouts_repository.dart';
 import 'package:body_buddies/internal/application/app_consts.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
-import 'package:sqflite_common/sqlite_api.dart';
 
-class WorkoutsLocalSQLite implements LocalWorkoutsRepository {
-  @override
-  Future<void> addJournalWorkout(WorkoutEntity workout) {
-    // TODO: implement addJournalWorkout
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<void> createWorkout(
-      String title, int weekday, List<ExerciseEntity> exercises) {
-    // TODO: implement createWorkout
-    throw UnimplementedError();
-  }
-
+class WorkoutsSQLiteLocalDatabase implements LocalDatabase {
   @override
   Future<Database> getDatabase() async {
     if (_database != null) return _database!;
@@ -30,40 +14,6 @@ class WorkoutsLocalSQLite implements LocalWorkoutsRepository {
       throw Exception(
           "GET LOCAL WORKOUTS DATABASE ERROR: $error STACKTRACE: $stack");
     }
-  }
-
-  @override
-  Future<void> deleteJournalWorkout(WorkoutEntity workout) {
-    // TODO: implement deleteJournalWorkout
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<void> deleteWorkout(int index) {
-    // TODO: implement deleteWorkout
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<List<WorkoutEntity>> fetchAllWorkout() {
-    // TODO: implement fetchAllWorkout
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<List<WorkoutEntity>> fetchJournalWorkouts() {
-    // TODO: implement fetchJournalWorkouts
-    throw UnimplementedError();
-  }
-
-  @override
-  String get name => "Local workouts SQLite database";
-
-  @override
-  Future<void> updateWorkout(
-      String? title, int? weekday, List<ExerciseEntity>? exercises, int index) {
-    // TODO: implement updateWorkout
-    throw UnimplementedError();
   }
 
   Database? _database;
@@ -98,4 +48,7 @@ class WorkoutsLocalSQLite implements LocalWorkoutsRepository {
     ''');
     });
   }
+
+  @override
+  String get name => "Workouts local SQLite database";
 }
