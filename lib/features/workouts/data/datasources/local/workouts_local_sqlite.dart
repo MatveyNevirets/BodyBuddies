@@ -44,7 +44,8 @@ class WorkoutsSQLiteLocalDatabase implements LocalDatabase {
       ${AppConsts.restTimeMinutesColumn} INTEGER,
       ${AppConsts.restTimeSecondsColumn} INTEGER,
       ${AppConsts.isExercise} INTEGER,
-      ${AppConsts.isTimerExercise} INTEGER)
+      ${AppConsts.isTimerExercise} INTEGER,
+      ${AppConsts.workoutIdColumn} INTEGER)
     ''');
     });
   }
