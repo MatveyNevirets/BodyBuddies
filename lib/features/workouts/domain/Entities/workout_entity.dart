@@ -25,6 +25,8 @@ class WorkoutEntity {
       title: map[AppConsts.titleColumn].toString(),
       exercises: [],
       weekday: int.parse(map[AppConsts.weekdayColumn].toString()),
+      date: map[AppConsts.dateColumn].toString(),
+      duration: map[AppConsts.durationColumn].toString(),
     );
   }
 

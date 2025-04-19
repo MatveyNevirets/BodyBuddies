@@ -12,9 +12,23 @@ class LocalWorkoutsRepository implements WorkoutsRepository {
   LocalWorkoutsRepository({required this.localDatabase});
 
   @override
-  Future<void> addJournalWorkout(WorkoutEntity workout, String token) {
-    // TODO: implement addJournalWorkout
-    throw UnimplementedError();
+  Future<void> addJournalWorkout(WorkoutEntity workout, String token) async {
+    final database = await localDatabase.getDatabase();
+    final workoutMap = {
+      AppConsts.titleColumn: workout.title,
+      AppConsts.weekdayColumn: workout.weekday.toString(),
+      AppConsts.dateColumn: workout.date,
+      AppConsts.durationColumn: workout.duration,
+    };
+
+    final journalWorkoutId =
+        await database.insert(AppConsts.journalTable, workoutMap);
+
+    for (ExerciseEntity entity in workout.exercises) {
+      final exerciseMap = entity.toMap(workoutId: journalWorkoutId);
+
+      await database.insert(AppConsts.journalExercisesTable, exerciseMap);
+    }
   }
 
   @override
@@ -36,9 +50,11 @@ class LocalWorkoutsRepository implements WorkoutsRepository {
   }
 
   @override
-  Future<void> deleteJournalWorkout(WorkoutEntity workout, String token) {
-    // TODO: implement deleteJournalWorkout
-    throw UnimplementedError();
+  Future<void> deleteJournalWorkout(WorkoutEntity workout, String token) async {
+    final database = await localDatabase.getDatabase();
+
+    await database
+        .delete(AppConsts.journalTable, where: "id=?", whereArgs: [workout.id]);
   }
 
   @override
@@ -86,9 +102,29 @@ class LocalWorkoutsRepository implements WorkoutsRepository {
   }
 
   @override
-  Future<List<WorkoutEntity>> fetchJournalWorkouts(String token) {
-    // TODO: implement fetchJournalWorkouts
-    throw UnimplementedError();
+  Future<List<WorkoutEntity>> fetchJournalWorkouts(String token) async {
+    final database = await localDatabase.getDatabase();
+
+    final response = await database.query(AppConsts.journalTable);
+
+    final workouts = response
+        .map((workoutMap) => WorkoutEntity.fromMap(workoutMap))
+        .toList();
+
+    for (int i = 0; i < workouts.length; i++) {
+      final id = workouts[i].id;
+
+      final eResponse = await database.query(AppConsts.journalExercisesTable,
+          where: "workout_id=?", whereArgs: [id]);
+
+      final exercises = eResponse
+          .map((exerciseMap) => ExerciseEntity.fromMap(exerciseMap))
+          .toList();
+
+      workouts[i].exercises = exercises;
+    }
+
+    return workouts;
   }
 
   @override
