@@ -189,7 +189,7 @@ class ProdWorkoutsRepository implements WorkoutsRepository {
 
       return response.workouts
           .map((workout) => WorkoutEntity(
-              id: int.tryParse(workout.id),
+              id: workout.id as int,
               title: workout.title,
               exercises: convertExerciseFromDto(workout.exercises),
               date: workout.date,

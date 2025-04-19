@@ -38,7 +38,7 @@ class WorkoutsSQLiteLocalDatabase implements LocalDatabase {
       ${AppConsts.titleColumn} TEXT NOT NULL,
       ${AppConsts.repsColumn} INTEGER,
       ${AppConsts.setsColumn} INTEGER,
-      ${AppConsts.weightColumn} REAL, 
+      ${AppConsts.weightColumn} REAL,
       ${AppConsts.exerciseTimeMinutesColumn} INTEGER,
       ${AppConsts.exerciseTimeSecondsColumn} INTEGER,
       ${AppConsts.restTimeMinutesColumn} INTEGER,

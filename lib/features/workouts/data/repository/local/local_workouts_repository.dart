@@ -28,7 +28,11 @@ class LocalWorkoutsRepository implements WorkoutsRepository {
     };
 
     final id = await database.insert(AppConsts.workoutsTable, workoutsValue);
-    log("Success added workout with id: $id");
+
+    for (ExerciseEntity exercise in exercises) {
+      Map<String, dynamic> mapExercise = exercise.toMap(workoutId: id);
+      await database.insert(AppConsts.exercisesTable, mapExercise);
+    }
   }
 
   @override
@@ -38,9 +42,17 @@ class LocalWorkoutsRepository implements WorkoutsRepository {
   }
 
   @override
-  Future<void> deleteWorkout(int index, String token) {
-    // TODO: implement deleteWorkout
-    throw UnimplementedError();
+  Future<void> deleteWorkout(int index, String token) async {
+    final database = await localDatabase.getDatabase();
+
+    final response = await database.query(AppConsts.workoutsTable);
+
+    final workouts = response
+        .map((workoutMap) => WorkoutEntity.fromMap(workoutMap))
+        .toList();
+
+    await database.delete(AppConsts.workoutsTable,
+        where: "id=?", whereArgs: [workouts[index].id]);
   }
 
   @override
@@ -49,21 +61,27 @@ class LocalWorkoutsRepository implements WorkoutsRepository {
 
     final response = await database.query(AppConsts.workoutsTable);
 
-    final workouts = response
-        .map((workoutMap) => WorkoutEntity(
-            title: workoutMap[AppConsts.titleColumn].toString(),
-            exercises: [],
-            weekday: int.parse(workoutMap[AppConsts.weekdayColumn].toString())))
-        .toList();
+    final workouts = response.map((workoutMap) {
+      final newWorkout = WorkoutEntity.fromMap(workoutMap);
 
-    // workouts.map((workout) => );
+      log(newWorkout.id.toString());
 
-    final eResponse = await database.query(AppConsts.exercisesTable);
+      return newWorkout;
+    }).toList();
 
-    final exercises =
-        eResponse.map((exerciseMap) => ExerciseEntity(title: "title"));
+    for (int i = 0; i < workouts.length; i++) {
+      final id = workouts[i].id;
 
-    log(response.toString());
+      final response = await database.query(AppConsts.exercisesTable,
+          where: "workout_id=?", whereArgs: [id]);
+
+      final exercises = response.map((exerciseMap) {
+        log(exerciseMap.toString());
+        return ExerciseEntity.fromMap(exerciseMap);
+      }).toList();
+
+      workouts[i].exercises = exercises;
+    }
     return workouts;
   }
 
@@ -74,13 +92,29 @@ class LocalWorkoutsRepository implements WorkoutsRepository {
   }
 
   @override
-  // TODO: implement name
   String get name => "Local workouts repository";
 
   @override
   Future<void> updateWorkout(String? title, int? weekday,
-      List<ExerciseEntity>? exercises, int index, String token) {
-    // TODO: implement updateWorkout
-    throw UnimplementedError();
+      List<ExerciseEntity>? exercises, int index, String token) async {
+    final database = await localDatabase.getDatabase();
+
+    // final responseToAllWorkouts = await database.query(AppConsts.workoutsTable);
+    // final workouts = responseToAllWorkouts
+    //     .map((workoutMap) => WorkoutEntity.fromMap(workoutMap))
+    //     .toList();
+
+    // final response = await database.query(AppConsts.workoutsTable,
+    //     where: "id=? AND title=?",
+    //     whereArgs: [workouts[index].id, workouts[index].title]);
+
+    // final workout = WorkoutEntity.fromMap(response[0]);
+
+    // final updatedWorkout = {
+    //   AppConsts.titleColumn: title ?? workout.title,
+    //   AppConsts.weekdayColumn: weekday ?? workout.weekday
+    // };
+
+    // await database.update(AppConsts.workoutsTable, updatedWorkout);
   }
 }
