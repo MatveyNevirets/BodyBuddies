@@ -157,7 +157,7 @@ class _CreateWorkoutScreenState extends State<CreateWorkoutScreen> {
       titleTextFieldController.text =
           widget.isEditWorkout ? workoutEntity.title.toString() : "";
 
-      workoutId = workoutEntity.id!;
+      workoutId = workoutEntity.id;
     }
 
     return Scaffold(

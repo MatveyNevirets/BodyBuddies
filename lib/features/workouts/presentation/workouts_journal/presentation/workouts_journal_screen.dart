@@ -1,7 +1,9 @@
 import 'package:body_buddies/core/widgets/app_bar.dart';
+import 'package:body_buddies/core/widgets/base_snackbar.dart';
 import 'package:body_buddies/core/widgets/loading_screen.dart';
 import 'package:body_buddies/features/workouts/presentation/workouts_journal/presentation/bloc/journal_workouts_bloc.dart';
 import 'package:body_buddies/features/workouts/presentation/workouts_journal/presentation/widgets/journal_workout_card_item.dart';
+import 'package:body_buddies/internal/application/di/app_depends_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -13,6 +15,18 @@ class WorkoutsJournalScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    void removeCurrentWorkout(int index) {
+      final isConnection = AppDependsProvider.of(context).isConnection;
+
+      if (isConnection) {
+        context
+            .read<JournalWorkoutsBloc>()
+            .add(DeleteJournalWorkoutEvent(index: index));
+      } else {
+        showSnackBar(context, Strings.haventInternetConnetion);
+      }
+    }
+
     return Scaffold(
       appBar:
           createAppBarWidget(appbarTitle: Strings.journal, context: context),
@@ -31,9 +45,7 @@ class WorkoutsJournalScreen extends StatelessWidget {
                     itemBuilder: (BuildContext context, int index) {
                       return JournalWorkoutCardItem(
                         state.journalWorkouts[index],
-                        removeItem: () => context
-                            .read<JournalWorkoutsBloc>()
-                            .add(DeleteJournalWorkoutEvent(index: index)),
+                        removeItem: () => removeCurrentWorkout(index),
                       );
                     },
                   );

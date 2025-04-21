@@ -173,5 +173,7 @@ abstract class Strings {
 
   static const String loading = 'Загрузка...';
 
+  static String haventInternetConnetion = "Проверьте подключение к сети";
+
 ///////////////////////////////
 }

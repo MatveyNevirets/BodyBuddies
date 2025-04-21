@@ -23,7 +23,6 @@ class WorkoutsSQLiteLocalDatabase implements LocalDatabase {
     final databasePath = await getDatabasesPath();
     final path = join(databasePath, AppConsts.workoutsLocalDatabase);
 
-    await deleteDatabase(path);
     _database = await openDatabase(path, version: 1,
         onCreate: (database, version) async {
       await database.execute('''CREATE TABLE ${AppConsts.workoutsTable}

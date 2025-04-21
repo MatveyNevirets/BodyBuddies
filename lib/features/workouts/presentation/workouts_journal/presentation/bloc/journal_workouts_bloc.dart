@@ -36,6 +36,7 @@ class JournalWorkoutsBloc
       await workoutsRepository.deleteJournalWorkout(
           journalWorkouts[event.index], token);
 
+
       journalWorkouts = await workoutsRepository.fetchJournalWorkouts(token);
 
       emit(FetchJournalState(journalWorkouts: journalWorkouts));

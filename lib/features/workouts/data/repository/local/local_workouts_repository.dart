@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:body_buddies/features/workouts/domain/Entities/exercise_entity.dart';
 import 'package:body_buddies/features/workouts/domain/Entities/workout_entity.dart';
 import 'package:body_buddies/features/workouts/domain/local_workouts_repository.dart';
@@ -80,8 +78,6 @@ class LocalWorkoutsRepository implements WorkoutsRepository {
     final workouts = response.map((workoutMap) {
       final newWorkout = WorkoutEntity.fromMap(workoutMap);
 
-      log(newWorkout.id.toString());
-
       return newWorkout;
     }).toList();
 
@@ -92,7 +88,6 @@ class LocalWorkoutsRepository implements WorkoutsRepository {
           where: "workout_id=?", whereArgs: [id]);
 
       final exercises = response.map((exerciseMap) {
-        log(exerciseMap.toString());
         return ExerciseEntity.fromMap(exerciseMap);
       }).toList();
 

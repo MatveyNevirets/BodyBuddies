@@ -3,6 +3,7 @@
 import 'dart:convert';
 
 import 'package:body_buddies/core/styles/styles.dart';
+import 'package:body_buddies/core/widgets/base_snackbar.dart';
 import 'package:body_buddies/features/workouts/domain/workouts_repository.dart';
 import 'package:body_buddies/features/workouts/presentation/workouts_menu/presentation/bloc/workouts_menu_bloc.dart';
 import 'package:body_buddies/features/workouts/presentation/workouts_menu/widgets/new_workout_button.dart';
@@ -36,19 +37,32 @@ class WorkoutCardOnList extends StatelessWidget {
           .pushNamed("workouts_menu/current_workout/", arguments: [workout, 0]);
     }
 
+    void editCurrentWorkout(BuildContext context, WorkoutEntity workout) {
+      if (depends.isConnection) {
+        Navigator.of(context).pushNamed("/workouts_menu/create_workout/",
+            arguments: [context, workout, true]);
+      } else {
+        showSnackBar(context, Strings.haventInternetConnetion);
+      }
+    }
+
     Future<void> removeCurrentWorkout(
         WorkoutsRepository workoutsRepository, int index) async {
-      try {
-        final storage = depends.secureStorage;
+      if (depends.isConnection) {
+        try {
+          final storage = depends.secureStorage;
 
-        final tokenJson = await storage.read(AppConsts.tokenKey);
-        final tokenMap = jsonDecode(tokenJson);
-        final token = tokenMap['access_token'];
+          final tokenJson = await storage.read(AppConsts.tokenKey);
+          final tokenMap = jsonDecode(tokenJson);
+          final token = tokenMap['access_token'];
 
-        await workoutsRepository.deleteWorkout(index, token);
-        context.read<WorkoutsMenuBloc>().add(UpdateWorkoutEvent());
-      } on Object catch (error, stack) {
-        throw Exception("Error: $error, StackTrace: $stack");
+          await workoutsRepository.deleteWorkout(index, token);
+          context.read<WorkoutsMenuBloc>().add(UpdateWorkoutEvent());
+        } on Object catch (error, stack) {
+          throw Exception("Error: $error, StackTrace: $stack");
+        }
+      } else {
+        showSnackBar(context, Strings.haventInternetConnetion);
       }
     }
 
@@ -141,11 +155,6 @@ class WorkoutCardOnList extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  void editCurrentWorkout(BuildContext context, WorkoutEntity workout) {
-    Navigator.of(context).pushNamed("/workouts_menu/create_workout/",
-        arguments: [context, workout, true]);
   }
 
   void runCurrentWorkout(

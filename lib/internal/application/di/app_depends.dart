@@ -20,7 +20,14 @@ import 'package:internet_connection_checker_plus/internet_connection_checker_plu
 typedef OnProgress = Function(String name, String progress);
 typedef OnError = Function(String name, Object error, StackTrace? stack);
 
-enum Depends { auth, useful, secureStorage, localDatabase, workouts }
+enum Depends {
+  auth,
+  useful,
+  secureStorage,
+  localDatabase,
+  localWorkouts,
+  workouts
+}
 
 class AppDepends {
   final AppEnv appEnv;
@@ -30,6 +37,8 @@ class AppDepends {
   late final LocalDatabase localDatabase;
   late final SecureStorage secureStorage;
 
+  bool isConnection = false;
+
   AppDepends(this.appEnv);
 
   Future<void> init(
@@ -38,6 +47,12 @@ class AppDepends {
     log(connection.toString());
 
     if (connection) {
+      isConnection = true;
+    } else {
+      isConnection = false;
+    }
+
+    if (isConnection) {
       try {
         final timer = Stopwatch();
         timer.start();
@@ -51,20 +66,6 @@ class AppDepends {
             _calculateProgress(Depends.auth.index, Depends.values.length));
       } on Object catch (error, stack) {
         onError.call(repository.name, error, stack);
-      }
-
-      try {
-        final timer = Stopwatch();
-        workoutsRepository = switch (appEnv) {
-          AppEnv.test => MockWorkoutsRepository(),
-          AppEnv.prod => ProdWorkoutsRepository(),
-        };
-        log("Depend ${workoutsRepository.name} took ${timer.elapsedMilliseconds}ms to initalize");
-        timer.stop();
-        onProgress.call(workoutsRepository.name,
-            _calculateProgress(Depends.workouts.index, Depends.values.length));
-      } on Object catch (error, stack) {
-        onError.call(workoutsRepository.name, error, stack);
       }
 
       try {
@@ -105,6 +106,20 @@ class AppDepends {
             localDatabase.name,
             _calculateProgress(
                 Depends.localDatabase.index, Depends.values.length));
+      } on Object catch (error, stack) {
+        onError.call(workoutsRepository.name, error, stack);
+      }
+
+      try {
+        final timer = Stopwatch();
+        workoutsRepository = switch (appEnv) {
+          AppEnv.test => MockWorkoutsRepository(),
+          AppEnv.prod => ProdWorkoutsRepository(localDatabase: localDatabase),
+        };
+        log("Depend ${workoutsRepository.name} took ${timer.elapsedMilliseconds}ms to initalize");
+        timer.stop();
+        onProgress.call(workoutsRepository.name,
+            _calculateProgress(Depends.workouts.index, Depends.values.length));
       } on Object catch (error, stack) {
         onError.call(workoutsRepository.name, error, stack);
       }
@@ -159,15 +174,14 @@ class AppDepends {
             _calculateProgress(
                 Depends.localDatabase.index, Depends.values.length));
       } on Object catch (error, stack) {
-        onError.call(workoutsRepository.name, error, stack);
+        onError.call(localDatabase.name, error, stack);
       }
 
       try {
         final timer = Stopwatch();
-        timer.start();
         workoutsRepository =
             LocalWorkoutsRepository(localDatabase: localDatabase);
-        log("Depend ${workoutsRepository.name} took ${timer.elapsedMilliseconds}ms to initialize");
+        log("Depend ${workoutsRepository.name} took ${timer.elapsedMilliseconds}ms to initalize");
         timer.stop();
         onProgress.call(workoutsRepository.name,
             _calculateProgress(Depends.workouts.index, Depends.values.length));

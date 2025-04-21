@@ -1,7 +1,9 @@
 import 'dart:developer';
 
 import 'package:body_buddies/features/workouts/data/Models/workout_model.dart';
+import 'package:body_buddies/features/workouts/data/repository/local/local_workouts_repository.dart';
 import 'package:body_buddies/features/workouts/domain/Entities/exercise_entity.dart';
+import 'package:body_buddies/features/workouts/domain/local_workouts_repository.dart';
 import 'package:body_buddies/features/workouts/domain/workouts_repository.dart';
 import 'package:body_buddies/features/workouts/domain/Entities/workout_entity.dart';
 import 'package:body_buddies/features/workouts/generated/bodybuddies_workouts.pbgrpc.dart';
@@ -10,8 +12,12 @@ import 'package:grpc/grpc_or_grpcweb.dart';
 
 class ProdWorkoutsRepository implements WorkoutsRepository {
   late final WorkoutsRpcClient _client;
+  late final WorkoutsRepository localWorkoutsRepository;
 
-  ProdWorkoutsRepository() {
+  ProdWorkoutsRepository({required LocalDatabase localDatabase}) {
+    localWorkoutsRepository =
+        LocalWorkoutsRepository(localDatabase: localDatabase);
+
     final channel = GrpcOrGrpcWebClientChannel.toSingleEndpoint(
         host: AppConsts.hostAddress,
         port: AppConsts.workoutsPort,
@@ -79,6 +85,9 @@ class ProdWorkoutsRepository implements WorkoutsRepository {
             ),
             options: CallOptions(metadata: {"token": token}));
       }
+
+      await localWorkoutsRepository.createWorkout(
+          title, weekday, exercises, token);
     } on Object catch (error, stack) {
       throw Exception("Error: $error and stack: $stack");
     }
@@ -93,6 +102,8 @@ class ProdWorkoutsRepository implements WorkoutsRepository {
 
       await _client.deleteWorkout(WorkoutDto(title: workouts[index].title),
           options: CallOptions(metadata: {"token": token}));
+
+      await localWorkoutsRepository.deleteWorkout(index, token);
     } on Object catch (error, stack) {
       throw Exception("Error: $error and stack: $stack");
     }
@@ -161,6 +172,8 @@ class ProdWorkoutsRepository implements WorkoutsRepository {
             ),
             options: CallOptions(metadata: {"token": token}));
       }
+
+      await localWorkoutsRepository.addJournalWorkout(workout, token);
     } on Object catch (error, stack) {
       throw Exception("Error: $error, StackTrace: $stack");
     }
@@ -176,6 +189,8 @@ class ProdWorkoutsRepository implements WorkoutsRepository {
               date: workout.date,
               duration: workout.duration),
           options: CallOptions(metadata: {"token": token}));
+
+      await localWorkoutsRepository.deleteJournalWorkout(workout, token);
     } on Object catch (error, stack) {
       throw Exception("Error: $error, StackTrace: $stack");
     }

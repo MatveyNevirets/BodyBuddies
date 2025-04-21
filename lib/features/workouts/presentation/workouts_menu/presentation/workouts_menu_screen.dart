@@ -4,11 +4,13 @@ import 'package:body_buddies/core/colors/colors.dart';
 import 'package:body_buddies/core/strings/strings.dart';
 import 'package:body_buddies/core/styles/styles.dart';
 import 'package:body_buddies/core/widgets/app_bar.dart';
+import 'package:body_buddies/core/widgets/base_snackbar.dart';
 import 'package:body_buddies/core/widgets/loading_screen.dart';
 import 'package:body_buddies/features/workouts/presentation/workouts_menu/presentation/bloc/workouts_menu_bloc.dart';
 import 'package:body_buddies/features/workouts/presentation/workouts_menu/widgets/open_journal_card.dart';
 import 'package:body_buddies/features/workouts/domain/Entities/workout_entity.dart';
 import 'package:body_buddies/features/workouts/presentation/workouts_menu/widgets/workout_card_on_list.dart';
+import 'package:body_buddies/internal/application/di/app_depends_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -22,15 +24,21 @@ class WorkoutsMenuScreen extends StatefulWidget {
 class _WorkoutsMenuScreenState extends State<WorkoutsMenuScreen> {
   @override
   Widget build(BuildContext context) {
+    final connection = AppDependsProvider.of(context).isConnection;
+
     createWorkout() {
-      Navigator.of(context).pushNamed(
-        "/workouts_menu/create_workout/",
-        arguments: [
-          context,
-          WorkoutEntity(title: "title", exercises: []),
-          false,
-        ],
-      );
+      if (connection) {
+        Navigator.of(context).pushNamed(
+          "/workouts_menu/create_workout/",
+          arguments: [
+            context,
+            WorkoutEntity(title: "title", exercises: []),
+            false,
+          ],
+        );
+      } else {
+        showSnackBar(context, Strings.haventInternetConnetion);
+      }
     }
 
     return Scaffold(
