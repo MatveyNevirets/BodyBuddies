@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:body_buddies/features/auth/data/repository/mock_auth_repository.dart';
 import 'package:body_buddies/features/auth/data/repository/prod_auth_repository.dart';
 import 'package:body_buddies/features/auth/domain/repository/auth_repository.dart';
+import 'package:body_buddies/features/useful/data/local_useful_sql_database.dart';
 import 'package:body_buddies/features/useful/domain/useful_repository.dart';
 import 'package:body_buddies/features/useful/data/mock_useful_repository.dart';
 import 'package:body_buddies/features/useful/data/prod_useful_repository.dart';
@@ -140,8 +141,7 @@ class AppDepends {
       try {
         final timer = Stopwatch();
         timer.start();
-        usefulRepository = MockUsefulRepository();
-
+        usefulRepository = LocalUsefulSqlDatabase();
         log("Depend ${usefulRepository.name} took ${timer.elapsedMilliseconds}ms to initialize");
         timer.stop();
         onProgress.call(usefulRepository.name,

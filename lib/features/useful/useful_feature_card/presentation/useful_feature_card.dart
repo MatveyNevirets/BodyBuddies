@@ -1,4 +1,6 @@
 import 'package:body_buddies/core/colors/colors.dart';
+import 'package:body_buddies/core/widgets/base_snackbar.dart';
+import 'package:body_buddies/internal/application/di/app_depends_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -119,7 +121,7 @@ class UsefulFeatureCard extends StatelessWidget {
                 height: MediaQuery.sizeOf(context).height / 80,
               ),
               GestureDetector(
-                onTap: () => openPage(context, "/made_workouts"),
+                onTap: () => tryOpenDoneWorkouts(context, "/made_workouts"),
                 child: Stack(
                   children: [
                     Container(
@@ -160,5 +162,15 @@ class UsefulFeatureCard extends StatelessWidget {
 
   void openPage(BuildContext context, String routePath) {
     Navigator.of(context).pushNamed(routePath);
+  }
+
+  void tryOpenDoneWorkouts(BuildContext context, String routePath) {
+    final isConnection = AppDependsProvider.of(context).isConnection;
+
+    if (isConnection) {
+      Navigator.of(context).pushNamed(routePath);
+    } else {
+      showSnackBar(context, Strings.haventInternetConnetion);
+    }
   }
 }

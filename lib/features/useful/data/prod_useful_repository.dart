@@ -1,3 +1,4 @@
+import 'package:body_buddies/features/useful/data/local_useful_sql_database.dart';
 import 'package:body_buddies/features/useful/domain/entity/advice_entity.dart';
 import 'package:body_buddies/features/useful/generated/bodybuddies_micro_features.pbgrpc.dart';
 import 'package:body_buddies/features/useful/domain/entity/exercise_on_list_entity.dart';
@@ -9,12 +10,15 @@ import 'package:grpc/grpc_or_grpcweb.dart';
 
 class ProdUsefulRepository implements UsefulRepository {
   late final MicroFeaturesRpcClient _client;
+  late final LocalUsefulSqlDatabase usefulLocal;
 
   ProdUsefulRepository() {
     final channel = GrpcOrGrpcWebClientChannel.toSingleEndpoint(
         host: AppConsts.hostAddress,
         port: AppConsts.usefulPort,
         transportSecure: false);
+
+    usefulLocal = LocalUsefulSqlDatabase();
 
     _client = MicroFeaturesRpcClient(channel);
   }
@@ -45,10 +49,12 @@ class ProdUsefulRepository implements UsefulRepository {
       final advicesDto = await _client.fetchAllAdvices(RequestDto(),
           options: CallOptions(metadata: {"token": token}));
 
-      return advicesDto.advices
-          .map((advice) =>
-              AdviceEntity(title: advice.title, bodyText: advice.body))
-          .toList();
+      final advices = advicesDto.advices.map((advice) {
+        usefulLocal.addAdvice(advice.title, advice.body);
+        return AdviceEntity(title: advice.title, bodyText: advice.body);
+      }).toList();
+
+      return advices;
     } on Object catch (error, stack) {
       throw Exception("Error: $error, StackTrace: $stack");
     }

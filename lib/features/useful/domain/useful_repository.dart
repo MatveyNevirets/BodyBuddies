@@ -6,8 +6,6 @@ abstract interface class UsefulRepository {
   String get name;
 
   Future<List<ExerciseOnListEntity>> fetchExercises(String token);
-
   Future<List<AdviceEntity>> fetchAdvices(String token);
-
   Future<List<WorkoutEntity>> fetchCreatedWorkouts(String token);
 }
