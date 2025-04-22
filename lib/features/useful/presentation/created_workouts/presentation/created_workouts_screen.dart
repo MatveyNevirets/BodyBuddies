@@ -5,6 +5,7 @@ import 'package:body_buddies/core/widgets/app_bar.dart';
 import 'package:body_buddies/core/widgets/base_snackbar.dart';
 import 'package:body_buddies/core/widgets/loading_screen.dart';
 import 'package:body_buddies/features/useful/presentation/created_workouts/presentation/bloc/created_workouts_bloc.dart';
+import 'package:body_buddies/features/workouts/domain/Entities/workout_entity.dart';
 import 'package:body_buddies/features/workouts/presentation/create_workout/presentation/workout_create_screen.dart';
 import 'package:body_buddies/features/workouts/presentation/workouts_menu/widgets/new_workout_button.dart';
 import 'package:flutter/material.dart';
@@ -15,6 +16,17 @@ class CreatedWorkoutsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    void addWorkout(int index) {
+      context
+          .read<CreatedWorkoutsBloc>()
+          .add(AddCreatedWorkoutEvent(index: index));
+    }
+
+    void openWorkout(WorkoutEntity workout) {
+      Navigator.of(context)
+          .pushNamed("workouts_menu/current_workout/", arguments: [workout, 0]);
+    }
+
     return Scaffold(
       appBar: createAppBarWidget(
           appbarTitle: Strings.workouts_appbar, context: context),
@@ -35,7 +47,7 @@ class CreatedWorkoutsScreen extends StatelessWidget {
                       itemCount: state.workouts.length,
                       itemBuilder: (context, index) {
                         return GestureDetector(
-                          onTap: () {},
+                          onTap: () => openWorkout(state.workouts[index]),
                           child: Card(
                             elevation: 4,
                             color: Colours.workout_card_background_color,
@@ -75,7 +87,7 @@ class CreatedWorkoutsScreen extends StatelessWidget {
                                       ),
                                       NewWorkoutButton(
                                           title: Strings.add,
-                                          () => addWorkout(index, context),
+                                          () => addWorkout(index),
                                           Size(
                                               MediaQuery.sizeOf(context).width /
                                                   5,
@@ -97,11 +109,5 @@ class CreatedWorkoutsScreen extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  void addWorkout(int index, BuildContext context) {
-    context
-        .read<CreatedWorkoutsBloc>()
-        .add(AddCreatedWorkoutEvent(index: index));
   }
 }

@@ -20,11 +20,6 @@ class LocalUsefulSqlDatabase implements UsefulRepository {
         (${AppConsts.idColumn} INTEGER PRIMARY KEY AUTOINCREMENT,
         ${AppConsts.titleColumn} TEXT NOT NULL,
         ${AppConsts.bodyColumn} TEXT NOT NULL)''');
-
-        // await database.execute('''CREATE TABLE ${AppConsts.exercisesOnListTable}
-        // (${AppConsts.idColumn} INTEGER PRIMARY KEY AUTOINCREMENT,
-        // ${AppConsts.titleColumn} TEXT NOT NULL,
-        // ${AppConsts.isExercise}) INTEGER NOT NULL''');
       });
     }
 
