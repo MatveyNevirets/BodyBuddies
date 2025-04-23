@@ -6,20 +6,41 @@ import 'package:body_buddies/features/workouts/presentation/run_workout/workout_
 import 'package:body_buddies/features/workouts/domain/Entities/exercise_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:just_audio/just_audio.dart';
 
 import '../../../../../../core/colors/colors.dart';
 import '../../../../../../core/strings/strings.dart';
 import '../../../../../../core/widgets/base_button.dart';
 
-class RestScreen extends StatelessWidget {
+class RestScreen extends StatefulWidget {
   ExerciseEntity exercise;
 
   WorkoutTicker ticker;
-  ReverseTicker reverseTicker = ReverseTicker();
   int workoutTimerDuration;
 
   RestScreen(this.ticker, this.workoutTimerDuration, this.exercise,
       {super.key});
+
+  @override
+  State<RestScreen> createState() => _RestScreenState();
+}
+
+class _RestScreenState extends State<RestScreen> {
+  ReverseTicker reverseTicker = ReverseTicker();
+
+  late AudioPlayer audioPlayer;
+
+  @override
+  void initState() {
+    super.initState();
+    audioPlayer = AudioPlayer();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    // audioPlayer.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -95,12 +116,13 @@ class RestScreen extends StatelessWidget {
                   padding:
                       const EdgeInsets.symmetric(vertical: 4, horizontal: 12),
                   child: StreamBuilder(
-                      stream: ticker.workoutTick(workoutTimerDuration),
+                      stream: widget.ticker
+                          .workoutTick(widget.workoutTimerDuration),
                       builder: (context, snapshot) {
                         if (snapshot.hasData) {
-                          workoutTimerDuration = snapshot.data!;
+                          widget.workoutTimerDuration = snapshot.data!;
                           return Text(
-                            getTime(workoutTimerDuration),
+                            getTime(widget.workoutTimerDuration),
                             style: Styles.add_exercise_text_style,
                           );
                         } else if (snapshot.hasError) {
@@ -108,7 +130,7 @@ class RestScreen extends StatelessWidget {
                               "Run exercise Snapshot error: ${snapshot.error}");
                         }
                         return Text(
-                          getTime(workoutTimerDuration),
+                          getTime(widget.workoutTimerDuration),
                           style: Styles.add_exercise_text_style,
                         );
                       }),
@@ -122,7 +144,8 @@ class RestScreen extends StatelessWidget {
   }
 
   SizedBox buildRestTextWidget(BuildContext context) {
-    int duration = exercise.restTimeInMinutes * 60 + exercise.restTimeInSeconds;
+    int duration = widget.exercise.restTimeInMinutes * 60 +
+        widget.exercise.restTimeInSeconds;
     return SizedBox(
       width: MediaQuery.sizeOf(context).width / 1,
       height: MediaQuery.sizeOf(context).height / 5,
@@ -172,7 +195,7 @@ class RestScreen extends StatelessWidget {
                                   "Run exercise Snapshot error: ${snapshot.error}");
                             }
                             return Text(
-                              "${exercise.restTimeInMinutes.toString().padLeft(2, "0")}:${exercise.restTimeInSeconds.toString().padLeft(2, "0")}",
+                              "${widget.exercise.restTimeInMinutes.toString().padLeft(2, "0")}:${widget.exercise.restTimeInSeconds.toString().padLeft(2, "0")}",
                               style: Styles.workout_text_style_background_24,
                             );
                           }),
@@ -188,6 +211,18 @@ class RestScreen extends StatelessWidget {
   }
 
   void nextOnExercisesList(BuildContext context) {
-    context.read<RunWorkoutBloc>().add(ExerciseRunEvent(workoutTimerDuration));
+    _playAudio();
+    context
+        .read<RunWorkoutBloc>()
+        .add(ExerciseRunEvent(widget.workoutTimerDuration));
+  }
+
+  Future<void> _playAudio() async {
+    try {
+      await audioPlayer.setAsset('assets/audio/done_audio.mp3');
+      audioPlayer.play();
+    } catch (e) {
+      print("Error loading audio: $e");
+    }
   }
 }

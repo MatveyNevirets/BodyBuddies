@@ -215,39 +215,51 @@ class _CreateWorkoutScreenState extends State<CreateWorkoutScreen> {
                     ),
                     child: Column(
                       children: [
-                        SizedBox(
-                          child: ListView.builder(
-                            shrinkWrap: true,
-                            physics: const NeverScrollableScrollPhysics(),
-                            itemCount: widget._exercises.length,
-                            itemBuilder: (context, index) {
-                              if (widget._exercises[index].isExercise) {
-                                return ExerciseItemOnList(
-                                  context,
-                                  widget.screenSize,
-                                  index,
-                                  widget._exercises,
-                                  widget.isEditWorkout,
-                                  onRemoveItem: () {
-                                    removeItem(index);
-                                  },
-                                );
-                              } else if (widget
-                                  ._exercises[index].isTimerExercise) {
-                                return TimerExerciseItemOnList(
-                                  context,
-                                  widget.screenSize,
-                                  index,
-                                  widget._exercises,
-                                  widget.isEditWorkout,
-                                  onRemoveItem: () {
-                                    removeItem(index);
-                                  },
-                                );
+                        ReorderableListView.builder(
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemCount: widget._exercises.length,
+                          itemBuilder: (context, index) {
+                            if (widget._exercises.isEmpty) {
+                              return const SizedBox();
+                            }
+                            if (widget._exercises[index].isExercise) {
+                              return ExerciseItemOnList(
+                                key: ValueKey(widget._exercises[index].title),
+                                context,
+                                widget.screenSize,
+                                index,
+                                widget._exercises,
+                                widget.isEditWorkout,
+                                onRemoveItem: () {
+                                  removeItem(index);
+                                },
+                              );
+                            } else if (widget
+                                ._exercises[index].isTimerExercise) {
+                              return TimerExerciseItemOnList(
+                                key: ValueKey(widget._exercises[index].title),
+                                context,
+                                widget.screenSize,
+                                index,
+                                widget._exercises,
+                                widget.isEditWorkout,
+                                onRemoveItem: () {
+                                  removeItem(index);
+                                },
+                              );
+                            }
+                            return const CircularProgressIndicator();
+                          },
+                          onReorder: (int oldIndex, int newIndex) {
+                            setState(() {
+                              if (newIndex > oldIndex) {
+                                newIndex -= 1;
                               }
-                              return const CircularProgressIndicator();
-                            },
-                          ),
+                              final item = widget._exercises.removeAt(oldIndex);
+                              widget._exercises.insert(newIndex, item);
+                            });
+                          },
                         ),
                         const SizedBox(
                           height: 10,
