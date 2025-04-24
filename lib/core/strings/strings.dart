@@ -175,5 +175,7 @@ abstract class Strings {
 
   static String haventInternetConnetion = "Проверьте подключение к сети";
 
+  static String youCantAddExerciseAgain = "Вы уже добавили это упражнение";
+
 ///////////////////////////////
 }

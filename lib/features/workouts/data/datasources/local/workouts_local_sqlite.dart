@@ -73,4 +73,12 @@ class WorkoutsSQLiteLocalDatabase implements LocalDatabase {
 
   @override
   String get name => "Workouts local SQLite database";
+
+  @override
+  Future<void> deleteLocalDatabase() async {
+    final databasePath = await getDatabasesPath();
+    final path = join(databasePath, AppConsts.workoutsLocalDatabase);
+
+    await deleteDatabase(path);
+  }
 }

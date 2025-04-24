@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 AppBar createAppBarWidget(
     {required String appbarTitle, required BuildContext context}) {
   final storage = AppDependsProvider.of(context).secureStorage;
+  final workoutsRepository = AppDependsProvider.of(context).workoutsRepository;
 
   return AppBar(
     actions: [
@@ -20,6 +21,7 @@ AppBar createAppBarWidget(
         icon: const Icon(Icons.exit_to_app),
         onPressed: () {
           storage.delete(AppConsts.tokenKey);
+          workoutsRepository.deleteLocalDatabase();
           Navigator.pushReplacementNamed(context, "auth/");
         },
       ),

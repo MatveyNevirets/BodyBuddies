@@ -4,5 +4,6 @@ abstract interface class LocalDatabase {
   String get name;
 
   Future<Database> getDatabase();
+  Future<void> deleteLocalDatabase();
   Future<void> initDatabase();
 }

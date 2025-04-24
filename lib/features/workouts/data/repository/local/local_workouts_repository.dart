@@ -56,6 +56,11 @@ class LocalWorkoutsRepository implements WorkoutsRepository {
   }
 
   @override
+  Future<void> deleteLocalDatabase() async {
+    await localDatabase.deleteLocalDatabase();
+  }
+
+  @override
   Future<void> deleteWorkout(int index, String token) async {
     final database = await localDatabase.getDatabase();
 

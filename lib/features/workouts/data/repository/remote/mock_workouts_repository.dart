@@ -68,6 +68,12 @@ class MockWorkoutsRepository implements WorkoutsRepository {
     await Future.delayed(const Duration(seconds: 2));
     return _journalWorkouts;
   }
+  
+  @override
+  Future<void> deleteLocalDatabase() {
+    // TODO: implement deleteLocalDatabase
+    throw UnimplementedError();
+  }
 }
 
 final List<WorkoutEntity> _journalWorkouts = [

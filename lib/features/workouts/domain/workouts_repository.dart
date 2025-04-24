@@ -11,6 +11,8 @@ abstract interface class WorkoutsRepository {
 
   Future<void> deleteWorkout(int index, String token);
 
+  Future<void> deleteLocalDatabase();
+
   Future<void> updateWorkout(String? title, int? weekday,
       List<ExerciseEntity>? exercises, int index, String token);
 

@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:body_buddies/core/widgets/base_snackbar.dart';
 import 'package:body_buddies/features/workouts/data/Models/workout_model.dart';
 import 'package:body_buddies/features/workouts/data/repository/local/local_workouts_repository.dart';
 import 'package:body_buddies/features/workouts/domain/Entities/exercise_entity.dart';
@@ -52,8 +53,8 @@ class ProdWorkoutsRepository implements WorkoutsRepository {
 
       return workouts;
     } catch (e) {
-      log("Error on fetch workout: $e");
-      return [];
+      final workouts = await localWorkoutsRepository.fetchAllWorkout(token);
+      return workouts;
     }
   }
 
@@ -211,8 +212,16 @@ class ProdWorkoutsRepository implements WorkoutsRepository {
               duration: workout.duration))
           .toList();
     } on Object catch (error, stack) {
-      throw Exception("Error: $error, StackTrace: $stack");
+      log("Journal fetch error: $error StackTrace: $stack");
+      final journalWorkouts =
+          await localWorkoutsRepository.fetchJournalWorkouts(token);
+      return journalWorkouts;
     }
+  }
+
+  @override
+  Future<void> deleteLocalDatabase() async {
+    await localWorkoutsRepository.deleteLocalDatabase();
   }
 }
 
