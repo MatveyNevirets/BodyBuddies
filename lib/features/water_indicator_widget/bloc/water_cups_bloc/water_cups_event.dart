@@ -5,6 +5,8 @@ part of 'water_cups_bloc.dart';
 @immutable
 sealed class WaterCupsEvent {}
 
+class InitCupEvent extends WaterCupsEvent {}
+
 class ActivatingCupEvent extends WaterCupsEvent {
   int index;
   ActivatingCupEvent(this.index);

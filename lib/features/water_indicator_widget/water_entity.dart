@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'bloc/water_cups_bloc/water_cups_bloc.dart';
 
@@ -15,28 +16,41 @@ class WaterEntity extends StatefulWidget {
 
 class _WaterEntityState extends State<WaterEntity> {
   bool isDone = false;
+  SharedPreferences? _prefs;
 
-  setDone(bool isTrue) {
-    isDone = isTrue;
-  }
-
-  bool _buildState(WaterCupsState state) {
-    return state is ActivatedCupState || state is DeactivatedCupState;
+  Future<SharedPreferences> getPrefs() async {
+    _prefs ??= await SharedPreferences.getInstance();
+    return _prefs!;
   }
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (BuildContext context) {
-        return WaterCupsBloc();
+        return WaterCupsBloc(widget.index)..add(InitCupEvent());
       },
       child: BlocBuilder<WaterCupsBloc, WaterCupsState>(
         builder: (context, state) {
           return buildCup(context, state);
         },
-        buildWhen: (previous, current) => _buildState(current),
       ),
     );
+  }
+
+  Future<void> saveState(String key, bool value) async {
+    final prefs = await getPrefs();
+    await prefs.setBool(key, value);
+  }
+
+  Future<bool> getState(String key) async {
+    final prefs = await getPrefs();
+    final state = prefs.getBool(key);
+    if (state == null) {
+      return false;
+    } else {
+      isDone = state;
+      return state;
+    }
   }
 
   Widget buildCup(BuildContext context, WaterCupsState state) {
@@ -45,7 +59,8 @@ class _WaterEntityState extends State<WaterEntity> {
         context.read<WaterCupsBloc>().add(isDone
             ? DeactivatingCupEvent(widget.index)
             : ActivatingCupEvent(widget.index));
-        setDone(isDone = !isDone);
+        isDone = !isDone;
+        saveState("cup${widget.index}", isDone);
       },
       child: Stack(
         alignment: Alignment.bottomRight,

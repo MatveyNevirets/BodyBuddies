@@ -42,12 +42,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 height: Styles.height_of_text_to_widget,
               ),
               Center(
-                  child: BlocProvider(
-                create: (BuildContext context) {
-                  return WaterCupsBloc();
-                },
                 child: WaterIndicatorWidget(),
-              )),
+              ),
               const SizedBox(
                 height: Styles.big_height_of_text_to_widget / 1.5,
               ),

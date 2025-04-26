@@ -35,7 +35,6 @@ class BodyBuddiesApp extends StatelessWidget {
       appDepends: appDepends,
       child: MaterialApp(
         theme: ThemeData(
-          
             appBarTheme: const AppBarTheme(
           systemOverlayStyle: SystemUiOverlayStyle(
               statusBarColor: Colours.bottom_bar_background_color,
@@ -76,8 +75,8 @@ class BodyBuddiesApp extends StatelessWidget {
           "/advices/current_advice": (context) => const CurrentAdviceScreen(),
           "/made_workouts": (context) => const CreatedWorkroutsPage(),
         },
-        initialRoute: "auth/",
-        // initialRoute: "/",
+        // initialRoute: "auth/",
+        initialRoute: "/",
       ),
     );
   }
