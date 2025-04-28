@@ -15,7 +15,7 @@ class ProdUsefulRepository implements UsefulRepository {
   ProdUsefulRepository() {
     final channel = GrpcOrGrpcWebClientChannel.toSingleEndpoint(
         host: AppConsts.hostAddress,
-        port: AppConsts.usefulPort,
+        port: AppConsts.nginxPort,
         transportSecure: false);
 
     usefulLocal = LocalUsefulSqlDatabase();
