@@ -75,6 +75,19 @@ abstract class Styles {
       fontFamily: 'AqumTwo',
       color: Colours.workout_card_background_color,
       fontWeight: FontWeight.w500);
+
+  static const title_blue_text_style = TextStyle(
+      fontSize: 24,
+      fontFamily: 'AqumTwo',
+      color: Colours.workout_card_background_color,
+      fontWeight: FontWeight.w500);
+
+  static const body_blue_text_style = TextStyle(
+    fontSize: 18,
+    fontFamily: 'AqumTwo',
+    color: Colours.workout_card_background_color,
+  );
+
   static const medium_text_style = TextStyle(
       fontSize: 18,
       color: Colours.black_text_color,

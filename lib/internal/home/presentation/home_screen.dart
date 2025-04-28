@@ -1,8 +1,6 @@
 import 'package:body_buddies/core/styles/styles.dart';
 import 'package:body_buddies/core/widgets/app_bar.dart';
-import 'package:body_buddies/features/water_indicator_widget/bloc/water_cups_bloc/water_cups_bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../core/strings/strings.dart';
 import '../../../features/useful/useful_feature_card/presentation/useful_feature_card.dart';

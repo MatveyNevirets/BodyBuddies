@@ -1,6 +1,5 @@
 import 'dart:developer';
 
-import 'package:body_buddies/core/widgets/base_snackbar.dart';
 import 'package:body_buddies/features/workouts/data/Models/workout_model.dart';
 import 'package:body_buddies/features/workouts/data/repository/local/local_workouts_repository.dart';
 import 'package:body_buddies/features/workouts/domain/Entities/exercise_entity.dart';

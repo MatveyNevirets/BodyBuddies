@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 class AreYouSureDialog extends StatelessWidget {
   final VoidCallback onSubmit;
 
-  AreYouSureDialog({required this.onSubmit, super.key});
+  const AreYouSureDialog({required this.onSubmit, super.key});
 
   @override
   Widget build(BuildContext context) {

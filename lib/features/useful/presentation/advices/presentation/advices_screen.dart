@@ -1,4 +1,3 @@
-import 'package:body_buddies/core/colors/colors.dart';
 import 'package:body_buddies/core/strings/strings.dart';
 import 'package:body_buddies/core/widgets/app_bar.dart';
 import 'package:body_buddies/core/widgets/loading_screen.dart';
@@ -17,31 +16,25 @@ class AdvicesScreen extends StatelessWidget {
           createAppBarWidget(appbarTitle: Strings.advices, context: context),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Card(
-          color: Colours.workout_card_background_color,
-          child: Padding(
-            padding: const EdgeInsets.all(16),
-            child: BlocBuilder<AdvicesBloc, AdvicesState>(
-              builder: (context, state) {
-                if (state is FetchAdvices) {
-                  return ListView.builder(
-                    itemCount: state.advices.length,
-                    itemBuilder: (context, index) {
-                      return Column(
-                        children: [
-                          buildAdviceCard(context, index, state.advices),
-                          const SizedBox(
-                            height: 5,
-                          )
-                        ],
-                      );
-                    },
+        child: BlocBuilder<AdvicesBloc, AdvicesState>(
+          builder: (context, state) {
+            if (state is FetchAdvices) {
+              return ListView.builder(
+                itemCount: state.advices.length,
+                itemBuilder: (context, index) {
+                  return Column(
+                    children: [
+                      buildAdviceCard(context, index, state.advices),
+                      const SizedBox(
+                        height: 3,
+                      )
+                    ],
                   );
-                }
-                return const LoadingScreen();
-              },
-            ),
-          ),
+                },
+              );
+            }
+            return const LoadingScreen();
+          },
         ),
       ),
     );

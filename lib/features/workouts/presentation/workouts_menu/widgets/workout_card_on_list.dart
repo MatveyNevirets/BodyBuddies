@@ -4,7 +4,6 @@ import 'dart:convert';
 
 import 'package:body_buddies/core/styles/styles.dart';
 import 'package:body_buddies/core/widgets/are_you_sure_dialog.dart';
-import 'package:body_buddies/core/widgets/base_button.dart';
 import 'package:body_buddies/core/widgets/base_snackbar.dart';
 import 'package:body_buddies/features/workouts/domain/workouts_repository.dart';
 import 'package:body_buddies/features/workouts/presentation/workouts_menu/presentation/bloc/workouts_menu_bloc.dart';
@@ -12,6 +11,7 @@ import 'package:body_buddies/features/workouts/presentation/workouts_menu/widget
 import 'package:body_buddies/features/workouts/domain/Entities/workout_entity.dart';
 import 'package:body_buddies/features/workouts/presentation/create_workout/presentation/workout_create_screen.dart';
 import 'package:body_buddies/internal/application/app_consts.dart';
+import 'package:body_buddies/internal/application/di/app_depends.dart';
 import 'package:body_buddies/internal/application/di/app_depends_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -46,18 +46,6 @@ class WorkoutCardOnList extends StatelessWidget {
       } else {
         showSnackBar(context, Strings.haventInternetConnetion);
       }
-    }
-
-    Future<void> removeCurrentWorkout(
-        WorkoutsRepository workoutsRepository, int index) async {
-      final storage = depends.secureStorage;
-
-      final tokenJson = await storage.read(AppConsts.tokenKey);
-      final tokenMap = jsonDecode(tokenJson);
-      final token = tokenMap['access_token'];
-
-      await workoutsRepository.deleteWorkout(index, token);
-      context.read<WorkoutsMenuBloc>().add(UpdateWorkoutEvent());
     }
 
     return GestureDetector(
@@ -122,24 +110,8 @@ class WorkoutCardOnList extends StatelessWidget {
                             onPressed: () => showAdaptiveDialog(
                                 context: context,
                                 builder: (context) {
-                                  return AreYouSureDialog(
-                                    onSubmit: () {
-                                      if (depends.isConnection) {
-                                        try {
-                                          Navigator.of(context).pop();
-                                          removeCurrentWorkout(
-                                              depends.workoutsRepository,
-                                              index);
-                                        } on Object catch (error, stack) {
-                                          throw Exception(
-                                              "Error: $error, StackTrace: $stack");
-                                        }
-                                      } else {
-                                        showSnackBar(context,
-                                            Strings.haventInternetConnetion);
-                                      }
-                                    },
-                                  );
+                                  return _AreYouSureMenuWorkoutsDialog(
+                                      depends: depends, index: index);
                                 }),
                             color: Colours.workoutCardForegroundColor,
                             icon: const Icon(
@@ -176,6 +148,46 @@ class WorkoutCardOnList extends StatelessWidget {
   ) {
     Navigator.of(context)
         .pushNamed("workouts_menu/run_workout/", arguments: workout);
+  }
+}
+
+class _AreYouSureMenuWorkoutsDialog extends StatelessWidget {
+  const _AreYouSureMenuWorkoutsDialog({
+    required this.depends,
+    required this.index,
+  });
+
+  final AppDepends depends;
+  final int index;
+
+  @override
+  Widget build(BuildContext context) {
+    Future<void> removeCurrentWorkout(
+        WorkoutsRepository workoutsRepository, int index) async {
+      final storage = depends.secureStorage;
+
+      final tokenJson = await storage.read(AppConsts.tokenKey);
+      final tokenMap = jsonDecode(tokenJson);
+      final token = tokenMap['access_token'];
+
+      await workoutsRepository.deleteWorkout(index, token);
+      context.read<WorkoutsMenuBloc>().add(UpdateWorkoutEvent());
+    }
+
+    return AreYouSureDialog(
+      onSubmit: () {
+        if (depends.isConnection) {
+          try {
+            Navigator.of(context).pop();
+            removeCurrentWorkout(depends.workoutsRepository, index);
+          } on Object catch (error, stack) {
+            throw Exception("Error: $error, StackTrace: $stack");
+          }
+        } else {
+          showSnackBar(context, Strings.haventInternetConnetion);
+        }
+      },
+    );
   }
 }
 

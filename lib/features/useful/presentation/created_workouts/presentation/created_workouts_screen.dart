@@ -31,81 +31,73 @@ class CreatedWorkoutsScreen extends StatelessWidget {
       appBar: createAppBarWidget(
           appbarTitle: Strings.workouts_appbar, context: context),
       body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Card(
-          child: Padding(
-            padding: const EdgeInsets.all(16),
-            child: BlocConsumer<CreatedWorkoutsBloc, CreatedWorkoutsState>(
-              listener: (context, state) {
-                if (state is CreatedWorkoutAddedState) {
-                  showSnackBar(context, state.message);
-                }
-              },
-              builder: (context, state) {
-                if (state is FetchCreatedWorkoutsState) {
-                  return ListView.builder(
-                      itemCount: state.workouts.length,
-                      itemBuilder: (context, index) {
-                        return GestureDetector(
-                          onTap: () => openWorkout(state.workouts[index]),
-                          child: Card(
-                            elevation: 4,
-                            color: Colours.workout_card_background_color,
-                            child: Container(
-                              padding: EdgeInsets.only(
-                                  right: Styles.base_margin_size_double,
-                                  top: Styles.base_margin_size_double / 1.5,
-                                  bottom: Styles.base_margin_size_double / 1.5),
-                              child: Row(
-                                crossAxisAlignment: CrossAxisAlignment.center,
+        padding: const EdgeInsets.all(16),
+        child: BlocConsumer<CreatedWorkoutsBloc, CreatedWorkoutsState>(
+          listener: (context, state) {
+            if (state is CreatedWorkoutAddedState) {
+              showSnackBar(context, state.message);
+            }
+          },
+          builder: (context, state) {
+            if (state is FetchCreatedWorkoutsState) {
+              return ListView.builder(
+                  itemCount: state.workouts.length,
+                  itemBuilder: (context, index) {
+                    return GestureDetector(
+                      onTap: () => openWorkout(state.workouts[index]),
+                      child: Card(
+                        elevation: 2,
+                        shadowColor: Colours.base_button_color,
+                        color: Colours.workout_card_background_color,
+                        child: Container(
+                          padding: EdgeInsets.only(
+                              right: Styles.base_margin_size_double,
+                              top: Styles.base_margin_size_double / 1.5,
+                              bottom: Styles.base_margin_size_double / 1.5),
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              const SizedBox(
+                                width: 5,
+                              ),
+                              Image(
+                                image: const AssetImage(
+                                  "lib/assets/images/workout_image.png",
+                                ),
+                                height: MediaQuery.sizeOf(context).height / 10,
+                                width: MediaQuery.sizeOf(context).height / 10,
+                              ),
+                              const Expanded(child: SizedBox()),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.end,
                                 children: [
+                                  Text(
+                                    truncateText(
+                                        state.workouts[index].title.toString(),
+                                        12),
+                                    style: Styles.workout_text_style,
+                                  ),
                                   const SizedBox(
-                                    width: 5,
+                                    height: 8,
                                   ),
-                                  Image(
-                                    image: const AssetImage(
-                                      "lib/assets/images/workout_image.png",
-                                    ),
-                                    height:
-                                        MediaQuery.sizeOf(context).height / 10,
-                                    width:
-                                        MediaQuery.sizeOf(context).height / 10,
-                                  ),
-                                  const Expanded(child: SizedBox()),
-                                  Column(
-                                    crossAxisAlignment: CrossAxisAlignment.end,
-                                    children: [
-                                      Text(
-                                        truncateText(
-                                            state.workouts[index].title
-                                                .toString(),
-                                            12),
-                                        style: Styles.workout_text_style,
-                                      ),
-                                      const SizedBox(
-                                        height: 8,
-                                      ),
-                                      NewWorkoutButton(
-                                          title: Strings.add,
-                                          () => addWorkout(index),
-                                          Size(
-                                              MediaQuery.sizeOf(context).width /
-                                                  5,
-                                              MediaQuery.sizeOf(context).width /
-                                                  10)),
-                                    ],
-                                  ),
+                                  NewWorkoutButton(
+                                      title: Strings.add,
+                                      () => addWorkout(index),
+                                      Size(
+                                          MediaQuery.sizeOf(context).width / 5,
+                                          MediaQuery.sizeOf(context).width /
+                                              10)),
                                 ],
                               ),
-                            ),
+                            ],
                           ),
-                        );
-                      });
-                }
-                return const LoadingScreen();
-              },
-            ),
-          ),
+                        ),
+                      ),
+                    );
+                  });
+            }
+            return const LoadingScreen();
+          },
         ),
       ),
     );

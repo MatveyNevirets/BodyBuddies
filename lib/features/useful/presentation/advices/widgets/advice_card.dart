@@ -17,7 +17,13 @@ GestureDetector buildAdviceCard(
       height: 100,
       width: double.maxFinite,
       child: Card(
-        elevation: 4,
+        shape: RoundedRectangleBorder(
+          side: const BorderSide(
+              width: 3, color: Colours.workout_card_background_color),
+          borderRadius: BorderRadiusGeometry.circular(8),
+        ),
+        elevation: 2,
+        shadowColor: Colours.base_button_color,
         color: Colours.workoutCardForegroundColor,
         child: Padding(
           padding: const EdgeInsets.all(8.0),
