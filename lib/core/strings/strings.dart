@@ -177,5 +177,11 @@ abstract class Strings {
 
   static String youCantAddExerciseAgain = "Вы уже добавили это упражнение";
 
+  static String areYouSure = "Вы уверенны?";
+
+  static var yes = "Да";
+
+  static var no = "Нет";
+
 ///////////////////////////////
 }

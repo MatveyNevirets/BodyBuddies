@@ -3,6 +3,8 @@
 import 'dart:convert';
 
 import 'package:body_buddies/core/styles/styles.dart';
+import 'package:body_buddies/core/widgets/are_you_sure_dialog.dart';
+import 'package:body_buddies/core/widgets/base_button.dart';
 import 'package:body_buddies/core/widgets/base_snackbar.dart';
 import 'package:body_buddies/features/workouts/domain/workouts_repository.dart';
 import 'package:body_buddies/features/workouts/presentation/workouts_menu/presentation/bloc/workouts_menu_bloc.dart';
@@ -48,22 +50,31 @@ class WorkoutCardOnList extends StatelessWidget {
 
     Future<void> removeCurrentWorkout(
         WorkoutsRepository workoutsRepository, int index) async {
-      if (depends.isConnection) {
-        try {
-          final storage = depends.secureStorage;
+      showAdaptiveDialog(
+          context: context,
+          builder: (context) {
+            return AreYouSureDialog(
+              onSubmit: () async {
+                if (depends.isConnection) {
+                  Navigator.of(context).pop();
+                  try {
+                    final storage = depends.secureStorage;
 
-          final tokenJson = await storage.read(AppConsts.tokenKey);
-          final tokenMap = jsonDecode(tokenJson);
-          final token = tokenMap['access_token'];
+                    final tokenJson = await storage.read(AppConsts.tokenKey);
+                    final tokenMap = jsonDecode(tokenJson);
+                    final token = tokenMap['access_token'];
 
-          await workoutsRepository.deleteWorkout(index, token);
-          context.read<WorkoutsMenuBloc>().add(UpdateWorkoutEvent());
-        } on Object catch (error, stack) {
-          throw Exception("Error: $error, StackTrace: $stack");
-        }
-      } else {
-        showSnackBar(context, Strings.haventInternetConnetion);
-      }
+                    await workoutsRepository.deleteWorkout(index, token);
+                    context.read<WorkoutsMenuBloc>().add(UpdateWorkoutEvent());
+                  } on Object catch (error, stack) {
+                    throw Exception("Error: $error, StackTrace: $stack");
+                  }
+                } else {
+                  showSnackBar(context, Strings.haventInternetConnetion);
+                }
+              },
+            );
+          });
     }
 
     return GestureDetector(
