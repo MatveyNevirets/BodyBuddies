@@ -66,7 +66,7 @@ class _WaterEntityState extends State<WaterEntity> {
         alignment: Alignment.bottomRight,
         children: [
           const Image(
-            image: AssetImage("lib/assets/images/water_cup.jpg"),
+            image: AssetImage("lib/assets/images/water_cup.png"),
             height: 50,
             width: 50,
           ),

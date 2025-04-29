@@ -37,7 +37,7 @@ class OpenWorkoutsJournal extends StatelessWidget {
                       colors: Colours.journalGradientColors),
                   boxShadow: [
                     BoxShadow(
-                        color: Colours.journalGradientColors[0],
+                        color: Theme.of(context).focusColor,
                         blurRadius: 3,
                         spreadRadius: 1)
                   ],
@@ -62,11 +62,31 @@ class OpenWorkoutsJournal extends StatelessWidget {
                         children: [
                           Text(
                             Strings.journal,
-                            style: Styles.journal_foreground_text_style,
+                            style: TextStyle(
+                              shadows: [
+                                Shadow(
+                                    blurRadius: 4,
+                                    color: Theme.of(context).focusColor,
+                                    offset: const Offset(0, 1))
+                              ],
+                              fontFamily: 'AqumTwo',
+                              fontSize: 24,
+                              color: Theme.of(context).focusColor,
+                            ),
                           ),
                           Text(
                             Strings.workouts,
-                            style: Styles.journal_foreground_text_style,
+                            style: TextStyle(
+                              shadows: [
+                                Shadow(
+                                    blurRadius: 4,
+                                    color: Theme.of(context).focusColor,
+                                    offset: const Offset(0, 1))
+                              ],
+                              fontFamily: 'AqumTwo',
+                              fontSize: 24,
+                              color: Theme.of(context).focusColor,
+                            ),
                           ),
                         ],
                       ),

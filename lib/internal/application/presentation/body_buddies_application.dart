@@ -1,3 +1,4 @@
+import 'package:body_buddies/core/styles/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -35,16 +36,50 @@ class BodyBuddiesApp extends StatelessWidget {
       appDepends: appDepends,
       child: MaterialApp(
         theme: ThemeData(
+            textTheme: const TextTheme(
+              titleLarge: Styles.appbar_text_style,
+              bodyMedium: Styles.workout_text_style_dark_theme,
+            ),
+            cardColor: Colours.workout_card_background_color,
             appBarTheme: const AppBarTheme(
-          systemOverlayStyle: SystemUiOverlayStyle(
-              statusBarColor: Colours.bottom_bar_background_color,
-              statusBarIconBrightness: Brightness.dark,
-              systemNavigationBarIconBrightness: Brightness.dark,
-              systemNavigationBarColor: Colours.bottom_bar_background_color),
-          backgroundColor: Colors.transparent,
-          surfaceTintColor: Colors.transparent,
-          actionsIconTheme: IconThemeData(color: Colours.black_text_color),
-        )),
+              iconTheme: IconThemeData(color: Colours.black_text_color),
+              systemOverlayStyle: SystemUiOverlayStyle(
+                  statusBarColor: Colours.bottom_bar_background_color,
+                  statusBarIconBrightness: Brightness.dark,
+                  systemNavigationBarIconBrightness: Brightness.dark,
+                  systemNavigationBarColor:
+                      Colours.bottom_bar_background_color),
+              backgroundColor: Colors.transparent,
+              surfaceTintColor: Colors.transparent,
+              actionsIconTheme: IconThemeData(color: Colours.black_text_color),
+            )),
+
+///////DARK////////THEME//////
+
+        darkTheme: ThemeData(
+            focusColor: Colours.black_text_color,
+            scaffoldBackgroundColor: Colours.dark_theme_background,
+            textTheme: const TextTheme(
+                bodyMedium: Styles.workout_text_style_dark_theme,
+                titleLarge: Styles.appbar_text_style_dark_theme),
+
+            /////APP--BAR/////////
+            cardColor: Colours.workout_card_background_color_dark,
+            appBarTheme: const AppBarTheme(
+              iconTheme: IconThemeData(color: Colours.white_text_color),
+              systemOverlayStyle: SystemUiOverlayStyle(
+                  statusBarColor: Colors.black54,
+                  statusBarIconBrightness: Brightness.dark,
+                  systemNavigationBarIconBrightness: Brightness.light,
+                  systemNavigationBarColor: Colors.black87),
+              surfaceTintColor: Colors.black54,
+              backgroundColor: Colours.dark_theme_background,
+              actionsIconTheme: IconThemeData(color: Colours.black_text_color),
+            )),
+
+        ////////
+
+        themeMode: ThemeMode.system,
         debugShowCheckedModeBanner: false,
         routes: {
           "auth/": (context) => const AuthPage(),

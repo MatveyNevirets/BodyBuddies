@@ -17,8 +17,9 @@ class NewWorkoutButton extends StatelessWidget {
     return ElevatedButton(
       onPressed: onPressed,
       style: ButtonStyle(
-        backgroundColor:
-            const WidgetStatePropertyAll(Colours.workoutCardForegroundColor),
+        backgroundColor: WidgetStatePropertyAll(
+          Theme.of(context).focusColor,
+        ),
         foregroundColor: const WidgetStatePropertyAll(Colours.white_text_color),
         minimumSize: WidgetStatePropertyAll(
           buttonSize,

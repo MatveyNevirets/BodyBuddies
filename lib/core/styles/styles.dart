@@ -23,6 +23,11 @@ abstract class Styles {
       fontSize: 24,
       color: Colours.black_text_color,
       fontWeight: FontWeight.bold);
+  static const appbar_text_style_dark_theme = TextStyle(
+      fontSize: 24,
+      color: Colours.white_text_color,
+      fontWeight: FontWeight.bold);
+
   static const body_text_style = TextStyle(
       fontSize: 21,
       color: Colours.black_text_color,
@@ -130,6 +135,13 @@ abstract class Styles {
       fontFamily: 'AqumTwo',
       fontSize: 21,
       color: Colours.workoutCardForegroundColor);
+
+  static const workout_text_style_dark_theme = TextStyle(
+      fontSize: 21,
+      fontFamily: 'AqumTwo',
+      color: Colours.black_text_color,
+      fontWeight: FontWeight.w500);
+
   static var add_exercise_text_style = const TextStyle(
       fontFamily: 'AqumTwo',
       fontSize: 18,
@@ -175,17 +187,6 @@ abstract class Styles {
       color: Colours.workoutCardForegroundColor);
 
   static double nutrition_button_elevate = 20;
-
-  static var journal_foreground_text_style = const TextStyle(
-      shadows: [
-        Shadow(
-            blurRadius: 4,
-            color: Color.fromARGB(64, 255, 255, 255),
-            offset: Offset(0, 2))
-      ],
-      fontFamily: 'AqumTwo',
-      fontSize: 24,
-      color: Colours.workoutCardForegroundColor);
 
   static var workouts_button_text_style = TextStyle(
       fontFamily: 'AqumTwo', fontSize: 12, color: Colours.workoutTextColor);

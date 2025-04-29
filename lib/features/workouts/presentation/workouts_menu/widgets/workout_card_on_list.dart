@@ -52,8 +52,8 @@ class WorkoutCardOnList extends StatelessWidget {
       onTap: () => openWorkout(),
       child: Card(
         elevation: 2,
-        shadowColor: Colours.background_news_card_color,
-        color: Colours.workout_card_background_color,
+        shadowColor: Theme.of(context).cardColor,
+        color: Theme.of(context).cardColor,
         child: Container(
           padding: EdgeInsets.only(
               right: Styles.base_margin_size_double,
@@ -87,7 +87,7 @@ class WorkoutCardOnList extends StatelessWidget {
                                     Styles.base_margin_size_double / 1.5,
                                 vertical: Styles.base_margin_size_double / 10),
                             decoration: BoxDecoration(
-                                color: Colours.workoutCardForegroundColor,
+                                color: Theme.of(context).focusColor,
                                 borderRadius: BorderRadius.circular(4)),
                             child: Text(
                               getDayOfWeekOnString(workout),
@@ -100,7 +100,7 @@ class WorkoutCardOnList extends StatelessWidget {
                           IconButton(
                             onPressed: () =>
                                 editCurrentWorkout(context, workout),
-                            color: Colours.workoutCardForegroundColor,
+                            color: Theme.of(context).focusColor,
                             icon: const Icon(
                               Icons.mode_sharp,
                               size: 25,
@@ -113,7 +113,7 @@ class WorkoutCardOnList extends StatelessWidget {
                                   return _AreYouSureMenuWorkoutsDialog(
                                       depends: depends, index: index);
                                 }),
-                            color: Colours.workoutCardForegroundColor,
+                            color: Theme.of(context).focusColor,
                             icon: const Icon(
                               Icons.delete,
                               size: 25,
@@ -125,7 +125,7 @@ class WorkoutCardOnList extends StatelessWidget {
                   ),
                   Text(
                     truncateText(workout.title!, 10),
-                    style: Styles.workout_text_style,
+                    style: Theme.of(context).textTheme.bodyMedium,
                   ),
                   const SizedBox(
                     height: 6,

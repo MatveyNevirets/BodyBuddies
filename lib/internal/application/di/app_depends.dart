@@ -37,7 +37,6 @@ class AppDepends {
   late final UsefulRepository usefulRepository;
   late final LocalDatabase localDatabase;
   late final SecureStorage secureStorage;
-
   bool isConnection = false;
 
   AppDepends(this.appEnv);

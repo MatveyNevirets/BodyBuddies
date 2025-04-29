@@ -67,9 +67,9 @@ class WorkoutFeatureCard extends StatelessWidget {
                 Container(
                   decoration: BoxDecoration(boxShadow: const [
                     BoxShadow(
-                        color: Colours.workout_card_background_color,
+                        color: Colours.bottom_bar_icons_color,
                         blurRadius: 4,
-                        spreadRadius: 1)
+                        spreadRadius: 0.5)
                   ], borderRadius: BorderRadius.circular(8)),
                   child: const Image(
                       image: AssetImage(

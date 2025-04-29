@@ -30,7 +30,17 @@ class AreYouSureDialog extends StatelessWidget {
                 Expanded(
                   child: Text(
                     Strings.areYouSure,
-                    style: Styles.journal_foreground_text_style,
+                    style: TextStyle(
+                      shadows: [
+                        Shadow(
+                            blurRadius: 4,
+                            color: Theme.of(context).focusColor,
+                            offset: const Offset(0, 1))
+                      ],
+                      fontFamily: 'AqumTwo',
+                      fontSize: 24,
+                      color: Theme.of(context).focusColor,
+                    ),
                   ),
                 ),
                 const Expanded(

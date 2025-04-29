@@ -17,6 +17,8 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return Scaffold(
       appBar: createAppBarWidget(
           appbarTitle: Strings.workouts_appbar, context: context),
@@ -26,8 +28,8 @@ class _HomeScreenState extends State<HomeScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(Strings.your_programs_string,
-                  style: Styles.appbar_text_style),
+              Text(Strings.your_programs_string,
+                  style: theme.textTheme.titleLarge),
               const SizedBox(
                 height: Styles.height_of_text_to_widget,
               ),
@@ -35,7 +37,7 @@ class _HomeScreenState extends State<HomeScreen> {
               const SizedBox(
                 height: Styles.big_height_of_text_to_widget / 1.5,
               ),
-              Text(Strings.water, style: Styles.appbar_text_style),
+              Text(Strings.water, style: theme.textTheme.titleLarge),
               const SizedBox(
                 height: Styles.height_of_text_to_widget,
               ),
@@ -45,7 +47,7 @@ class _HomeScreenState extends State<HomeScreen> {
               const SizedBox(
                 height: Styles.big_height_of_text_to_widget / 1.5,
               ),
-              Text(Strings.useful, style: Styles.appbar_text_style),
+              Text(Strings.useful, style: theme.textTheme.titleLarge),
               const SizedBox(
                 height: Styles.height_of_text_to_widget,
               ),

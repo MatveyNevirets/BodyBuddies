@@ -18,7 +18,7 @@ abstract class Colours {
       Color.fromARGB(255, 177, 216, 252);
 
   ////text////
-  static const Color white_text_color = Colors.white;
+  static const Color white_text_color = Color.fromARGB(255, 255, 255, 255);
   static const Color grey_text_color = Color.fromARGB(255, 237, 237, 237);
   static const Color black_text_color = Color.fromARGB(255, 50, 50, 50);
   static const Color green_text_color = Color.fromARGB(255, 9, 222, 9);
@@ -26,6 +26,7 @@ abstract class Colours {
 
   static const Color invisible_color = Color.fromARGB(0, 0, 0, 0);
 
+  static const Color dark_theme_background = Color.fromARGB(255, 28, 28, 28);
   /////buttons/////
   static const Color base_button_color = Color.fromARGB(255, 107, 169, 232);
   static const Color base_button_text_color =
@@ -60,18 +61,13 @@ abstract class Colours {
 
   static Color workoutTextColor = const Color.fromARGB(255, 35, 74, 165);
 
-  // static const Color workout_card_background_color =
-  //     Color.fromARGB(255, 110, 121, 158);
-  // static const workoutCardForegroundColor = Color.fromARGB(255, 208, 219, 253);
-
   static const Color workout_card_background_color =
       Color.fromARGB(255, 131, 172, 226);
-  static const workoutCardForegroundColor = Color.fromARGB(255, 255, 255, 255);
 
-  // static var journalGradientColors = [
-  //   const Color.fromARGB(255, 111, 122, 159),
-  //   const Color.fromARGB(255, 20, 23, 34)
-  // ];
+  static const Color workout_card_background_color_dark =
+      Color.fromARGB(255, 101, 149, 211);
+
+  static const workoutCardForegroundColor = Color.fromARGB(255, 255, 255, 255);
 
   static var journalGradientColors = [
     const Color.fromARGB(255, 105, 128, 231),
