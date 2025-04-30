@@ -48,6 +48,7 @@ dependencies:
   path: ^1.9.1
   just_audio: ^0.10.0
   shared_preferences: ^2.5.3
+  flutter_launcher_icons: ^0.14.3
 
 dev_dependencies:
   flutter_test:
@@ -78,8 +79,10 @@ flutter:
   # https://flutter.dev/to/asset-from-package
 
 
+
   assets:
     - lib/assets/images/
+    - assets/images/
     - assets/audio/
 
   fonts:
@@ -99,3 +102,8 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/to/font-from-package
+
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "assets/images/icon_v1.png"

@@ -6,7 +6,7 @@
 
 
     <application
-        android:label="body_buddies"
+        android:label="BodyBuddies"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
        
