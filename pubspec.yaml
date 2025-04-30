@@ -49,6 +49,7 @@ dependencies:
   just_audio: ^0.10.0
   shared_preferences: ^2.5.3
   flutter_launcher_icons: ^0.14.3
+  flutter_native_splash: ^2.4.6
 
 dev_dependencies:
   flutter_test:
@@ -107,3 +108,10 @@ flutter_icons:
   android: true
   ios: true
   image_path: "assets/images/icon_v1.png"
+
+flutter_native_splash:
+  color: "d6ebff"
+  color_dark: "#121212"
+  image: assets/images/splash_img.png 
+  android: true 
+  ios: true
