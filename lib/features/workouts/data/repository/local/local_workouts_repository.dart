@@ -132,25 +132,5 @@ class LocalWorkoutsRepository implements WorkoutsRepository {
 
   @override
   Future<void> updateWorkout(String? title, int? weekday,
-      List<ExerciseEntity>? exercises, int index, String token) async {
-    final database = await localDatabase.getDatabase();
-
-    // final responseToAllWorkouts = await database.query(AppConsts.workoutsTable);
-    // final workouts = responseToAllWorkouts
-    //     .map((workoutMap) => WorkoutEntity.fromMap(workoutMap))
-    //     .toList();
-
-    // final response = await database.query(AppConsts.workoutsTable,
-    //     where: "id=? AND title=?",
-    //     whereArgs: [workouts[index].id, workouts[index].title]);
-
-    // final workout = WorkoutEntity.fromMap(response[0]);
-
-    // final updatedWorkout = {
-    //   AppConsts.titleColumn: title ?? workout.title,
-    //   AppConsts.weekdayColumn: weekday ?? workout.weekday
-    // };
-
-    // await database.update(AppConsts.workoutsTable, updatedWorkout);
-  }
+      List<ExerciseEntity>? exercises, int index, String token) async {}
 }

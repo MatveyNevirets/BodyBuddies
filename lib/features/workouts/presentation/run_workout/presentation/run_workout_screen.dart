@@ -9,7 +9,6 @@ import 'package:body_buddies/features/workouts/presentation/run_workout/presenta
 import 'package:body_buddies/features/workouts/presentation/run_workout/presentation/widgets/run_timer_exercise_screen.dart';
 import 'package:body_buddies/features/workouts/presentation/run_workout/workout_ticker/workout_ticker.dart';
 import 'package:body_buddies/internal/application/di/app_depends_provider.dart';
-import 'package:just_audio/just_audio.dart';
 
 import '../../../../../core/strings/strings.dart';
 import 'widgets/run_rest_screen.dart';
@@ -21,8 +20,6 @@ class RunWorkoutScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     WorkoutEntity workout =
         ModalRoute.of(context)!.settings.arguments as WorkoutEntity;
-
-    final audioPlayer = AudioPlayer();
 
     WorkoutTicker ticker = WorkoutTicker();
 

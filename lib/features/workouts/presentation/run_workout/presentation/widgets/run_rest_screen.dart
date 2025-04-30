@@ -219,7 +219,7 @@ class _RestScreenState extends State<RestScreen> {
       await audioPlayer.setAsset('assets/audio/done_audio.mp3');
       audioPlayer.play();
     } catch (e) {
-      print("Error loading audio: $e");
+      throw Exception(e);
     }
   }
 }

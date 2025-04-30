@@ -7,7 +7,6 @@ import 'package:body_buddies/core/widgets/base_button.dart';
 import 'package:body_buddies/core/widgets/loading_screen.dart';
 import 'package:body_buddies/features/useful/domain/entity/exercise_on_list_entity.dart';
 import 'package:body_buddies/features/useful/presentation/add_exercise/bloc/exercises_bloc.dart';
-import 'package:body_buddies/internal/application/di/app_depends_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

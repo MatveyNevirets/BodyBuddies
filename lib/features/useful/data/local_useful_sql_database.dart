@@ -61,12 +61,6 @@ class LocalUsefulSqlDatabase implements UsefulRepository {
   String get name => "Local useful repository";
 
   @override
-  Future<void> addExerciseOnList(String title, bool isExercise) {
-    // TODO: implement addExerciseOnList
-    throw UnimplementedError();
-  }
-
-  @override
   Future<List<WorkoutEntity>> fetchCreatedWorkouts(String token) {
     throw UnimplementedError();
   }

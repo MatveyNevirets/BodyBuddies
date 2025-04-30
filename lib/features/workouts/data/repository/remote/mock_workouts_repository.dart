@@ -39,7 +39,6 @@ class MockWorkoutsRepository implements WorkoutsRepository {
     _workouts[index].exercises = exercises ?? _workouts[index].exercises;
   }
 
-  @override
   Future<List<ExerciseOnListEntity>> fetchAllExercisesToAddList(
       BuildContext context) async {
     List<ExerciseOnListEntity> exercises = [
@@ -68,10 +67,9 @@ class MockWorkoutsRepository implements WorkoutsRepository {
     await Future.delayed(const Duration(seconds: 2));
     return _journalWorkouts;
   }
-  
+
   @override
   Future<void> deleteLocalDatabase() {
-    // TODO: implement deleteLocalDatabase
     throw UnimplementedError();
   }
 }

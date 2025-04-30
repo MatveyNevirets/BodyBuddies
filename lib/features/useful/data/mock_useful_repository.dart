@@ -92,15 +92,4 @@ class MockUsefulRepository implements UsefulRepository {
     }
   }
 
-  @override
-  Future<void> addAdvice(String title, String body) {
-    // TODO: implement addAdvice
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<void> addExerciseOnList(String title, bool isExercise) {
-    // TODO: implement addExerciseOnList
-    throw UnimplementedError();
-  }
 }

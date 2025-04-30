@@ -16,7 +16,6 @@ import 'package:body_buddies/internal/application/di/app_depends_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../../core/colors/colors.dart';
 import '../../../../../core/strings/strings.dart';
 
 class WorkoutCardOnList extends StatelessWidget {
