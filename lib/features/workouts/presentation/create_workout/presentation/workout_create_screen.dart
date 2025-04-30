@@ -177,7 +177,7 @@ class _CreateWorkoutScreenState extends State<CreateWorkoutScreen> {
                     height: 50,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(8),
-                      color: Colours.workoutCardForegroundColor,
+                      color: Theme.of(context).scaffoldBackgroundColor,
                     ),
                     width: widget.screenSize.width / 1.5,
                     margin: const EdgeInsets.all(30),
@@ -211,7 +211,7 @@ class _CreateWorkoutScreenState extends State<CreateWorkoutScreen> {
                     width: widget.screenSize.width / 1.5,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(8),
-                      color: Colours.workoutCardForegroundColor,
+                      color: Theme.of(context).scaffoldBackgroundColor,
                     ),
                     child: Column(
                       children: [
@@ -274,7 +274,7 @@ class _CreateWorkoutScreenState extends State<CreateWorkoutScreen> {
                           radius: 8,
                           backgroundColor:
                               Colours.workout_card_background_color,
-                          color: Colours.workoutCardForegroundColor,
+                          color: Theme.of(context).scaffoldBackgroundColor,
                         ),
                       ],
                     ),
@@ -287,20 +287,20 @@ class _CreateWorkoutScreenState extends State<CreateWorkoutScreen> {
                     width: widget.screenSize.width / 1.5,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(8),
-                      color: Colours.workoutCardForegroundColor,
+                      color: Theme.of(context).scaffoldBackgroundColor,
                     ),
                     child: DropdownButtonFormField<String>(
                       isDense: true,
-                      dropdownColor: Colours.workoutCardForegroundColor,
-                      decoration: const InputDecoration(
+                      dropdownColor: Theme.of(context).scaffoldBackgroundColor,
+                      decoration: InputDecoration(
                         focusedBorder: UnderlineInputBorder(
                           borderSide: BorderSide(
-                            color: Colours.workoutCardForegroundColor,
+                            color: Theme.of(context).scaffoldBackgroundColor,
                           ),
                         ),
                         enabledBorder: UnderlineInputBorder(
                           borderSide: BorderSide(
-                            color: Colours.workoutCardForegroundColor,
+                            color: Theme.of(context).scaffoldBackgroundColor,
                           ),
                         ),
                       ),
@@ -342,7 +342,7 @@ class _CreateWorkoutScreenState extends State<CreateWorkoutScreen> {
                     icon: null,
                     isElevated: true,
                     radius: 8,
-                    backgroundColor: Colours.workoutCardForegroundColor,
+                    backgroundColor: Theme.of(context).scaffoldBackgroundColor,
                     color: Colours.workout_card_background_color,
                     buttonSize: Size(widget.screenSize.width / 1.5,
                         widget.screenSize.height / 15),

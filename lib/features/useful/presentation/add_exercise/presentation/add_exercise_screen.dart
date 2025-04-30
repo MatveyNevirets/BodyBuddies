@@ -29,7 +29,6 @@ class AddExerciseScreen extends StatelessWidget {
     }
 
     searchTextFieldController.addListener(searchExercises);
-    final usefulRepository = AppDependsProvider.of(context).usefulRepository;
 
     Future<void> addYourExercise(BuildContext context) async {
       final createdExercise = await Navigator.of(context).pushNamed(
@@ -56,7 +55,7 @@ class AddExerciseScreen extends StatelessWidget {
                 Container(
                   padding: const EdgeInsets.all(8),
                   decoration: BoxDecoration(
-                      color: Colours.workoutCardForegroundColor,
+                      color: Theme.of(context).scaffoldBackgroundColor,
                       borderRadius: BorderRadius.circular(8)),
                   child: TextField(
                     controller: searchTextFieldController,
@@ -83,7 +82,7 @@ class AddExerciseScreen extends StatelessWidget {
                 const SizedBox(
                   height: 16,
                 ),
-                buildExercisesListView(),
+                buildExercisesListView(context),
                 const SizedBox(
                   height: 16,
                 ),
@@ -91,7 +90,7 @@ class AddExerciseScreen extends StatelessWidget {
                     onClick: () async => await addYourExercise(context),
                     // onClick: () async => await addYourExercise(context),
                     buttonText: Strings.add_yourself,
-                    backgroundColor: Colours.workoutCardForegroundColor,
+                    backgroundColor: Theme.of(context).scaffoldBackgroundColor,
                     color: Colours.workout_card_background_color,
                     radius: 8,
                     buttonSize: const Size(double.maxFinite, 45),
@@ -105,12 +104,13 @@ class AddExerciseScreen extends StatelessWidget {
     );
   }
 
-  Expanded buildExercisesListView() {
+  Expanded buildExercisesListView(BuildContext context) {
     return Expanded(
         child: Container(
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(8),
-          color: Colours.workoutCardForegroundColor),
+        borderRadius: BorderRadius.circular(8),
+        color: Theme.of(context).scaffoldBackgroundColor,
+      ),
       padding: const EdgeInsets.all(8),
       child: BlocBuilder<ExercisesBloc, ExercisesState>(
         builder: (context, state) {

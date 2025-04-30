@@ -75,7 +75,7 @@ class CreatedWorkoutsScreen extends StatelessWidget {
                                     truncateText(
                                         state.workouts[index].title.toString(),
                                         12),
-                                    style: Styles.workout_text_style,
+                                    style: Styles.workout_text_style_dark_theme,
                                   ),
                                   const SizedBox(
                                     height: 8,

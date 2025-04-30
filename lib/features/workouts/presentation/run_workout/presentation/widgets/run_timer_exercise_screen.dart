@@ -38,7 +38,7 @@ class RunTimerExercise extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Card(
-            color: Colours.workoutCardForegroundColor,
+            color: Theme.of(context).scaffoldBackgroundColor,
             elevation: 4,
             child: Container(
               padding: const EdgeInsets.all(16),
@@ -101,10 +101,8 @@ class RunTimerExercise extends StatelessWidget {
           padding: const EdgeInsets.all(8),
           child: Column(
             children: [
-              Text(
-                Strings.exercise,
-                style: Styles.workout_text_style,
-              ),
+              Text(Strings.exercise,
+                  style: Theme.of(context).textTheme.bodyMedium),
               SizedBox(
                 height: MediaQuery.sizeOf(context).height / 100,
               ),

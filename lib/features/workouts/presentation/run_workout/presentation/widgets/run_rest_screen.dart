@@ -52,7 +52,7 @@ class _RestScreenState extends State<RestScreen> {
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Card(
-            color: Colours.workoutCardForegroundColor,
+            color: Theme.of(context).scaffoldBackgroundColor,
             child: Container(
               padding: const EdgeInsets.all(16),
               height: double.maxFinite,
@@ -155,10 +155,7 @@ class _RestScreenState extends State<RestScreen> {
           padding: const EdgeInsets.all(8),
           child: Column(
             children: [
-              Text(
-                Strings.rest,
-                style: Styles.workout_text_style,
-              ),
+              Text(Strings.rest, style: Theme.of(context).textTheme.bodyMedium),
               SizedBox(
                 height: MediaQuery.sizeOf(context).height / 100,
               ),

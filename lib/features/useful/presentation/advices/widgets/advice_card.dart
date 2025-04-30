@@ -24,7 +24,7 @@ GestureDetector buildAdviceCard(
         ),
         elevation: 2,
         shadowColor: Colours.base_button_color,
-        color: Colours.workoutCardForegroundColor,
+        color: Theme.of(context).scaffoldBackgroundColor,
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Column(

@@ -32,7 +32,7 @@ class BenchPressCalculatorScreen extends StatelessWidget {
                     children: [
                       buildTextFields(
                           weightController, repsController, context),
-                      buildResults(),
+                      buildResults(context),
                     ],
                   )),
             ),
@@ -55,7 +55,7 @@ class BenchPressCalculatorScreen extends StatelessWidget {
         buttonText: Strings.calculate,
         icon: null,
         isElevated: true,
-        backgroundColor: Colours.workoutCardForegroundColor,
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         color: Colours.workout_card_background_color,
         buttonSize: const Size(double.maxFinite, 50),
         radius: 8,
@@ -63,7 +63,7 @@ class BenchPressCalculatorScreen extends StatelessWidget {
     );
   }
 
-  Card buildResults() {
+  Card buildResults(BuildContext context) {
     return Card(
       color: Colours.workout_card_background_color,
       child: SizedBox(
@@ -71,7 +71,7 @@ class BenchPressCalculatorScreen extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Card(
-            color: Colours.workoutCardForegroundColor,
+            color: Theme.of(context).scaffoldBackgroundColor,
             child: Padding(
               padding: const EdgeInsets.all(16),
               child: BlocBuilder<BenchPressCalculatorBloc,
@@ -201,7 +201,7 @@ class BenchPressCalculatorScreen extends StatelessWidget {
           child: Column(
             children: [
               Card(
-                color: Colours.workoutCardForegroundColor,
+                color: Theme.of(context).scaffoldBackgroundColor,
                 child: Padding(
                   padding: const EdgeInsets.all(16),
                   child: Column(
@@ -216,7 +216,8 @@ class BenchPressCalculatorScreen extends StatelessWidget {
                           padding: const EdgeInsets.all(8.0),
                           child: TextField(
                             style: Styles.add_exercise_text_style,
-                            cursorColor: Colours.workoutCardForegroundColor,
+                            cursorColor:
+                                Theme.of(context).scaffoldBackgroundColor,
                             keyboardType: TextInputType.number,
                             controller: weightController,
                             decoration: const InputDecoration(
@@ -242,7 +243,8 @@ class BenchPressCalculatorScreen extends StatelessWidget {
                           padding: const EdgeInsets.all(8.0),
                           child: TextField(
                             style: Styles.add_exercise_text_style,
-                            cursorColor: Colours.workoutCardForegroundColor,
+                            cursorColor:
+                                Theme.of(context).scaffoldBackgroundColor,
                             controller: repsController,
                             keyboardType: TextInputType.number,
                             decoration: const InputDecoration(

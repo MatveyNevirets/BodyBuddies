@@ -125,7 +125,7 @@ class WorkoutCardOnList extends StatelessWidget {
                   ),
                   Text(
                     truncateText(workout.title!, 10),
-                    style: Theme.of(context).textTheme.bodyMedium,
+                    style: Styles.workout_text_style_dark_theme,
                   ),
                   const SizedBox(
                     height: 6,

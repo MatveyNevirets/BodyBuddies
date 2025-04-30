@@ -33,79 +33,84 @@ class SignUpScreen extends StatelessWidget {
                 const SizedBox(
                   height: 50,
                 ),
-                const Text(
+                Text(
                   Strings.enter_your_email,
-                  style: Styles.medium_text_style,
+                  style: Theme.of(context).textTheme.titleLarge,
                 ),
                 const SizedBox(
                   height: 10,
                 ),
                 TextField(
+                  style: Theme.of(context).textTheme.bodySmall,
                   controller: emailController,
                   maxLength: 30,
                   cursorColor: Colours.bottom_bar_icons_color.withAlpha(200),
-                  decoration: const InputDecoration(
+                  decoration: InputDecoration(
                     hintText: Strings.hint_email,
-                    hintStyle: Styles.hint_text_style,
-                    focusedBorder: OutlineInputBorder(
+                    counterStyle: Theme.of(context).textTheme.bodySmall,
+                    hintStyle: Theme.of(context).textTheme.bodySmall,
+                    focusedBorder: const OutlineInputBorder(
                       borderSide: BorderSide(
                         width: 2,
                         color: Colours.bottom_bar_icons_color,
                       ),
                     ),
-                    border: OutlineInputBorder(),
+                    border: const OutlineInputBorder(),
                   ),
                 ),
                 const SizedBox(
                   height: 10,
                 ),
-                const Text(
+                Text(
                   Strings.imagine_your_nickname,
-                  style: Styles.medium_text_style,
+                  style: Theme.of(context).textTheme.titleLarge,
                 ),
                 const SizedBox(
                   height: 10,
                 ),
                 TextField(
+                  style: Theme.of(context).textTheme.bodySmall,
                   controller: usernameController,
                   maxLength: 30,
                   cursorColor: Colours.bottom_bar_icons_color.withAlpha(200),
-                  decoration: const InputDecoration(
+                  decoration: InputDecoration(
                     hintText: Strings.hint_nickname,
-                    hintStyle: Styles.hint_text_style,
-                    focusedBorder: OutlineInputBorder(
+                    counterStyle: Theme.of(context).textTheme.bodySmall,
+                    hintStyle: Theme.of(context).textTheme.bodySmall,
+                    focusedBorder: const OutlineInputBorder(
                       borderSide: BorderSide(
                         width: 2,
                         color: Colours.bottom_bar_icons_color,
                       ),
                     ),
-                    border: OutlineInputBorder(),
+                    border: const OutlineInputBorder(),
                   ),
                 ),
                 const SizedBox(
                   height: 10,
                 ),
-                const Text(
+                Text(
                   Strings.imagine_your_password,
-                  style: Styles.medium_text_style,
+                  style: Theme.of(context).textTheme.titleLarge,
                 ),
                 const SizedBox(
                   height: 10,
                 ),
                 TextField(
+                  style: Theme.of(context).textTheme.bodySmall,
                   controller: passwordController,
                   obscureText: true,
                   cursorColor: Colours.bottom_bar_icons_color.withAlpha(200),
-                  decoration: const InputDecoration(
+                  decoration: InputDecoration(
                     hintText: Strings.hint_password,
-                    hintStyle: Styles.hint_text_style,
-                    focusedBorder: OutlineInputBorder(
+                    hintStyle: Theme.of(context).textTheme.bodySmall,
+                    focusedBorder: const OutlineInputBorder(
                       borderSide: BorderSide(
                         width: 2,
                         color: Colours.bottom_bar_icons_color,
                       ),
                     ),
-                    border: OutlineInputBorder(),
+                    border: const OutlineInputBorder(),
                   ),
                 ),
                 const SizedBox(
@@ -121,18 +126,10 @@ class SignUpScreen extends StatelessWidget {
                             username: usernameController.text,
                             context: context),
                         buttonText: Strings.registration_text,
+                        buttonSize: const Size(double.maxFinite, 50),
+                        radius: 8,
                         icon: null,
                         isElevated: true),
-                  ),
-                ),
-                const SizedBox(
-                  height: 35,
-                ),
-                const Center(
-                  child: Text(
-                    Strings.intro_login_mini_info_text,
-                    style: Styles.mini_info_text_style,
-                    textAlign: TextAlign.center,
                   ),
                 ),
               ],

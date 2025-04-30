@@ -29,17 +29,17 @@ class LoginIntroScreen extends StatelessWidget {
                 const SizedBox(
                   height: 80,
                 ),
-                const Center(
+                Center(
                     child: Text(
                   Strings.intro_login_title_text,
-                  style: Styles.title_text_style,
+                  style: Theme.of(context).textTheme.bodyLarge,
                 )),
                 const SizedBox(
                   height: 70,
                 ),
-                const Text(
+                Text(
                   Strings.intro_enter_login_text,
-                  style: Styles.medium_text_style,
+                  style: Theme.of(context).textTheme.titleLarge,
                 ),
                 const SizedBox(
                   height: 10,
@@ -47,43 +47,43 @@ class LoginIntroScreen extends StatelessWidget {
                 TextField(
                   maxLength: 30,
                   controller: loginController,
+                  style: Theme.of(context).textTheme.bodySmall,
                   cursorColor: Colours.bottom_bar_icons_color.withAlpha(200),
-                  decoration: const InputDecoration(
-                    hintText: Strings.hint_email_or_nickname,
-                    hintStyle: Styles.hint_text_style,
-                    focusedBorder: OutlineInputBorder(
+                  decoration: InputDecoration(
+                    hintText: Strings.hint_email,
+                    hintStyle: Theme.of(context).textTheme.bodySmall,
+                    focusedBorder: const OutlineInputBorder(
                       borderSide: BorderSide(
                         width: 2,
                         color: Colours.bottom_bar_icons_color,
                       ),
                     ),
-                    border: OutlineInputBorder(),
+                    border: const OutlineInputBorder(),
                   ),
                 ),
                 const SizedBox(
                   height: 20,
                 ),
-                const Text(
-                  Strings.intro_login_enter_password_text,
-                  style: Styles.medium_text_style,
-                ),
+                Text(Strings.intro_login_enter_password_text,
+                    style: Theme.of(context).textTheme.titleLarge),
                 const SizedBox(
                   height: 10,
                 ),
                 TextField(
                   obscureText: true,
                   controller: passwordController,
+                  style: Theme.of(context).textTheme.bodySmall,
                   cursorColor: Colours.bottom_bar_icons_color.withAlpha(200),
-                  decoration: const InputDecoration(
+                  decoration: InputDecoration(
                     hintText: Strings.hint_password,
-                    hintStyle: Styles.hint_text_style,
-                    focusedBorder: OutlineInputBorder(
+                    hintStyle: Theme.of(context).textTheme.bodySmall,
+                    focusedBorder: const OutlineInputBorder(
                       borderSide: BorderSide(
                         width: 2,
                         color: Colours.bottom_bar_icons_color,
                       ),
                     ),
-                    border: OutlineInputBorder(),
+                    border: const OutlineInputBorder(),
                   ),
                 ),
                 const SizedBox(
@@ -93,6 +93,8 @@ class LoginIntroScreen extends StatelessWidget {
                   child: SizedBox(
                     width: 250,
                     child: BaseButton(
+                        buttonSize: const Size(double.maxFinite, 50),
+                        radius: 8,
                         onClick: () => onSignIn(
                             email: loginController.text,
                             password: passwordController.text),
@@ -102,26 +104,18 @@ class LoginIntroScreen extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(
-                  height: 30,
+                  height: 10,
                 ),
                 Center(
                   child: SizedBox(
                     width: 250,
                     child: BaseButton(
+                        radius: 8,
+                        buttonSize: const Size(double.maxFinite, 50),
                         onClick: () => onSignUp(),
                         buttonText: Strings.registration_text,
                         icon: null,
                         isElevated: false),
-                  ),
-                ),
-                const SizedBox(
-                  height: 40,
-                ),
-                const Center(
-                  child: Text(
-                    Strings.intro_login_mini_info_text,
-                    style: Styles.mini_info_text_style,
-                    textAlign: TextAlign.center,
                   ),
                 ),
               ],

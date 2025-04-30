@@ -38,7 +38,7 @@ class RunExerciseScreen extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(8),
           child: Card(
-            color: Colours.workoutCardForegroundColor,
+            color: Theme.of(context).scaffoldBackgroundColor,
             child: Container(
               padding: const EdgeInsets.all(16),
               height: double.maxFinite,

@@ -23,7 +23,7 @@ class JournalWorkoutCardItem extends StatelessWidget {
       child: GestureDetector(
         onTap: () => openCurrentWorkout(),
         child: Card(
-          color: Colours.workoutCardForegroundColor,
+          color: Theme.of(context).scaffoldBackgroundColor,
           elevation: 4,
           child: Padding(
             padding: const EdgeInsets.all(16),

@@ -27,7 +27,7 @@ class WorkoutEntityScreen extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(16),
           child: Card(
-            color: Colours.workout_card_background_color,
+            color: Theme.of(context).cardColor,
             child: Padding(
               padding: const EdgeInsets.all(16),
               child: Column(
@@ -35,7 +35,7 @@ class WorkoutEntityScreen extends StatelessWidget {
                   Column(
                     children: [
                       Card(
-                        color: Colours.workoutCardForegroundColor,
+                        color: Theme.of(context).scaffoldBackgroundColor,
                         child: Padding(
                           padding: const EdgeInsets.symmetric(
                               vertical: 8, horizontal: 32),
@@ -59,7 +59,7 @@ class WorkoutEntityScreen extends StatelessWidget {
                         itemBuilder: (context, index) {
                           if (workoutEntity.exercises[index].isExercise) {
                             return Card(
-                              color: Colours.workoutCardForegroundColor,
+                              color: Theme.of(context).scaffoldBackgroundColor,
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Column(
@@ -82,7 +82,7 @@ class WorkoutEntityScreen extends StatelessWidget {
                           } else if (workoutEntity
                               .exercises[index].isTimerExercise) {
                             return Card(
-                              color: Colours.workoutCardForegroundColor,
+                              color: Theme.of(context).scaffoldBackgroundColor,
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Column(

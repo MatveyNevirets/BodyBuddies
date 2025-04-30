@@ -36,9 +36,12 @@ class BodyBuddiesApp extends StatelessWidget {
       appDepends: appDepends,
       child: MaterialApp(
         theme: ThemeData(
-            textTheme: const TextTheme(
+            focusColor: Colours.workoutCardForegroundColor,
+            textTheme: TextTheme(
+              bodyLarge: Styles.title_blue_text_style,
               titleLarge: Styles.appbar_text_style,
-              bodyMedium: Styles.workout_text_style_dark_theme,
+              bodySmall: Styles.small_dark_boxes_text,
+              bodyMedium: Styles.workout_text_style,
             ),
             cardColor: Colours.workout_card_background_color,
             appBarTheme: const AppBarTheme(
@@ -57,10 +60,12 @@ class BodyBuddiesApp extends StatelessWidget {
 ///////DARK////////THEME//////
 
         darkTheme: ThemeData(
-            focusColor: Colours.black_text_color,
+            focusColor: Colours.workoutCardForegroundColor,
             scaffoldBackgroundColor: Colours.dark_theme_background,
-            textTheme: const TextTheme(
+            textTheme: TextTheme(
+                bodyLarge: Styles.title_blue_text_style,
                 bodyMedium: Styles.workout_text_style_dark_theme,
+                bodySmall: Styles.small_dark_boxes_text_dark_theme,
                 titleLarge: Styles.appbar_text_style_dark_theme),
 
             /////APP--BAR/////////
@@ -74,7 +79,7 @@ class BodyBuddiesApp extends StatelessWidget {
                   systemNavigationBarColor: Colors.black87),
               surfaceTintColor: Colors.black54,
               backgroundColor: Colours.dark_theme_background,
-              actionsIconTheme: IconThemeData(color: Colours.black_text_color),
+              actionsIconTheme: IconThemeData(color: Colours.white_text_color),
             )),
 
         ////////

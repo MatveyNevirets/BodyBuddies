@@ -69,9 +69,16 @@ abstract class Styles {
       color: Colours.white_text_color,
       fontWeight: FontWeight.w500);
 
+  static const small_dark_boxes_text_dark_theme = TextStyle(
+      fontSize: 12,
+      fontFamily: 'AqumTwo',
+      color: Colours.grey_text_color,
+      fontWeight: FontWeight.w400);
+
   static const small_dark_boxes_text = TextStyle(
       fontSize: 12,
-      color: Colours.grey_text_color,
+      fontFamily: 'AqumTwo',
+      color: Colours.black_text_color,
       fontWeight: FontWeight.w400);
 
   ////dark///boxes//////
@@ -132,15 +139,12 @@ abstract class Styles {
       const TextStyle(fontFamily: 'AqumTwo', fontSize: 21);
 
   static var workout_text_style = const TextStyle(
+      fontFamily: 'AqumTwo', fontSize: 21, color: Colours.black_text_color);
+
+  static var workout_text_style_dark_theme = const TextStyle(
       fontFamily: 'AqumTwo',
       fontSize: 21,
       color: Colours.workoutCardForegroundColor);
-
-  static const workout_text_style_dark_theme = TextStyle(
-      fontSize: 21,
-      fontFamily: 'AqumTwo',
-      color: Colours.black_text_color,
-      fontWeight: FontWeight.w500);
 
   static var add_exercise_text_style = const TextStyle(
       fontFamily: 'AqumTwo',
