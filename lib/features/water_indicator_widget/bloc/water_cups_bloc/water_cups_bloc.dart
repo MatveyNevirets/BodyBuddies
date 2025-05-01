@@ -30,17 +30,24 @@ class WaterCupsBloc extends Bloc<WaterCupsEvent, WaterCupsState> {
         emit(DeactivatedCupState());
       }
     } else {
+      prefs.setBool("cup$index", false);
       emit(DeactivatedCupState());
     }
 
-    await prefs.setString(AppConsts.dayConst, currentDay);
+    if (index == 0) {
+      await prefs.setString(AppConsts.dayConst, currentDay);
+    }
   }
 
   Future<void> _activateEventHandler(WaterCupsEvent e, Emitter emit) async {
+    final prefs = await SharedPreferences.getInstance();
+    prefs.setBool("cup$index", true);
     emit(ActivatedCupState());
   }
 
   Future<void> _deactivateEventHandler(WaterCupsEvent e, Emitter emit) async {
+    final prefs = await SharedPreferences.getInstance();
+    prefs.setBool("cup$index", false);
     emit(DeactivatedCupState());
   }
 }

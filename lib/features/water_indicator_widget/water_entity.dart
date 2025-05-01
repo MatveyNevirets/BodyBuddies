@@ -33,6 +33,7 @@ class _WaterEntityState extends State<WaterEntity> {
         builder: (context, state) {
           return buildCup(context, state);
         },
+        buildWhen: (prev, curr) => prev != curr,
       ),
     );
   }
@@ -56,11 +57,10 @@ class _WaterEntityState extends State<WaterEntity> {
   Widget buildCup(BuildContext context, WaterCupsState state) {
     return GestureDetector(
       onTap: () {
-        context.read<WaterCupsBloc>().add(isDone
+        isDone = !isDone;
+        context.read<WaterCupsBloc>().add(!isDone
             ? DeactivatingCupEvent(widget.index)
             : ActivatingCupEvent(widget.index));
-        isDone = !isDone;
-        saveState("cup${widget.index}", isDone);
       },
       child: Stack(
         alignment: Alignment.bottomRight,
