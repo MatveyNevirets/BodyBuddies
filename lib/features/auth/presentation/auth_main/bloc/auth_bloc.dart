@@ -48,6 +48,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
       final tokens =
           Tokens(accessToken: response.$1, refreshToken: response.$2);
+
       await storage.write(AppConsts.tokenKey, tokens.toJson());
       emit(SnackbarMessage("Аккаунт успешно создан!"));
       emit(UserHasAuthtorized());

@@ -1,5 +1,5 @@
 import 'package:body_buddies/core/colors/colors.dart';
-import 'package:body_buddies/core/widgets/base_snackbar.dart';
+import 'package:body_buddies/core/widgets/snackbar.dart';
 import 'package:body_buddies/internal/application/di/app_depends_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

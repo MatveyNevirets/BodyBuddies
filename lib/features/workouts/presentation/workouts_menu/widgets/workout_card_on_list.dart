@@ -4,7 +4,7 @@ import 'dart:convert';
 
 import 'package:body_buddies/core/styles/styles.dart';
 import 'package:body_buddies/core/widgets/are_you_sure_dialog.dart';
-import 'package:body_buddies/core/widgets/base_snackbar.dart';
+import 'package:body_buddies/core/widgets/snackbar.dart';
 import 'package:body_buddies/features/workouts/domain/workouts_repository.dart';
 import 'package:body_buddies/features/workouts/presentation/workouts_menu/presentation/bloc/workouts_menu_bloc.dart';
 import 'package:body_buddies/features/workouts/presentation/workouts_menu/widgets/new_workout_button.dart';

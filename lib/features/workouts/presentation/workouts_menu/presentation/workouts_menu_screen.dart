@@ -4,7 +4,7 @@ import 'package:body_buddies/core/colors/colors.dart';
 import 'package:body_buddies/core/strings/strings.dart';
 import 'package:body_buddies/core/styles/styles.dart';
 import 'package:body_buddies/core/widgets/app_bar.dart';
-import 'package:body_buddies/core/widgets/base_snackbar.dart';
+import 'package:body_buddies/core/widgets/snackbar.dart';
 import 'package:body_buddies/core/widgets/loading_screen.dart';
 import 'package:body_buddies/features/workouts/presentation/workouts_menu/presentation/bloc/workouts_menu_bloc.dart';
 import 'package:body_buddies/features/workouts/presentation/workouts_menu/widgets/open_journal_card.dart';
