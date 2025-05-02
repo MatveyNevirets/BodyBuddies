@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:ui';
 
 import 'package:body_buddies/features/auth/domain/repository/auth_repository.dart';
 import 'package:body_buddies/features/auth/generated/bodybuddies_auth.pbgrpc.dart';
@@ -32,7 +33,8 @@ class ProdAuthRepository implements AuthRepository {
   Future<(String, String)> signUp(
       {required String username,
       required String password,
-      required String email}) async {
+      required String email,
+      required VoidCallback onSend}) async {
     try {
       UserCredential userCredential =
           await FirebaseAuth.instance.createUserWithEmailAndPassword(
@@ -41,6 +43,10 @@ class ProdAuthRepository implements AuthRepository {
       );
 
       await userCredential.user?.sendEmailVerification();
+
+      onSend.call();
+
+      await waitForEmailVerification(userCredential.user);
 
       final request = await _client.signUp(UserDto(
         email: email,
@@ -53,6 +59,18 @@ class ProdAuthRepository implements AuthRepository {
       return (request.accessToken, request.refreshToken);
     } on Object catch (error, stack) {
       throw Exception("Error: $error, Stack: $stack");
+    }
+  }
+
+  Future<void> waitForEmailVerification(User? user) async {
+    if (user == null) return;
+
+    FirebaseAuth auth = FirebaseAuth.instance;
+
+    while (!user!.emailVerified) {
+      await Future.delayed(const Duration(seconds: 3));
+      await user.reload();
+      user = auth.currentUser;
     }
   }
 }

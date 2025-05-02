@@ -15,7 +15,7 @@ class UserNotAuthtorized extends AuthState {}
 
 class UserHasAuthtorized extends AuthState {}
 
-class ErrorState extends AuthState {
+class SnackbarMessage extends AuthState {
   String message;
-  ErrorState(this.message);
+  SnackbarMessage(this.message);
 }

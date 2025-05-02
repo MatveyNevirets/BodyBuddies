@@ -40,14 +40,19 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         username: event.username,
         password: event.password,
         email: event.email,
+        onSend: () {
+          emit(SnackbarMessage("Письмо отправлено вам на почту"));
+          emit(AuthLoadingState());
+        },
       );
 
       final tokens =
           Tokens(accessToken: response.$1, refreshToken: response.$2);
       await storage.write(AppConsts.tokenKey, tokens.toJson());
+      emit(SnackbarMessage("Аккаунт успешно создан!"));
       emit(UserHasAuthtorized());
     } catch (e) {
-      emit(ErrorState(
+      emit(SnackbarMessage(
           "Ошибка регистрации, возможно такой аккаунт уже существует. Попробуйте снова"));
       emit(UserNotAuthtorized());
     }
@@ -66,7 +71,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       await storage.write(AppConsts.tokenKey, tokens.toJson());
       emit(UserHasAuthtorized());
     } catch (e) {
-      emit(ErrorState("Неверный логин или пароль"));
+      emit(SnackbarMessage("Неверный логин или пароль"));
       emit(UserNotAuthtorized());
     }
   }

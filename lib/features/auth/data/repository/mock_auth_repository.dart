@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'dart:ui';
 
 import 'package:body_buddies/features/auth/domain/repository/auth_repository.dart';
 
@@ -22,8 +23,10 @@ class MockAuthRepository implements AuthRepository {
   Future<(String, String)> signUp(
       {required String username,
       required String password,
-      required String email}) async {
+      required String email,
+      required VoidCallback onSend}) async {
     if (username != "1111" && email != "1111@.") {
+      onSend.call();
       await Future.delayed(const Duration(seconds: 2));
       log("Mock registration completed successfully");
       return ("access_token", "refresh_token");

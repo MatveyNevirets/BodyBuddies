@@ -36,7 +36,7 @@ class AuthScreen extends StatelessWidget {
         );
       },
       listener: (BuildContext context, AuthState state) {
-        if (state is ErrorState) {
+        if (state is SnackbarMessage) {
           showSnackBar(context, state.message.toString());
         }
       },

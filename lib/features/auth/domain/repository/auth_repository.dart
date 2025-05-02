@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 abstract interface class AuthRepository {
   String get name;
 
@@ -7,5 +9,6 @@ abstract interface class AuthRepository {
   Future<(String, String)> signUp(
       {required String username,
       required String password,
-      required String email});
+      required String email,
+      required VoidCallback onSend});
 }
