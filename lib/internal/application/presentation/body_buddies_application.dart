@@ -115,8 +115,8 @@ class BodyBuddiesApp extends StatelessWidget {
           "/advices/current_advice": (context) => const CurrentAdviceScreen(),
           "/made_workouts": (context) => const CreatedWorkroutsPage(),
         },
-        // initialRoute: "auth/",
-        initialRoute: "/",
+        initialRoute: "auth/",
+        // initialRoute: "/",
       ),
     );
   }

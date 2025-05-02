@@ -1,6 +1,9 @@
+import 'dart:async';
+
 import 'package:body_buddies/features/auth/domain/repository/auth_repository.dart';
 import 'package:body_buddies/features/auth/generated/bodybuddies_auth.pbgrpc.dart';
 import 'package:body_buddies/internal/application/app_consts.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:grpc/grpc_or_grpcweb.dart';
 
 class ProdAuthRepository implements AuthRepository {
@@ -30,12 +33,26 @@ class ProdAuthRepository implements AuthRepository {
       {required String username,
       required String password,
       required String email}) async {
-    final request = await _client.signUp(UserDto(
-      email: email,
-      password: password,
-      username: username,
-    ));
+    try {
+      UserCredential userCredential =
+          await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
 
-    return (request.accessToken, request.refreshToken);
+      await userCredential.user?.sendEmailVerification();
+
+      final request = await _client.signUp(UserDto(
+        email: email,
+        password: password,
+        username: username,
+      ));
+
+      await userCredential.user!.delete();
+
+      return (request.accessToken, request.refreshToken);
+    } on Object catch (error, stack) {
+      throw Exception("Error: $error, Stack: $stack");
+    }
   }
 }

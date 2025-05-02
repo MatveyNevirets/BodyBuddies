@@ -47,7 +47,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       await storage.write(AppConsts.tokenKey, tokens.toJson());
       emit(UserHasAuthtorized());
     } catch (e) {
-      emit(ErrorState("Пользователь с такой почтой или именем уже существует"));
+      emit(ErrorState(
+          "Ошибка регистрации, возможно такой аккаунт уже существует. Попробуйте снова"));
       emit(UserNotAuthtorized());
     }
   }

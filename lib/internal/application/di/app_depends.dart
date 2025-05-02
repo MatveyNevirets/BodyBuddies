@@ -13,9 +13,11 @@ import 'package:body_buddies/features/workouts/data/repository/remote/mock_worko
 import 'package:body_buddies/features/workouts/data/repository/remote/prod_workouts_repository.dart';
 import 'package:body_buddies/features/workouts/domain/local_workouts_repository.dart';
 import 'package:body_buddies/features/workouts/domain/workouts_repository.dart';
+import 'package:body_buddies/firebase_options.dart';
 import 'package:body_buddies/internal/application/app_runner/app_env.dart';
 import 'package:body_buddies/services/secure_storage/flutter_secure_storage.dart';
 import 'package:body_buddies/services/secure_storage/i_secure_storage.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
 
 typedef OnProgress = Function(String name, String progress);
@@ -53,6 +55,10 @@ class AppDepends {
     }
 
     if (isConnection) {
+      await Firebase.initializeApp(
+        options: DefaultFirebaseOptions.currentPlatform,
+      );
+
       try {
         final timer = Stopwatch();
         timer.start();
@@ -60,6 +66,7 @@ class AppDepends {
           AppEnv.test => MockAuthRepository(),
           AppEnv.prod => ProdAuthRepository(),
         };
+
         log("Depend ${repository.name} took ${timer.elapsedMilliseconds}ms to initialize");
         timer.stop();
         onProgress.call(repository.name,
