@@ -15,6 +15,7 @@ class ProdWorkoutsRepository implements WorkoutsRepository {
   late final WorkoutsRepository localWorkoutsRepository;
 
   ProdWorkoutsRepository({required LocalDatabase localDatabase}) {
+    localDatabase.initDatabase();
     localWorkoutsRepository =
         LocalWorkoutsRepository(localDatabase: localDatabase);
 
@@ -34,6 +35,10 @@ class ProdWorkoutsRepository implements WorkoutsRepository {
   @override
   Future<List<WorkoutEntity>> fetchAllWorkout(String token) async {
     try {
+      final lo = await localWorkoutsRepository.fetchAllWorkout(token);
+
+      log(lo.toString());
+
       final response = await _client.fetchAllWorkouts(
         RequestDto(),
         options: CallOptions(

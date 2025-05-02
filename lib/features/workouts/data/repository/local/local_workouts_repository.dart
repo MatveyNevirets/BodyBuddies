@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:body_buddies/features/workouts/domain/Entities/exercise_entity.dart';
 import 'package:body_buddies/features/workouts/domain/Entities/workout_entity.dart';
 import 'package:body_buddies/features/workouts/domain/local_workouts_repository.dart';
@@ -78,7 +80,11 @@ class LocalWorkoutsRepository implements WorkoutsRepository {
   Future<List<WorkoutEntity>> fetchAllWorkout(String token) async {
     final database = await localDatabase.getDatabase();
 
+    log("database got ${database.isOpen}");
+
     final response = await database.query(AppConsts.workoutsTable);
+
+    log("query db");
 
     final workouts = response.map((workoutMap) {
       final newWorkout = WorkoutEntity.fromMap(workoutMap);

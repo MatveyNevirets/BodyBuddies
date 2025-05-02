@@ -35,13 +35,12 @@ class ProdAuthRepository implements AuthRepository {
       required String password,
       required String email,
       required VoidCallback onSend}) async {
+    UserCredential userCredential =
+        await FirebaseAuth.instance.createUserWithEmailAndPassword(
+      email: email,
+      password: password,
+    );
     try {
-      UserCredential userCredential =
-          await FirebaseAuth.instance.createUserWithEmailAndPassword(
-        email: email,
-        password: password,
-      );
-
       await userCredential.user?.sendEmailVerification();
 
       onSend.call();
@@ -54,11 +53,11 @@ class ProdAuthRepository implements AuthRepository {
         username: username,
       ));
 
-      await userCredential.user!.delete();
-
       return (request.accessToken, request.refreshToken);
     } on Object catch (error, stack) {
       throw Exception("Error: $error, Stack: $stack");
+    } finally {
+      await userCredential.user!.delete();
     }
   }
 

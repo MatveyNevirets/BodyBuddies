@@ -108,9 +108,12 @@ class WorkoutCardOnList extends StatelessWidget {
                           IconButton(
                             onPressed: () => showAdaptiveDialog(
                                 context: context,
-                                builder: (context) {
+                                builder: (BuildContext newContext) {
                                   return _AreYouSureMenuWorkoutsDialog(
-                                      depends: depends, index: index);
+                                    depends: depends,
+                                    index: index,
+                                    previousContext: context,
+                                  );
                                 }),
                             color: Theme.of(context).focusColor,
                             icon: const Icon(
@@ -151,13 +154,14 @@ class WorkoutCardOnList extends StatelessWidget {
 }
 
 class _AreYouSureMenuWorkoutsDialog extends StatelessWidget {
-  const _AreYouSureMenuWorkoutsDialog({
-    required this.depends,
-    required this.index,
-  });
+  const _AreYouSureMenuWorkoutsDialog(
+      {required this.depends,
+      required this.index,
+      required this.previousContext});
 
   final AppDepends depends;
   final int index;
+  final BuildContext previousContext;
 
   @override
   Widget build(BuildContext context) {
@@ -170,7 +174,7 @@ class _AreYouSureMenuWorkoutsDialog extends StatelessWidget {
       final token = tokenMap['access_token'];
 
       await workoutsRepository.deleteWorkout(index, token);
-      context.read<WorkoutsMenuBloc>().add(UpdateWorkoutEvent());
+      previousContext.read<WorkoutsMenuBloc>().add(UpdateWorkoutEvent());
     }
 
     return AreYouSureDialog(
