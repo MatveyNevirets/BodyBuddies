@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:body_buddies/features/workouts/domain/local_workouts_repository.dart';
 import 'package:body_buddies/internal/application/app_consts.dart';
 import 'package:path/path.dart';
@@ -11,7 +9,6 @@ class WorkoutsSQLiteLocalDatabase implements LocalDatabase {
     if (_database != null) return _database!;
     try {
       await initDatabase();
-      log("init SQLite database");
       return _database!;
     } on Object catch (error, stack) {
       throw Exception(

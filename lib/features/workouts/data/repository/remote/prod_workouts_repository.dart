@@ -35,9 +35,7 @@ class ProdWorkoutsRepository implements WorkoutsRepository {
   @override
   Future<List<WorkoutEntity>> fetchAllWorkout(String token) async {
     try {
-      final lo = await localWorkoutsRepository.fetchAllWorkout(token);
-
-      log(lo.toString());
+      // TODO   await localWorkoutsRepository.fetchAllWorkout(token);
 
       final response = await _client.fetchAllWorkouts(
         RequestDto(),

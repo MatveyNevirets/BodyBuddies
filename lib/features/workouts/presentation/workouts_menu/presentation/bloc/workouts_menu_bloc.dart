@@ -1,7 +1,6 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'dart:convert';
-import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
 import 'package:body_buddies/features/workouts/domain/Entities/workout_entity.dart';
@@ -32,11 +31,7 @@ class WorkoutsMenuBloc extends Bloc<WorkoutsMenuEvent, WorkoutsMenuState> {
       final tokenMap = jsonDecode(tokenJson);
       final token = tokenMap['access_token'];
 
-      log(token);
-
       final workouts = await workoutsRepository.fetchAllWorkout(token);
-
-      log(workouts.toString());
 
       emit(UpdateWorkoutState(workouts));
     } catch (e) {
