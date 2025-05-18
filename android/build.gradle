@@ -21,4 +21,15 @@ allprojects {
 
 tasks.register('clean', Delete) {
     delete rootProject.buildDir
+
+}
+
+buildscript {
+    repositories {
+        google()
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:8.5.0'
+    }
 }

@@ -76,9 +76,8 @@ abstract class Styles {
 
   static const small_dark_boxes_text = TextStyle(
       fontSize: 12,
-      fontFamily: 'AqumTwo',
       color: Colours.black_text_color,
-      fontWeight: FontWeight.w400);
+      fontWeight: FontWeight.w600);
 
   ////dark///boxes//////
   static const title_text_style = TextStyle(
