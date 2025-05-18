@@ -12,11 +12,11 @@ import 'package:body_buddies/features/workouts/domain/Entities/workout_entity.da
 import 'package:body_buddies/features/workouts/presentation/workouts_menu/presentation/bloc/workouts_menu_bloc.dart';
 import 'package:body_buddies/features/workouts/presentation/create_workout/presentation/widgets/exercise_item_on_list.dart';
 import 'package:body_buddies/features/workouts/presentation/create_workout/presentation/widgets/timer_exercise_item_on_list.dart';
-import 'package:body_buddies/internal/application/app_consts.dart';
 import 'package:body_buddies/internal/application/di/app_depends_provider.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 import '../../../../../core/strings/strings.dart';
 import '../../../../../core/styles/styles.dart';
@@ -80,7 +80,7 @@ class _CreateWorkoutScreenState extends State<CreateWorkoutScreen> {
       try {
         final storage = depends.secureStorage;
 
-        final tokenJson = await storage.read(AppConsts.tokenKey);
+        final tokenJson = await storage.read(dotenv.env['TOKEN_KEY']!);
         final tokenMap = jsonDecode(tokenJson);
         final token = tokenMap['access_token'];
 

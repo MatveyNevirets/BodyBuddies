@@ -3,9 +3,9 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:body_buddies/features/auth/domain/repository/auth_repository.dart';
 import 'package:body_buddies/features/auth/domain/tokens.dart';
-import 'package:body_buddies/internal/application/app_consts.dart';
 import 'package:body_buddies/services/secure_storage/i_secure_storage.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 part 'auth_event.dart';
 part 'auth_state.dart';
@@ -23,7 +23,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   FutureOr<void> _initAuth(event, emit) async {
     emit(AuthLoadingState());
     try {
-      final data = await storage.read(AppConsts.tokenKey);
+      final data = await storage.read(dotenv.env['TOKEN_KEY']!);
       final tokens = Tokens.fromJson(data);
       if (tokens.accessToken.isEmpty) throw Exception("You're not authorized");
       emit(UserHasAuthtorized());
@@ -49,7 +49,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       final tokens =
           Tokens(accessToken: response.$1, refreshToken: response.$2);
 
-      await storage.write(AppConsts.tokenKey, tokens.toJson());
+      await storage.write(dotenv.env['TOKEN_KEY']!, tokens.toJson());
       emit(SnackbarMessage("Аккаунт успешно создан!"));
       emit(UserHasAuthtorized());
     } catch (e) {
@@ -69,7 +69,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
       final tokens =
           Tokens(accessToken: response.$1, refreshToken: response.$2);
-      await storage.write(AppConsts.tokenKey, tokens.toJson());
+      await storage.write(dotenv.env['TOKEN_KEY']!, tokens.toJson());
       emit(UserHasAuthtorized());
     } catch (e) {
       emit(SnackbarMessage("Неверный логин или пароль"));

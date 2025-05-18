@@ -15,6 +15,7 @@ migrate_working_dir/
 *.ipr
 *.iws
 .idea/
+.env
 
 # The .vscode folder contains launch configuration and tasks you configure in
 # VS Code which you may wish to be included in version control, so this line
@@ -41,10 +42,11 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+*/body_buddies_key1.jks
 
 # Ignore Gradle project-specific cache directory
 .gradle
 
 # Ignore Gradle build output directory
 build
-lib/internal/application/app_consts.dart
+.env

@@ -13,11 +13,12 @@ import 'package:body_buddies/features/workouts/data/repository/remote/mock_worko
 import 'package:body_buddies/features/workouts/data/repository/remote/prod_workouts_repository.dart';
 import 'package:body_buddies/features/workouts/domain/local_workouts_repository.dart';
 import 'package:body_buddies/features/workouts/domain/workouts_repository.dart';
-import 'package:body_buddies/firebase_options.dart';
+import 'package:body_buddies/bin/firebase_options.dart';
 import 'package:body_buddies/internal/application/app_runner/app_env.dart';
 import 'package:body_buddies/services/secure_storage/flutter_secure_storage.dart';
 import 'package:body_buddies/services/secure_storage/i_secure_storage.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
 
 typedef OnProgress = Function(String name, String progress);
@@ -45,6 +46,8 @@ class AppDepends {
 
   Future<void> init(
       {required OnProgress onProgress, required OnError onError}) async {
+    await dotenv.load(fileName: ".env");
+
     final connection = await InternetConnection().hasInternetAccess;
     log(connection.toString());
 

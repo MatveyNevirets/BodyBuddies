@@ -1,6 +1,6 @@
-import 'package:body_buddies/internal/application/app_consts.dart';
 import 'package:body_buddies/internal/application/di/app_depends_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 AppBar createAppBarWidget(
     {required String appbarTitle, required BuildContext context}) {
@@ -15,7 +15,7 @@ AppBar createAppBarWidget(
           color: Theme.of(context).appBarTheme.iconTheme!.color,
         ),
         onPressed: () {
-          storage.delete(AppConsts.tokenKey);
+          storage.delete(dotenv.env['TOKEN_KEY']!);
           workoutsRepository.deleteLocalDatabase();
           Navigator.pushReplacementNamed(context, "auth/");
         },

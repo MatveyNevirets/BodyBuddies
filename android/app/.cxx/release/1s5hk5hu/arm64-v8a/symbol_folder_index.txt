@@ -1,0 +1,1 @@
+/home/matvey/VisualStudioCode/Projects/BodyBuddies/BodyBuddies/android/app/build/intermediates/cxx/release/1s5hk5hu/obj/arm64-v8a

@@ -40,8 +40,9 @@ class BodyBuddiesApp extends StatelessWidget {
             textTheme: TextTheme(
               bodyLarge: Styles.title_blue_text_style,
               titleLarge: Styles.appbar_text_style,
+              // headlineSmall: Styles.,
               bodySmall: Styles.small_dark_boxes_text,
-              bodyMedium: Styles.workout_text_style,
+              bodyMedium: Styles.workout_text_style_dark_theme,
             ),
             cardColor: Colours.workout_card_background_color,
             appBarTheme: const AppBarTheme(
@@ -63,6 +64,7 @@ class BodyBuddiesApp extends StatelessWidget {
             focusColor: Colours.workoutCardForegroundColor,
             scaffoldBackgroundColor: Colours.dark_theme_background,
             textTheme: TextTheme(
+                // headlineSmall: Styles.,
                 bodyLarge: Styles.title_blue_text_style,
                 bodyMedium: Styles.workout_text_style_dark_theme,
                 bodySmall: Styles.small_dark_boxes_text_dark_theme,
@@ -116,7 +118,6 @@ class BodyBuddiesApp extends StatelessWidget {
           "/made_workouts": (context) => const CreatedWorkroutsPage(),
         },
         initialRoute: "auth/",
-        // initialRoute: "/",
       ),
     );
   }

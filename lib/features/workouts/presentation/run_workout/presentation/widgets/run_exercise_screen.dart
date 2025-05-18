@@ -50,7 +50,7 @@ class RunExerciseScreen extends StatelessWidget {
                     const SizedBox(
                       height: 16,
                     ),
-                    buildBodyWidgets(),
+                    buildBodyWidgets(context),
                     const SizedBox(
                       height: 32,
                     ),
@@ -80,7 +80,7 @@ class RunExerciseScreen extends StatelessWidget {
     );
   }
 
-  SizedBox buildBodyWidgets() {
+  SizedBox buildBodyWidgets(BuildContext context) {
     return SizedBox(
       width: double.maxFinite,
       child: Card(
@@ -88,7 +88,7 @@ class RunExerciseScreen extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(8),
           child: Card(
-            color: Colours.workoutCardForegroundColor,
+            color: Theme.of(context).scaffoldBackgroundColor,
             child: Column(
               children: [
                 Padding(

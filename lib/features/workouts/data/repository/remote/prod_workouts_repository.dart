@@ -7,7 +7,7 @@ import 'package:body_buddies/features/workouts/domain/local_workouts_repository.
 import 'package:body_buddies/features/workouts/domain/workouts_repository.dart';
 import 'package:body_buddies/features/workouts/domain/Entities/workout_entity.dart';
 import 'package:body_buddies/features/workouts/generated/bodybuddies_workouts.pbgrpc.dart';
-import 'package:body_buddies/internal/application/app_consts.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:grpc/grpc_or_grpcweb.dart';
 
 class ProdWorkoutsRepository implements WorkoutsRepository {
@@ -20,8 +20,8 @@ class ProdWorkoutsRepository implements WorkoutsRepository {
         LocalWorkoutsRepository(localDatabase: localDatabase);
 
     final channel = GrpcOrGrpcWebClientChannel.toSingleEndpoint(
-        host: AppConsts.hostAddress,
-        port: AppConsts.nginxPort,
+        host: dotenv.env['SERVER_HOST']!,
+        port: int.tryParse(dotenv.env['NGINX_PORT']!)!,
         transportSecure: false);
 
     _client = WorkoutsRpcClient(channel);
@@ -35,8 +35,6 @@ class ProdWorkoutsRepository implements WorkoutsRepository {
   @override
   Future<List<WorkoutEntity>> fetchAllWorkout(String token) async {
     try {
-      // TODO   await localWorkoutsRepository.fetchAllWorkout(token);
-
       final response = await _client.fetchAllWorkouts(
         RequestDto(),
         options: CallOptions(

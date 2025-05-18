@@ -4,10 +4,10 @@ import 'package:bloc/bloc.dart';
 import 'package:body_buddies/features/workouts/domain/Entities/exercise_entity.dart';
 import 'package:body_buddies/features/workouts/domain/Entities/workout_entity.dart';
 import 'package:body_buddies/features/workouts/domain/workouts_repository.dart';
-import 'package:body_buddies/internal/application/app_consts.dart';
 import 'package:body_buddies/services/secure_storage/i_secure_storage.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:meta/meta.dart';
 
 part 'run_workout_event.dart';
@@ -50,7 +50,7 @@ class RunWorkoutBloc extends Bloc<RunWorkoutEvent, RunWorkoutState> {
       WorkoutCompleteEvent event, Emitter<RunWorkoutState> emit) async {
     emit(LoadingState(exercises: const [], currentExercise: 0, duration: 0));
     try {
-      final jsonToken = await storage.read(AppConsts.tokenKey);
+      final jsonToken = await storage.read(dotenv.env['TOKEN_KEY']!);
       final mapToken = jsonDecode(jsonToken);
       final token = mapToken['access_token'];
 

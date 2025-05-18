@@ -30,7 +30,7 @@ class CalendarWidget extends StatelessWidget {
             child: Text(
               text,
               style: TextStyle(
-                  fontSize: height / 4.5,
+                  fontSize: height / 5,
                   fontWeight: FontWeight.bold,
                   color: Colours.white_text_color,
                   fontFamily: "AqumTwo"),

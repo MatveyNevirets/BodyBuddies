@@ -5,9 +5,9 @@ import 'dart:convert';
 import 'package:bloc/bloc.dart';
 import 'package:body_buddies/features/workouts/domain/Entities/workout_entity.dart';
 import 'package:body_buddies/features/workouts/domain/workouts_repository.dart';
-import 'package:body_buddies/internal/application/app_consts.dart';
 import 'package:body_buddies/services/secure_storage/i_secure_storage.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 part 'workouts_menu_event.dart';
 
@@ -27,7 +27,7 @@ class WorkoutsMenuBloc extends Bloc<WorkoutsMenuEvent, WorkoutsMenuState> {
       UpdateWorkoutEvent event, Emitter<WorkoutsMenuState> emit) async {
     emit(LoadingWorkoutState());
     try {
-      final tokenJson = await storage.read(AppConsts.tokenKey);
+      final tokenJson = await storage.read(dotenv.env['TOKEN_KEY']!);
       final tokenMap = jsonDecode(tokenJson);
       final token = tokenMap['access_token'];
 
@@ -46,7 +46,7 @@ class WorkoutsMenuBloc extends Bloc<WorkoutsMenuEvent, WorkoutsMenuState> {
     try {
       emit(LoadingWorkoutState());
 
-      final tokenJson = await storage.read(AppConsts.tokenKey);
+      final tokenJson = await storage.read(dotenv.env['TOKEN_KEY']!);
       final tokenMap = jsonDecode(tokenJson);
       final token = tokenMap['access_token'];
 

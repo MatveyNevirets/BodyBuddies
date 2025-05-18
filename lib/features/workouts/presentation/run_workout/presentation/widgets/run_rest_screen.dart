@@ -155,7 +155,10 @@ class _RestScreenState extends State<RestScreen> {
           padding: const EdgeInsets.all(8),
           child: Column(
             children: [
-              Text(Strings.rest, style: Theme.of(context).textTheme.bodyMedium),
+              Text(
+                Strings.rest,
+                style: Styles.add_exercise_text_style,
+              ),
               SizedBox(
                 height: MediaQuery.sizeOf(context).height / 100,
               ),

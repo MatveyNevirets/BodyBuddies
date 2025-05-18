@@ -39,7 +39,7 @@ class _AddYourExerciseScreenState extends State<AddYourExerciseScreen> {
                     const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(8),
-                    color: Colours.workoutCardForegroundColor),
+                    color: Theme.of(context).scaffoldBackgroundColor),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,

@@ -1,0 +1,102 @@
+workflows:
+  android-workflow:
+    name: Android Build
+    environment:
+      groups:
+        - env_vars 
+        - keystore_creds 
+      flutter: stable
+    scripts:
+      - name: Create key.properties
+        script: |
+          cat > android/key.properties <<EOL
+          storePassword=$CM_KEYSTORE_PASSWORD
+          keyPassword=$CM_KEY_PASSWORD
+          keyAlias=$CM_KEY_ALIAS
+          storeFile=../keystore.jks
+          EOL
+        
+          echo $CM_KEYSTORE | base64 --decode > android/app/keystore.jks
+          
+      - name: Set Dart defines from env
+        script: |
+          DART_DEFINES=""
+          for var in $(printenv | grep '^APP_' | cut -d= -f1); do
+            DART_DEFINES="$DART_DEFINES --dart-define=$var=${!var}"
+          done
+          echo "DART_DEFINES=$DART_DEFINES" >> $CM_ENV
+
+      - name: Build Android
+        script: |
+          flutter build appbundle --release $DART_DEFINES --target=lib/bin/prod_body_buddies.dart
+
+    artifacts:
+      - build/**/outputs/**/*.aab
+
+  ios-workflow:
+    environment:
+      groups:
+        - env_vars
+      flutter: stable
+      xcode: latest
+    scripts:
+      - name: Disable code signing
+        script: |
+          cd ios
+          sed -i '' 's/DEVELOPMENT_TEAM = .*/DEVELOPMENT_TEAM = "";/g' Runner.xcodeproj/project.pbxproj
+          sed -i '' 's/PROVISIONING_PROFILE_SPECIFIER = .*/PROVISIONING_PROFILE_SPECIFIER = "";/g' Runner.xcodeproj/project.pbxproj
+          cd ..
+
+      - name: Build unsigned IPA
+        script: |
+          flutter build ipa --release \
+            --no-codesign \
+            --target=lib/bin/prod_body_buddies.dart
+            
+      - name: Create dummy ExportOptions.plist
+        script: |
+          cat > ios/ExportOptions.plist <<EOL
+          <?xml version="1.0" encoding="UTF-8"?>
+          <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+          <plist version="1.0">
+          <dict>
+              <key>compileBitcode</key>
+              <false/>
+              <key>method</key>
+              <string>development</string>
+              <key>provisioningProfiles</key>
+              <dict/>
+              <key>signingStyle</key>
+              <string>automatic</string>
+              <key>stripSwiftSymbols</key>
+              <true/>
+              <key>teamID</key>
+              <string></string>
+              <key>thinning</key>
+              <string>&lt;none&gt;</string>
+          </dict>
+          </plist>
+          EOL
+
+      - name: Package IPA
+        script: |
+          cd build/ios/ipa
+          zip -r unsigned_app.ipa Payload
+          cd ../../..
+    artifacts:
+      - build/ios/ipa/unsigned_app.ipa
+
+groups:
+  - name: env_vars
+    vars:
+      APP_TOKENS_KEY: $APP_TOKENS_KEY         
+      APP_NGINX_PORT: $APP_NGINX_PORT     
+      APP_SERVER_HOST: $APP_SERVER_HOST     
+      APP_ENV: production
+
+  - name: keystore_creds
+    vars:
+      CM_KEYSTORE: $CM_KEYSTORE
+      CM_KEYSTORE_PASSWORD: $CM_KEYSTORE_PASSWORD
+      CM_KEY_ALIAS: $CM_KEY_ALIAS
+      CM_KEY_PASSWORD: $CM_KEY_PASSWORD

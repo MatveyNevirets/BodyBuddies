@@ -8,10 +8,10 @@ import 'package:body_buddies/features/workouts/presentation/workout_feature_card
 import 'package:body_buddies/features/workouts/presentation/workout_feature_card/presentation/widgets/workout_container_text.dart';
 import 'package:body_buddies/features/workouts/domain/Entities/workout_entity.dart';
 import 'package:body_buddies/features/workouts/presentation/workouts_menu/widgets/workout_card_on_list.dart';
-import 'package:body_buddies/internal/application/app_consts.dart';
 import 'package:body_buddies/internal/application/di/app_depends_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 import '../../../../../core/styles/styles.dart';
@@ -30,7 +30,7 @@ class WorkoutFeatureCard extends StatelessWidget {
       try {
         final storage = depends.secureStorage;
 
-        final tokenJson = await storage.read(AppConsts.tokenKey);
+        final tokenJson = await storage.read(dotenv.env['TOKEN_KEY']!);
         final tokenMap = jsonDecode(tokenJson);
         final token = tokenMap['access_token'];
 
@@ -157,7 +157,7 @@ class WorkoutFeatureCard extends StatelessWidget {
   }
 
   String getDate() {
-    final day = DateTime.now().day - 10;
+    final day = DateTime.now().day;
     final month = DateTime.now().month;
 
     final date =

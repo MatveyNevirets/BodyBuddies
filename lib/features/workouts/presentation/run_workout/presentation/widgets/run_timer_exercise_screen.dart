@@ -101,8 +101,10 @@ class RunTimerExercise extends StatelessWidget {
           padding: const EdgeInsets.all(8),
           child: Column(
             children: [
-              Text(Strings.exercise,
-                  style: Theme.of(context).textTheme.bodyMedium),
+              Text(
+                Strings.exercise,
+                style: Styles.add_exercise_text_style,
+              ),
               SizedBox(
                 height: MediaQuery.sizeOf(context).height / 100,
               ),

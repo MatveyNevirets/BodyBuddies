@@ -1,16 +1,23 @@
-# body_buddies
+# BodyBuddies
 
-A new Flutter project.
+Фитнес-приложение для тренировок и отслеживания прогресса
 
-## Getting Started
+## Основные функции
+- Управление тренировками и упражнениями
+- Таймеры для подходов/отдыха
+- Журнал тренировок
+- Трекер воды
+- Персонализированные программы
 
-This project is a starting point for a Flutter application.
+## Технологии
+- **Flutter** (версия 3.32.0-1.0.pre.128) & **Dart** (версия 3.9.0)
+- **BLoC** для управления состоянием
+- **SQFlite** для локального хранения данных
+- **Just Audio** для работы со звуком
+- **Firebase** + **PostgreSQL** на собственном сервере (аутентификация)
+- **gRPC** для сетевых запросов
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Сборка
+### Android
+```bash
+flutter build apk --target=lib/bin/prod_body_buddies.dart

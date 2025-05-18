@@ -10,11 +10,11 @@ import 'package:body_buddies/features/workouts/presentation/workouts_menu/presen
 import 'package:body_buddies/features/workouts/presentation/workouts_menu/widgets/new_workout_button.dart';
 import 'package:body_buddies/features/workouts/domain/Entities/workout_entity.dart';
 import 'package:body_buddies/features/workouts/presentation/create_workout/presentation/workout_create_screen.dart';
-import 'package:body_buddies/internal/application/app_consts.dart';
 import 'package:body_buddies/internal/application/di/app_depends.dart';
 import 'package:body_buddies/internal/application/di/app_depends_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 import '../../../../../core/strings/strings.dart';
 
@@ -169,7 +169,7 @@ class _AreYouSureMenuWorkoutsDialog extends StatelessWidget {
         WorkoutsRepository workoutsRepository, int index) async {
       final storage = depends.secureStorage;
 
-      final tokenJson = await storage.read(AppConsts.tokenKey);
+      final tokenJson = await storage.read(dotenv.env['TOKEN_KEY']!);
       final tokenMap = jsonDecode(tokenJson);
       final token = tokenMap['access_token'];
 

@@ -3,10 +3,10 @@ import 'dart:convert';
 import 'package:bloc/bloc.dart';
 import 'package:body_buddies/features/useful/domain/entity/exercise_on_list_entity.dart';
 import 'package:body_buddies/features/useful/domain/useful_repository.dart';
-import 'package:body_buddies/internal/application/app_consts.dart';
 import 'package:body_buddies/internal/application/di/app_depends_provider.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 part 'exercises_event.dart';
 part 'exercises_state.dart';
@@ -28,7 +28,7 @@ class ExercisesBloc extends Bloc<ExercisesEvent, ExercisesState> {
     try {
       final storage = AppDependsProvider.of(event.context).secureStorage;
 
-      final jsonToken = await storage.read(AppConsts.tokenKey);
+      final jsonToken = await storage.read(dotenv.env['TOKEN_KEY']!);
       final mapToken = jsonDecode(jsonToken);
       final token = mapToken['access_token'];
 

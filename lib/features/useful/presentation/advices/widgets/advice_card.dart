@@ -20,7 +20,7 @@ GestureDetector buildAdviceCard(
         shape: RoundedRectangleBorder(
           side: const BorderSide(
               width: 3, color: Colours.workout_card_background_color),
-          borderRadius: BorderRadiusGeometry.circular(8),
+          borderRadius: BorderRadius.circular(8),
         ),
         elevation: 2,
         shadowColor: Colours.base_button_color,

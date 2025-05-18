@@ -3,8 +3,8 @@ import 'dart:ui';
 
 import 'package:body_buddies/features/auth/domain/repository/auth_repository.dart';
 import 'package:body_buddies/features/auth/generated/bodybuddies_auth.pbgrpc.dart';
-import 'package:body_buddies/internal/application/app_consts.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:grpc/grpc_or_grpcweb.dart';
 
 class ProdAuthRepository implements AuthRepository {
@@ -15,8 +15,8 @@ class ProdAuthRepository implements AuthRepository {
 
   ProdAuthRepository() {
     final channel = GrpcOrGrpcWebClientChannel.toSingleEndpoint(
-        host: AppConsts.hostAddress,
-        port: AppConsts.nginxPort,
+        host: dotenv.env['SERVER_HOST']!,
+        port: int.tryParse(dotenv.env['NGINX_PORT']!)!,
         transportSecure: false);
     _client = AuthRpcClient(channel);
   }

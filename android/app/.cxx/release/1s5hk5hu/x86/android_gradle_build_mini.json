@@ -1,0 +1,20 @@
+{
+  "buildFiles": [
+    "/home/flutter/flutter/packages/flutter_tools/gradle/src/main/scripts/CMakeLists.txt"
+  ],
+  "cleanCommandsComponents": [
+    [
+      "/home/matvey/Android/Sdk/cmake/3.22.1/bin/ninja",
+      "-C",
+      "/home/matvey/VisualStudioCode/Projects/BodyBuddies/BodyBuddies/android/app/.cxx/release/1s5hk5hu/x86",
+      "clean"
+    ]
+  ],
+  "buildTargetsCommandComponents": [
+    "/home/matvey/Android/Sdk/cmake/3.22.1/bin/ninja",
+    "-C",
+    "/home/matvey/VisualStudioCode/Projects/BodyBuddies/BodyBuddies/android/app/.cxx/release/1s5hk5hu/x86",
+    "{LIST_OF_TARGETS_TO_BUILD}"
+  ],
+  "libraries": {}
+}

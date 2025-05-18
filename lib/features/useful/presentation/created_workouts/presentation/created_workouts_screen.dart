@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:body_buddies/core/colors/colors.dart';
 import 'package:body_buddies/core/strings/strings.dart';
 import 'package:body_buddies/core/styles/styles.dart';
@@ -40,9 +42,13 @@ class CreatedWorkoutsScreen extends StatelessWidget {
           },
           builder: (context, state) {
             if (state is FetchCreatedWorkoutsState) {
+              log(state.workouts[0].title.toString());
+              log(state.workouts.length.toString());
+
               return ListView.builder(
                   itemCount: state.workouts.length,
                   itemBuilder: (context, index) {
+                    log(state.workouts.length.toString());
                     return GestureDetector(
                       onTap: () => openWorkout(state.workouts[index]),
                       child: Card(
@@ -96,6 +102,7 @@ class CreatedWorkoutsScreen extends StatelessWidget {
                     );
                   });
             }
+
             return const LoadingScreen();
           },
         ),

@@ -3,9 +3,9 @@ import 'dart:convert';
 import 'package:bloc/bloc.dart';
 import 'package:body_buddies/features/workouts/domain/Entities/workout_entity.dart';
 import 'package:body_buddies/features/workouts/domain/workouts_repository.dart';
-import 'package:body_buddies/internal/application/app_consts.dart';
 import 'package:body_buddies/services/secure_storage/i_secure_storage.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 part 'journal_workouts_event.dart';
 part 'journal_workouts_state.dart';
@@ -29,13 +29,12 @@ class JournalWorkoutsBloc
     emit(LoadingState());
 
     try {
-      final jsonToken = await storage.read(AppConsts.tokenKey);
+      final jsonToken = await storage.read(dotenv.env['TOKEN_KEY']!);
       final mapToken = jsonDecode(jsonToken);
       final token = mapToken['access_token'];
 
       await workoutsRepository.deleteJournalWorkout(
           journalWorkouts[event.index], token);
-
 
       journalWorkouts = await workoutsRepository.fetchJournalWorkouts(token);
 
@@ -50,7 +49,7 @@ class JournalWorkoutsBloc
     emit(LoadingState());
 
     try {
-      final jsonToken = await storage.read(AppConsts.tokenKey);
+      final jsonToken = await storage.read(dotenv.env['TOKEN_KEY']!);
       final mapToken = jsonDecode(jsonToken);
       final token = mapToken['access_token'];
 
@@ -66,7 +65,7 @@ class JournalWorkoutsBloc
       FetchJournalEvent event, Emitter<JournalWorkoutsState> emit) async {
     emit(LoadingState());
     try {
-      final jsonToken = await storage.read(AppConsts.tokenKey);
+      final jsonToken = await storage.read(dotenv.env['TOKEN_KEY']!);
       final mapToken = jsonDecode(jsonToken);
       final token = mapToken['access_token'];
 
