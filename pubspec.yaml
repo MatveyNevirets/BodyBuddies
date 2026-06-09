@@ -86,18 +86,16 @@ flutter:
 
   assets:
     - .env
-    - lib/assets/images/
-    - assets/images/
-    - assets/audio/
+    - assets/
 
   fonts:
     - family: BottomIcons
       fonts:
-        - asset: lib/assets/icons/flutter-icons-ef864561/fonts/BottomIcons.ttf
+        - asset: assets/icons/flutter-icons-ef864561/fonts/BottomIcons.ttf
 
     - family: AqumTwo
       fonts:
-        - asset: lib/assets/fonts/Aqum2classic.otf
+        - asset: assets/fonts/Aqum2classic.otf
 
   #   - family: Trajan Pro
   #     fonts:

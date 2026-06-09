@@ -19,7 +19,7 @@ class CalendarWidget extends StatelessWidget {
     return Stack(
       children: [
         Image.asset(
-          "lib/assets/images/CalendarIcon.png",
+          "assets/images/CalendarIcon.png",
           height: height,
           width: width,
         ),

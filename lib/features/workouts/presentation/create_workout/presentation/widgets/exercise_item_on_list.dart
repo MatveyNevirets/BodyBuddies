@@ -383,7 +383,7 @@ class _ExerciseItemOnListState extends State<ExerciseItemOnList> {
     return Row(
       children: [
         Image(
-          image: const AssetImage("lib/assets/images/workout_image.png"),
+          image: const AssetImage("assets/images/workout_image.png"),
           height: screenSize.height / 18,
         ),
         Expanded(

@@ -1,2 +1,0 @@
-/home/matvey/VisualStudioCode/Projects/BodyBuddies/BodyBuddies/android/app/.cxx/Debug/m2r4w01x/armeabi-v7a/CMakeFiles/edit_cache.dir
-/home/matvey/VisualStudioCode/Projects/BodyBuddies/BodyBuddies/android/app/.cxx/Debug/m2r4w01x/armeabi-v7a/CMakeFiles/rebuild_cache.dir

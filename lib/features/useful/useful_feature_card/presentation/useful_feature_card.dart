@@ -44,7 +44,7 @@ class UsefulFeatureCard extends StatelessWidget {
                             ], borderRadius: BorderRadius.circular(8)),
                             child: const Image(
                               image: AssetImage(
-                                  "lib/assets/images/bench_press_calculator_background.png"),
+                                  "assets/images/bench_press_calculator_background.png"),
                             ),
                           ),
                           Positioned(
@@ -92,7 +92,7 @@ class UsefulFeatureCard extends StatelessWidget {
                             ], borderRadius: BorderRadius.circular(8)),
                             child: const Image(
                               image: AssetImage(
-                                  "lib/assets/images/advice_background.png"),
+                                  "assets/images/advice_background.png"),
                             ),
                           ),
                           Positioned(
@@ -140,7 +140,7 @@ class UsefulFeatureCard extends StatelessWidget {
                       ], borderRadius: BorderRadius.circular(8)),
                       child: const Image(
                         image: AssetImage(
-                            "lib/assets/images/done_workouts_background.png"),
+                            "assets/images/done_workouts_background.png"),
                       ),
                     ),
                     Positioned(

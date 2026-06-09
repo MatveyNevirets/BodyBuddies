@@ -66,7 +66,7 @@ class WorkoutCardOnList extends StatelessWidget {
               ),
               Image(
                 image: const AssetImage(
-                  "lib/assets/images/workout_image.png",
+                  "assets/images/workout_image.png",
                 ),
                 height: MediaQuery.sizeOf(context).height / 7,
                 width: MediaQuery.sizeOf(context).height / 7,

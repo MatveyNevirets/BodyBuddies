@@ -73,7 +73,7 @@ class WorkoutFeatureCard extends StatelessWidget {
                   ], borderRadius: BorderRadius.circular(8)),
                   child: const Image(
                       image: AssetImage(
-                          "lib/assets/images/WorkoutsCardBackground.png")),
+                          "assets/images/WorkoutsCardBackground.png")),
                 ),
                 Positioned(
                   child: Container(

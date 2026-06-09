@@ -18,7 +18,7 @@ class ExerciseCardWidget extends StatelessWidget {
           Image(
             height: screenSize.height / 12,
             image: const AssetImage(
-              "lib/assets/images/calendar.png",
+              "assets/images/calendar.png",
             ),
           ),
           SizedBox(

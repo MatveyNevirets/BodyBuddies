@@ -66,7 +66,7 @@ class _WaterEntityState extends State<WaterEntity> {
         alignment: Alignment.bottomRight,
         children: [
           const Image(
-            image: AssetImage("lib/assets/images/water_cup.png"),
+            image: AssetImage("assets/images/water_cup.png"),
             height: 50,
             width: 50,
           ),
@@ -79,7 +79,7 @@ class _WaterEntityState extends State<WaterEntity> {
   Widget doneIcon(WaterCupsState state) {
     if (state is ActivatedCupState) {
       return const Image(
-        image: AssetImage("lib/assets/images/Check.png"),
+        image: AssetImage("assets/images/Check.png"),
         height: 10,
         width: 10,
       );

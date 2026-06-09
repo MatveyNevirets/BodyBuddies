@@ -49,7 +49,7 @@ class OpenWorkoutsJournal extends StatelessWidget {
                   children: [
                     Image(
                       image: const AssetImage(
-                          "lib/assets/images/journal_image.png"),
+                          "assets/images/journal_image.png"),
                       height: MediaQuery.sizeOf(context).height / 8,
                     ),
                     const SizedBox(
