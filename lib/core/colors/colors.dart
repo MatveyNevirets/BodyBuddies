@@ -1,80 +1,65 @@
+// lib/core/colors/colors.dart
 // ignore_for_file: constant_identifier_names, duplicate_ignore
 
 import 'package:flutter/material.dart';
 
 abstract class Colours {
-  ///bars/////
-  // ignore: constant_identifier_names
-  static const Color bottom_bar_icons_color = Color.fromARGB(255, 55, 161, 227);
-  // ignore: constant_identifier_names
-  static const Color bottom_bar_background_color =
-      Color.fromARGB(255, 250, 250, 250);
-  // ignore: constant_identifier_names
-  static const Color system_bottom_bar_background_color =
-      Color.fromARGB(255, 255, 255, 255);
+  static const Color bottom_bar_icons_color = Color(0xFF2F80ED);
+  static const Color bottom_bar_background_color = Color(0xFF07131F);
+  static const Color system_bottom_bar_background_color = Color(0xFF07131F);
 
-  //News_screen_colors
-  static const Color background_news_card_color =
-      Color.fromARGB(255, 177, 216, 252);
+  static const Color background_news_card_color = Color(0xFF17324A);
 
-  ////text////
-  static const Color white_text_color = Color.fromARGB(255, 255, 255, 255);
-  static const Color grey_text_color = Color.fromARGB(255, 237, 237, 237);
-  static const Color black_text_color = Color.fromARGB(255, 50, 50, 50);
-  static const Color green_text_color = Color.fromARGB(255, 9, 222, 9);
-  static const Color hint_form_text_color = Color.fromARGB(189, 0, 0, 0);
+  static const Color white_text_color = Color(0xFFF5F8FC);
+  static const Color grey_text_color = Color(0xFFD5E0EB);
+  static const Color black_text_color = Color(0xFF081624);
+  static const Color green_text_color = Color(0xFF34C759);
+  static const Color hint_form_text_color = Color.fromARGB(189, 159, 182, 202);
 
   static const Color invisible_color = Color.fromARGB(0, 0, 0, 0);
 
-  static const Color dark_theme_background = Color.fromARGB(255, 28, 28, 28);
-  /////buttons/////
-  static const Color base_button_color = Color.fromARGB(255, 107, 169, 232);
-  static const Color base_button_text_color =
-      Color.fromARGB(255, 255, 255, 255);
+  static const Color dark_theme_background = Color(0xFF07131F);
 
-  /////container gradients///////
+  static const Color base_button_color = Color(0xFF2F80ED);
+  static const Color base_button_text_color = Color(0xFFF5F8FC);
 
   static const List<Color> blueContainerGradientColors = [
-    Color.fromARGB(255, 120, 166, 211),
-    Color.fromARGB(255, 93, 143, 209),
+    Color(0xFF0E1D2D),
+    Color(0xFF12263A),
   ];
 
   static const List<Color> greenContainerGradientColors = [
-    Color.fromARGB(255, 80, 219, 89),
-    Color.fromARGB(255, 43, 165, 15),
+    Color(0xFF0E1D2D),
+    Color(0xFF12263A),
   ];
 
   static const List<Color> yellowContainerGradientColors = [
-    Color.fromARGB(255, 228, 219, 41),
-    Color.fromARGB(255, 170, 151, 31),
+    Color(0xFF0E1D2D),
+    Color(0xFF12263A),
   ];
 
   static const List<Color> redContainerGradientColors = [
-    Color.fromARGB(255, 181, 48, 28),
-    Color.fromARGB(255, 0, 0, 0),
+    Color(0xFF0E1D2D),
+    Color(0xFF12263A),
   ];
 
   static const List<Color> newsCardGradientColor = [
-    Color.fromARGB(255, 103, 181, 230),
-    Color.fromARGB(255, 150, 192, 230),
+    Color(0xFF0E1D2D),
+    Color(0xFF12263A),
   ];
 
-  static Color workoutTextColor = const Color.fromARGB(255, 35, 74, 165);
+  static Color workoutTextColor = const Color(0xFF2F80ED);
 
-  static const Color workout_card_background_color =
-      Color.fromARGB(255, 131, 172, 226);
+  static const Color workout_card_background_color = Color(0xFF142636);
+  static const Color workout_card_background_color_dark = Color(0xFF0E1D2D);
 
-  static const Color workout_card_background_color_dark =
-      Color.fromARGB(255, 101, 149, 211);
-
-  static const workoutCardForegroundColor = Color.fromARGB(255, 255, 255, 255);
+  static const workoutCardForegroundColor = Color(0xFFF5F8FC);
 
   static var journalGradientColors = [
-    const Color.fromARGB(255, 105, 128, 231),
-    const Color.fromARGB(255, 131, 172, 226),
+    const Color(0xFF0E1D2D),
+    const Color(0xFF12263A),
   ];
 
-  static var yellow = const Color.fromARGB(255, 241, 245, 30);
-
-  static var yellowDark = const Color.fromARGB(255, 81, 54, 0);
+  static var yellow = const Color(0xFF4A9BFF);
+  static var yellowDark = const Color(0xFF22405A);
 }

@@ -1,3 +1,4 @@
+// lib/internal/application/body_buddies_app.dart
 import 'package:body_buddies/core/styles/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -28,7 +29,9 @@ class BodyBuddiesApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Size screenSize = Size(
-        MediaQuery.sizeOf(context).width, MediaQuery.sizeOf(context).height);
+      MediaQuery.sizeOf(context).width,
+      MediaQuery.sizeOf(context).height,
+    );
 
     final appDepends = AppDependsProvider.of(context);
 
@@ -36,56 +39,103 @@ class BodyBuddiesApp extends StatelessWidget {
       appDepends: appDepends,
       child: MaterialApp(
         theme: ThemeData(
-            focusColor: Colours.workoutCardForegroundColor,
-            textTheme: TextTheme(
-              bodyLarge: Styles.title_blue_text_style,
-              titleLarge: Styles.appbar_text_style,
-              // headlineSmall: Styles.,
-              bodySmall: Styles.small_dark_boxes_text,
-              bodyMedium: Styles.workout_text_style_dark_theme,
+          useMaterial3: true,
+          scaffoldBackgroundColor: const Color(0xFFF7FAFD),
+          focusColor: Colours.workoutCardForegroundColor,
+          textTheme: const TextTheme(
+            bodyLarge: TextStyle(
+              fontSize: 22,
+              color: Colours.workout_card_background_color,
+              fontWeight: FontWeight.w800,
+              letterSpacing: -0.5,
             ),
-            cardColor: Colours.workout_card_background_color,
-            appBarTheme: const AppBarTheme(
-              iconTheme: IconThemeData(color: Colours.black_text_color),
-              systemOverlayStyle: SystemUiOverlayStyle(
-                  statusBarColor: Colours.bottom_bar_background_color,
-                  statusBarIconBrightness: Brightness.dark,
-                  systemNavigationBarIconBrightness: Brightness.dark,
-                  systemNavigationBarColor:
-                      Colours.bottom_bar_background_color),
-              backgroundColor: Colors.transparent,
-              surfaceTintColor: Colors.transparent,
-              actionsIconTheme: IconThemeData(color: Colours.black_text_color),
-            )),
-
-///////DARK////////THEME//////
-
+            titleLarge: TextStyle(
+              fontSize: 20,
+              color: Colours.black_text_color,
+              fontWeight: FontWeight.w800,
+              letterSpacing: -0.4,
+            ),
+            bodySmall: TextStyle(
+              fontSize: 12,
+              color: Colours.black_text_color,
+              fontWeight: FontWeight.w600,
+            ),
+            bodyMedium: TextStyle(
+              fontSize: 16,
+              color: Colours.black_text_color,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+          cardColor: Colours.workout_card_background_color,
+          colorScheme: ColorScheme.fromSeed(
+            seedColor: const Color(0xFF2F80ED),
+            brightness: Brightness.light,
+            background: const Color(0xFFF7FAFD),
+            surface: const Color(0xFFFFFFFF),
+          ),
+          appBarTheme: const AppBarTheme(
+            iconTheme: IconThemeData(color: Colours.black_text_color),
+            systemOverlayStyle: SystemUiOverlayStyle(
+              statusBarColor: Color(0xFFF7FAFD),
+              statusBarIconBrightness: Brightness.dark,
+              systemNavigationBarIconBrightness: Brightness.dark,
+              systemNavigationBarColor: Color(0xFFF7FAFD),
+            ),
+            backgroundColor: Colors.transparent,
+            surfaceTintColor: Colors.transparent,
+            actionsIconTheme: IconThemeData(color: Colours.black_text_color),
+            elevation: 0,
+          ),
+        ),
         darkTheme: ThemeData(
-            focusColor: Colours.workoutCardForegroundColor,
-            scaffoldBackgroundColor: Colours.dark_theme_background,
-            textTheme: TextTheme(
-                // headlineSmall: Styles.,
-                bodyLarge: Styles.title_blue_text_style,
-                bodyMedium: Styles.workout_text_style_dark_theme,
-                bodySmall: Styles.small_dark_boxes_text_dark_theme,
-                titleLarge: Styles.appbar_text_style_dark_theme),
-
-            /////APP--BAR/////////
-            cardColor: Colours.workout_card_background_color_dark,
-            appBarTheme: const AppBarTheme(
-              iconTheme: IconThemeData(color: Colours.white_text_color),
-              systemOverlayStyle: SystemUiOverlayStyle(
-                  statusBarColor: Colors.black54,
-                  statusBarIconBrightness: Brightness.dark,
-                  systemNavigationBarIconBrightness: Brightness.light,
-                  systemNavigationBarColor: Colors.black87),
-              surfaceTintColor: Colors.black54,
-              backgroundColor: Colours.dark_theme_background,
-              actionsIconTheme: IconThemeData(color: Colours.white_text_color),
-            )),
-
-        ////////
-
+          useMaterial3: true,
+          focusColor: Colours.workoutCardForegroundColor,
+          scaffoldBackgroundColor: Colours.dark_theme_background,
+          textTheme: const TextTheme(
+            bodyLarge: TextStyle(
+              fontSize: 22,
+              color: Colours.white_text_color,
+              fontWeight: FontWeight.w800,
+              letterSpacing: -0.5,
+            ),
+            bodyMedium: TextStyle(
+              fontSize: 16,
+              color: Colours.white_text_color,
+              fontWeight: FontWeight.w500,
+            ),
+            bodySmall: TextStyle(
+              fontSize: 12,
+              color: Colours.grey_text_color,
+              fontWeight: FontWeight.w600,
+            ),
+            titleLarge: TextStyle(
+              fontSize: 20,
+              color: Colours.white_text_color,
+              fontWeight: FontWeight.w800,
+              letterSpacing: -0.4,
+            ),
+          ),
+          cardColor: Colours.workout_card_background_color_dark,
+          colorScheme: ColorScheme.fromSeed(
+            seedColor: const Color(0xFF2F80ED),
+            brightness: Brightness.dark,
+            background: Colours.dark_theme_background,
+            surface: const Color(0xFF0E1D2D),
+          ),
+          appBarTheme: const AppBarTheme(
+            iconTheme: IconThemeData(color: Colours.white_text_color),
+            systemOverlayStyle: SystemUiOverlayStyle(
+              statusBarColor: Colors.black54,
+              statusBarIconBrightness: Brightness.light,
+              systemNavigationBarIconBrightness: Brightness.light,
+              systemNavigationBarColor: Colors.black87,
+            ),
+            surfaceTintColor: Colors.transparent,
+            backgroundColor: Colours.dark_theme_background,
+            actionsIconTheme: IconThemeData(color: Colours.white_text_color),
+            elevation: 0,
+          ),
+        ),
         themeMode: ThemeMode.system,
         debugShowCheckedModeBanner: false,
         routes: {

@@ -86,7 +86,10 @@ flutter:
 
   assets:
     - .env
-    - assets/
+    - assets/images/
+    - assets/audio/
+    - assets/fonts/
+    - assets/icons/
 
   fonts:
     - family: BottomIcons

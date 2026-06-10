@@ -1,79 +1,50 @@
+// lib/core/strings/strings.dart
 // ignore_for_file: constant_identifier_names, non_constant_identifier_names
 
 abstract class Strings {
   static const navigator_exception =
       "Navigator error! Check your settings.name!";
 
-  ///////INTRO/////SCREEN////////
-
   static const intro_button_letsgo_text = "Вперед";
-
   static const intro_login_title_text = "Войдите в аккаунт";
-
   static const intro_enter_login_text = "Введите почту";
   static const intro_login_enter_password_text = "Введите ваш пароль";
-
   static const button_login_text = "Войти";
   static const done = "Готово";
-
   static const registration_text = "Зарегестрироваться";
-
   static const not_full_field_error =
       "Пожалуйста, заполните все необходимые поля, чтобы продолжить";
-
   static const intro_login_mini_info_text =
       "Внимание! Ваши аккаунты могут быть утеряны!\nВ связи с тем, что это приложение находиться в разработке, ваши аккаунты из-за различных манипуляций могут быть утеряны.\nТем не менее, будет сделано всё, чтобы их сохранить.";
-
   static const enter_your_email = "Введите вашу почту";
   static const imagine_your_nickname = "Придумайте никнейм";
   static const imagine_your_password = "Придумайте пароль";
-
   static const hint_email = "Почта";
   static const hint_nickname = "Никнейм";
   static const hint_password = "Пароль";
-
   static const collect_data = "Сбор информации";
-
   static const your_weight = "Ваш вес (кг)";
   static const your_height = "Ваш рост (см)";
-
   static const your_weight_hint = "Вес";
   static const youe_height_hint = "Рост";
-
   static const error_weight_or_height = "Недопустимый вес или рост!";
-
   static const use_dot_please = "Используйте точку, а не запятую!";
-
   static var news_appbar_string = "Лента";
-
   static var chats_appbar_string = "Чаты";
-
   static var workouts_appbar = "Тренировки";
   static var creating_appbar = "Создание";
-
   static var profile_string = "Профиль";
-
   static const String your_programs_string = "Твои программы";
-
   static const String start = "Начнём!";
   static const String start2 = "Начать";
-
   static String water = "Вода";
   static String useful = "Полезное";
-
   static String you_need_more = "Тебе осталось:";
   static String add = "Добавить";
-
   static String calculator = "Калькулятор";
-
   static String bench_presses = "Жима лёжа";
-
   static String advices = "Советы";
-
   static String beginners = "Новичкам";
-
-  ///////////Muscles////////////
-
   static String abs = "пресс";
   static String forearms = "предплечья";
   static String shoulders = "плечи";
@@ -83,9 +54,7 @@ abstract class Strings {
   static String chest = "грудь";
   static String back = "спина";
   static String cardio = "кардио";
-
   static String empty = "Нет данных";
-
   static String mon = "Пн.";
   static String tue = "Вт.";
   static String wed = "Ср.";
@@ -93,7 +62,6 @@ abstract class Strings {
   static String fri = "Пт.";
   static String sat = "Сб.";
   static String sun = "Вс.";
-
   static String monday = "Понедельник";
   static String tuesday = "Вторник";
   static String wednesday = "Среда";
@@ -101,86 +69,46 @@ abstract class Strings {
   static String friday = "Пятница";
   static String saturday = "Суббота";
   static String sunday = "Воскресенье";
-
   static String selectWeekday = "Выберите день недели";
-
   static var title = "Название";
-
   static String day = "День";
-
   static var change_exercise = "Выбор";
-
   static var weight = "Вес";
   static var reps = "Повторения";
   static var sets = "Подходы";
-
   static var search = "Поиск";
-
   static var add_yourself = "Добавить свое";
-
   static var error = "ОШИБКА";
-
   static var skip = "Пропустить";
-
   static var seconds = "Секунды";
-
   static var minutes = "Минуты";
-
   static String not_correct_data = "Введите данные в корректном формате";
-
   static String rest_of_sets = "Отдых между подходами";
-
   static var filling = "Заполнение";
-
   static String completedSuccessful = "Тренировка успешно завершена!";
-
   static String time_of_timer_exercise = "Длительность подхода";
-
   static String add_timer_exercise_parameters = "Подходы и отягощение";
-
   static String exercise = "Упражнение";
-
   static var journal = "Журнал";
-
   static String time = "Время";
-
   static String rep = "Повт.";
-
   static String timeOfWorkout = "Время тренировки";
-
   static String rest = "Отдых";
-
   static String workouts = "Тренировок";
   static String workout = "Тренировка";
-
   static String repeats = "Повторы";
-
   static var bench_press_calculator_appbar = "Калькулятор жима";
-
   static var calculate = "Посчитать";
-
   static var cancel = "Отменить";
-
   static var alreadyAdded = "уже добавлена";
-
   static var addedSuccessful = "успешно добавлена";
-
   static String uncorrectEmail = "Пожалуйста, введите корректную почту";
-
   static String passwordTooShort = "Пароль должен быть не менее 8 символов";
   static String usernameTooShort = "Никнейм должен быть не менее 3 символов";
-
   static const String loading = 'Загрузка...';
-
   static String haventInternetConnetion = "Проверьте подключение к сети";
-
   static String youCantAddExerciseAgain = "Вы уже добавили это упражнение";
-
   static String areYouSure = "Вы уверены?";
-
   static var yes = "Да";
-
   static var no = "Нет";
-
-///////////////////////////////
 }
