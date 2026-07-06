@@ -1,6 +1,6 @@
 // ignore_for_file: must_be_immutable
 
-import 'package:body_buddies/core/styles/styles.dart';
+import 'package:body_buddies/core/themes/themes.dart';
 import 'package:flutter/material.dart';
 
 import '../../../core/colors/colors.dart';
@@ -56,9 +56,9 @@ class StylisedButton extends StatelessWidget {
           children: [
             Text(
               title,
-              style: textStyle ?? Styles.nutrition_text_style,
+              style: textStyle ?? DarkTheme.nutrition_text_style,
             ),
-            Text(subTitle!, style: textStyle ?? Styles.nutrition_text_style),
+            Text(subTitle!, style: textStyle ?? DarkTheme.nutrition_text_style),
           ],
         ),
       );
@@ -85,7 +85,7 @@ class StylisedButton extends StatelessWidget {
           children: [
             Text(
               title,
-              style: textStyle ?? Styles.nutrition_text_style,
+              style: textStyle ?? DarkTheme.nutrition_text_style,
             ),
           ],
         ),
@@ -113,7 +113,7 @@ class StylisedButton extends StatelessWidget {
             elevation: WidgetStatePropertyAll(elevation ?? 72)),
         child: Text(
           title,
-          style: textStyle ?? Styles.nutrition_text_style,
+          style: textStyle ?? DarkTheme.nutrition_text_style,
         ),
       );
     }

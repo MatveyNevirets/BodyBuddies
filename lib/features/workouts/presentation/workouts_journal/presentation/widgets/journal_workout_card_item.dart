@@ -1,4 +1,4 @@
-import 'package:body_buddies/core/styles/styles.dart';
+import 'package:body_buddies/core/themes/themes.dart';
 import 'package:body_buddies/features/workouts/domain/Entities/workout_entity.dart';
 import 'package:body_buddies/features/workouts/presentation/create_workout/presentation/workout_create_screen.dart';
 import 'package:flutter/material.dart';
@@ -34,17 +34,17 @@ class JournalWorkoutCardItem extends StatelessWidget {
                   children: [
                     Text(
                       truncateText(workout.title.toString(), 14),
-                      style: Styles.mini_journal_card_text,
+                      style: DarkTheme.mini_journal_card_text,
                     ),
                     Text(
                       "Длительность:",
-                      style: Styles.mini_journal_card_text,
+                      style: DarkTheme.mini_journal_card_text,
                     ),
                     Text(
                       workout.duration.isNotEmpty
                           ? workout.duration.toString()
                           : "00:00:00",
-                      style: Styles.mini_journal_card_text,
+                      style: DarkTheme.mini_journal_card_text,
                     ),
                   ],
                 ),
@@ -54,7 +54,7 @@ class JournalWorkoutCardItem extends StatelessWidget {
                   children: [
                     Text(
                       workout.date,
-                      style: Styles.mini_journal_card_text,
+                      style: DarkTheme.mini_journal_card_text,
                     ),
                     const SizedBox(
                       height: 15,

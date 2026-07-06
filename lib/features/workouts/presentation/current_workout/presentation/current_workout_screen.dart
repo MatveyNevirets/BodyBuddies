@@ -1,6 +1,6 @@
 import 'package:body_buddies/core/colors/colors.dart';
 import 'package:body_buddies/core/strings/strings.dart';
-import 'package:body_buddies/core/styles/styles.dart';
+import 'package:body_buddies/core/themes/themes.dart';
 import 'package:body_buddies/core/widgets/app_bar.dart';
 import 'package:body_buddies/features/workouts/presentation/run_workout/presentation/run_workout_screen.dart';
 import 'package:body_buddies/features/workouts/presentation/create_workout/presentation/workout_create_screen.dart';
@@ -42,7 +42,7 @@ class WorkoutEntityScreen extends StatelessWidget {
                           child: Text(
                             textAlign: TextAlign.center,
                             workoutEntity.title.toString(),
-                            style: Styles.workout_text_style_background_24,
+                            style: DarkTheme.workout_text_style_background_24,
                           ),
                         ),
                       ),
@@ -68,7 +68,7 @@ class WorkoutEntityScreen extends StatelessWidget {
                                       truncateText(
                                           workoutEntity.exercises[index].title,
                                           20),
-                                      style: Styles.mini_hint_background,
+                                      style: DarkTheme.mini_hint_background,
                                     ),
                                     const SizedBox(
                                       height: 8,
@@ -95,7 +95,7 @@ class WorkoutEntityScreen extends StatelessWidget {
                                                 workoutEntity
                                                     .exercises[index].title,
                                                 20),
-                                            style: Styles.mini_hint_background,
+                                            style: DarkTheme.mini_hint_background,
                                           ),
                                           const SizedBox(
                                             height: 8,
@@ -139,7 +139,7 @@ class WorkoutEntityScreen extends StatelessWidget {
                 children: [
                   Text(
                     Strings.time,
-                    style: Styles.mini_current_card_text2,
+                    style: DarkTheme.mini_current_card_text2,
                   ),
                   const Expanded(
                     child: SizedBox(),
@@ -157,7 +157,7 @@ class WorkoutEntityScreen extends StatelessWidget {
                                     60 +
                                 workoutEntity.exercises[index].timerTimeSeconds,
                             needHourses: false),
-                        style: Styles.mini_current_card_text,
+                        style: DarkTheme.mini_current_card_text,
                       ),
                     ),
                   )
@@ -176,7 +176,7 @@ class WorkoutEntityScreen extends StatelessWidget {
                 children: [
                   Text(
                     Strings.sets,
-                    style: Styles.mini_current_card_text2,
+                    style: DarkTheme.mini_current_card_text2,
                   ),
                   const Expanded(child: SizedBox()),
                   Card(
@@ -188,7 +188,7 @@ class WorkoutEntityScreen extends StatelessWidget {
                           vertical: 3, horizontal: 8),
                       child: Text(
                         workoutEntity.exercises[index].sets.toString(),
-                        style: Styles.mini_current_card_text,
+                        style: DarkTheme.mini_current_card_text,
                       ),
                     ),
                   ),
@@ -216,7 +216,7 @@ class WorkoutEntityScreen extends StatelessWidget {
                 children: [
                   Text(
                     Strings.weight,
-                    style: Styles.mini_current_card_text2,
+                    style: DarkTheme.mini_current_card_text2,
                   ),
                   const Expanded(
                     child: SizedBox(),
@@ -236,7 +236,7 @@ class WorkoutEntityScreen extends StatelessWidget {
                                 .toString()
                             : workoutEntity.exercises[index].kilograms
                                 .toString(),
-                        style: Styles.mini_current_card_text,
+                        style: DarkTheme.mini_current_card_text,
                       ),
                     ),
                   )
@@ -256,7 +256,7 @@ class WorkoutEntityScreen extends StatelessWidget {
                 children: [
                   Text(
                     Strings.rest,
-                    style: Styles.mini_current_card_text2,
+                    style: DarkTheme.mini_current_card_text2,
                   ),
                   const Expanded(
                     child: SizedBox(),
@@ -275,7 +275,7 @@ class WorkoutEntityScreen extends StatelessWidget {
                                 workoutEntity
                                     .exercises[index].restTimeInSeconds,
                             needHourses: false),
-                        style: Styles.mini_current_card_text,
+                        style: DarkTheme.mini_current_card_text,
                       ),
                     ),
                   )
@@ -303,7 +303,7 @@ class WorkoutEntityScreen extends StatelessWidget {
                 children: [
                   Text(
                     Strings.rest,
-                    style: Styles.mini_current_card_text2,
+                    style: DarkTheme.mini_current_card_text2,
                   ),
                   const Expanded(
                     child: SizedBox(),
@@ -322,7 +322,7 @@ class WorkoutEntityScreen extends StatelessWidget {
                                 workoutEntity
                                     .exercises[index].restTimeInSeconds,
                             needHourses: false),
-                        style: Styles.mini_current_card_text,
+                        style: DarkTheme.mini_current_card_text,
                       ),
                     ),
                   )
@@ -342,7 +342,7 @@ class WorkoutEntityScreen extends StatelessWidget {
                 children: [
                   Text(
                     Strings.weight,
-                    style: Styles.mini_current_card_text2,
+                    style: DarkTheme.mini_current_card_text2,
                   ),
                   const Expanded(
                     child: SizedBox(),
@@ -362,7 +362,7 @@ class WorkoutEntityScreen extends StatelessWidget {
                                 .toString()
                             : workoutEntity.exercises[index].kilograms
                                 .toString(),
-                        style: Styles.mini_current_card_text,
+                        style: DarkTheme.mini_current_card_text,
                       ),
                     ),
                   ),
@@ -389,7 +389,7 @@ class WorkoutEntityScreen extends StatelessWidget {
                 children: [
                   Text(
                     Strings.repeats,
-                    style: Styles.mini_current_card_text2,
+                    style: DarkTheme.mini_current_card_text2,
                   ),
                   const Expanded(
                     child: SizedBox(),
@@ -403,7 +403,7 @@ class WorkoutEntityScreen extends StatelessWidget {
                           vertical: 3, horizontal: 8),
                       child: Text(
                         workoutEntity.exercises[index].reps.toString(),
-                        style: Styles.mini_current_card_text,
+                        style: DarkTheme.mini_current_card_text,
                       ),
                     ),
                   )
@@ -422,7 +422,7 @@ class WorkoutEntityScreen extends StatelessWidget {
                 children: [
                   Text(
                     Strings.sets,
-                    style: Styles.mini_current_card_text2,
+                    style: DarkTheme.mini_current_card_text2,
                   ),
                   const Expanded(
                     child: SizedBox(),
@@ -436,7 +436,7 @@ class WorkoutEntityScreen extends StatelessWidget {
                           vertical: 3, horizontal: 8),
                       child: Text(
                         workoutEntity.exercises[index].sets.toString(),
-                        style: Styles.mini_current_card_text,
+                        style: DarkTheme.mini_current_card_text,
                       ),
                     ),
                   )

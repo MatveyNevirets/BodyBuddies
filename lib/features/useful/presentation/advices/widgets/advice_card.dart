@@ -1,5 +1,5 @@
 import 'package:body_buddies/core/colors/colors.dart';
-import 'package:body_buddies/core/styles/styles.dart';
+import 'package:body_buddies/core/themes/themes.dart';
 import 'package:body_buddies/features/useful/domain/entity/advice_entity.dart';
 import 'package:flutter/material.dart';
 
@@ -33,7 +33,7 @@ GestureDetector buildAdviceCard(
             children: [
               Text(
                 advices[index].title,
-                style: Styles.reverse_rest_text_style,
+                style: DarkTheme.reverse_rest_text_style,
                 textAlign: TextAlign.center,
               ),
             ],

@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 
 import '../colors/colors.dart';
 
-abstract class Styles {
+abstract class DarkTheme {
   static const base_margin_size = EdgeInsets.all(16);
   static double base_margin_size_double = 16;
   static double base_padding_size_double = 2;

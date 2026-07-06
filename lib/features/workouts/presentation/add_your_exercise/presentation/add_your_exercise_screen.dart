@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../../core/colors/colors.dart';
 import '../../../../../core/strings/strings.dart';
-import '../../../../../core/styles/styles.dart';
+import '../../../../../core/themes/themes.dart';
 
 class AddYourExerciseScreen extends StatefulWidget {
   const AddYourExerciseScreen({super.key});
@@ -46,7 +46,7 @@ class _AddYourExerciseScreenState extends State<AddYourExerciseScreen> {
                   children: [
                     Text(
                       "Введите название своего упражнения",
-                      style: Styles.workout_text_style_background_24,
+                      style: DarkTheme.workout_text_style_background_24,
                     ),
                     const SizedBox(
                       height: 16,
@@ -61,10 +61,10 @@ class _AddYourExerciseScreenState extends State<AddYourExerciseScreen> {
                         controller: titleController,
                         cursorColor: Colours.workoutCardForegroundColor,
                         textAlign: TextAlign.start,
-                        style: Styles.hint_text_style_create_exercise,
+                        style: DarkTheme.hint_text_style_create_exercise,
                         decoration: InputDecoration(
                           isDense: true,
-                          hintStyle: Styles.hint_text_style_create_exercise,
+                          hintStyle: DarkTheme.hint_text_style_create_exercise,
                           hintText: Strings.title,
                           focusedBorder: const UnderlineInputBorder(
                             borderSide: BorderSide(
@@ -86,7 +86,7 @@ class _AddYourExerciseScreenState extends State<AddYourExerciseScreen> {
                       children: [
                         Text(
                           "По таймеру",
-                          style: Styles.workout_text_style_background_24,
+                          style: DarkTheme.workout_text_style_background_24,
                         ),
                         const Expanded(child: SizedBox()),
                         Checkbox(

@@ -2,7 +2,7 @@
 
 import 'dart:convert';
 
-import 'package:body_buddies/core/styles/styles.dart';
+import 'package:body_buddies/core/themes/themes.dart';
 import 'package:body_buddies/core/widgets/are_you_sure_dialog.dart';
 import 'package:body_buddies/core/widgets/snackbar.dart';
 import 'package:body_buddies/features/workouts/domain/workouts_repository.dart';
@@ -55,9 +55,9 @@ class WorkoutCardOnList extends StatelessWidget {
         color: Theme.of(context).cardColor,
         child: Container(
           padding: EdgeInsets.only(
-              right: Styles.base_margin_size_double,
-              top: Styles.base_margin_size_double / 2,
-              bottom: Styles.base_margin_size_double / 2),
+              right: DarkTheme.base_margin_size_double,
+              top: DarkTheme.base_margin_size_double / 2,
+              bottom: DarkTheme.base_margin_size_double / 2),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
@@ -83,14 +83,15 @@ class WorkoutCardOnList extends StatelessWidget {
                           Container(
                             padding: EdgeInsets.symmetric(
                                 horizontal:
-                                    Styles.base_margin_size_double / 1.5,
-                                vertical: Styles.base_margin_size_double / 10),
+                                    DarkTheme.base_margin_size_double / 1.5,
+                                vertical:
+                                    DarkTheme.base_margin_size_double / 10),
                             decoration: BoxDecoration(
                                 color: Theme.of(context).focusColor,
                                 borderRadius: BorderRadius.circular(4)),
                             child: Text(
                               getDayOfWeekOnString(workout),
-                              style: Styles.workout_text_style_week_day,
+                              style: DarkTheme.workout_text_style_week_day,
                             ),
                           ),
                           const SizedBox(
@@ -127,7 +128,7 @@ class WorkoutCardOnList extends StatelessWidget {
                   ),
                   Text(
                     truncateText(workout.title!, 10),
-                    style: Styles.workout_text_style_dark_theme,
+                    style: DarkTheme.workout_text_style_dark_theme,
                   ),
                   const SizedBox(
                     height: 6,

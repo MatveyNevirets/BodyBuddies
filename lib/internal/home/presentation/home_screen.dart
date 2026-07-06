@@ -1,5 +1,5 @@
 // lib/internal/home/presentation/home_screen.dart
-import 'package:body_buddies/core/styles/styles.dart';
+import 'package:body_buddies/core/themes/themes.dart';
 import 'package:body_buddies/core/widgets/app_bar.dart';
 import 'package:flutter/material.dart';
 

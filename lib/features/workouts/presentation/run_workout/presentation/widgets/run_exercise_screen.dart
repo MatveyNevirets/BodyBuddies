@@ -1,4 +1,4 @@
-import 'package:body_buddies/core/styles/styles.dart';
+import 'package:body_buddies/core/themes/themes.dart';
 import 'package:body_buddies/features/workouts/presentation/run_workout/presentation/bloc/run_workout_bloc.dart';
 import 'package:body_buddies/features/workouts/presentation/run_workout/presentation/run_workout_screen.dart';
 import 'package:body_buddies/features/workouts/presentation/run_workout/workout_ticker/workout_ticker.dart';
@@ -124,7 +124,7 @@ class RunExerciseScreen extends StatelessWidget {
               children: [
                 Text(
                   Strings.time,
-                  style: Styles.add_exercise_text_style,
+                  style: DarkTheme.add_exercise_text_style,
                 ),
                 SizedBox(
                   height: 40,
@@ -142,7 +142,7 @@ class RunExerciseScreen extends StatelessWidget {
                               workoutTimerDuration = snapshot.data!;
                               return Text(
                                 getTime(workoutTimerDuration),
-                                style: Styles.hint_text_style_create_workout,
+                                style: DarkTheme.hint_text_style_create_workout,
                               );
                             } else if (snapshot.hasError) {
                               throw Exception(
@@ -150,7 +150,7 @@ class RunExerciseScreen extends StatelessWidget {
                             }
                             return Text(
                               getTime(workoutTimerDuration),
-                              style: Styles.hint_text_style_create_workout,
+                              style: DarkTheme.hint_text_style_create_workout,
                             );
                           }),
                     ),
@@ -171,7 +171,7 @@ class RunExerciseScreen extends StatelessWidget {
               children: [
                 Text(
                   Strings.sets,
-                  style: Styles.add_exercise_text_style,
+                  style: DarkTheme.add_exercise_text_style,
                 ),
                 Card(
                   color: Colours.workoutCardForegroundColor,
@@ -180,7 +180,7 @@ class RunExerciseScreen extends StatelessWidget {
                         const EdgeInsets.symmetric(vertical: 4, horizontal: 32),
                     child: Text(
                       "${exercise.currentSets.toString()} | ${exercise.sets.toString()}",
-                      style: Styles.hint_text_style_create_workout,
+                      style: DarkTheme.hint_text_style_create_workout,
                     ),
                   ),
                 ),
@@ -201,7 +201,7 @@ class RunExerciseScreen extends StatelessWidget {
           children: [
             Text(
               title,
-              style: Styles.add_exercise_text_style,
+              style: DarkTheme.add_exercise_text_style,
             ),
           ],
         ),
@@ -223,7 +223,7 @@ class RunExerciseScreen extends StatelessWidget {
                     children: [
                       Text(
                         Strings.weight,
-                        style: Styles.add_exercise_text_style,
+                        style: DarkTheme.add_exercise_text_style,
                       ),
                       Card(
                         color: Colours.workoutCardForegroundColor,
@@ -233,7 +233,7 @@ class RunExerciseScreen extends StatelessWidget {
                             onTapAlwaysCalled: true,
                             // ignore: avoid_print
                             onTap: () => print("tap"),
-                            style: Styles.mini_hint_background,
+                            style: DarkTheme.mini_hint_background,
                             textAlign: TextAlign.center,
                             cursorColor: Colours.workout_card_background_color,
                             controller: weightController,
@@ -245,7 +245,7 @@ class RunExerciseScreen extends StatelessWidget {
                                         exercise.kilograms.toInt()
                                     ? exercise.kilograms.toInt().toString()
                                     : exercise.kilograms.toString(),
-                                hintStyle: Styles.mini_hint_background),
+                                hintStyle: DarkTheme.mini_hint_background),
                           ),
                         ),
                       ),
@@ -266,14 +266,14 @@ class RunExerciseScreen extends StatelessWidget {
                     children: [
                       Text(
                         Strings.rep,
-                        style: Styles.add_exercise_text_style,
+                        style: DarkTheme.add_exercise_text_style,
                       ),
                       Card(
                         color: Colours.workoutCardForegroundColor,
                         child: Padding(
                           padding: const EdgeInsets.all(1),
                           child: TextField(
-                            style: Styles.mini_hint_background,
+                            style: DarkTheme.mini_hint_background,
                             textAlign: TextAlign.center,
                             controller: repsController,
                             cursorColor: Colours.workout_card_background_color,
@@ -282,7 +282,7 @@ class RunExerciseScreen extends StatelessWidget {
                                 enabledBorder: InputBorder.none,
                                 focusedBorder: InputBorder.none,
                                 hintText: exercise.reps.toString(),
-                                hintStyle: Styles.mini_hint_background),
+                                hintStyle: DarkTheme.mini_hint_background),
                           ),
                         ),
                       ),

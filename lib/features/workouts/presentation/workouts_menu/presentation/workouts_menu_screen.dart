@@ -2,7 +2,7 @@
 
 import 'package:body_buddies/core/colors/colors.dart';
 import 'package:body_buddies/core/strings/strings.dart';
-import 'package:body_buddies/core/styles/styles.dart';
+import 'package:body_buddies/core/themes/themes.dart';
 import 'package:body_buddies/core/widgets/app_bar.dart';
 import 'package:body_buddies/core/widgets/snackbar.dart';
 import 'package:body_buddies/core/widgets/loading_screen.dart';
@@ -61,7 +61,7 @@ class _WorkoutsMenuScreenState extends State<WorkoutsMenuScreen> {
         builder: (context, state) {
           if (state is UpdateWorkoutState) {
             return Container(
-              margin: Styles.base_margin_size,
+              margin: DarkTheme.base_margin_size,
               child: ListView.builder(
                 itemCount: state.workouts.length + 1,
                 itemBuilder: (context, index) {

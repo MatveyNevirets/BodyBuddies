@@ -1,6 +1,6 @@
 import 'package:body_buddies/core/colors/colors.dart';
 import 'package:body_buddies/core/strings/strings.dart';
-import 'package:body_buddies/core/styles/styles.dart';
+import 'package:body_buddies/core/themes/themes.dart';
 import 'package:body_buddies/core/widgets/app_bar.dart';
 import 'package:body_buddies/features/useful/domain/entity/advice_entity.dart';
 import 'package:flutter/material.dart';
@@ -28,7 +28,7 @@ class CurrentAdviceScreen extends StatelessWidget {
                 children: [
                   Text(
                     currentAdvice.title,
-                    style: Styles.title_blue_text_style,
+                    style: DarkTheme.title_blue_text_style,
                   ),
                   Container(
                     height: 3,
@@ -40,7 +40,7 @@ class CurrentAdviceScreen extends StatelessWidget {
                   ),
                   Text(
                     currentAdvice.bodyText,
-                    style: Styles.body_blue_text_style,
+                    style: DarkTheme.body_blue_text_style,
                   ),
                 ],
               ),

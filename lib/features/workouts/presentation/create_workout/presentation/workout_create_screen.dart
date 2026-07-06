@@ -19,7 +19,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 import '../../../../../core/strings/strings.dart';
-import '../../../../../core/styles/styles.dart';
+import '../../../../../core/themes/themes.dart';
 
 class CreateWorkoutScreen extends StatefulWidget {
   List<ExerciseEntity> _exercises = [];
@@ -187,10 +187,10 @@ class _CreateWorkoutScreenState extends State<CreateWorkoutScreen> {
                         controller: titleTextFieldController,
                         cursorColor: Colours.workout_card_background_color,
                         textAlign: TextAlign.center,
-                        style: Styles.hint_text_style_create_workout,
+                        style: DarkTheme.hint_text_style_create_workout,
                         decoration: InputDecoration(
                           isDense: true,
-                          hintStyle: Styles.hint_text_style_create_workout,
+                          hintStyle: DarkTheme.hint_text_style_create_workout,
                           hintText: Strings.title,
                           focusedBorder: const UnderlineInputBorder(
                             borderSide: BorderSide(
@@ -304,12 +304,12 @@ class _CreateWorkoutScreenState extends State<CreateWorkoutScreen> {
                           ),
                         ),
                       ),
-                      value: widget.weekdayString,
+                      initialValue: widget.weekdayString,
                       hint: Center(
                           child: Text(
                         Strings.day,
                         textAlign: TextAlign.center,
-                        style: Styles.hint_text_style_create_workout,
+                        style: DarkTheme.hint_text_style_create_workout,
                       )),
                       items: widget.daysOfWeek.map((String day) {
                         return DropdownMenuItem<String>(
@@ -317,7 +317,7 @@ class _CreateWorkoutScreenState extends State<CreateWorkoutScreen> {
                           child: Center(
                               child: Text(
                             day,
-                            style: Styles.hint_text_style_create_workout,
+                            style: DarkTheme.hint_text_style_create_workout,
                           )),
                         );
                       }).toList(),

@@ -2,7 +2,7 @@ import 'dart:developer';
 
 import 'package:body_buddies/core/colors/colors.dart';
 import 'package:body_buddies/core/strings/strings.dart';
-import 'package:body_buddies/core/styles/styles.dart';
+import 'package:body_buddies/core/themes/themes.dart';
 import 'package:body_buddies/core/widgets/app_bar.dart';
 import 'package:body_buddies/core/widgets/snackbar.dart';
 import 'package:body_buddies/core/widgets/loading_screen.dart';
@@ -57,9 +57,9 @@ class CreatedWorkoutsScreen extends StatelessWidget {
                         color: Colours.workout_card_background_color,
                         child: Container(
                           padding: EdgeInsets.only(
-                              right: Styles.base_margin_size_double,
-                              top: Styles.base_margin_size_double / 1.5,
-                              bottom: Styles.base_margin_size_double / 1.5),
+                              right: DarkTheme.base_margin_size_double,
+                              top: DarkTheme.base_margin_size_double / 1.5,
+                              bottom: DarkTheme.base_margin_size_double / 1.5),
                           child: Row(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
@@ -81,7 +81,8 @@ class CreatedWorkoutsScreen extends StatelessWidget {
                                     truncateText(
                                         state.workouts[index].title.toString(),
                                         12),
-                                    style: Styles.workout_text_style_dark_theme,
+                                    style:
+                                        DarkTheme.workout_text_style_dark_theme,
                                   ),
                                   const SizedBox(
                                     height: 8,

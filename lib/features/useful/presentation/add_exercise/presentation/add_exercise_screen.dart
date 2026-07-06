@@ -12,7 +12,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../core/colors/colors.dart';
 import '../../../../../core/strings/strings.dart';
-import '../../../../../core/styles/styles.dart';
+import '../../../../../core/themes/themes.dart';
 
 class AddExerciseScreen extends StatelessWidget {
   final searchTextFieldController = TextEditingController();
@@ -61,10 +61,10 @@ class AddExerciseScreen extends StatelessWidget {
                     controller: searchTextFieldController,
                     cursorColor: Colours.workout_card_background_color,
                     textAlign: TextAlign.start,
-                    style: Styles.hint_text_style_create_workout,
+                    style: DarkTheme.hint_text_style_create_workout,
                     decoration: InputDecoration(
                       isDense: true,
-                      hintStyle: Styles.hint_text_style_create_workout,
+                      hintStyle: DarkTheme.hint_text_style_create_workout,
                       hintText: Strings.search,
                       focusedBorder: const UnderlineInputBorder(
                         borderSide: BorderSide(
@@ -138,7 +138,7 @@ class AddExerciseScreen extends StatelessWidget {
                                 child: Text(
                                   truncateText(
                                       state.exercises[index].title, 50),
-                                  style: Styles.add_exercise_text_style,
+                                  style: DarkTheme.add_exercise_text_style,
                                   textAlign: TextAlign.center,
                                 ),
                               ),

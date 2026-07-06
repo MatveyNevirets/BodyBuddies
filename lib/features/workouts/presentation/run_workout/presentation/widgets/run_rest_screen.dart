@@ -1,4 +1,4 @@
-import 'package:body_buddies/core/styles/styles.dart';
+import 'package:body_buddies/core/themes/themes.dart';
 import 'package:body_buddies/features/workouts/presentation/run_workout/presentation/bloc/run_workout_bloc.dart';
 import 'package:body_buddies/features/workouts/presentation/run_workout/presentation/run_workout_screen.dart';
 import 'package:body_buddies/features/workouts/presentation/run_workout/workout_ticker/reverse_ticker.dart';
@@ -100,7 +100,7 @@ class _RestScreenState extends State<RestScreen> {
         children: [
           Text(
             Strings.timeOfWorkout,
-            style: Styles.reverse_rest_text_style,
+            style: DarkTheme.reverse_rest_text_style,
           ),
           const SizedBox(
             height: 5,
@@ -123,7 +123,7 @@ class _RestScreenState extends State<RestScreen> {
                           widget.workoutTimerDuration = snapshot.data!;
                           return Text(
                             getTime(widget.workoutTimerDuration),
-                            style: Styles.add_exercise_text_style,
+                            style: DarkTheme.add_exercise_text_style,
                           );
                         } else if (snapshot.hasError) {
                           throw Exception(
@@ -131,7 +131,7 @@ class _RestScreenState extends State<RestScreen> {
                         }
                         return Text(
                           getTime(widget.workoutTimerDuration),
-                          style: Styles.add_exercise_text_style,
+                          style: DarkTheme.add_exercise_text_style,
                         );
                       }),
                 ),
@@ -157,7 +157,7 @@ class _RestScreenState extends State<RestScreen> {
             children: [
               Text(
                 Strings.rest,
-                style: Styles.add_exercise_text_style,
+                style: DarkTheme.add_exercise_text_style,
               ),
               SizedBox(
                 height: MediaQuery.sizeOf(context).height / 100,
@@ -180,14 +180,14 @@ class _RestScreenState extends State<RestScreen> {
                                 return Text(
                                   getTime(snapshot.data!, needHourses: false),
                                   style:
-                                      Styles.workout_text_style_background_24,
+                                      DarkTheme.workout_text_style_background_24,
                                 );
                               } else {
                                 nextOnExercisesList(context);
                                 return Text(
                                   getTime(0, needHourses: false),
                                   style:
-                                      Styles.workout_text_style_background_24,
+                                      DarkTheme.workout_text_style_background_24,
                                 );
                               }
                             } else if (snapshot.hasError) {
@@ -196,7 +196,7 @@ class _RestScreenState extends State<RestScreen> {
                             }
                             return Text(
                               "${widget.exercise.restTimeInMinutes.toString().padLeft(2, "0")}:${widget.exercise.restTimeInSeconds.toString().padLeft(2, "0")}",
-                              style: Styles.workout_text_style_background_24,
+                              style: DarkTheme.workout_text_style_background_24,
                             );
                           }),
                     ),

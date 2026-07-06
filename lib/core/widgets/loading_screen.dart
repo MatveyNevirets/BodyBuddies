@@ -1,6 +1,6 @@
 import 'package:body_buddies/core/colors/colors.dart';
 import 'package:body_buddies/core/strings/strings.dart';
-import 'package:body_buddies/core/styles/styles.dart';
+import 'package:body_buddies/core/themes/themes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
@@ -24,7 +24,7 @@ class LoadingScreen extends StatelessWidget {
           ),
           Text(
             Strings.loading,
-            style: Styles.loadingTextStyle,
+            style: DarkTheme.loadingTextStyle,
           ),
         ],
       ),

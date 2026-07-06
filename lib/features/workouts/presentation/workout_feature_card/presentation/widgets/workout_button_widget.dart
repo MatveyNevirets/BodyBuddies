@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../../../core/colors/colors.dart';
 import '../../../../../../core/strings/strings.dart';
-import '../../../../../../core/styles/styles.dart';
+import '../../../../../../core/themes/themes.dart';
 
 class WorkoutButtonWidget extends StatelessWidget {
   final VoidCallback onPressed;
@@ -30,7 +30,7 @@ class WorkoutButtonWidget extends StatelessWidget {
         children: [
           Text(
             Strings.start,
-            style: Styles.workouts_button_text_style,
+            style: DarkTheme.workouts_button_text_style,
           ),
         ],
       ),

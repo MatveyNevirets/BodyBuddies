@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../../../core/colors/colors.dart';
 import '../../../../../../core/strings/strings.dart';
-import '../../../../../../core/styles/styles.dart';
+import '../../../../../../core/themes/themes.dart';
 import '../workout_create_screen.dart';
 
 class TimerExerciseItemOnList extends StatefulWidget {
@@ -142,7 +142,7 @@ class _TimerExerciseItemOnListState extends State<TimerExerciseItemOnList> {
         child: Text(
           textAlign: TextAlign.center,
           truncateText(exercises[index].title, 15),
-          style: Styles.hint_text_field_fill_workout,
+          style: DarkTheme.hint_text_field_fill_workout,
         ));
   }
 
@@ -156,7 +156,7 @@ class _TimerExerciseItemOnListState extends State<TimerExerciseItemOnList> {
       children: [
         Text(
           Strings.rest_of_sets,
-          style: Styles.workout_exercise_card_style,
+          style: DarkTheme.workout_exercise_card_style,
         ),
         const SizedBox(
           height: 6,
@@ -185,7 +185,7 @@ class _TimerExerciseItemOnListState extends State<TimerExerciseItemOnList> {
                 maxLength: 4,
                 buildCounter: null,
                 keyboardType: TextInputType.number,
-                style: Styles.hint_text_field_fill_workout,
+                style: DarkTheme.hint_text_field_fill_workout,
                 cursorColor: Colours.workout_card_background_color,
                 decoration: InputDecoration(
                   enabledBorder: const UnderlineInputBorder(
@@ -197,7 +197,7 @@ class _TimerExerciseItemOnListState extends State<TimerExerciseItemOnList> {
                           width: 2,
                           color: Colours.workout_card_background_color)),
                   labelText: Strings.minutes,
-                  labelStyle: Styles.hint_text_field_fill_workout,
+                  labelStyle: DarkTheme.hint_text_field_fill_workout,
                   contentPadding: const EdgeInsets.only(bottom: 14),
                   counterText: '',
                 ),
@@ -226,7 +226,7 @@ class _TimerExerciseItemOnListState extends State<TimerExerciseItemOnList> {
                 maxLength: 4,
                 buildCounter: null,
                 keyboardType: TextInputType.number,
-                style: Styles.hint_text_field_fill_workout,
+                style: DarkTheme.hint_text_field_fill_workout,
                 cursorColor: Colours.workout_card_background_color,
                 decoration: InputDecoration(
                   enabledBorder: const UnderlineInputBorder(
@@ -238,7 +238,7 @@ class _TimerExerciseItemOnListState extends State<TimerExerciseItemOnList> {
                           width: 2,
                           color: Colours.workout_card_background_color)),
                   labelText: Strings.seconds,
-                  labelStyle: Styles.hint_text_field_fill_workout,
+                  labelStyle: DarkTheme.hint_text_field_fill_workout,
                   contentPadding: const EdgeInsets.only(bottom: 14),
                   counterText: '',
                 ),
@@ -256,7 +256,7 @@ class _TimerExerciseItemOnListState extends State<TimerExerciseItemOnList> {
       children: [
         Text(
           Strings.add_timer_exercise_parameters,
-          style: Styles.workout_exercise_card_style,
+          style: DarkTheme.workout_exercise_card_style,
         ),
         const SizedBox(
           height: 6,
@@ -284,7 +284,7 @@ class _TimerExerciseItemOnListState extends State<TimerExerciseItemOnList> {
                 maxLength: 4,
                 buildCounter: null,
                 keyboardType: TextInputType.number,
-                style: Styles.hint_text_field_fill_workout,
+                style: DarkTheme.hint_text_field_fill_workout,
                 cursorColor: Colours.workout_card_background_color,
                 decoration: InputDecoration(
                   enabledBorder: const UnderlineInputBorder(
@@ -296,7 +296,7 @@ class _TimerExerciseItemOnListState extends State<TimerExerciseItemOnList> {
                           width: 2,
                           color: Colours.workout_card_background_color)),
                   labelText: Strings.sets,
-                  labelStyle: Styles.hint_text_field_fill_workout,
+                  labelStyle: DarkTheme.hint_text_field_fill_workout,
                   contentPadding: const EdgeInsets.only(bottom: 14),
                   counterText: '',
                 ),
@@ -325,7 +325,7 @@ class _TimerExerciseItemOnListState extends State<TimerExerciseItemOnList> {
                 maxLength: 4,
                 buildCounter: null,
                 keyboardType: TextInputType.number,
-                style: Styles.hint_text_field_fill_workout,
+                style: DarkTheme.hint_text_field_fill_workout,
                 cursorColor: Colours.workout_card_background_color,
                 decoration: InputDecoration(
                   enabledBorder: const UnderlineInputBorder(
@@ -337,7 +337,7 @@ class _TimerExerciseItemOnListState extends State<TimerExerciseItemOnList> {
                           width: 2,
                           color: Colours.workout_card_background_color)),
                   labelText: Strings.weight,
-                  labelStyle: Styles.hint_text_field_fill_workout,
+                  labelStyle: DarkTheme.hint_text_field_fill_workout,
                   contentPadding: const EdgeInsets.only(bottom: 14),
                   counterText: '',
                 ),
@@ -355,7 +355,7 @@ class _TimerExerciseItemOnListState extends State<TimerExerciseItemOnList> {
       children: [
         Text(
           Strings.time_of_timer_exercise,
-          style: Styles.workout_exercise_card_style,
+          style: DarkTheme.workout_exercise_card_style,
         ),
         const SizedBox(
           height: 6,
@@ -384,7 +384,7 @@ class _TimerExerciseItemOnListState extends State<TimerExerciseItemOnList> {
                 maxLength: 4,
                 buildCounter: null,
                 keyboardType: TextInputType.number,
-                style: Styles.hint_text_field_fill_workout,
+                style: DarkTheme.hint_text_field_fill_workout,
                 cursorColor: Colours.workout_card_background_color,
                 decoration: InputDecoration(
                   enabledBorder: const UnderlineInputBorder(
@@ -396,7 +396,7 @@ class _TimerExerciseItemOnListState extends State<TimerExerciseItemOnList> {
                           width: 2,
                           color: Colours.workout_card_background_color)),
                   labelText: Strings.minutes,
-                  labelStyle: Styles.hint_text_field_fill_workout,
+                  labelStyle: DarkTheme.hint_text_field_fill_workout,
                   contentPadding: const EdgeInsets.only(bottom: 14),
                   counterText: '',
                 ),
@@ -425,7 +425,7 @@ class _TimerExerciseItemOnListState extends State<TimerExerciseItemOnList> {
                 maxLength: 4,
                 buildCounter: null,
                 keyboardType: TextInputType.number,
-                style: Styles.hint_text_field_fill_workout,
+                style: DarkTheme.hint_text_field_fill_workout,
                 cursorColor: Colours.workout_card_background_color,
                 decoration: InputDecoration(
                   enabledBorder: const UnderlineInputBorder(
@@ -437,7 +437,7 @@ class _TimerExerciseItemOnListState extends State<TimerExerciseItemOnList> {
                           width: 2,
                           color: Colours.workout_card_background_color)),
                   labelText: Strings.seconds,
-                  labelStyle: Styles.hint_text_field_fill_workout,
+                  labelStyle: DarkTheme.hint_text_field_fill_workout,
                   contentPadding: const EdgeInsets.only(bottom: 14),
                   counterText: '',
                 ),
@@ -469,7 +469,7 @@ class _TimerExerciseItemOnListState extends State<TimerExerciseItemOnList> {
               child: Text(
                 textAlign: TextAlign.center,
                 (index + 1).toString(),
-                style: Styles.hint_text_style_create_workout,
+                style: DarkTheme.hint_text_style_create_workout,
               ),
             ),
           ),

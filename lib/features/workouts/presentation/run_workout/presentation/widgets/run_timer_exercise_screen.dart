@@ -1,4 +1,4 @@
-import 'package:body_buddies/core/styles/styles.dart';
+import 'package:body_buddies/core/themes/themes.dart';
 import 'package:body_buddies/features/workouts/presentation/run_workout/workout_ticker/reverse_ticker.dart';
 import 'package:body_buddies/features/workouts/presentation/run_workout/workout_ticker/workout_ticker.dart';
 import 'package:body_buddies/features/workouts/domain/Entities/exercise_entity.dart';
@@ -103,7 +103,7 @@ class RunTimerExercise extends StatelessWidget {
             children: [
               Text(
                 Strings.exercise,
-                style: Styles.add_exercise_text_style,
+                style: DarkTheme.add_exercise_text_style,
               ),
               SizedBox(
                 height: MediaQuery.sizeOf(context).height / 100,
@@ -126,14 +126,14 @@ class RunTimerExercise extends StatelessWidget {
                                 return Text(
                                   getTime(snapshot.data!, needHourses: false),
                                   style:
-                                      Styles.workout_text_style_background_24,
+                                      DarkTheme.workout_text_style_background_24,
                                 );
                               } else {
                                 nextOnExercisesList(context);
                                 return Text(
                                   getTime(0, needHourses: false),
                                   style:
-                                      Styles.workout_text_style_background_24,
+                                      DarkTheme.workout_text_style_background_24,
                                 );
                               }
                             } else if (snapshot.hasError) {
@@ -142,7 +142,7 @@ class RunTimerExercise extends StatelessWidget {
                             }
                             return Text(
                               "${exercise.timerTimeMinutes.toString().padLeft(2, "0")}:${exercise.timerTimeSeconds.toString().padLeft(2, "0")}",
-                              style: Styles.workout_text_style_background_24,
+                              style: DarkTheme.workout_text_style_background_24,
                             );
                           }),
                     ),
@@ -167,7 +167,7 @@ class RunTimerExercise extends StatelessWidget {
               children: [
                 Text(
                   Strings.time,
-                  style: Styles.add_exercise_text_style,
+                  style: DarkTheme.add_exercise_text_style,
                 ),
                 SizedBox(
                   height: 40,
@@ -185,7 +185,7 @@ class RunTimerExercise extends StatelessWidget {
                               workoutTimerDuration = snapshot.data!;
                               return Text(
                                 getTime(workoutTimerDuration),
-                                style: Styles.hint_text_style_create_workout,
+                                style: DarkTheme.hint_text_style_create_workout,
                               );
                             } else if (snapshot.hasError) {
                               throw Exception(
@@ -193,7 +193,7 @@ class RunTimerExercise extends StatelessWidget {
                             }
                             return Text(
                               getTime(workoutTimerDuration),
-                              style: Styles.hint_text_style_create_workout,
+                              style: DarkTheme.hint_text_style_create_workout,
                             );
                           }),
                     ),
@@ -214,7 +214,7 @@ class RunTimerExercise extends StatelessWidget {
               children: [
                 Text(
                   Strings.sets,
-                  style: Styles.add_exercise_text_style,
+                  style: DarkTheme.add_exercise_text_style,
                 ),
                 Card(
                   color: Colours.workoutCardForegroundColor,
@@ -223,7 +223,7 @@ class RunTimerExercise extends StatelessWidget {
                         const EdgeInsets.symmetric(vertical: 4, horizontal: 32),
                     child: Text(
                       "${exercise.currentSets.toString()} | ${exercise.sets.toString()}",
-                      style: Styles.hint_text_style_create_workout,
+                      style: DarkTheme.hint_text_style_create_workout,
                     ),
                   ),
                 ),
@@ -244,7 +244,7 @@ class RunTimerExercise extends StatelessWidget {
           children: [
             Text(
               title,
-              style: Styles.add_exercise_text_style,
+              style: DarkTheme.add_exercise_text_style,
             ),
           ],
         ),
@@ -262,7 +262,7 @@ class RunTimerExercise extends StatelessWidget {
             children: [
               Text(
                 Strings.weight,
-                style: Styles.add_exercise_text_style,
+                style: DarkTheme.add_exercise_text_style,
               ),
               Card(
                 color: Colours.workoutCardForegroundColor,
@@ -272,7 +272,7 @@ class RunTimerExercise extends StatelessWidget {
                     onTapAlwaysCalled: true,
                     // ignore: avoid_print
                     onTap: () => print("tap"),
-                    style: Styles.mini_hint_background,
+                    style: DarkTheme.mini_hint_background,
                     textAlign: TextAlign.center,
                     cursorColor: Colours.workout_card_background_color,
                     controller: weightController,
@@ -284,7 +284,7 @@ class RunTimerExercise extends StatelessWidget {
                             exercise.kilograms == exercise.kilograms.toInt()
                                 ? exercise.kilograms.toInt().toString()
                                 : exercise.kilograms.toString(),
-                        hintStyle: Styles.mini_hint_background),
+                        hintStyle: DarkTheme.mini_hint_background),
                   ),
                 ),
               ),

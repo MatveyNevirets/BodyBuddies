@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../../../../core/styles/styles.dart';
+import '../../../../../../core/themes/themes.dart';
 
 class ExerciseCardWidget extends StatelessWidget {
   final String text;
@@ -26,7 +26,7 @@ class ExerciseCardWidget extends StatelessWidget {
           ),
           Text(
             truncateText(text, 9),
-            style: Styles.workout_text_style_week_day,
+            style: DarkTheme.workout_text_style_week_day,
           ),
         ],
       ),

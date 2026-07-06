@@ -3,7 +3,7 @@
 import 'package:flutter/cupertino.dart';
 
 import '../../../../../../core/colors/colors.dart';
-import '../../../../../../core/styles/styles.dart';
+import '../../../../../../core/themes/themes.dart';
 
 class WorkoutContainerText extends StatelessWidget {
   late String title;
@@ -22,7 +22,7 @@ class WorkoutContainerText extends StatelessWidget {
       child: Center(
         child: Text(
           title,
-          style: Styles.workouts_containers_text_style,
+          style: DarkTheme.workouts_containers_text_style,
         ),
       ),
     );

@@ -1,6 +1,6 @@
 import 'package:body_buddies/core/colors/colors.dart';
 import 'package:body_buddies/core/strings/strings.dart';
-import 'package:body_buddies/core/styles/styles.dart';
+import 'package:body_buddies/core/themes/themes.dart';
 import 'package:body_buddies/core/widgets/app_bar.dart';
 import 'package:body_buddies/core/widgets/base_button.dart';
 import 'package:body_buddies/features/useful/presentation/bench_press_calculator/presentation/bloc/bench_press_calculator_bloc.dart';
@@ -81,7 +81,7 @@ class BenchPressCalculatorScreen extends StatelessWidget {
                     children: [
                       Text(
                         "Формула Эпли",
-                        style: Styles.reverse_rest_text_style,
+                        style: DarkTheme.reverse_rest_text_style,
                       ),
                       SizedBox(
                         height: 60,
@@ -91,7 +91,7 @@ class BenchPressCalculatorScreen extends StatelessWidget {
                           child: Center(
                             child: Text(
                               state.epleysFormulaResult.toString(),
-                              style: Styles.add_exercise_text_style,
+                              style: DarkTheme.add_exercise_text_style,
                             ),
                           ),
                         ),
@@ -101,7 +101,7 @@ class BenchPressCalculatorScreen extends StatelessWidget {
                       ),
                       Text(
                         "Формула Мэтта Бжицки",
-                        style: Styles.reverse_rest_text_style,
+                        style: DarkTheme.reverse_rest_text_style,
                       ),
                       SizedBox(
                         height: 60,
@@ -111,7 +111,7 @@ class BenchPressCalculatorScreen extends StatelessWidget {
                           child: Center(
                             child: Text(
                               state.mattBrzyckisFormulaResult.toString(),
-                              style: Styles.add_exercise_text_style,
+                              style: DarkTheme.add_exercise_text_style,
                             ),
                           ),
                         ),
@@ -121,7 +121,7 @@ class BenchPressCalculatorScreen extends StatelessWidget {
                       ),
                       Text(
                         "Формула Лэндера",
-                        style: Styles.reverse_rest_text_style,
+                        style: DarkTheme.reverse_rest_text_style,
                       ),
                       SizedBox(
                         height: 60,
@@ -131,7 +131,7 @@ class BenchPressCalculatorScreen extends StatelessWidget {
                           child: Center(
                             child: Text(
                               state.landersFormulaResult.toString(),
-                              style: Styles.add_exercise_text_style,
+                              style: DarkTheme.add_exercise_text_style,
                             ),
                           ),
                         ),
@@ -141,7 +141,7 @@ class BenchPressCalculatorScreen extends StatelessWidget {
                       ),
                       Text(
                         "Формула О Коннор",
-                        style: Styles.reverse_rest_text_style,
+                        style: DarkTheme.reverse_rest_text_style,
                       ),
                       SizedBox(
                         height: 60,
@@ -151,7 +151,7 @@ class BenchPressCalculatorScreen extends StatelessWidget {
                           child: Center(
                             child: Text(
                               state.oConnersFormulaResult.toString(),
-                              style: Styles.add_exercise_text_style,
+                              style: DarkTheme.add_exercise_text_style,
                             ),
                           ),
                         ),
@@ -161,7 +161,7 @@ class BenchPressCalculatorScreen extends StatelessWidget {
                       ),
                       Text(
                         "Приблизительно ваш максимальный жим:",
-                        style: Styles.reverse_rest_text_style,
+                        style: DarkTheme.reverse_rest_text_style,
                         textAlign: TextAlign.center,
                       ),
                       SizedBox(
@@ -172,7 +172,7 @@ class BenchPressCalculatorScreen extends StatelessWidget {
                           child: Center(
                             child: Text(
                               state.averageResult.toString(),
-                              style: Styles.add_exercise_text_style,
+                              style: DarkTheme.add_exercise_text_style,
                             ),
                           ),
                         ),
@@ -208,14 +208,14 @@ class BenchPressCalculatorScreen extends StatelessWidget {
                     children: [
                       Text(
                         Strings.weight,
-                        style: Styles.reverse_rest_text_style,
+                        style: DarkTheme.reverse_rest_text_style,
                       ),
                       Card(
                         color: Colours.workout_card_background_color,
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: TextField(
-                            style: Styles.add_exercise_text_style,
+                            style: DarkTheme.add_exercise_text_style,
                             cursorColor:
                                 Theme.of(context).scaffoldBackgroundColor,
                             keyboardType: TextInputType.number,
@@ -235,14 +235,14 @@ class BenchPressCalculatorScreen extends StatelessWidget {
                       ),
                       Text(
                         Strings.reps,
-                        style: Styles.reverse_rest_text_style,
+                        style: DarkTheme.reverse_rest_text_style,
                       ),
                       Card(
                         color: Colours.workout_card_background_color,
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: TextField(
-                            style: Styles.add_exercise_text_style,
+                            style: DarkTheme.add_exercise_text_style,
                             cursorColor:
                                 Theme.of(context).scaffoldBackgroundColor,
                             controller: repsController,

@@ -1,7 +1,7 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:body_buddies/core/strings/strings.dart';
-import 'package:body_buddies/core/styles/styles.dart';
+import 'package:body_buddies/core/themes/themes.dart';
 import 'package:body_buddies/features/workouts/domain/Entities/exercise_entity.dart';
 import 'package:flutter/material.dart';
 
@@ -48,8 +48,8 @@ class OpenWorkoutsJournal extends StatelessWidget {
                 child: Row(
                   children: [
                     Image(
-                      image: const AssetImage(
-                          "assets/images/journal_image.png"),
+                      image:
+                          const AssetImage("assets/images/journal_image.png"),
                       height: MediaQuery.sizeOf(context).height / 8,
                     ),
                     const SizedBox(
@@ -98,7 +98,7 @@ class OpenWorkoutsJournal extends StatelessWidget {
           ),
         ),
         const SizedBox(
-          height: Styles.height_of_text_to_widget,
+          height: DarkTheme.height_of_text_to_widget,
         ),
       ],
     );

@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import '../../core/colors/colors.dart';
 
 import '../../core/strings/strings.dart';
-import '../../core/styles/styles.dart';
+import '../../core/themes/themes.dart';
 
 class NutritionFeatureCard extends StatelessWidget {
   const NutritionFeatureCard({super.key});
@@ -20,7 +20,7 @@ class NutritionFeatureCard extends StatelessWidget {
                 image: AssetImage("lib/assets/images/NutritionBackground.png")),
             Positioned(
               child: Container(
-                margin: Styles.base_margin_size * 1.25,
+                margin: DarkTheme.base_margin_size * 1.25,
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -34,12 +34,12 @@ class NutritionFeatureCard extends StatelessWidget {
                             true,
                             Colours.white_text_color,
                             null,
-                            Styles.nutrition_button_elevate,
+                            DarkTheme.nutrition_button_elevate,
                             Strings.you_need_more,
                             "2200ккал",
                             null),
                         const SizedBox(
-                          height: Styles.height_of_text_to_widget,
+                          height: DarkTheme.height_of_text_to_widget,
                         ),
                         StylisedButton(
                             null,
@@ -63,7 +63,7 @@ class NutritionFeatureCard extends StatelessWidget {
                         StylisedButton(
                             const Size(10, 54),
                             null,
-                            Styles.nutrition_symbol_text_style,
+                            DarkTheme.nutrition_symbol_text_style,
                             false,
                             Colours.invisible_color,
                             Colours.white_text_color,
@@ -72,7 +72,7 @@ class NutritionFeatureCard extends StatelessWidget {
                             null,
                             () {}),
                         const SizedBox(
-                          height: Styles.height_of_text_to_widget,
+                          height: DarkTheme.height_of_text_to_widget,
                         ),
                         StylisedButton(
                             const Size(90, 50),
@@ -81,7 +81,7 @@ class NutritionFeatureCard extends StatelessWidget {
                             true,
                             Colours.white_text_color,
                             null,
-                            Styles.nutrition_button_elevate,
+                            DarkTheme.nutrition_button_elevate,
                             "Прием",
                             "пищи",
                             null),

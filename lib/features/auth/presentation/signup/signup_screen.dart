@@ -1,6 +1,6 @@
 import 'package:body_buddies/core/colors/colors.dart';
 import 'package:body_buddies/core/strings/strings.dart';
-import 'package:body_buddies/core/styles/styles.dart';
+import 'package:body_buddies/core/themes/themes.dart';
 import 'package:body_buddies/core/widgets/base_button.dart';
 import 'package:body_buddies/core/widgets/snackbar.dart';
 import 'package:flutter/material.dart';
@@ -21,14 +21,14 @@ class SignUpScreen extends StatelessWidget {
       body: Wrap(
         children: [
           Container(
-            margin: Styles.base_margin_size,
+            margin: DarkTheme.base_margin_size,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const Center(
                     child: Text(
                   Strings.registration_text,
-                  style: Styles.title_text_style,
+                  style: DarkTheme.title_text_style,
                 )),
                 const SizedBox(
                   height: 50,
