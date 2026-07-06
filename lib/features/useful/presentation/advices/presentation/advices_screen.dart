@@ -1,5 +1,4 @@
 import 'package:body_buddies/core/strings/strings.dart';
-import 'package:body_buddies/core/widgets/app_bar.dart';
 import 'package:body_buddies/core/widgets/loading_screen.dart';
 import 'package:body_buddies/features/useful/presentation/advices/presentation/bloc/advices_bloc.dart';
 import 'package:body_buddies/features/useful/presentation/advices/widgets/advice_card.dart';
@@ -12,8 +11,7 @@ class AdvicesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar:
-          createAppBarWidget(appbarTitle: Strings.advices, context: context),
+
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: BlocBuilder<AdvicesBloc, AdvicesState>(

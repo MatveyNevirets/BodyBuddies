@@ -1,4 +1,3 @@
-import 'package:body_buddies/core/widgets/app_bar.dart';
 import 'package:body_buddies/core/widgets/base_button.dart';
 import 'package:body_buddies/core/widgets/snackbar.dart';
 import 'package:body_buddies/features/useful/domain/entity/exercise_on_list_entity.dart';
@@ -22,8 +21,7 @@ class _AddYourExerciseScreenState extends State<AddYourExerciseScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: createAppBarWidget(
-          appbarTitle: Strings.creating_appbar, context: context),
+     
       body: Wrap(
         children: [
           Container(

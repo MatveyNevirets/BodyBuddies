@@ -1,7 +1,7 @@
 import 'package:body_buddies/core/colors/colors.dart';
 import 'package:body_buddies/core/strings/strings.dart';
 import 'package:body_buddies/core/themes/themes.dart';
-import 'package:body_buddies/core/widgets/app_bar.dart';
+
 import 'package:body_buddies/core/widgets/base_button.dart';
 import 'package:body_buddies/features/useful/presentation/bench_press_calculator/presentation/bloc/bench_press_calculator_bloc.dart';
 import 'package:collection/collection.dart';
@@ -17,10 +17,7 @@ class BenchPressCalculatorScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: createAppBarWidget(
-        appbarTitle: Strings.bench_press_calculator_appbar,
-        context: context,
-      ),
+  
       body: ListView(
         children: [
           Center(

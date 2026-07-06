@@ -1,6 +1,5 @@
 // lib/internal/home/presentation/home_screen.dart
 import 'package:body_buddies/core/themes/themes.dart';
-import 'package:body_buddies/core/widgets/app_bar.dart';
 import 'package:flutter/material.dart';
 
 import '../../../core/strings/strings.dart';
@@ -22,10 +21,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: _bg,
-      appBar: createAppBarWidget(
-        appbarTitle: Strings.workouts_appbar,
-        context: context,
-      ),
+     
       body: Stack(
         children: [
           const Positioned.fill(child: _HomeBackground()),

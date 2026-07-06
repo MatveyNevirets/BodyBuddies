@@ -1,7 +1,7 @@
 import 'package:body_buddies/core/colors/colors.dart';
 import 'package:body_buddies/core/strings/strings.dart';
 import 'package:body_buddies/core/themes/themes.dart';
-import 'package:body_buddies/core/widgets/app_bar.dart';
+
 import 'package:body_buddies/features/workouts/presentation/run_workout/presentation/run_workout_screen.dart';
 import 'package:body_buddies/features/workouts/presentation/create_workout/presentation/workout_create_screen.dart';
 import 'package:body_buddies/features/workouts/domain/Entities/workout_entity.dart';
@@ -19,10 +19,7 @@ class WorkoutEntityScreen extends StatelessWidget {
     int whatsOpen = getPreviousScreenData[1] as int;
 
     return Scaffold(
-      appBar: createAppBarWidget(
-          appbarTitle:
-              whatsOpen == 0 ? Strings.workouts_appbar : Strings.journal,
-          context: context),
+   
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16),

@@ -3,7 +3,6 @@ import 'dart:developer';
 import 'package:body_buddies/core/colors/colors.dart';
 import 'package:body_buddies/core/strings/strings.dart';
 import 'package:body_buddies/core/themes/themes.dart';
-import 'package:body_buddies/core/widgets/app_bar.dart';
 import 'package:body_buddies/core/widgets/snackbar.dart';
 import 'package:body_buddies/core/widgets/loading_screen.dart';
 import 'package:body_buddies/features/useful/presentation/created_workouts/presentation/bloc/created_workouts_bloc.dart';
@@ -30,8 +29,7 @@ class CreatedWorkoutsScreen extends StatelessWidget {
     }
 
     return Scaffold(
-      appBar: createAppBarWidget(
-          appbarTitle: Strings.workouts_appbar, context: context),
+      
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: BlocConsumer<CreatedWorkoutsBloc, CreatedWorkoutsState>(

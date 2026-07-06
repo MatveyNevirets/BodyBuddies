@@ -1,4 +1,4 @@
-import 'package:body_buddies/core/widgets/app_bar.dart';
+
 import 'package:body_buddies/core/widgets/are_you_sure_dialog.dart';
 import 'package:body_buddies/core/widgets/snackbar.dart';
 import 'package:body_buddies/core/widgets/loading_screen.dart';
@@ -32,8 +32,7 @@ class WorkoutsJournalScreen extends StatelessWidget {
     }
 
     return Scaffold(
-      appBar:
-          createAppBarWidget(appbarTitle: Strings.journal, context: context),
+     
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: Card(

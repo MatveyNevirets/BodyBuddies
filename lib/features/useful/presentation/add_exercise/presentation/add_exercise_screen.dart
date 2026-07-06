@@ -2,7 +2,6 @@
 
 import 'dart:async';
 
-import 'package:body_buddies/core/widgets/app_bar.dart';
 import 'package:body_buddies/core/widgets/base_button.dart';
 import 'package:body_buddies/core/widgets/loading_screen.dart';
 import 'package:body_buddies/features/useful/domain/entity/exercise_on_list_entity.dart';
@@ -40,8 +39,7 @@ class AddExerciseScreen extends StatelessWidget {
     }
 
     return Scaffold(
-      appBar: createAppBarWidget(
-          appbarTitle: Strings.change_exercise, context: context),
+   
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Card(

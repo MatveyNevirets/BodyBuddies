@@ -1,7 +1,6 @@
 import 'package:body_buddies/core/colors/colors.dart';
 import 'package:body_buddies/core/strings/strings.dart';
 import 'package:body_buddies/core/themes/themes.dart';
-import 'package:body_buddies/core/widgets/app_bar.dart';
 import 'package:body_buddies/features/useful/domain/entity/advice_entity.dart';
 import 'package:flutter/material.dart';
 
@@ -14,8 +13,6 @@ class CurrentAdviceScreen extends StatelessWidget {
         ModalRoute.of(context)!.settings.arguments as AdviceEntity;
 
     return Scaffold(
-      appBar:
-          createAppBarWidget(appbarTitle: Strings.advices, context: context),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: SingleChildScrollView(

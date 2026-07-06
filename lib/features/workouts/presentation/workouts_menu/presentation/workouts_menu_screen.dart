@@ -3,7 +3,7 @@
 import 'package:body_buddies/core/colors/colors.dart';
 import 'package:body_buddies/core/strings/strings.dart';
 import 'package:body_buddies/core/themes/themes.dart';
-import 'package:body_buddies/core/widgets/app_bar.dart';
+
 import 'package:body_buddies/core/widgets/snackbar.dart';
 import 'package:body_buddies/core/widgets/loading_screen.dart';
 import 'package:body_buddies/features/workouts/presentation/workouts_menu/presentation/bloc/workouts_menu_bloc.dart';
@@ -42,8 +42,6 @@ class _WorkoutsMenuScreenState extends State<WorkoutsMenuScreen> {
     }
 
     return Scaffold(
-      appBar: createAppBarWidget(
-          appbarTitle: Strings.workouts_appbar, context: context),
       floatingActionButton: Padding(
         padding: const EdgeInsets.only(right: 8, bottom: 32),
         child: FloatingActionButton(
