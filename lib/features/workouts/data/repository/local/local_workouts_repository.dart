@@ -2,7 +2,7 @@ import 'package:body_buddies/features/workouts/domain/Entities/exercise_entity.d
 import 'package:body_buddies/features/workouts/domain/Entities/workout_entity.dart';
 import 'package:body_buddies/features/workouts/domain/local_workouts_repository.dart';
 import 'package:body_buddies/features/workouts/domain/workouts_repository.dart';
-import 'package:body_buddies/internal/application/app_consts.dart';
+import 'package:body_buddies/core/themes/app_consts.dart';
 
 class LocalWorkoutsRepository implements WorkoutsRepository {
   LocalDatabase localDatabase;

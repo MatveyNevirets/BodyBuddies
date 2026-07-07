@@ -10,7 +10,7 @@ import 'package:body_buddies/features/workouts/presentation/workouts_menu/presen
 import 'package:body_buddies/features/workouts/presentation/workouts_menu/widgets/new_workout_button.dart';
 import 'package:body_buddies/features/workouts/domain/Entities/workout_entity.dart';
 import 'package:body_buddies/features/workouts/presentation/create_workout/presentation/workout_create_screen.dart';
-import 'package:body_buddies/internal/application/di/app_depends.dart';
+import 'package:body_buddies/internal/app_depends.dart';
 import 'package:body_buddies/services/secure_storage/i_secure_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

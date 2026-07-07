@@ -3,7 +3,7 @@ import 'package:body_buddies/features/workouts/domain/Entities/workout_entity.da
 import 'package:body_buddies/features/workouts/presentation/create_workout/presentation/workout_create_screen.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../../../core/colors/colors.dart';
+import '../../../../../../core/themes/colors.dart';
 
 class JournalWorkoutCardItem extends StatelessWidget {
   WorkoutEntity workout;

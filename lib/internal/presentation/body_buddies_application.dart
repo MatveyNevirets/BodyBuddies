@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:body_buddies/core/colors/colors.dart';
+import 'package:body_buddies/core/themes/colors.dart';
 import 'package:body_buddies/features/auth/presentation/auth_main/auth_page.dart';
 import 'package:body_buddies/features/auth/presentation/signup/signup_screen.dart';
 import 'package:body_buddies/features/useful/presentation/add_exercise/presentation/add_exercise_page.dart';
@@ -23,8 +23,8 @@ import 'package:body_buddies/features/workouts/presentation/current_workout/pres
 import 'package:body_buddies/features/workouts/presentation/running_workout/presentation/workout_screen.dart';
 import 'package:body_buddies/features/workouts/presentation/workouts_journal/presentation/journal_workouts_page.dart';
 import 'package:body_buddies/features/workouts/presentation/workouts_menu/presentation/workouts_menu_page.dart';
-import 'package:body_buddies/internal/home/presentation/bloc/home_bloc.dart';
-import 'package:body_buddies/internal/home/presentation/home_screen.dart';
+import 'package:body_buddies/features/home/presentation/bloc/home_bloc.dart';
+import 'package:body_buddies/features/home/presentation/home_screen.dart';
 import 'package:flutter_launcher_icons/constants.dart';
 import 'package:get_it/get_it.dart';
 

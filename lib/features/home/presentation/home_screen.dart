@@ -5,9 +5,9 @@ import 'package:body_buddies/services/secure_storage/i_secure_storage.dart';
 import 'package:flutter/material.dart';
 
 import '../../../core/strings/strings.dart';
-import '../../../features/useful/useful_feature_card/presentation/useful_feature_card.dart';
-import '../../../features/water_indicator/water_indicator.dart';
-import '../../../features/workouts/presentation/workout_feature_card/presentation/workouts_feature_card.dart';
+import '../../useful/useful_feature_card/presentation/useful_feature_card.dart';
+import '../../water_indicator/water_indicator.dart';
+import '../../workouts/presentation/workout_feature_card/presentation/workouts_feature_card.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen(

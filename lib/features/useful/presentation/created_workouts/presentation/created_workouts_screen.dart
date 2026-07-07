@@ -1,6 +1,6 @@
 import 'dart:developer';
 
-import 'package:body_buddies/core/colors/colors.dart';
+import 'package:body_buddies/core/themes/colors.dart';
 import 'package:body_buddies/core/strings/strings.dart';
 import 'package:body_buddies/core/themes/themes.dart';
 import 'package:body_buddies/core/widgets/snackbar.dart';

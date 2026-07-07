@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:just_audio/just_audio.dart';
 
-import '../../../../../core/colors/colors.dart';
+import '../../../../../core/themes/colors.dart';
 import '../../../../../core/strings/strings.dart';
 import '../../../../../core/widgets/base_button.dart';
 

@@ -2,7 +2,7 @@
 
 import 'package:flutter/cupertino.dart';
 
-import '../../../../../../core/colors/colors.dart';
+import '../../../../../../core/themes/colors.dart';
 import '../../../../../../core/themes/themes.dart';
 
 class WorkoutContainerText extends StatelessWidget {

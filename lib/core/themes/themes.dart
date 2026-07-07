@@ -4,7 +4,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../colors/colors.dart';
+import 'colors.dart';
 
 abstract class DarkTheme {
   static const base_margin_size = EdgeInsets.all(16);

@@ -1,5 +1,5 @@
 import 'package:body_buddies/features/workouts/domain/local_workouts_repository.dart';
-import 'package:body_buddies/internal/application/app_consts.dart';
+import 'package:body_buddies/core/themes/app_consts.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 

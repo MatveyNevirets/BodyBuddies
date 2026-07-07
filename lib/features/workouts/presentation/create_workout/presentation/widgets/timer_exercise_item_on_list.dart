@@ -1,7 +1,7 @@
 import 'package:body_buddies/features/workouts/domain/Entities/exercise_entity.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../../../core/colors/colors.dart';
+import '../../../../../../core/themes/colors.dart';
 import '../../../../../../core/strings/strings.dart';
 import '../../../../../../core/themes/themes.dart';
 import '../workout_create_screen.dart';

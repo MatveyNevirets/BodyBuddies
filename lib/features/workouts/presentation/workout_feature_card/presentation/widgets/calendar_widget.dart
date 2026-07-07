@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 
-import '../../../../../../core/colors/colors.dart';
+import '../../../../../../core/themes/colors.dart';
 
 class CalendarWidget extends StatelessWidget {
   final double height;

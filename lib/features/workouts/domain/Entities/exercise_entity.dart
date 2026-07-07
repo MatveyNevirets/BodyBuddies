@@ -1,4 +1,4 @@
-import 'package:body_buddies/internal/application/app_consts.dart';
+import 'package:body_buddies/core/themes/app_consts.dart';
 
 class ExerciseEntity {
   String title;

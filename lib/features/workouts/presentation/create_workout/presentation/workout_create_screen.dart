@@ -2,7 +2,7 @@
 
 import 'dart:convert';
 
-import 'package:body_buddies/core/colors/colors.dart';
+import 'package:body_buddies/core/themes/colors.dart';
 import 'package:body_buddies/core/widgets/base_button.dart';
 import 'package:body_buddies/core/widgets/snackbar.dart';
 import 'package:body_buddies/features/workouts/domain/Entities/exercise_entity.dart';

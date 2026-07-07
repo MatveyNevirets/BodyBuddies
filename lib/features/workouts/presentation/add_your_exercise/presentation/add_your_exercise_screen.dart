@@ -3,7 +3,7 @@ import 'package:body_buddies/core/widgets/snackbar.dart';
 import 'package:body_buddies/features/useful/domain/entity/exercise_on_list_entity.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../../core/colors/colors.dart';
+import '../../../../../core/themes/colors.dart';
 import '../../../../../core/strings/strings.dart';
 import '../../../../../core/themes/themes.dart';
 

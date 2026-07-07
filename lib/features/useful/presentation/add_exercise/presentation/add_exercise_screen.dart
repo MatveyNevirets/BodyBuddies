@@ -9,7 +9,7 @@ import 'package:body_buddies/features/useful/presentation/add_exercise/bloc/exer
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../../core/colors/colors.dart';
+import '../../../../../core/themes/colors.dart';
 import '../../../../../core/strings/strings.dart';
 import '../../../../../core/themes/themes.dart';
 
