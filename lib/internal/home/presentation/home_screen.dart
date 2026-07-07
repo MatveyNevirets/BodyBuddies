@@ -1,5 +1,7 @@
 // lib/internal/home/presentation/home_screen.dart
 import 'package:body_buddies/core/themes/themes.dart';
+import 'package:body_buddies/features/workouts/domain/workouts_repository.dart';
+import 'package:body_buddies/services/secure_storage/i_secure_storage.dart';
 import 'package:flutter/material.dart';
 
 import '../../../core/strings/strings.dart';
@@ -8,7 +10,15 @@ import '../../../features/water_indicator/water_indicator.dart';
 import '../../../features/workouts/presentation/workout_feature_card/presentation/workouts_feature_card.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+  const HomeScreen(
+      {super.key,
+      required this.workoutsRepository,
+      required this.secureStorage,
+      required this.isConnection});
+
+  final WorkoutsRepository workoutsRepository;
+  final SecureStorage secureStorage;
+  final bool isConnection;
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -34,7 +44,10 @@ class _HomeScreenState extends State<HomeScreen> {
                       'Быстрый доступ к программе и запуску текущего плана',
                 ),
                 const SizedBox(height: 12),
-                const WorkoutFeatureCard(),
+                WorkoutFeatureCard(
+                  workoutsRepository: widget.workoutsRepository,
+                  secureStorage: widget.secureStorage,
+                ),
                 const SizedBox(height: 22),
                 const _SectionHeader(
                   title: 'Вода',
@@ -51,7 +64,9 @@ class _HomeScreenState extends State<HomeScreen> {
                       'Инструменты и материалы, которые помогают двигаться быстрее',
                 ),
                 const SizedBox(height: 12),
-                const UsefulFeatureCard(),
+                UsefulFeatureCard(
+                  isConnection: widget.isConnection,
+                ),
               ],
             ),
           ),

@@ -3,13 +3,20 @@ import 'dart:convert';
 
 import 'package:body_buddies/core/strings/strings.dart';
 import 'package:body_buddies/features/workouts/domain/Entities/workout_entity.dart';
-import 'package:body_buddies/internal/application/di/app_depends_provider.dart';
+import 'package:body_buddies/features/workouts/domain/workouts_repository.dart';
+import 'package:body_buddies/services/secure_storage/i_secure_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class WorkoutFeatureCard extends StatefulWidget {
-  const WorkoutFeatureCard({super.key});
+  const WorkoutFeatureCard(
+      {super.key,
+      required this.workoutsRepository,
+      required this.secureStorage});
+
+  final WorkoutsRepository workoutsRepository;
+  final SecureStorage secureStorage;
 
   @override
   State<WorkoutFeatureCard> createState() => _WorkoutFeatureCardState();
@@ -38,17 +45,15 @@ class _WorkoutFeatureCardState extends State<WorkoutFeatureCard> {
 
   Future<WorkoutEntity> getTodayWorkout() async {
     try {
-      final depends = AppDependsProvider.of(context);
-      final storage = depends.secureStorage;
-
-      final tokenJson = await storage.read(dotenv.env['TOKEN_KEY']!);
+      final tokenJson =
+          await widget.secureStorage.read(dotenv.env['TOKEN_KEY']!);
 
       final tokenMap = jsonDecode(tokenJson) as Map<String, dynamic>;
       final token = tokenMap['access_token'];
 
       final thisWeekDay = DateTime.now().weekday;
       final workoutsList =
-          await depends.workoutsRepository.fetchAllWorkout(token);
+          await widget.workoutsRepository.fetchAllWorkout(token);
 
       for (final workout in workoutsList) {
         if (workout.weekday == thisWeekDay) {

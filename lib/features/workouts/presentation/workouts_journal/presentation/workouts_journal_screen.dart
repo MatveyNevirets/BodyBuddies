@@ -1,11 +1,8 @@
-
 import 'package:body_buddies/core/widgets/are_you_sure_dialog.dart';
 import 'package:body_buddies/core/widgets/snackbar.dart';
 import 'package:body_buddies/core/widgets/loading_screen.dart';
 import 'package:body_buddies/features/workouts/presentation/workouts_journal/presentation/bloc/journal_workouts_bloc.dart';
 import 'package:body_buddies/features/workouts/presentation/workouts_journal/presentation/widgets/journal_workout_card_item.dart';
-import 'package:body_buddies/internal/application/di/app_depends.dart';
-import 'package:body_buddies/internal/application/di/app_depends_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -13,15 +10,13 @@ import '../../../../../core/colors/colors.dart';
 import '../../../../../core/strings/strings.dart';
 
 class WorkoutsJournalScreen extends StatelessWidget {
-  const WorkoutsJournalScreen({super.key});
+  const WorkoutsJournalScreen({super.key, required this.isConnection});
+
+  final bool isConnection;
 
   @override
   Widget build(BuildContext context) {
-    final depends = AppDependsProvider.of(context);
-
     void removeCurrentWorkout(int index) {
-      final isConnection = AppDependsProvider.of(context).isConnection;
-
       if (isConnection) {
         context
             .read<JournalWorkoutsBloc>()
@@ -32,7 +27,6 @@ class WorkoutsJournalScreen extends StatelessWidget {
     }
 
     return Scaffold(
-     
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: Card(
@@ -53,7 +47,7 @@ class WorkoutsJournalScreen extends StatelessWidget {
                               context: context,
                               builder: (context) {
                                 return _AreYouSureJournalDialog(
-                                  depends: depends,
+                                  isConnection: isConnection,
                                   index: index,
                                   onSubmit: () => removeCurrentWorkout(index),
                                 );
@@ -77,16 +71,18 @@ class _AreYouSureJournalDialog extends StatelessWidget {
   final VoidCallback onSubmit;
 
   const _AreYouSureJournalDialog(
-      {required this.depends, required this.index, required this.onSubmit});
+      {required this.isConnection,
+      required this.index,
+      required this.onSubmit});
 
-  final AppDepends depends;
+  final bool isConnection;
   final int index;
 
   @override
   Widget build(BuildContext context) {
     return AreYouSureDialog(
       onSubmit: () {
-        if (depends.isConnection) {
+        if (isConnection) {
           try {
             Navigator.of(context).pop();
             onSubmit.call();

@@ -11,7 +11,7 @@ import 'package:body_buddies/features/workouts/presentation/workouts_menu/widget
 import 'package:body_buddies/features/workouts/domain/Entities/workout_entity.dart';
 import 'package:body_buddies/features/workouts/presentation/create_workout/presentation/workout_create_screen.dart';
 import 'package:body_buddies/internal/application/di/app_depends.dart';
-import 'package:body_buddies/internal/application/di/app_depends_provider.dart';
+import 'package:body_buddies/services/secure_storage/i_secure_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -23,23 +23,28 @@ class WorkoutCardOnList extends StatelessWidget {
   int index;
   BuildContext workoutMenuContext;
 
+  final SecureStorage secureStorage;
+  final WorkoutsRepository workoutsRepository;
+  final bool isConnection;
+
   WorkoutCardOnList(
       {super.key,
       required this.workoutMenuContext,
       required this.workout,
-      required this.index});
+      required this.index,
+      required this.isConnection,
+      required this.secureStorage,
+      required this.workoutsRepository});
 
   @override
   Widget build(BuildContext context) {
-    final depends = AppDependsProvider.of(context);
-
     openWorkout() {
       Navigator.of(context)
           .pushNamed("workouts_menu/current_workout/", arguments: [workout, 0]);
     }
 
     void editCurrentWorkout(BuildContext context, WorkoutEntity workout) {
-      if (depends.isConnection) {
+      if (isConnection) {
         Navigator.of(context).pushNamed("/workouts_menu/create_workout/",
             arguments: [context, workout, true]);
       } else {
@@ -111,9 +116,11 @@ class WorkoutCardOnList extends StatelessWidget {
                                 context: context,
                                 builder: (BuildContext newContext) {
                                   return _AreYouSureMenuWorkoutsDialog(
-                                    depends: depends,
                                     index: index,
+                                    secureStorage: secureStorage,
+                                    isConnection: isConnection,
                                     previousContext: context,
+                                    workoutsRepository: workoutsRepository,
                                   );
                                 }),
                             color: Theme.of(context).focusColor,
@@ -156,21 +163,23 @@ class WorkoutCardOnList extends StatelessWidget {
 
 class _AreYouSureMenuWorkoutsDialog extends StatelessWidget {
   const _AreYouSureMenuWorkoutsDialog(
-      {required this.depends,
+      {required this.isConnection,
       required this.index,
-      required this.previousContext});
+      required this.previousContext,
+      required this.secureStorage,
+      required this.workoutsRepository});
 
-  final AppDepends depends;
+  final bool isConnection;
   final int index;
   final BuildContext previousContext;
+  final SecureStorage secureStorage;
+  final WorkoutsRepository workoutsRepository;
 
   @override
   Widget build(BuildContext context) {
     Future<void> removeCurrentWorkout(
         WorkoutsRepository workoutsRepository, int index) async {
-      final storage = depends.secureStorage;
-
-      final tokenJson = await storage.read(dotenv.env['TOKEN_KEY']!);
+      final tokenJson = await secureStorage.read(dotenv.env['TOKEN_KEY']!);
       final tokenMap = jsonDecode(tokenJson);
       final token = tokenMap['access_token'];
 
@@ -180,10 +189,10 @@ class _AreYouSureMenuWorkoutsDialog extends StatelessWidget {
 
     return AreYouSureDialog(
       onSubmit: () {
-        if (depends.isConnection) {
+        if (isConnection) {
           try {
             Navigator.of(context).pop();
-            removeCurrentWorkout(depends.workoutsRepository, index);
+            removeCurrentWorkout(workoutsRepository, index);
           } on Object catch (error, stack) {
             throw Exception("Error: $error, StackTrace: $stack");
           }

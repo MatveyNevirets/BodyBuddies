@@ -1,11 +1,15 @@
 import 'dart:async';
 import 'dart:developer';
 
+import 'package:body_buddies/features/auth/domain/repository/auth_repository.dart';
+import 'package:body_buddies/features/useful/domain/useful_repository.dart';
+import 'package:body_buddies/features/workouts/domain/workouts_repository.dart';
 import 'package:body_buddies/internal/application/app_runner/app_env.dart';
 import 'package:body_buddies/internal/application/di/app_depends.dart';
-import 'package:body_buddies/internal/application/di/app_depends_provider.dart';
 import 'package:body_buddies/internal/application/presentation/body_buddies_application.dart';
+import 'package:body_buddies/services/secure_storage/i_secure_storage.dart';
 import 'package:flutter/widgets.dart';
+import 'package:get_it/get_it.dart';
 
 class AppRunner {
   final AppEnv appEnv;
@@ -22,9 +26,21 @@ class AppRunner {
         throw Exception(
             "Error initialize repository: $name Error: $error StackTrace: $stack");
       });
+      final getIt = GetIt.I;
 
-      runApp(AppDependsProvider(
-          appDepends: appDepends, child: const BodyBuddiesApp()));
+      final workoutsRepository = getIt.get<WorkoutsRepository>();
+      final usefulRepository = getIt.get<UsefulRepository>();
+      final secureStorage = getIt.get<SecureStorage>();
+      final authRepository = getIt.get<AuthRepository>();
+      final isConnection = getIt.get<bool>(instanceName: "connectionStatus");
+
+      runApp(BodyBuddiesApp(
+        workoutsRepository: workoutsRepository,
+        usefulRepository: usefulRepository,
+        secureStorage: secureStorage,
+        authRepository: authRepository,
+        isConnection: isConnection,
+      ));
 
       WidgetsBinding.instance.addPostFrameCallback((_) {
         WidgetsBinding.instance.allowFirstFrame();

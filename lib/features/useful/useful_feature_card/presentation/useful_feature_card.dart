@@ -1,6 +1,5 @@
 // lib/features/useful/useful_feature_card/presentation/useful_feature_card.dart
 import 'package:body_buddies/core/widgets/snackbar.dart';
-import 'package:body_buddies/internal/application/di/app_depends_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -10,11 +9,12 @@ const Color _surface = Color(0xFF0E1D2D);
 const Color _surface2 = Color(0xFF12263A);
 
 class UsefulFeatureCard extends StatelessWidget {
-  const UsefulFeatureCard({super.key});
+  const UsefulFeatureCard({super.key, required this.isConnection});
+
+  final bool isConnection;
 
   static const Color _border = Color(0xFF244055);
-  static const Color _textMain = Color(0xFFF5F8FC);
-  static const Color _textSecondary = Color(0xFF9BB0C5);
+
   static const Color _accent = Color(0xFF2F80ED);
   static const Color _accentSoft = Color(0xFFB8D9FF);
 
@@ -70,8 +70,6 @@ class UsefulFeatureCard extends StatelessWidget {
   }
 
   void tryOpenDoneWorkouts(BuildContext context, String routePath) {
-    final isConnection = AppDependsProvider.of(context).isConnection;
-
     if (isConnection) {
       Navigator.of(context).pushNamed(routePath);
     } else {

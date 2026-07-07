@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:bloc/bloc.dart';
 import 'package:body_buddies/features/useful/domain/entity/exercise_on_list_entity.dart';
 import 'package:body_buddies/features/useful/domain/useful_repository.dart';
-import 'package:body_buddies/internal/application/di/app_depends_provider.dart';
+import 'package:body_buddies/services/secure_storage/i_secure_storage.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -12,11 +12,13 @@ part 'exercises_event.dart';
 part 'exercises_state.dart';
 
 class ExercisesBloc extends Bloc<ExercisesEvent, ExercisesState> {
-  UsefulRepository usefulRepository;
+  final UsefulRepository usefulRepository;
+  final SecureStorage secureStorage;
   List<ExerciseOnListEntity> allExercises = [];
   List<ExerciseOnListEntity> filteredExercises = [];
 
-  ExercisesBloc(this.usefulRepository) : super(InitState()) {
+  ExercisesBloc(this.usefulRepository, {required this.secureStorage})
+      : super(InitState()) {
     on<InitializeEvent>(_initializeExercises);
     on<SearchEvent>(_searchExercises);
     on<AddYourExerciseEvent>(_addYourExercise);
@@ -26,9 +28,7 @@ class ExercisesBloc extends Bloc<ExercisesEvent, ExercisesState> {
       InitializeEvent event, Emitter<ExercisesState> emit) async {
     emit(LoadingState());
     try {
-      final storage = AppDependsProvider.of(event.context).secureStorage;
-
-      final jsonToken = await storage.read(dotenv.env['TOKEN_KEY']!);
+      final jsonToken = await secureStorage.read(dotenv.env['TOKEN_KEY']!);
       final mapToken = jsonDecode(jsonToken);
       final token = mapToken['access_token'];
 

@@ -1,3 +1,5 @@
+import 'package:body_buddies/features/workouts/domain/workouts_repository.dart';
+import 'package:body_buddies/services/secure_storage/i_secure_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -8,13 +10,18 @@ import 'package:body_buddies/features/workouts/presentation/running_workout/pres
 import 'package:body_buddies/features/workouts/presentation/running_workout/presentation/exercise_screen.dart';
 import 'package:body_buddies/features/workouts/presentation/running_workout/presentation/timer_exercise_screen.dart';
 import 'package:body_buddies/features/workouts/presentation/running_workout/workout_ticker/workout_ticker.dart';
-import 'package:body_buddies/internal/application/di/app_depends_provider.dart';
 
 import '../../../../../core/strings/strings.dart';
 import 'rest_screen.dart';
 
 class WorkoutScreen extends StatelessWidget {
-  const WorkoutScreen({super.key});
+  const WorkoutScreen(
+      {super.key,
+      required this.workoutsRepository,
+      required this.secureStorage});
+
+  final WorkoutsRepository workoutsRepository;
+  final SecureStorage secureStorage;
 
   @override
   Widget build(BuildContext context) {
@@ -26,12 +33,10 @@ class WorkoutScreen extends StatelessWidget {
     WorkoutEntity workoutToJournal =
         WorkoutEntity(title: workout.title, exercises: []);
 
-    final depends = AppDependsProvider.of(context);
-
     return BlocProvider(
       create: (BuildContext blocContext) {
-        final bloc = RunningWorkoutBloc(workout.exercises, 0,
-            depends.workoutsRepository, depends.secureStorage);
+        final bloc = RunningWorkoutBloc(
+            workout.exercises, 0, workoutsRepository, secureStorage);
         bloc.exercises[bloc.state.currentExercise].currentSets = 1;
         return bloc;
       },

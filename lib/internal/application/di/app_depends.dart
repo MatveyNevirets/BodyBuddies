@@ -31,7 +31,8 @@ enum Depends {
   secureStorage,
   localDatabase,
   localWorkouts,
-  workouts
+  workouts,
+  isConnection
 }
 
 class AppDepends {
@@ -49,12 +50,13 @@ class AppDepends {
       {required OnProgress onProgress,
       required OnError onError,
       required T repository,
-      required Depends depend}) async {
+      required Depends depend,
+      String? instanceName}) async {
     try {
       final timer = Stopwatch()..start();
 
       if (!getIt.isRegistered<T>()) {
-        getIt.registerSingleton<T>(repository);
+        getIt.registerSingleton<T>(repository, instanceName: instanceName);
       }
 
       log("Depend ${T.toString()} took ${timer.elapsedMilliseconds}ms to initialize");
@@ -77,6 +79,13 @@ class AppDepends {
     await workoutsLocalDatabase.initDatabase();
 
     connection ? isConnection = true : isConnection = false;
+
+    await injectDependency<bool>(
+        onProgress: onProgress,
+        onError: onError,
+        repository: isConnection,
+        depend: Depends.isConnection,
+        instanceName: "connectionStatus");
 
     if (isConnection) {
       await Firebase.initializeApp(
