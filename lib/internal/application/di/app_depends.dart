@@ -19,6 +19,7 @@ import 'package:body_buddies/services/secure_storage/flutter_secure_storage.dart
 import 'package:body_buddies/services/secure_storage/i_secure_storage.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:get_it/get_it.dart';
 import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
 
 typedef OnProgress = Function(String name, String progress);
@@ -35,14 +36,32 @@ enum Depends {
 
 class AppDepends {
   final AppEnv appEnv;
-  late final AuthRepository repository;
-  late final WorkoutsRepository workoutsRepository;
-  late final UsefulRepository usefulRepository;
-  late final LocalDatabase localDatabase;
-  late final SecureStorage secureStorage;
   bool isConnection = false;
+  final getIt = GetIt.instance;
 
   AppDepends(this.appEnv);
+
+  String _calculateProgress(int current, int total) {
+    return ((current + 1) / total * 100).toStringAsFixed(0);
+  }
+
+  Future<void> injectDependency<T extends Object>(
+      {required OnProgress onProgress,
+      required OnError onError,
+      required T repository}) async {
+    try {
+      final timer = Stopwatch()..start();
+
+      getIt.registerSingleton<T>(repository);
+
+      log("Depend ${T.toString()} took ${timer.elapsedMilliseconds}ms to initialize");
+      timer.stop();
+      onProgress.call(T.toString(),
+          _calculateProgress(Depends.auth.index, Depends.values.length));
+    } on Object catch (error, stack) {
+      onError.call(T.toString(), error, stack);
+    }
+  }
 
   Future<void> init(
       {required OnProgress onProgress, required OnError onError}) async {
@@ -51,156 +70,60 @@ class AppDepends {
     final connection = await InternetConnection().hasInternetAccess;
     log(connection.toString());
 
-    if (connection) {
-      isConnection = true;
-    } else {
-      isConnection = false;
-    }
+    final LocalDatabase workoutsLocalDatabase = WorkoutsSQLiteLocalDatabase();
+    await workoutsLocalDatabase.initDatabase();
+
+    connection ? isConnection = true : isConnection = false;
 
     if (isConnection) {
       await Firebase.initializeApp(
         options: DefaultFirebaseOptions.currentPlatform,
       );
 
-      try {
-        final timer = Stopwatch();
-        timer.start();
-        repository = switch (appEnv) {
-          AppEnv.test => MockAuthRepository(),
-          AppEnv.prod => ProdAuthRepository(),
-        };
+      injectDependency<LocalDatabase>(
+          onProgress: onProgress,
+          onError: onError,
+          repository: workoutsLocalDatabase);
 
-        log("Depend ${repository.name} took ${timer.elapsedMilliseconds}ms to initialize");
-        timer.stop();
-        onProgress.call(repository.name,
-            _calculateProgress(Depends.auth.index, Depends.values.length));
-      } on Object catch (error, stack) {
-        onError.call(repository.name, error, stack);
-      }
+      injectDependency<SecureStorage>(
+          onProgress: onProgress,
+          onError: onError,
+          repository: FlutterSecureStorageImpl());
 
-      try {
-        final timer = Stopwatch();
-        timer.start();
-        usefulRepository = switch (appEnv) {
-          AppEnv.test => MockUsefulRepository(),
-          AppEnv.prod => ProdUsefulRepository(),
-        };
-        log("Depend ${usefulRepository.name} took ${timer.elapsedMilliseconds}ms to initialize");
-        timer.stop();
-        onProgress.call(usefulRepository.name,
-            _calculateProgress(Depends.useful.index, Depends.values.length));
-      } on Object catch (error, stack) {
-        onError.call(repository.name, error, stack);
-      }
+      if (appEnv == AppEnv.test) {
+        injectDependency<AuthRepository>(
+            onProgress: onProgress,
+            onError: onError,
+            repository: MockAuthRepository());
 
-      try {
-        final timer = Stopwatch();
-        secureStorage = FlutterSecureStorageImpl();
-        log("Depend: ${secureStorage.name} took ${timer.elapsedMilliseconds}ms to initialize");
-        onProgress.call(
-            secureStorage.name,
-            _calculateProgress(
-                Depends.secureStorage.index, Depends.values.length));
-      } on Object catch (error, stack) {
-        onError.call(secureStorage.name, error, stack);
-      }
+        injectDependency<UsefulRepository>(
+            onProgress: onProgress,
+            onError: onError,
+            repository: MockUsefulRepository());
 
-      try {
-        final timer = Stopwatch();
-        timer.start();
-        localDatabase = WorkoutsSQLiteLocalDatabase();
-        localDatabase.initDatabase();
-        log("Depend ${localDatabase.name} took ${timer.elapsedMilliseconds}ms to initialize");
-        timer.stop();
-        onProgress.call(
-            localDatabase.name,
-            _calculateProgress(
-                Depends.localDatabase.index, Depends.values.length));
-      } on Object catch (error, stack) {
-        onError.call(workoutsRepository.name, error, stack);
-      }
+        injectDependency<WorkoutsRepository>(
+            onProgress: onProgress,
+            onError: onError,
+            repository: MockWorkoutsRepository());
+      } else {
+        injectDependency<AuthRepository>(
+            onProgress: onProgress,
+            onError: onError,
+            repository: ProdAuthRepository());
 
-      try {
-        final timer = Stopwatch();
-        workoutsRepository = switch (appEnv) {
-          AppEnv.test => MockWorkoutsRepository(),
-          AppEnv.prod => ProdWorkoutsRepository(localDatabase: localDatabase),
-        };
-        log("Depend ${workoutsRepository.name} took ${timer.elapsedMilliseconds}ms to initalize");
-        timer.stop();
-        onProgress.call(workoutsRepository.name,
-            _calculateProgress(Depends.workouts.index, Depends.values.length));
-      } on Object catch (error, stack) {
-        onError.call(workoutsRepository.name, error, stack);
-      }
-    } else {
-      try {
-        final timer = Stopwatch();
-        timer.start();
-        repository = MockAuthRepository();
+        injectDependency<UsefulRepository>(
+            onProgress: onProgress,
+            onError: onError,
+            repository: ProdUsefulRepository());
 
-        log("Depend ${repository.name} took ${timer.elapsedMilliseconds}ms to initialize");
-        timer.stop();
-        onProgress.call(repository.name,
-            _calculateProgress(Depends.auth.index, Depends.values.length));
-      } on Object catch (error, stack) {
-        onError.call(repository.name, error, stack);
-      }
-
-      try {
-        final timer = Stopwatch();
-        timer.start();
-        usefulRepository = LocalUsefulSqlDatabase();
-        log("Depend ${usefulRepository.name} took ${timer.elapsedMilliseconds}ms to initialize");
-        timer.stop();
-        onProgress.call(usefulRepository.name,
-            _calculateProgress(Depends.useful.index, Depends.values.length));
-      } on Object catch (error, stack) {
-        onError.call(repository.name, error, stack);
-      }
-
-      try {
-        final timer = Stopwatch();
-        secureStorage = FlutterSecureStorageImpl();
-        log("Depend: ${secureStorage.name} took ${timer.elapsedMilliseconds}ms to initialize");
-        onProgress.call(
-            secureStorage.name,
-            _calculateProgress(
-                Depends.secureStorage.index, Depends.values.length));
-      } on Object catch (error, stack) {
-        onError.call(secureStorage.name, error, stack);
-      }
-
-      try {
-        final timer = Stopwatch();
-        timer.start();
-        localDatabase = WorkoutsSQLiteLocalDatabase();
-        localDatabase.initDatabase();
-        log("Depend ${localDatabase.name} took ${timer.elapsedMilliseconds}ms to initialize");
-        timer.stop();
-        onProgress.call(
-            localDatabase.name,
-            _calculateProgress(
-                Depends.localDatabase.index, Depends.values.length));
-      } on Object catch (error, stack) {
-        onError.call(localDatabase.name, error, stack);
-      }
-
-      try {
-        final timer = Stopwatch();
-        workoutsRepository =
-            LocalWorkoutsRepository(localDatabase: localDatabase);
-        log("Depend ${workoutsRepository.name} took ${timer.elapsedMilliseconds}ms to initalize");
-        timer.stop();
-        onProgress.call(workoutsRepository.name,
-            _calculateProgress(Depends.workouts.index, Depends.values.length));
-      } on Object catch (error, stack) {
-        onError.call(workoutsRepository.name, error, stack);
+      
+          injectDependency<WorkoutsRepository>(
+              onProgress: onProgress,
+              onError: onError,
+              repository: ProdWorkoutsRepository(
+                  localDatabase: GetIt.instance.get<LocalDatabase>()));
+       
       }
     }
-  }
-
-  String _calculateProgress(int current, int total) {
-    return ((current + 1) / total * 100).toStringAsFixed(0);
   }
 }
