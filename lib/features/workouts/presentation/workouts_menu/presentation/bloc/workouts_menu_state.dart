@@ -10,7 +10,7 @@ final class WorkoutsMenuInitial extends WorkoutsMenuState {
 }
 
 class UpdateWorkoutState extends WorkoutsMenuState {
-  List<WorkoutEntity> workouts;
+  List<WorkoutEntity>? workouts;
   UpdateWorkoutState(this.workouts);
 }
 

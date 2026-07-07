@@ -37,25 +37,31 @@ class WorkoutsJournalScreen extends StatelessWidget {
             child: BlocBuilder<JournalWorkoutsBloc, JournalWorkoutsState>(
               builder: (context, state) {
                 if (state is FetchJournalState) {
-                  return ListView.builder(
-                    itemCount: state.journalWorkouts.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      return JournalWorkoutCardItem(
-                        state.journalWorkouts[index],
-                        removeItem: () {
-                          showAdaptiveDialog(
-                              context: context,
-                              builder: (context) {
-                                return _AreYouSureJournalDialog(
-                                  isConnection: isConnection,
-                                  index: index,
-                                  onSubmit: () => removeCurrentWorkout(index),
-                                );
-                              });
-                        },
-                      );
-                    },
-                  );
+                  if (state.journalWorkouts != null) {
+                    return ListView.builder(
+                      itemCount: state.journalWorkouts!.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return JournalWorkoutCardItem(
+                          state.journalWorkouts![index],
+                          removeItem: () {
+                            showAdaptiveDialog(
+                                context: context,
+                                builder: (context) {
+                                  return _AreYouSureJournalDialog(
+                                    isConnection: isConnection,
+                                    index: index,
+                                    onSubmit: () => removeCurrentWorkout(index),
+                                  );
+                                });
+                          },
+                        );
+                      },
+                    );
+                  } else {
+                    return const Center(
+                      child: Text("SORRYY HAVN'T SOME WORKOUTS"),
+                    );
+                  }
                 }
                 return const LoadingScreen();
               },

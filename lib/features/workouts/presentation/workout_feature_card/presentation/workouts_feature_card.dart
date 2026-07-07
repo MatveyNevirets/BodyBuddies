@@ -23,7 +23,7 @@ class WorkoutFeatureCard extends StatefulWidget {
 }
 
 class _WorkoutFeatureCardState extends State<WorkoutFeatureCard> {
-  late Future<WorkoutEntity> _todayWorkoutFuture;
+  late Future<WorkoutEntity?> _todayWorkoutFuture;
   bool _initialized = false;
 
   static const Color _surface = Color(0xFF0E1D2D);
@@ -43,7 +43,7 @@ class _WorkoutFeatureCardState extends State<WorkoutFeatureCard> {
     }
   }
 
-  Future<WorkoutEntity> getTodayWorkout() async {
+  Future<WorkoutEntity?> getTodayWorkout() async {
     try {
       final tokenJson =
           await widget.secureStorage.read(dotenv.env['TOKEN_KEY']!);
@@ -54,6 +54,8 @@ class _WorkoutFeatureCardState extends State<WorkoutFeatureCard> {
       final thisWeekDay = DateTime.now().weekday;
       final workoutsList =
           await widget.workoutsRepository.fetchAllWorkout(token);
+
+      if (workoutsList == null) return null;
 
       for (final workout in workoutsList) {
         if (workout.weekday == thisWeekDay) {
@@ -84,11 +86,12 @@ class _WorkoutFeatureCardState extends State<WorkoutFeatureCard> {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<WorkoutEntity>(
+    return FutureBuilder<WorkoutEntity?>(
       future: _todayWorkoutFuture,
       builder: (context, snapshot) {
         final hasData = snapshot.hasData;
         final workout = snapshot.data;
+
         final title =
             hasData ? _shorten(workout!.title.toString(), 28) : Strings.empty;
         final dayLabel =

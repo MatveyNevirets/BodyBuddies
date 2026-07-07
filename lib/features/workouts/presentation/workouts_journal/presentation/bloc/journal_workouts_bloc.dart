@@ -15,7 +15,7 @@ class JournalWorkoutsBloc
   WorkoutsRepository workoutsRepository;
   SecureStorage storage;
 
-  late List<WorkoutEntity> journalWorkouts;
+  late List<WorkoutEntity>? journalWorkouts;
 
   JournalWorkoutsBloc(this.workoutsRepository, this.storage)
       : super(JournalWorkoutsInitial()) {
@@ -33,8 +33,10 @@ class JournalWorkoutsBloc
       final mapToken = jsonDecode(jsonToken);
       final token = mapToken['access_token'];
 
-      await workoutsRepository.deleteJournalWorkout(
-          journalWorkouts[event.index], token);
+      if (journalWorkouts != null) {
+        await workoutsRepository.deleteJournalWorkout(
+            journalWorkouts![event.index], token);
+      }
 
       journalWorkouts = await workoutsRepository.fetchJournalWorkouts(token);
 

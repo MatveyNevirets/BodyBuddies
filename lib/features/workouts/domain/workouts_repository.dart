@@ -4,7 +4,7 @@ import 'package:body_buddies/features/workouts/domain/Entities/workout_entity.da
 abstract interface class WorkoutsRepository {
   String get name;
 
-  Future<List<WorkoutEntity>> fetchAllWorkout(String token);
+  Future<List<WorkoutEntity>?> fetchAllWorkout(String token);
 
   Future<void> createWorkout(
       String title, int weekday, List<ExerciseEntity> exercises, String token);
@@ -18,5 +18,5 @@ abstract interface class WorkoutsRepository {
 
   Future<void> addJournalWorkout(WorkoutEntity workout, String token);
   Future<void> deleteJournalWorkout(WorkoutEntity workout, String token);
-  Future<List<WorkoutEntity>> fetchJournalWorkouts(String token);
+  Future<List<WorkoutEntity>?> fetchJournalWorkouts(String token);
 }

@@ -55,7 +55,14 @@ class CreatedWorkoutsBloc
 
       final usersWorkouts = await workoutsRepository.fetchAllWorkout(token);
 
-      for (int i = 0; i < usersWorkouts.length; i++) {
+      if (usersWorkouts == null) {
+        await workoutsRepository.createWorkout(createdWorkout.title!,
+            createdWorkout.weekday, createdWorkout.exercises, token);
+        emit(
+            CreatedWorkoutAddedState(message: "Тренировка успешно добавлена!"));
+      }
+
+      for (int i = 0; i < usersWorkouts!.length; i++) {
         if (usersWorkouts[i].title == createdWorkout.title) {
           log("==");
 

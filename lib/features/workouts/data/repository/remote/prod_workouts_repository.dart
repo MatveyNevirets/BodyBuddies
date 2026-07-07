@@ -33,7 +33,7 @@ class ProdWorkoutsRepository implements WorkoutsRepository {
   }
 
   @override
-  Future<List<WorkoutEntity>> fetchAllWorkout(String token) async {
+  Future<List<WorkoutEntity>?> fetchAllWorkout(String token) async {
     try {
       final response = await _client.fetchAllWorkouts(
         RequestDto(),
@@ -198,7 +198,7 @@ class ProdWorkoutsRepository implements WorkoutsRepository {
   }
 
   @override
-  Future<List<WorkoutEntity>> fetchJournalWorkouts(String token) async {
+  Future<List<WorkoutEntity>?> fetchJournalWorkouts(String token) async {
     try {
       final response = await _client.fetchJournalWorkouts(RequestDto(),
           options: CallOptions(metadata: {"token": token}));

@@ -65,24 +65,30 @@ class _WorkoutsMenuScreenState extends State<WorkoutsMenuScreen> {
       body: BlocBuilder<WorkoutsMenuBloc, WorkoutsMenuState>(
         builder: (context, state) {
           if (state is UpdateWorkoutState) {
-            return Container(
-              margin: DarkTheme.base_margin_size,
-              child: ListView.builder(
-                itemCount: state.workouts.length + 1,
-                itemBuilder: (context, index) {
-                  return index == 0
-                      ? OpenWorkoutsJournal()
-                      : WorkoutCardOnList(
-                          workoutMenuContext: context,
-                          workout: state.workouts.elementAt(index - 1),
-                          index: index - 1,
-                          isConnection: widget.isConnection,
-                          secureStorage: widget.secureStorage,
-                          workoutsRepository: widget.workoutsRepository,
-                        );
-                },
-              ),
-            );
+            if (state.workouts != null) {
+              return Container(
+                margin: DarkTheme.base_margin_size,
+                child: ListView.builder(
+                  itemCount: state.workouts!.length + 1,
+                  itemBuilder: (context, index) {
+                    return index == 0
+                        ? OpenWorkoutsJournal()
+                        : WorkoutCardOnList(
+                            workoutMenuContext: context,
+                            workout: state.workouts!.elementAt(index - 1),
+                            index: index - 1,
+                            isConnection: widget.isConnection,
+                            secureStorage: widget.secureStorage,
+                            workoutsRepository: widget.workoutsRepository,
+                          );
+                  },
+                ),
+              );
+            } else {
+              return const Center(
+                child: Text("OMG NULL!"),
+              );
+            }
           }
 
           return const LoadingScreen();

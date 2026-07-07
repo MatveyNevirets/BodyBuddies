@@ -13,7 +13,7 @@ final class JournalWorkoutsInitial extends JournalWorkoutsState {}
 class LoadingState extends JournalWorkoutsState {}
 
 class FetchJournalState extends JournalWorkoutsState {
-  List<WorkoutEntity> journalWorkouts;
+  List<WorkoutEntity>? journalWorkouts;
   FetchJournalState({
     required this.journalWorkouts,
   });
