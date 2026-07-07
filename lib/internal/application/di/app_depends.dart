@@ -48,16 +48,19 @@ class AppDepends {
   Future<void> injectDependency<T extends Object>(
       {required OnProgress onProgress,
       required OnError onError,
-      required T repository}) async {
+      required T repository,
+      required Depends depend}) async {
     try {
       final timer = Stopwatch()..start();
 
-      getIt.registerSingleton<T>(repository);
+      if (!getIt.isRegistered<T>()) {
+        getIt.registerSingleton<T>(repository);
+      }
 
       log("Depend ${T.toString()} took ${timer.elapsedMilliseconds}ms to initialize");
       timer.stop();
       onProgress.call(T.toString(),
-          _calculateProgress(Depends.auth.index, Depends.values.length));
+          _calculateProgress(depend.index, Depends.values.length));
     } on Object catch (error, stack) {
       onError.call(T.toString(), error, stack);
     }
@@ -80,49 +83,55 @@ class AppDepends {
         options: DefaultFirebaseOptions.currentPlatform,
       );
 
-      injectDependency<LocalDatabase>(
+      await injectDependency<LocalDatabase>(
           onProgress: onProgress,
           onError: onError,
-          repository: workoutsLocalDatabase);
+          repository: workoutsLocalDatabase,
+          depend: Depends.localDatabase);
 
-      injectDependency<SecureStorage>(
+      await injectDependency<SecureStorage>(
           onProgress: onProgress,
           onError: onError,
-          repository: FlutterSecureStorageImpl());
+          repository: FlutterSecureStorageImpl(),
+          depend: Depends.secureStorage);
 
       if (appEnv == AppEnv.test) {
-        injectDependency<AuthRepository>(
+        await injectDependency<AuthRepository>(
             onProgress: onProgress,
             onError: onError,
-            repository: MockAuthRepository());
+            repository: MockAuthRepository(),
+            depend: Depends.auth);
 
-        injectDependency<UsefulRepository>(
+        await injectDependency<UsefulRepository>(
             onProgress: onProgress,
             onError: onError,
-            repository: MockUsefulRepository());
+            repository: MockUsefulRepository(),
+            depend: Depends.useful);
 
-        injectDependency<WorkoutsRepository>(
+        await injectDependency<WorkoutsRepository>(
             onProgress: onProgress,
             onError: onError,
-            repository: MockWorkoutsRepository());
+            repository: MockWorkoutsRepository(),
+            depend: Depends.workouts);
       } else {
-        injectDependency<AuthRepository>(
+        await injectDependency<AuthRepository>(
             onProgress: onProgress,
             onError: onError,
-            repository: ProdAuthRepository());
+            repository: ProdAuthRepository(),
+            depend: Depends.auth);
 
-        injectDependency<UsefulRepository>(
+        await injectDependency<UsefulRepository>(
             onProgress: onProgress,
             onError: onError,
-            repository: ProdUsefulRepository());
+            repository: ProdUsefulRepository(),
+            depend: Depends.useful);
 
-      
-          injectDependency<WorkoutsRepository>(
-              onProgress: onProgress,
-              onError: onError,
-              repository: ProdWorkoutsRepository(
-                  localDatabase: GetIt.instance.get<LocalDatabase>()));
-       
+        await injectDependency<WorkoutsRepository>(
+            onProgress: onProgress,
+            onError: onError,
+            repository:
+                ProdWorkoutsRepository(localDatabase: workoutsLocalDatabase),
+            depend: Depends.workouts);
       }
     }
   }

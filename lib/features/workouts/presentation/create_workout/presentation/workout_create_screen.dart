@@ -8,10 +8,11 @@ import 'package:body_buddies/core/widgets/snackbar.dart';
 import 'package:body_buddies/features/workouts/domain/Entities/exercise_entity.dart';
 import 'package:body_buddies/features/useful/domain/entity/exercise_on_list_entity.dart';
 import 'package:body_buddies/features/workouts/domain/Entities/workout_entity.dart';
+import 'package:body_buddies/features/workouts/domain/workouts_repository.dart';
 import 'package:body_buddies/features/workouts/presentation/workouts_menu/presentation/bloc/workouts_menu_bloc.dart';
 import 'package:body_buddies/features/workouts/presentation/create_workout/presentation/widgets/exercise_item_on_list.dart';
 import 'package:body_buddies/features/workouts/presentation/create_workout/presentation/widgets/timer_exercise_item_on_list.dart';
-import 'package:body_buddies/internal/application/di/app_depends_provider.dart';
+import 'package:body_buddies/services/secure_storage/i_secure_storage.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -21,6 +22,8 @@ import '../../../../../core/strings/strings.dart';
 import '../../../../../core/themes/themes.dart';
 
 class CreateWorkoutScreen extends StatefulWidget {
+  late final WorkoutsRepository workoutsRepository;
+  late final SecureStorage secureStorage;
   List<ExerciseEntity> _exercises = [];
   bool isEditWorkout = false;
 
@@ -39,7 +42,11 @@ class CreateWorkoutScreen extends StatefulWidget {
     Strings.sunday,
   ];
 
-  CreateWorkoutScreen({super.key, required this.screenSize});
+  CreateWorkoutScreen(
+      {super.key,
+      required this.screenSize,
+      required this.workoutsRepository,
+      required this.secureStorage});
 
   @override
   State<CreateWorkoutScreen> createState() => _CreateWorkoutScreenState();
@@ -52,8 +59,6 @@ class _CreateWorkoutScreenState extends State<CreateWorkoutScreen> {
       BuildContext thisContext,
       int id,
       TextEditingController titleController) async {
-    final depends = AppDependsProvider.of(thisContext);
-
     List<ExerciseEntity> newExercises = [];
 
     for (var exercise in widget._exercises) {
@@ -77,17 +82,17 @@ class _CreateWorkoutScreenState extends State<CreateWorkoutScreen> {
         (widget.weekdayNum != null) &&
         widget._exercises.isNotEmpty) {
       try {
-        final storage = depends.secureStorage;
+        final storage = widget.secureStorage;
 
         final tokenJson = await storage.read(dotenv.env['TOKEN_KEY']!);
         final tokenMap = jsonDecode(tokenJson);
         final token = tokenMap['access_token'];
 
         if (!widget.isEditWorkout) {
-          await depends.workoutsRepository.createWorkout(
+          await widget.workoutsRepository.createWorkout(
               titleController.text.toString(), weekday!, newExercises, token);
         } else {
-          await depends.workoutsRepository.updateWorkout(
+          await widget.workoutsRepository.updateWorkout(
               titleController.text.toString(),
               weekday,
               newExercises,
@@ -160,7 +165,6 @@ class _CreateWorkoutScreenState extends State<CreateWorkoutScreen> {
     }
 
     return Scaffold(
-     
       body: SingleChildScrollView(
         child: Container(
             width: widget.screenSize.width,
