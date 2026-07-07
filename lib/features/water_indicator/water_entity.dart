@@ -1,5 +1,5 @@
 // lib/features/water_indicator_widget/water_entity.dart
-import 'package:body_buddies/features/water_indicator_widget/bloc/water_cups_bloc/water_cups_bloc.dart';
+import 'package:body_buddies/features/water_indicator/bloc/water_cups_bloc/water_cups_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';

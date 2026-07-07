@@ -4,17 +4,17 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:body_buddies/core/widgets/snackbar.dart';
 import 'package:body_buddies/core/widgets/loading_screen.dart';
 import 'package:body_buddies/features/workouts/domain/Entities/workout_entity.dart';
-import 'package:body_buddies/features/workouts/presentation/run_workout/presentation/bloc/run_workout_bloc.dart';
-import 'package:body_buddies/features/workouts/presentation/run_workout/presentation/widgets/run_exercise_screen.dart';
-import 'package:body_buddies/features/workouts/presentation/run_workout/presentation/widgets/run_timer_exercise_screen.dart';
-import 'package:body_buddies/features/workouts/presentation/run_workout/workout_ticker/workout_ticker.dart';
+import 'package:body_buddies/features/workouts/presentation/running_workout/presentation/bloc/running_workout_bloc.dart';
+import 'package:body_buddies/features/workouts/presentation/running_workout/presentation/exercise_screen.dart';
+import 'package:body_buddies/features/workouts/presentation/running_workout/presentation/timer_exercise_screen.dart';
+import 'package:body_buddies/features/workouts/presentation/running_workout/workout_ticker/workout_ticker.dart';
 import 'package:body_buddies/internal/application/di/app_depends_provider.dart';
 
 import '../../../../../core/strings/strings.dart';
-import 'widgets/run_rest_screen.dart';
+import 'rest_screen.dart';
 
-class RunWorkoutScreen extends StatelessWidget {
-  const RunWorkoutScreen({super.key});
+class WorkoutScreen extends StatelessWidget {
+  const WorkoutScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -30,32 +30,28 @@ class RunWorkoutScreen extends StatelessWidget {
 
     return BlocProvider(
       create: (BuildContext blocContext) {
-        final bloc = RunWorkoutBloc(workout.exercises, 0,
+        final bloc = RunningWorkoutBloc(workout.exercises, 0,
             depends.workoutsRepository, depends.secureStorage);
         bloc.exercises[bloc.state.currentExercise].currentSets = 1;
         return bloc;
       },
       child: Scaffold(
-        body: BlocConsumer<RunWorkoutBloc, RunWorkoutState>(
+        body: BlocConsumer<RunningWorkoutBloc, RunningWorkoutState>(
           listener: (context, state) {
             if (state is CompleteWorkout) {
               completeWorkout(context);
             }
           },
           builder: (context, state) {
-            return BlocBuilder<RunWorkoutBloc, RunWorkoutState>(
+            return BlocBuilder<RunningWorkoutBloc, RunningWorkoutState>(
                 builder: (context, state) {
               if (state is WorkoutInProcess) {
                 if (state.exercises[state.currentExercise].isExercise) {
-                  return RunExerciseScreen(
-                      state.exercises[state.currentExercise],
-                      ticker,
-                      state.duration,
-                      state,
-                      workoutToJournal);
+                  return ExerciseScreen(state.exercises[state.currentExercise],
+                      ticker, state.duration, state, workoutToJournal);
                 } else if (state
                     .exercises[state.currentExercise].isTimerExercise) {
-                  return RunTimerExercise(
+                  return TimerExerciseScreen(
                       state.exercises[state.currentExercise],
                       ticker,
                       state.duration,

@@ -2,7 +2,7 @@ import 'package:body_buddies/core/colors/colors.dart';
 import 'package:body_buddies/core/strings/strings.dart';
 import 'package:body_buddies/core/themes/themes.dart';
 
-import 'package:body_buddies/features/workouts/presentation/run_workout/presentation/run_workout_screen.dart';
+import 'package:body_buddies/features/workouts/presentation/running_workout/presentation/workout_screen.dart';
 import 'package:body_buddies/features/workouts/presentation/create_workout/presentation/workout_create_screen.dart';
 import 'package:body_buddies/features/workouts/domain/Entities/workout_entity.dart';
 import 'package:flutter/material.dart';

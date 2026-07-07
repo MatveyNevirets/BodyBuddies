@@ -1,12 +1,12 @@
 // lib/features/water_indicator_widget/presentation/water_indicator_widget.dart
-import 'package:body_buddies/features/water_indicator_widget/water_entity.dart';
+import 'package:body_buddies/features/water_indicator/water_entity.dart';
 import 'package:flutter/cupertino.dart';
 
-class WaterIndicatorWidget extends StatelessWidget {
+class WaterIndicator extends StatelessWidget {
   final List<WaterEntity> waterCups =
       List.generate(12, (index) => WaterEntity(index));
 
-  WaterIndicatorWidget({super.key});
+  WaterIndicator({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -16,7 +16,7 @@ import 'package:body_buddies/features/workouts/presentation/add_your_exercise/pr
 import 'package:body_buddies/features/workouts/presentation/add_your_exercise/presentation/bloc/add_your_exercise_cubit.dart';
 import 'package:body_buddies/features/workouts/presentation/create_workout/presentation/workout_create_screen.dart';
 import 'package:body_buddies/features/workouts/presentation/current_workout/presentation/current_workout_screen.dart';
-import 'package:body_buddies/features/workouts/presentation/run_workout/presentation/run_workout_screen.dart';
+import 'package:body_buddies/features/workouts/presentation/running_workout/presentation/workout_screen.dart';
 import 'package:body_buddies/features/workouts/presentation/workouts_journal/presentation/journal_workouts_page.dart';
 import 'package:body_buddies/features/workouts/presentation/workouts_menu/presentation/workouts_menu_page.dart';
 import 'package:body_buddies/internal/application/di/app_depends_provider.dart';
@@ -160,7 +160,7 @@ class BodyBuddiesApp extends StatelessWidget {
               const JournalWorkoutsPage(),
           "workouts_menu/current_workout/": (context) =>
               const WorkoutEntityScreen(),
-          "workouts_menu/run_workout/": (context) => const RunWorkoutScreen(),
+          "workouts_menu/run_workout/": (context) => const WorkoutScreen(),
           "/bench_press_calculator": (context) =>
               const BenchPressCalculatorPage(),
           "/advices": (context) => const AdvicesPage(),

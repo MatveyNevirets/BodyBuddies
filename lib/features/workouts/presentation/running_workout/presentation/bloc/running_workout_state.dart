@@ -1,14 +1,14 @@
 // ignore_for_file: must_be_immutable
 
-part of 'run_workout_bloc.dart';
+part of 'running_workout_bloc.dart';
 
 @immutable
-sealed class RunWorkoutState extends Equatable {
+sealed class RunningWorkoutState extends Equatable {
   List<ExerciseEntity> exercises;
   int currentExercise;
   int duration;
 
-  RunWorkoutState({
+  RunningWorkoutState({
     required this.exercises,
     required this.currentExercise,
     required this.duration,
@@ -18,35 +18,35 @@ sealed class RunWorkoutState extends Equatable {
   List<Object?> get props => [exercises, currentExercise];
 }
 
-class WorkoutInProcess extends RunWorkoutState {
+class WorkoutInProcess extends RunningWorkoutState {
   WorkoutInProcess(
       {required super.exercises,
       required super.currentExercise,
       required super.duration});
 }
 
-class RunTimerInProgress extends RunWorkoutState {
+class RunTimerInProgress extends RunningWorkoutState {
   RunTimerInProgress(
       {required super.exercises,
       required super.currentExercise,
       required super.duration});
 }
 
-class RestWorkoutProcess extends RunWorkoutState {
+class RestWorkoutProcess extends RunningWorkoutState {
   RestWorkoutProcess(
       {required super.exercises,
       required super.currentExercise,
       required super.duration});
 }
 
-class CompleteWorkout extends RunWorkoutState {
+class CompleteWorkout extends RunningWorkoutState {
   CompleteWorkout(
       {required super.exercises,
       required super.currentExercise,
       required super.duration});
 }
 
-class LoadingState extends RunWorkoutState {
+class LoadingState extends RunningWorkoutState {
   LoadingState(
       {required super.exercises,
       required super.currentExercise,

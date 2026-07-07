@@ -1,16 +1,16 @@
 import 'package:body_buddies/core/themes/themes.dart';
-import 'package:body_buddies/features/workouts/presentation/run_workout/presentation/bloc/run_workout_bloc.dart';
-import 'package:body_buddies/features/workouts/presentation/run_workout/presentation/run_workout_screen.dart';
-import 'package:body_buddies/features/workouts/presentation/run_workout/workout_ticker/reverse_ticker.dart';
-import 'package:body_buddies/features/workouts/presentation/run_workout/workout_ticker/workout_ticker.dart';
+import 'package:body_buddies/features/workouts/presentation/running_workout/presentation/bloc/running_workout_bloc.dart';
+import 'package:body_buddies/features/workouts/presentation/running_workout/presentation/workout_screen.dart';
+import 'package:body_buddies/features/workouts/presentation/running_workout/workout_ticker/reverse_ticker.dart';
+import 'package:body_buddies/features/workouts/presentation/running_workout/workout_ticker/workout_ticker.dart';
 import 'package:body_buddies/features/workouts/domain/Entities/exercise_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:just_audio/just_audio.dart';
 
-import '../../../../../../core/colors/colors.dart';
-import '../../../../../../core/strings/strings.dart';
-import '../../../../../../core/widgets/base_button.dart';
+import '../../../../../core/colors/colors.dart';
+import '../../../../../core/strings/strings.dart';
+import '../../../../../core/widgets/base_button.dart';
 
 class RestScreen extends StatefulWidget {
   ExerciseEntity exercise;
@@ -179,15 +179,15 @@ class _RestScreenState extends State<RestScreen> {
                               if (snapshot.data! > 0) {
                                 return Text(
                                   getTime(snapshot.data!, needHourses: false),
-                                  style:
-                                      DarkTheme.workout_text_style_background_24,
+                                  style: DarkTheme
+                                      .workout_text_style_background_24,
                                 );
                               } else {
                                 nextOnExercisesList(context);
                                 return Text(
                                   getTime(0, needHourses: false),
-                                  style:
-                                      DarkTheme.workout_text_style_background_24,
+                                  style: DarkTheme
+                                      .workout_text_style_background_24,
                                 );
                               }
                             } else if (snapshot.hasError) {
@@ -213,7 +213,7 @@ class _RestScreenState extends State<RestScreen> {
   void nextOnExercisesList(BuildContext context) {
     _playAudio();
     context
-        .read<RunWorkoutBloc>()
+        .read<RunningWorkoutBloc>()
         .add(ExerciseRunEvent(widget.workoutTimerDuration));
   }
 

@@ -10,11 +10,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:meta/meta.dart';
 
-part 'run_workout_event.dart';
+part 'running_workout_event.dart';
 
-part 'run_workout_state.dart';
+part 'running_workout_state.dart';
 
-class RunWorkoutBloc extends Bloc<RunWorkoutEvent, RunWorkoutState> {
+class RunningWorkoutBloc
+    extends Bloc<RunningWorkoutEvent, RunningWorkoutState> {
   WorkoutsRepository workoutsRepository;
   SecureStorage storage;
 
@@ -24,8 +25,8 @@ class RunWorkoutBloc extends Bloc<RunWorkoutEvent, RunWorkoutState> {
 
   int workoutTimerDuration = 0;
 
-  RunWorkoutBloc(this.exercises, this.currentExercise, this.workoutsRepository,
-      this.storage)
+  RunningWorkoutBloc(this.exercises, this.currentExercise,
+      this.workoutsRepository, this.storage)
       : super(WorkoutInProcess(
             exercises: exercises,
             currentExercise: currentExercise,
@@ -35,7 +36,7 @@ class RunWorkoutBloc extends Bloc<RunWorkoutEvent, RunWorkoutState> {
     on<WorkoutCompleteEvent>(onWorkoutCompete);
   }
 
-  onExerciseStarted(ExerciseRunEvent event, Emitter<RunWorkoutState> emit) {
+  onExerciseStarted(ExerciseRunEvent event, Emitter<RunningWorkoutState> emit) {
     emit(LoadingState(exercises: const [], currentExercise: 0, duration: 0));
     exercises[currentExercise].currentSets = currentSets;
     emit(
@@ -47,7 +48,7 @@ class RunWorkoutBloc extends Bloc<RunWorkoutEvent, RunWorkoutState> {
   }
 
   onWorkoutCompete(
-      WorkoutCompleteEvent event, Emitter<RunWorkoutState> emit) async {
+      WorkoutCompleteEvent event, Emitter<RunningWorkoutState> emit) async {
     emit(LoadingState(exercises: const [], currentExercise: 0, duration: 0));
     try {
       final jsonToken = await storage.read(dotenv.env['TOKEN_KEY']!);
@@ -63,7 +64,7 @@ class RunWorkoutBloc extends Bloc<RunWorkoutEvent, RunWorkoutState> {
     }
   }
 
-  onWorkoutRested(ExerciseRestEvent event, Emitter<RunWorkoutState> emit) {
+  onWorkoutRested(ExerciseRestEvent event, Emitter<RunningWorkoutState> emit) {
     if (currentSets < exercises[currentExercise].sets) {
       currentSets++;
       emit(RestWorkoutProcess(

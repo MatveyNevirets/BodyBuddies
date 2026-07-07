@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 import '../../../core/strings/strings.dart';
 import '../../../features/useful/useful_feature_card/presentation/useful_feature_card.dart';
-import '../../../features/water_indicator_widget/water_indicator_widget.dart';
+import '../../../features/water_indicator/water_indicator.dart';
 import '../../../features/workouts/presentation/workout_feature_card/presentation/workouts_feature_card.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -21,7 +21,6 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: _bg,
-     
       body: Stack(
         children: [
           const Positioned.fill(child: _HomeBackground()),
@@ -43,7 +42,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 const SizedBox(height: 12),
                 Center(
-                  child: WaterIndicatorWidget(),
+                  child: WaterIndicator(),
                 ),
                 const SizedBox(height: 22),
                 const _SectionHeader(
