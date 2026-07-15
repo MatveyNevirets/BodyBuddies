@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 
 import '../../../../../../core/strings/strings.dart';
 import '../../../../../../core/themes/colors.dart';
-import '../workout_create_screen.dart';
 
 class ExerciseItemOnList extends StatefulWidget {
   final BuildContext context;
@@ -43,62 +42,27 @@ class _ExerciseItemOnListState extends State<ExerciseItemOnList> {
 
   @override
   Widget build(BuildContext context) {
-    String? weightText;
-    String? repsText;
-    String? setsText;
-    String? restTimeOfSecondsText;
-    String? restTimeOfMinutesText;
-
+    // Заполнение контроллеров, если упражнение уже редактировано
     if (widget.isEdited) {
-      var weight = widget.exercises[widget.index].kilograms;
-      var reps = widget.exercises[widget.index].reps;
-      var sets = widget.exercises[widget.index].sets;
-      var restTimeOfSeconds = widget.exercises[widget.index].restTimeInSeconds;
-      var restTimeOfMinutes = widget.exercises[widget.index].restTimeInMinutes;
-
-      weight == weight.toInt()
-          ? weightText = weight.toInt().toString()
-          : weightText = weight.toString();
-
-      reps == reps.toInt()
-          ? repsText = reps.toInt().toString()
-          : repsText = reps.toString();
-
-      sets == sets.toInt()
-          ? setsText = sets.toInt().toString()
-          : setsText = sets.toString();
-
-      restTimeOfMinutes == restTimeOfMinutes.toInt()
-          ? restTimeOfMinutesText = restTimeOfMinutes.toInt().toString()
-          : restTimeOfMinutesText = restTimeOfMinutes.toString();
-
-      restTimeOfSeconds == restTimeOfSeconds.toInt()
-          ? restTimeOfSecondsText = restTimeOfSeconds.toInt().toString()
-          : restTimeOfSecondsText = restTimeOfSeconds.toString();
-
-      weightController.text = widget.isEdited ? weightText.toString() : "";
-      setsController.text = widget.isEdited ? setsText.toString() : "";
-      repsController.text = widget.isEdited ? repsText.toString() : "";
-      restTimeOfMinutesController.text =
-          widget.isEdited ? restTimeOfMinutesText.toString() : "";
-      restTimeOfSecondsController.text =
-          widget.isEdited ? restTimeOfSecondsText.toString() : "";
+      var exercise = widget.exercises[widget.index];
+      weightController.text = exercise.kilograms == exercise.kilograms.toInt()
+          ? exercise.kilograms.toInt().toString()
+          : exercise.kilograms.toString();
+      setsController.text = exercise.sets.toString();
+      repsController.text = exercise.reps.toString();
+      restTimeOfMinutesController.text = exercise.restTimeInMinutes.toString();
+      restTimeOfSecondsController.text = exercise.restTimeInSeconds.toString();
     }
 
     final screenWidth = widget.screenSize.width;
-    final double cardPadding =
-        screenWidth * 0.04 > 12 ? 12 : screenWidth * 0.04;
 
     return Padding(
       padding: const EdgeInsets.only(bottom: 12),
       child: Container(
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(14),
+          borderRadius: BorderRadius.circular(18),
           color: DarkTheme.surface,
-          border: Border.all(
-            color: DarkTheme.divider,
-            width: 1,
-          ),
+          border: Border.all(color: DarkTheme.divider, width: 1),
           gradient: const LinearGradient(
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
@@ -109,215 +73,205 @@ class _ExerciseItemOnListState extends State<ExerciseItemOnList> {
             stops: [0.0, 0.05],
           ),
         ),
-        child: Padding(
-          padding: EdgeInsets.all(cardPadding),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              // Шапка: иконка, номер, удаление
-              Row(
-                children: [
-                  Container(
-                    width: 32,
-                    height: 32,
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // Заголовок упражнения
+            Row(
+              children: [
+                // Номер
+                Container(
+                  width: 32,
+                  height: 32,
+                  decoration: BoxDecoration(
+                    color: DarkTheme.backgroundSecondary,
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  alignment: Alignment.center,
+                  child: Text(
+                    (widget.index + 1).toString(),
+                    style: const TextStyle(
+                      fontFamily: 'Inter',
+                      fontSize: 14,
+                      fontWeight: FontWeight.w600,
+                      color: DarkTheme.primary,
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 12),
+                // Название (обрезанное)
+                Expanded(
+                  child: Container(
+                    padding:
+                        const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
                     decoration: BoxDecoration(
                       color: DarkTheme.backgroundSecondary,
                       borderRadius: BorderRadius.circular(8),
                     ),
-                    child: Center(
-                      child: Text(
-                        (widget.index + 1).toString(),
-                        style: const TextStyle(
-                          fontFamily: 'Inter',
-                          fontSize: 14,
-                          fontWeight: FontWeight.w600,
-                          color: DarkTheme.primary,
-                        ),
+                    child: Text(
+                      truncateText(widget.exercises[widget.index].title, 20),
+                      textAlign: TextAlign.center,
+                      style: const TextStyle(
+                        fontFamily: 'Inter',
+                        fontSize: 14,
+                        fontWeight: FontWeight.w600,
+                        color: DarkTheme.primary,
                       ),
                     ),
                   ),
-                  const SizedBox(width: 12),
-                  Expanded(
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 8, horizontal: 12),
-                      decoration: BoxDecoration(
-                        color: DarkTheme.backgroundSecondary,
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      child: Text(
-                        textAlign: TextAlign.center,
-                        truncateText(widget.exercises[widget.index].title, 20),
-                        style: const TextStyle(
-                          fontFamily: 'Inter',
-                          fontSize: 14,
-                          fontWeight: FontWeight.w600,
-                          color: DarkTheme.primary,
-                        ),
-                      ),
-                    ),
+                ),
+                const SizedBox(width: 8),
+                // Кнопка удаления
+                GestureDetector(
+                  onTap: () => widget.onRemoveItem.call(),
+                  child: const Icon(
+                    Icons.delete_outline,
+                    size: 22,
+                    color: DarkTheme.secondary,
                   ),
-                  const SizedBox(width: 8),
-                  GestureDetector(
-                    onTap: () => removeExercise(),
-                    child: const Icon(
-                      Icons.delete_outline,
-                      size: 26,
-                      color: DarkTheme.secondary,
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 12),
+                ),
+              ],
+            ),
+            const SizedBox(height: 16),
 
-              // Инпуты: вес, подходы, повторения
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  _buildInputField(
-                    screenWidth / 6,
-                    Strings.weight,
-                    weightController,
-                    (value) {
-                      if (value.isNotEmpty) {
-                        widget.exercises[widget.index].kilograms =
-                            double.parse(value);
-                      } else {
-                        widget.exercises[widget.index].kilograms = 0;
-                      }
-                    },
-                  ),
-                  const SizedBox(width: 8),
-                  _buildInputField(
-                    screenWidth / 6,
-                    Strings.sets,
-                    setsController,
-                    (value) {
-                      if (value.isNotEmpty) {
-                        widget.exercises[widget.index].sets = int.parse(value);
-                      } else {
-                        widget.exercises[widget.index].sets = 0;
-                      }
-                    },
-                  ),
-                  const SizedBox(width: 8),
-                  _buildInputField(
-                    screenWidth / 6,
-                    Strings.reps,
-                    repsController,
-                    (value) {
-                      if (value.isNotEmpty) {
-                        widget.exercises[widget.index].reps = int.parse(value);
-                      } else {
-                        widget.exercises[widget.index].reps = 0;
-                      }
-                    },
-                  ),
-                ],
-              ),
-              const SizedBox(height: 12),
+            // Параметры: вес, подходы, повторения
+            Row(
+              children: [
+                _buildAdaptiveField(
+                  label: Strings.weight,
+                  controller: weightController,
+                  onChanged: (v) {
+                    if (v.isNotEmpty) {
+                      widget.exercises[widget.index].kilograms =
+                          double.parse(v);
+                    } else {
+                      widget.exercises[widget.index].kilograms = 0;
+                    }
+                  },
+                ),
+                const SizedBox(width: 8),
+                _buildAdaptiveField(
+                  label: Strings.sets,
+                  controller: setsController,
+                  onChanged: (v) {
+                    if (v.isNotEmpty) {
+                      widget.exercises[widget.index].sets = int.parse(v);
+                    } else {
+                      widget.exercises[widget.index].sets = 0;
+                    }
+                  },
+                ),
+                const SizedBox(width: 8),
+                _buildAdaptiveField(
+                  label: Strings.reps,
+                  controller: repsController,
+                  onChanged: (v) {
+                    if (v.isNotEmpty) {
+                      widget.exercises[widget.index].reps = int.parse(v);
+                    } else {
+                      widget.exercises[widget.index].reps = 0;
+                    }
+                  },
+                ),
+              ],
+            ),
+            const SizedBox(height: 12),
 
-              // Инпуты отдыха
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    Strings.rest_of_sets,
-                    style: const TextStyle(
-                      fontFamily: 'Inter',
-                      fontSize: 12,
-                      fontWeight: FontWeight.w500,
-                      color: DarkTheme.secondary,
-                    ),
+            // Отдых
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                const Text(
+                  'Отдых',
+                  style: TextStyle(
+                    fontFamily: 'Inter',
+                    fontSize: 12,
+                    fontWeight: FontWeight.w500,
+                    color: DarkTheme.secondary,
                   ),
-                  const SizedBox(width: 12),
-                  _buildInputField(
-                    screenWidth / 7,
-                    Strings.minutes,
-                    restTimeOfMinutesController,
-                    (value) {
-                      if (value.isNotEmpty) {
-                        widget.exercises[widget.index].restTimeInMinutes =
-                            int.parse(value);
-                      } else {
-                        widget.exercises[widget.index].restTimeInMinutes = 0;
-                      }
-                    },
-                  ),
-                  const SizedBox(width: 8),
-                  _buildInputField(
-                    screenWidth / 7,
-                    Strings.seconds,
-                    restTimeOfSecondsController,
-                    (value) {
-                      if (value.isNotEmpty) {
-                        widget.exercises[widget.index].restTimeInSeconds =
-                            int.parse(value);
-                      } else {
-                        widget.exercises[widget.index].restTimeInSeconds = 0;
-                      }
-                    },
-                  ),
-                ],
-              ),
-              const SizedBox(height: 4),
-            ],
-          ),
+                ),
+                const SizedBox(width: 8),
+                _buildAdaptiveField(
+                  label: Strings.minutes,
+                  controller: restTimeOfMinutesController,
+                  onChanged: (v) {
+                    if (v.isNotEmpty) {
+                      widget.exercises[widget.index].restTimeInMinutes =
+                          int.parse(v);
+                    } else {
+                      widget.exercises[widget.index].restTimeInMinutes = 0;
+                    }
+                  },
+                ),
+                const SizedBox(width: 8),
+                _buildAdaptiveField(
+                  label: Strings.seconds,
+                  controller: restTimeOfSecondsController,
+                  onChanged: (v) {
+                    if (v.isNotEmpty) {
+                      widget.exercises[widget.index].restTimeInSeconds =
+                          int.parse(v);
+                    } else {
+                      widget.exercises[widget.index].restTimeInSeconds = 0;
+                    }
+                  },
+                ),
+              ],
+            ),
+          ],
         ),
       ),
     );
   }
 
-  Widget _buildInputField(double width, String label,
-      TextEditingController controller, Function(String) onChanged) {
-    return SizedBox(
-      width: width,
-      height: 42,
-      child: TextField(
-        controller: controller,
-        onChanged: onChanged,
-        maxLength: 4,
-        buildCounter: null,
-        keyboardType: TextInputType.number,
-        style: const TextStyle(
-          fontFamily: 'Inter',
-          fontSize: 14,
-          fontWeight: FontWeight.w500,
-          color: DarkTheme.primary,
-        ),
-        cursorColor: DarkTheme.primary,
-        decoration: InputDecoration(
-          filled: true,
-          fillColor: DarkTheme.backgroundSecondary,
-          contentPadding: const EdgeInsets.only(bottom: 14, left: 4, right: 4),
-          labelText: label,
-          labelStyle: const TextStyle(
+  // Адаптивное поле ввода – занимает равную долю в строке
+  Widget _buildAdaptiveField({
+    required String label,
+    required TextEditingController controller,
+    required Function(String) onChanged,
+  }) {
+    return Expanded(
+      child: SizedBox(
+        height: 42,
+        child: TextField(
+          controller: controller,
+          onChanged: onChanged,
+          maxLength: 4,
+          buildCounter: null,
+          keyboardType: TextInputType.number,
+          style: const TextStyle(
             fontFamily: 'Inter',
-            fontSize: 12,
-            fontWeight: FontWeight.w400,
-            color: DarkTheme.secondary,
+            fontSize: 14,
+            fontWeight: FontWeight.w500,
+            color: DarkTheme.primary,
           ),
-          counterText: '',
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(12),
-            borderSide: const BorderSide(
-              color: DarkTheme.divider,
-              width: 1,
+          cursorColor: DarkTheme.primary,
+          decoration: InputDecoration(
+            filled: true,
+            fillColor: DarkTheme.backgroundSecondary,
+            contentPadding:
+                const EdgeInsets.only(bottom: 12, left: 8, right: 8),
+            labelText: label,
+            labelStyle: const TextStyle(
+              fontFamily: 'Inter',
+              fontSize: 12,
+              fontWeight: FontWeight.w400,
+              color: DarkTheme.secondary,
             ),
-          ),
-          enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(12),
-            borderSide: const BorderSide(
-              color: DarkTheme.divider,
-              width: 1,
+            counterText: '',
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(12),
+              borderSide: const BorderSide(color: DarkTheme.divider, width: 1),
             ),
-          ),
-          focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(12),
-            borderSide: const BorderSide(
-              color: DarkTheme.primary,
-              width: 1.5,
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(12),
+              borderSide: const BorderSide(color: DarkTheme.divider, width: 1),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(12),
+              borderSide:
+                  const BorderSide(color: DarkTheme.primary, width: 1.5),
             ),
           ),
         ),
@@ -325,7 +279,10 @@ class _ExerciseItemOnListState extends State<ExerciseItemOnList> {
     );
   }
 
-  void removeExercise() {
-    widget.onRemoveItem.call();
+  String truncateText(String text, int maxLength) {
+    if (text.length <= maxLength) {
+      return text;
+    }
+    return '${text.substring(0, maxLength)}...';
   }
 }

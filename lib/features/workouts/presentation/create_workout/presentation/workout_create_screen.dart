@@ -295,6 +295,20 @@ class _CreateWorkoutScreenState extends State<CreateWorkoutScreen> {
                                 shrinkWrap: true,
                                 physics: const NeverScrollableScrollPhysics(),
                                 itemCount: widget._exercises.length,
+                                proxyDecorator: (child, index, animation) {
+                                  // Убираем стандартную "белую" окантовку и тень
+                                  return AnimatedBuilder(
+                                    animation: animation,
+                                    builder: (context, child) {
+                                      return Material(
+                                        color: Colors.transparent,
+                                        elevation: 0,
+                                        child: child,
+                                      );
+                                    },
+                                    child: child,
+                                  );
+                                },
                                 itemBuilder: (context, index) {
                                   if (widget._exercises.isEmpty) {
                                     return const SizedBox();

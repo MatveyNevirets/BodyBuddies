@@ -9,23 +9,15 @@ class ExerciseCardWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
-
-    // Адаптивные размеры
-    final double horizontalMargin =
-        screenWidth * 0.02 > 8 ? 8 : screenWidth * 0.02;
-    const double verticalMargin = 4.0;
     final double iconSize =
         screenHeight * 0.045 > 36 ? 36 : screenHeight * 0.045;
 
     return Container(
-      margin: EdgeInsets.symmetric(
-          horizontal: horizontalMargin, vertical: verticalMargin),
-      padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+      margin: const EdgeInsets.symmetric(vertical: 6, horizontal: 16),
+      padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 16),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(14),
-        color: DarkTheme.surface,
         border: Border.all(
           color: DarkTheme.divider,
           width: 1,
@@ -34,22 +26,14 @@ class ExerciseCardWidget extends StatelessWidget {
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
           colors: [
-            Color(0xFF1F2533), // на 5% светлее DarkTheme.surface
+            Color(0xFF1E2330), // на 3-4% светлее surface
             DarkTheme.surface,
           ],
-          stops: [0.0, 0.05],
         ),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.06),
-            blurRadius: 8,
-            offset: const Offset(0, 3),
-          ),
-        ],
       ),
       child: Row(
         children: [
-          // Иконка вместо PNG (календарь)
+          // Иконка упражнения (гантель)
           Container(
             width: iconSize,
             height: iconSize,
@@ -58,7 +42,7 @@ class ExerciseCardWidget extends StatelessWidget {
               borderRadius: BorderRadius.circular(10),
             ),
             child: Icon(
-              Icons.calendar_today_rounded,
+              Icons.fitness_center_rounded,
               color: DarkTheme.primary.withOpacity(0.6),
               size: iconSize * 0.5,
             ),
@@ -77,12 +61,6 @@ class ExerciseCardWidget extends StatelessWidget {
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
             ),
-          ),
-          // Маленькая стрелка-намёк (опционально, для визуального якоря)
-          Icon(
-            Icons.arrow_forward_rounded,
-            color: DarkTheme.primary.withOpacity(0.2),
-            size: 18,
           ),
         ],
       ),
