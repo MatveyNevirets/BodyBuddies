@@ -2,7 +2,7 @@
 
 import 'dart:convert';
 
-import 'package:body_buddies/core/themes/colors.dart';
+import 'package:body_buddies/core/themes/themes.dart';
 import 'package:body_buddies/core/widgets/base_button.dart';
 import 'package:body_buddies/core/widgets/snackbar.dart';
 import 'package:body_buddies/features/workouts/domain/Entities/exercise_entity.dart';
@@ -19,7 +19,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 import '../../../../../core/strings/strings.dart';
-import '../../../../../core/themes/themes.dart';
+import '../../../../../core/themes/colors.dart';
 
 class CreateWorkoutScreen extends StatefulWidget {
   late final WorkoutsRepository workoutsRepository;
@@ -42,11 +42,12 @@ class CreateWorkoutScreen extends StatefulWidget {
     Strings.sunday,
   ];
 
-  CreateWorkoutScreen(
-      {super.key,
-      required this.screenSize,
-      required this.workoutsRepository,
-      required this.secureStorage});
+  CreateWorkoutScreen({
+    super.key,
+    required this.screenSize,
+    required this.workoutsRepository,
+    required this.secureStorage,
+  });
 
   @override
   State<CreateWorkoutScreen> createState() => _CreateWorkoutScreenState();
@@ -165,196 +166,289 @@ class _CreateWorkoutScreenState extends State<CreateWorkoutScreen> {
     }
 
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Container(
-            width: widget.screenSize.width,
-            margin: const EdgeInsets.symmetric(vertical: 24, horizontal: 16),
-            child: Card(
-              elevation: 4,
-              color: Colours.workout_card_background_color,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Container(
-                    height: 50,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(8),
-                      color: Theme.of(context).scaffoldBackgroundColor,
+      backgroundColor: DarkTheme.background,
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        leading: IconButton(
+          icon: const Icon(
+            Icons.arrow_back_rounded,
+            color: DarkTheme.primary,
+            size: 26,
+          ),
+          onPressed: () => Navigator.of(context).pop(),
+          splashRadius: 24,
+        ),
+        title: Text(
+          widget.isEditWorkout ? 'Редактирование' : 'Создание тренировки',
+          style: DarkTheme.appbar_text_style,
+        ),
+        centerTitle: false,
+      ),
+      body: Stack(
+        children: [
+          // Фоновая геометрия — напряжение и движение
+          Positioned.fill(
+            child: CustomPaint(
+              painter: _CreateWorkoutBackgroundPainter(
+                primaryColor: DarkTheme.primary,
+                secondaryColor: DarkTheme.secondary,
+              ),
+            ),
+          ),
+          // Центрируем контент с максимальной шириной для премиального вида
+          Center(
+            child: ConstrainedBox(
+              constraints: const BoxConstraints(maxWidth: 600),
+              child: SingleChildScrollView(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 16,
+                ),
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(18),
+                    color: DarkTheme.surface,
+                    border: Border.all(
+                      color: DarkTheme.divider,
+                      width: 1,
                     ),
-                    width: widget.screenSize.width / 1.5,
-                    margin: const EdgeInsets.all(30),
-                    padding: const EdgeInsets.all(8),
-                    child: Center(
-                      child: TextField(
-                        controller: titleTextFieldController,
-                        cursorColor: Colours.workout_card_background_color,
-                        textAlign: TextAlign.center,
-                        style: DarkTheme.hint_text_style_create_workout,
-                        decoration: InputDecoration(
-                          isDense: true,
-                          hintStyle: DarkTheme.hint_text_style_create_workout,
-                          hintText: Strings.title,
-                          focusedBorder: const UnderlineInputBorder(
-                            borderSide: BorderSide(
-                                color: Colours.workout_card_background_color,
-                                width: 3),
+                    gradient: const LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      colors: [
+                        Color(0xFF1F2533), // на ~5% светлее surface
+                        DarkTheme.surface,
+                      ],
+                      stops: [0.0, 0.05],
+                    ),
+                    boxShadow: [
+                      // Тень почти отсутствует, как и требует тёмная тема концепта
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.04),
+                        blurRadius: 18,
+                        offset: const Offset(0, 6),
+                      ),
+                    ],
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(20), // кратно 4, близко к 20
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        // Название тренировки
+                        TextField(
+                          controller: titleTextFieldController,
+                          style: const TextStyle(
+                            fontFamily: 'Inter',
+                            fontSize: 20,
+                            fontWeight: FontWeight.w700,
+                            letterSpacing: -0.4,
+                            color: DarkTheme.primary,
                           ),
-                          enabledBorder: const UnderlineInputBorder(
-                            borderSide: BorderSide(
-                                color: Colours.workout_card_background_color,
-                                width: 3),
+                          textAlign: TextAlign.center,
+                          decoration: InputDecoration(
+                            filled: true,
+                            fillColor: DarkTheme.backgroundSecondary,
+                            hintText: Strings.title,
+                            hintStyle: DarkTheme.hint_text_style_create_workout,
+                            isDense: true,
+                            contentPadding: const EdgeInsets.symmetric(
+                              vertical: 16,
+                              horizontal: 14,
+                            ),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(12),
+                              borderSide: const BorderSide(
+                                color: DarkTheme.divider,
+                                width: 1,
+                              ),
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(12),
+                              borderSide: const BorderSide(
+                                color: DarkTheme.divider,
+                                width: 1,
+                              ),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(12),
+                              borderSide: const BorderSide(
+                                color: DarkTheme.primary,
+                                width: 1.5,
+                              ),
+                            ),
                           ),
                         ),
-                      ),
-                    ),
-                  ),
-                  Container(
-                    padding: const EdgeInsets.all(16),
-                    width: widget.screenSize.width / 1.5,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(8),
-                      color: Theme.of(context).scaffoldBackgroundColor,
-                    ),
-                    child: Column(
-                      children: [
-                        ReorderableListView.builder(
-                          shrinkWrap: true,
-                          physics: const NeverScrollableScrollPhysics(),
-                          itemCount: widget._exercises.length,
-                          itemBuilder: (context, index) {
-                            if (widget._exercises.isEmpty) {
-                              return const SizedBox();
-                            }
-                            if (widget._exercises[index].isExercise) {
-                              return ExerciseItemOnList(
-                                key: ValueKey(widget._exercises[index].title),
-                                context,
-                                widget.screenSize,
-                                index,
-                                widget._exercises,
-                                widget.isEditWorkout,
-                                onRemoveItem: () {
-                                  removeItem(index);
+                        const SizedBox(height: 24),
+
+                        // Список упражнений
+                        Container(
+                          padding: const EdgeInsets.all(16),
+                          decoration: BoxDecoration(
+                            color: DarkTheme.backgroundSecondary,
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          child: Column(
+                            children: [
+                              ReorderableListView.builder(
+                                shrinkWrap: true,
+                                physics: const NeverScrollableScrollPhysics(),
+                                itemCount: widget._exercises.length,
+                                itemBuilder: (context, index) {
+                                  if (widget._exercises.isEmpty) {
+                                    return const SizedBox();
+                                  }
+                                  if (widget._exercises[index].isExercise) {
+                                    return ExerciseItemOnList(
+                                      key: ValueKey(
+                                          widget._exercises[index].title),
+                                      context,
+                                      widget.screenSize,
+                                      index,
+                                      widget._exercises,
+                                      widget.isEditWorkout,
+                                      onRemoveItem: () {
+                                        removeItem(index);
+                                      },
+                                    );
+                                  } else if (widget
+                                      ._exercises[index].isTimerExercise) {
+                                    return TimerExerciseItemOnList(
+                                      key: ValueKey(
+                                          widget._exercises[index].title),
+                                      context,
+                                      widget.screenSize,
+                                      index,
+                                      widget._exercises,
+                                      widget.isEditWorkout,
+                                      onRemoveItem: () {
+                                        removeItem(index);
+                                      },
+                                    );
+                                  }
+                                  return const SizedBox
+                                      .shrink(); // никогда не случится
                                 },
-                              );
-                            } else if (widget
-                                ._exercises[index].isTimerExercise) {
-                              return TimerExerciseItemOnList(
-                                key: ValueKey(widget._exercises[index].title),
-                                context,
-                                widget.screenSize,
-                                index,
-                                widget._exercises,
-                                widget.isEditWorkout,
-                                onRemoveItem: () {
-                                  removeItem(index);
+                                onReorder: (int oldIndex, int newIndex) {
+                                  setState(() {
+                                    if (newIndex > oldIndex) {
+                                      newIndex -= 1;
+                                    }
+                                    final item =
+                                        widget._exercises.removeAt(oldIndex);
+                                    widget._exercises.insert(newIndex, item);
+                                  });
                                 },
-                              );
-                            }
-                            return const CircularProgressIndicator();
-                          },
-                          onReorder: (int oldIndex, int newIndex) {
+                              ),
+                              const SizedBox(height: 16),
+
+                              // Кнопка добавления упражнения (вторичная)
+                              BaseButton(
+                                onClick: () => goToAddExercise(context),
+                                buttonText: Strings.add,
+                                icon: null,
+                                isElevated: false,
+                                radius: 14,
+                                backgroundColor: DarkTheme.divider,
+                                color: DarkTheme.primary,
+                                buttonSize: const Size.fromHeight(48),
+                              ),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(height: 24),
+
+                        // Выбор дня недели
+                        DropdownButtonFormField<String>(
+                          isDense: true,
+                          dropdownColor: DarkTheme.surface,
+                          decoration: InputDecoration(
+                            filled: true,
+                            fillColor: DarkTheme.backgroundSecondary,
+                            hintText: Strings.day,
+                            hintStyle: const TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w500,
+                              color: DarkTheme.primary,
+                            ),
+                            contentPadding: const EdgeInsets.symmetric(
+                              vertical: 16,
+                              horizontal: 14,
+                            ),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(12),
+                              borderSide: const BorderSide(
+                                color: DarkTheme.divider,
+                                width: 1,
+                              ),
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(12),
+                              borderSide: const BorderSide(
+                                color: DarkTheme.divider,
+                                width: 1,
+                              ),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(12),
+                              borderSide: const BorderSide(
+                                color: DarkTheme.primary,
+                                width: 1.5,
+                              ),
+                            ),
+                          ),
+                          initialValue: widget.weekdayString,
+                          items: widget.daysOfWeek.map((String day) {
+                            return DropdownMenuItem<String>(
+                              value: day,
+                              child: Center(
+                                child: Text(
+                                  day,
+                                  style: const TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w500,
+                                    color: DarkTheme
+                                        .primary, // элементы списка тоже primary
+                                  ),
+                                ),
+                              ),
+                            );
+                          }).toList(),
+                          onChanged: (String? newValue) {
                             setState(() {
-                              if (newIndex > oldIndex) {
-                                newIndex -= 1;
-                              }
-                              final item = widget._exercises.removeAt(oldIndex);
-                              widget._exercises.insert(newIndex, item);
+                              widget.weekdayNum = getNumberWeekday(newValue!);
                             });
                           },
                         ),
-                        const SizedBox(
-                          height: 10,
-                        ),
+                        const SizedBox(height: 24),
+
+                        // Основная кнопка завершения
                         BaseButton(
-                          onClick: () => goToAddExercise(context),
-                          buttonText: Strings.add,
+                          onClick: () => tryToCreateWorkout(
+                            widget.weekdayNum,
+                            workoutsMenuContext,
+                            context,
+                            workoutId,
+                            titleTextFieldController,
+                          ),
+                          buttonText: Strings.done,
                           icon: null,
-                          buttonSize: Size(widget.screenSize.width / 1.5,
-                              widget.screenSize.height / 15),
                           isElevated: true,
-                          radius: 8,
-                          backgroundColor:
-                              Colours.workout_card_background_color,
-                          color: Theme.of(context).scaffoldBackgroundColor,
+                          radius: 14,
+                          backgroundColor: DarkTheme.primary,
+                          color: DarkTheme.background,
+                          buttonSize: const Size.fromHeight(52),
                         ),
+                        const SizedBox(height: 8),
                       ],
                     ),
                   ),
-                  const SizedBox(
-                    height: 30,
-                  ),
-                  Container(
-                    padding: const EdgeInsets.all(16),
-                    width: widget.screenSize.width / 1.5,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(8),
-                      color: Theme.of(context).scaffoldBackgroundColor,
-                    ),
-                    child: DropdownButtonFormField<String>(
-                      isDense: true,
-                      dropdownColor: Theme.of(context).scaffoldBackgroundColor,
-                      decoration: InputDecoration(
-                        focusedBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Theme.of(context).scaffoldBackgroundColor,
-                          ),
-                        ),
-                        enabledBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Theme.of(context).scaffoldBackgroundColor,
-                          ),
-                        ),
-                      ),
-                      initialValue: widget.weekdayString,
-                      hint: Center(
-                          child: Text(
-                        Strings.day,
-                        textAlign: TextAlign.center,
-                        style: DarkTheme.hint_text_style_create_workout,
-                      )),
-                      items: widget.daysOfWeek.map((String day) {
-                        return DropdownMenuItem<String>(
-                          value: day,
-                          child: Center(
-                              child: Text(
-                            day,
-                            style: DarkTheme.hint_text_style_create_workout,
-                          )),
-                        );
-                      }).toList(),
-                      onChanged: (String? newValue) {
-                        setState(() {
-                          widget.weekdayNum = getNumberWeekday(newValue!);
-                        });
-                      },
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 30,
-                  ),
-                  BaseButton(
-                    onClick: () => tryToCreateWorkout(
-                        widget.weekdayNum,
-                        workoutsMenuContext,
-                        context,
-                        workoutId,
-                        titleTextFieldController),
-                    buttonText: Strings.done,
-                    icon: null,
-                    isElevated: true,
-                    radius: 8,
-                    backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-                    color: Colours.workout_card_background_color,
-                    buttonSize: Size(widget.screenSize.width / 1.5,
-                        widget.screenSize.height / 15),
-                  ),
-                  const SizedBox(
-                    height: 30,
-                  ),
-                ],
+                ),
               ),
-            )),
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -398,4 +492,139 @@ String truncateText(String text, int maxLength) {
   } else {
     return '${text.substring(0, maxLength)}...';
   }
+}
+
+// ============================================================================
+// Художник фоновой геометрии — напряжение и движение
+// ============================================================================
+class _CreateWorkoutBackgroundPainter extends CustomPainter {
+  final Color primaryColor;
+  final Color secondaryColor;
+
+  _CreateWorkoutBackgroundPainter({
+    required this.primaryColor,
+    required this.secondaryColor,
+  });
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final linePaint = Paint()
+      ..color = primaryColor.withOpacity(0.05)
+      ..strokeWidth = 1.8
+      ..style = PaintingStyle.stroke;
+
+    final fillPaint = Paint()
+      ..color = secondaryColor.withOpacity(0.04)
+      ..style = PaintingStyle.fill;
+
+    // Диагональные линии — создают ощущение вектора усилия
+    canvas.drawLine(
+      Offset(0, size.height * 0.12),
+      Offset(size.width * 0.45, size.height * 0.55),
+      linePaint,
+    );
+    canvas.drawLine(
+      Offset(size.width * 0.8, 0),
+      Offset(size.width * 0.92, size.height * 0.25),
+      linePaint,
+    );
+    canvas.drawLine(
+      Offset(size.width * 0.15, size.height * 0.85),
+      Offset(size.width * 0.7, size.height),
+      linePaint,
+    );
+    canvas.drawLine(
+      Offset(size.width * 0.9, size.height * 0.7),
+      Offset(size.width, size.height * 0.92),
+      linePaint,
+    );
+
+    // Вытянутые прямоугольники — словно плиты
+    canvas.drawRect(
+      Rect.fromLTWH(
+        size.width * 0.06,
+        size.height * 0.18,
+        size.width * 0.13,
+        size.height * 0.07,
+      ),
+      fillPaint..color = primaryColor.withOpacity(0.05),
+    );
+    canvas.drawRect(
+      Rect.fromLTWH(
+        size.width * 0.83,
+        size.height * 0.62,
+        size.width * 0.14,
+        size.height * 0.08,
+      ),
+      fillPaint..color = secondaryColor.withOpacity(0.04),
+    );
+
+    // Треугольники — напряжённая геометрия
+    final triangle1 = Path()
+      ..moveTo(size.width * 0.92, size.height * 0.06)
+      ..lineTo(size.width, size.height * 0.06)
+      ..lineTo(size.width, size.height * 0.18)
+      ..close();
+    canvas.drawPath(
+        triangle1, fillPaint..color = primaryColor.withOpacity(0.06));
+
+    final triangle2 = Path()
+      ..moveTo(size.width * 0.04, size.height * 0.88)
+      ..lineTo(size.width * 0.12, size.height * 0.88)
+      ..lineTo(size.width * 0.04, size.height * 0.76)
+      ..close();
+    canvas.drawPath(
+        triangle2, fillPaint..color = secondaryColor.withOpacity(0.05));
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
+}
+
+// Старый класс оставлен для возможной обратной совместимости
+class BackgroundGeometryPainter extends CustomPainter {
+  @override
+  void paint(Canvas canvas, Size size) {
+    final paint = Paint()
+      ..color = DarkTheme.primary.withOpacity(0.05)
+      ..strokeWidth = 2.0
+      ..style = PaintingStyle.stroke;
+
+    final fillPaint = Paint()
+      ..color = DarkTheme.secondary.withOpacity(0.04)
+      ..style = PaintingStyle.fill;
+
+    canvas.drawLine(
+      const Offset(0, 0),
+      Offset(size.width * 0.4, size.height * 0.4),
+      paint,
+    );
+    canvas.drawLine(
+      Offset(size.width, size.height * 0.1),
+      Offset(size.width * 0.6, size.height),
+      paint,
+    );
+    canvas.drawLine(
+      Offset(size.width * 0.2, size.height),
+      Offset(size.width, 0),
+      paint,
+    );
+
+    final path = Path();
+    path.moveTo(size.width * 0.85, size.height * 0.05);
+    path.lineTo(size.width * 0.95, size.height * 0.05);
+    path.lineTo(size.width * 0.85, size.height * 0.2);
+    path.close();
+    canvas.drawPath(path, fillPaint);
+
+    final path2 = Path();
+    path2.moveTo(size.width * 0.1, size.height * 0.9);
+    path2.lineTo(size.width * 0.2, size.height * 0.9);
+    path2.lineTo(size.width * 0.1, size.height * 0.75);
+    path2.close();
+    canvas.drawPath(path2, fillPaint);
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
 }

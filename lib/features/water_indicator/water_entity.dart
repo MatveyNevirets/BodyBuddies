@@ -1,4 +1,4 @@
-// lib/features/water_indicator_widget/water_entity.dart
+import 'package:body_buddies/core/themes/themes.dart';
 import 'package:body_buddies/features/water_indicator/bloc/water_cups_bloc/water_cups_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -6,9 +6,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 // ignore: must_be_immutable
 class WaterEntity extends StatefulWidget {
-  int index;
+  final int index;
 
-  WaterEntity(this.index, {super.key});
+  const WaterEntity(this.index, {super.key});
 
   @override
   State<WaterEntity> createState() => _WaterEntityState();
@@ -67,75 +67,48 @@ class _WaterEntityState extends State<WaterEntity> {
             );
       },
       child: AnimatedContainer(
-        duration: const Duration(milliseconds: 220),
-        curve: Curves.easeOutCubic,
-        width: 54,
-        height: 54,
+        duration: const Duration(milliseconds: 200),
+        curve: Curves.easeOut,
+        width: 56,
+        height: 56,
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(18),
-          gradient: LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            colors: activated
-                ? const [
-                    Color(0xFF2F80ED),
-                    Color(0xFF4A9BFF),
-                  ]
-                : const [
-                    Color(0xFF0B1826),
-                    Color(0xFF12263A),
-                  ],
-          ),
+          borderRadius: BorderRadius.circular(14),
+          color: activated ? DarkTheme.primary : DarkTheme.surface,
           border: Border.all(
-            color: activated
-                ? const Color(0xFFB8D9FF).withOpacity(0.45)
-                : const Color(0xFF244055),
-            width: 1.15,
+            color: activated ? DarkTheme.primary : DarkTheme.divider,
+            width: 1.5,
           ),
-          boxShadow: activated
-              ? [
-                  BoxShadow(
-                    color: const Color(0xFF2F80ED).withOpacity(0.28),
-                    blurRadius: 16,
-                    offset: const Offset(0, 8),
-                  ),
-                ]
-              : [
-                  BoxShadow(
-                    color: const Color(0xFF04101A).withOpacity(0.45),
-                    blurRadius: 10,
-                    offset: const Offset(0, 6),
-                  ),
-                ],
         ),
         child: Stack(
           alignment: Alignment.center,
           children: [
+            // Иконка стакана воды
             Opacity(
-              opacity: activated ? 1 : 0.9,
+              opacity: activated ? 1.0 : 0.5,
               child: Image.asset(
                 "assets/images/water_cup.png",
                 height: 34,
                 width: 34,
               ),
             ),
+            // Галочка в правом нижнем углу (только когда активирован)
             Positioned(
-              right: 5,
-              bottom: 5,
+              right: 4,
+              bottom: 4,
               child: AnimatedOpacity(
-                duration: const Duration(milliseconds: 180),
-                opacity: activated ? 1 : 0,
+                duration: const Duration(milliseconds: 150),
+                opacity: activated ? 1.0 : 0.0,
                 child: Container(
                   width: 16,
                   height: 16,
                   decoration: const BoxDecoration(
-                    color: Color(0xFF07131F),
+                    color: DarkTheme.background,
                     shape: BoxShape.circle,
                   ),
-                  child: Image.asset(
-                    "assets/images/Check.png",
-                    height: 10,
-                    width: 10,
+                  child: const Icon(
+                    Icons.check_rounded,
+                    size: 12,
+                    color: DarkTheme.primary,
                   ),
                 ),
               ),

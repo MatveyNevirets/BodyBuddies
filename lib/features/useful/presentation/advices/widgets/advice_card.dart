@@ -1,42 +1,49 @@
-import 'package:body_buddies/core/themes/colors.dart';
 import 'package:body_buddies/core/themes/themes.dart';
 import 'package:body_buddies/features/useful/domain/entity/advice_entity.dart';
 import 'package:flutter/material.dart';
 
 GestureDetector buildAdviceCard(
-    BuildContext context, int index, List<AdviceEntity> advices) {
+  BuildContext context,
+  int index,
+  List<AdviceEntity> advices,
+) {
   void openCurrentAdvice(
-      BuildContext context, String routePath, AdviceEntity currentAdvice) {
-    Navigator.of(context).pushNamed(routePath, arguments: currentAdvice);
+    BuildContext context,
+    String routePath,
+    AdviceEntity currentAdvice,
+  ) {
+    Navigator.of(context).pushNamed(
+      routePath,
+      arguments: currentAdvice,
+    );
   }
 
   return GestureDetector(
-    onTap: () =>
-        openCurrentAdvice(context, "/advices/current_advice", advices[index]),
+    onTap: () => openCurrentAdvice(
+      context,
+      "/advices/current_advice",
+      advices[index],
+    ),
     child: SizedBox(
       height: 100,
       width: double.maxFinite,
-      child: Card(
-        shape: RoundedRectangleBorder(
-          side: const BorderSide(
-              width: 3, color: Colours.workout_card_background_color),
-          borderRadius: BorderRadius.circular(8),
+      child: Container(
+        decoration: BoxDecoration(
+          color: DarkTheme.surface,
+          borderRadius: BorderRadius.circular(18),
+          border: Border.all(
+            color: DarkTheme.divider,
+            width: 1,
+          ),
         ),
-        elevation: 2,
-        shadowColor: Colours.base_button_color,
-        color: Theme.of(context).scaffoldBackgroundColor,
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                advices[index].title,
-                style: DarkTheme.reverse_rest_text_style,
-                textAlign: TextAlign.center,
-              ),
-            ],
+        padding: const EdgeInsets.all(16),
+        child: Center(
+          child: Text(
+            advices[index].title,
+            style: DarkTheme.medium_text_style.copyWith(
+              fontWeight: FontWeight.w600,
+            ),
+            textAlign: TextAlign.center,
           ),
         ),
       ),

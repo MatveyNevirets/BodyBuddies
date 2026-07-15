@@ -11,7 +11,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:body_buddies/core/themes/colors.dart';
 import 'package:body_buddies/features/auth/presentation/auth_main/auth_page.dart';
 import 'package:body_buddies/features/auth/presentation/signup/signup_screen.dart';
-import 'package:body_buddies/features/useful/presentation/add_exercise/presentation/add_exercise_page.dart';
+import 'package:body_buddies/features/workouts/presentation/add_exercise/presentation/add_exercise_page.dart';
 import 'package:body_buddies/features/useful/presentation/advices/presentation/advices_page.dart';
 import 'package:body_buddies/features/useful/presentation/advices/presentation/current_advice_screen.dart';
 import 'package:body_buddies/features/useful/presentation/bench_press_calculator/presentation/bench_press_calculator_page.dart';
@@ -25,8 +25,6 @@ import 'package:body_buddies/features/workouts/presentation/workouts_journal/pre
 import 'package:body_buddies/features/workouts/presentation/workouts_menu/presentation/workouts_menu_page.dart';
 import 'package:body_buddies/features/home/presentation/bloc/home_bloc.dart';
 import 'package:body_buddies/features/home/presentation/home_screen.dart';
-import 'package:flutter_launcher_icons/constants.dart';
-import 'package:get_it/get_it.dart';
 
 class BodyBuddiesApp extends StatelessWidget {
   const BodyBuddiesApp({
@@ -46,112 +44,152 @@ class BodyBuddiesApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // ============================================================
+    //  ГЛОБАЛЬНОЕ ПЕРЕОПРЕДЕЛЕНИЕ СИСТЕМНЫХ ЭЛЕМЕНТОВ (Dark Theme)
+    // ============================================================
+    // Тёмный фон навигационной панели + светлые иконки.
+    SystemChrome.setSystemUIOverlayStyle(
+      const SystemUiOverlayStyle(
+        statusBarColor: Colors.transparent, // прозрачный статус-бар
+        statusBarIconBrightness: Brightness.light, // светлые иконки статуса
+        statusBarBrightness: Brightness.dark, // для iOS
+        systemNavigationBarColor: DarkTheme.background, // тёмный низ
+        systemNavigationBarIconBrightness: Brightness.light, // светлые кнопки
+        systemNavigationBarDividerColor:
+            Colors.transparent, // убираем разделитель
+      ),
+    );
+
     final Size screenSize = Size(
       MediaQuery.sizeOf(context).width,
       MediaQuery.sizeOf(context).height,
     );
 
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      themeMode: ThemeMode.system,
+
+      // ================= LIGHT =================
       theme: ThemeData(
         useMaterial3: true,
-        scaffoldBackgroundColor: const Color(0xFFF7FAFD),
-        focusColor: Colours.workoutCardForegroundColor,
+        scaffoldBackgroundColor: const Color(0xFFF4F6F8),
+        cardColor: const Color(0xFFFFFFFF),
+        colorScheme: const ColorScheme(
+          brightness: Brightness.light,
+          primary: Color(0xFF1C1F26),
+          onPrimary: Color(0xFFF4F6F8),
+          secondary: Color(0xFF6B7280),
+          onSecondary: Colors.white,
+          error: Colors.red,
+          onError: Colors.white,
+          surface: Color(0xFFFFFFFF),
+          onSurface: Color(0xFF1C1F26),
+        ),
         textTheme: const TextTheme(
-          bodyLarge: TextStyle(
-            fontSize: 22,
-            color: Colours.workout_card_background_color,
-            fontWeight: FontWeight.w800,
+          headlineLarge: TextStyle(
+            fontSize: 32,
+            fontWeight: FontWeight.w700,
             letterSpacing: -0.5,
+            color: Color(0xFF1C1F26),
           ),
           titleLarge: TextStyle(
-            fontSize: 20,
-            color: Colours.black_text_color,
-            fontWeight: FontWeight.w800,
+            fontSize: 23,
+            fontWeight: FontWeight.w600,
             letterSpacing: -0.4,
+            color: Color(0xFF1C1F26),
+          ),
+          bodyLarge: TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.w500,
+            color: Color(0xFF1C1F26),
+          ),
+          bodyMedium: TextStyle(
+            fontSize: 15,
+            fontWeight: FontWeight.w400,
+            color: Color(0xFF6B7280),
           ),
           bodySmall: TextStyle(
             fontSize: 12,
-            color: Colours.black_text_color,
-            fontWeight: FontWeight.w600,
-          ),
-          bodyMedium: TextStyle(
-            fontSize: 16,
-            color: Colours.black_text_color,
             fontWeight: FontWeight.w500,
+            color: Color(0xFF6B7280),
           ),
-        ),
-        cardColor: Colours.workout_card_background_color,
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: const Color(0xFF2F80ED),
-          brightness: Brightness.light,
-          background: const Color(0xFFF7FAFD),
-          surface: const Color(0xFFFFFFFF),
         ),
         appBarTheme: const AppBarTheme(
-          iconTheme: IconThemeData(color: Colours.black_text_color),
-          systemOverlayStyle: SystemUiOverlayStyle(
-            statusBarColor: Color(0xFFF7FAFD),
-            statusBarIconBrightness: Brightness.dark,
-            systemNavigationBarIconBrightness: Brightness.dark,
-            systemNavigationBarColor: Color(0xFFF7FAFD),
-          ),
+          elevation: 0,
           backgroundColor: Colors.transparent,
           surfaceTintColor: Colors.transparent,
-          actionsIconTheme: IconThemeData(color: Colours.black_text_color),
-          elevation: 0,
+          iconTheme: IconThemeData(
+            color: Color(0xFF1C1F26),
+          ),
+          systemOverlayStyle: SystemUiOverlayStyle(
+            statusBarColor: Colors.transparent,
+            statusBarIconBrightness: Brightness.dark,
+            // systemNavigationBarColor убираем – он не влияет глобально,
+            // оставляем только для статус-бара
+          ),
         ),
       ),
+
+      // ================= DARK =================
       darkTheme: ThemeData(
         useMaterial3: true,
-        focusColor: Colours.workoutCardForegroundColor,
-        scaffoldBackgroundColor: Colours.dark_theme_background,
+        scaffoldBackgroundColor: const Color(0xFF0F1115),
+        cardColor: const Color(0xFF1A1F2B),
+        colorScheme: const ColorScheme(
+          brightness: Brightness.dark,
+          primary: Color(0xFFD6D9DF),
+          onPrimary: Color(0xFF0F1115),
+          secondary: Color(0xFF6C768A),
+          onSecondary: Color(0xFF0F1115),
+          error: Colors.red,
+          onError: Colors.white,
+          surface: Color(0xFF1A1F2B),
+          onSurface: Color(0xFFD6D9DF),
+        ),
         textTheme: const TextTheme(
-          bodyLarge: TextStyle(
-            fontSize: 22,
-            color: Colours.white_text_color,
-            fontWeight: FontWeight.w800,
+          headlineLarge: TextStyle(
+            fontSize: 32,
+            fontWeight: FontWeight.w700,
             letterSpacing: -0.5,
+            color: Color(0xFFD6D9DF),
+          ),
+          titleLarge: TextStyle(
+            fontSize: 23,
+            fontWeight: FontWeight.w600,
+            letterSpacing: -0.4,
+            color: Color(0xFFD6D9DF),
+          ),
+          bodyLarge: TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.w500,
+            color: Color(0xFFD6D9DF),
           ),
           bodyMedium: TextStyle(
-            fontSize: 16,
-            color: Colours.white_text_color,
-            fontWeight: FontWeight.w500,
+            fontSize: 15,
+            fontWeight: FontWeight.w400,
+            color: Color(0xFF6C768A),
           ),
           bodySmall: TextStyle(
             fontSize: 12,
-            color: Colours.grey_text_color,
-            fontWeight: FontWeight.w600,
+            fontWeight: FontWeight.w500,
+            color: Color(0xFF6C768A),
           ),
-          titleLarge: TextStyle(
-            fontSize: 20,
-            color: Colours.white_text_color,
-            fontWeight: FontWeight.w800,
-            letterSpacing: -0.4,
-          ),
-        ),
-        cardColor: Colours.workout_card_background_color_dark,
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: const Color(0xFF2F80ED),
-          brightness: Brightness.dark,
-          background: Colours.dark_theme_background,
-          surface: const Color(0xFF0E1D2D),
         ),
         appBarTheme: const AppBarTheme(
-          iconTheme: IconThemeData(color: Colours.white_text_color),
-          systemOverlayStyle: SystemUiOverlayStyle(
-            statusBarColor: Colors.black54,
-            statusBarIconBrightness: Brightness.light,
-            systemNavigationBarIconBrightness: Brightness.light,
-            systemNavigationBarColor: Colors.black87,
-          ),
-          surfaceTintColor: Colors.transparent,
-          backgroundColor: Colours.dark_theme_background,
-          actionsIconTheme: IconThemeData(color: Colours.white_text_color),
           elevation: 0,
+          backgroundColor: Colors.transparent,
+          surfaceTintColor: Colors.transparent,
+          iconTheme: IconThemeData(
+            color: Color(0xFFD6D9DF),
+          ),
+          systemOverlayStyle: SystemUiOverlayStyle(
+            statusBarColor: Colors.transparent,
+            statusBarIconBrightness: Brightness.light,
+          ),
         ),
       ),
-      themeMode: ThemeMode.system,
-      debugShowCheckedModeBanner: false,
+
+      // ================= ROUTES =================
       routes: {
         "auth/": (context) => AuthPage(
               authRepository: authRepository,
@@ -209,6 +247,7 @@ class BodyBuddiesApp extends StatelessWidget {
               workoutsRepository: workoutsRepository,
             ),
       },
+
       initialRoute: "/",
     );
   }

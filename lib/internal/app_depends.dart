@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:body_buddies/features/auth/data/repository/mock_auth_repository.dart';
 import 'package:body_buddies/features/auth/data/repository/prod_auth_repository.dart';
 import 'package:body_buddies/features/auth/domain/repository/auth_repository.dart';
+import 'package:body_buddies/features/auth/domain/tokens.dart';
 import 'package:body_buddies/features/useful/data/local_useful_sql_database.dart';
 import 'package:body_buddies/features/useful/domain/useful_repository.dart';
 import 'package:body_buddies/features/useful/data/mock_useful_repository.dart';
@@ -76,6 +77,7 @@ class AppDepends {
     log(connection.toString());
 
     final LocalDatabase workoutsLocalDatabase = WorkoutsSQLiteLocalDatabase();
+    final SecureStorage flutterSecureStorage = FlutterSecureStorageImpl();
     await workoutsLocalDatabase.initDatabase();
 
     connection ? isConnection = true : isConnection = false;
@@ -101,10 +103,15 @@ class AppDepends {
       await injectDependency<SecureStorage>(
           onProgress: onProgress,
           onError: onError,
-          repository: FlutterSecureStorageImpl(),
+          repository: flutterSecureStorage,
           depend: Depends.secureStorage);
 
       if (appEnv == AppEnv.test) {
+        await flutterSecureStorage.write(
+            dotenv.env['TOKEN_KEY']!,
+            Tokens(accessToken: "accessToken", refreshToken: "refreshToken")
+                .toJson());
+
         await injectDependency<AuthRepository>(
             onProgress: onProgress,
             onError: onError,

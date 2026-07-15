@@ -1,6 +1,6 @@
+import 'package:body_buddies/core/themes/themes.dart';
 import 'package:flutter/material.dart';
-
-import '../../../../../../core/themes/themes.dart';
+import '../../../../../../core/themes/colors.dart';
 
 class ExerciseCardWidget extends StatelessWidget {
   final String text;
@@ -9,24 +9,80 @@ class ExerciseCardWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Size screenSize = MediaQuery.sizeOf(context);
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
 
-    return Card(
-      margin: const EdgeInsets.all(4),
+    // Адаптивные размеры
+    final double horizontalMargin =
+        screenWidth * 0.02 > 8 ? 8 : screenWidth * 0.02;
+    const double verticalMargin = 4.0;
+    final double iconSize =
+        screenHeight * 0.045 > 36 ? 36 : screenHeight * 0.045;
+
+    return Container(
+      margin: EdgeInsets.symmetric(
+          horizontal: horizontalMargin, vertical: verticalMargin),
+      padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(14),
+        color: DarkTheme.surface,
+        border: Border.all(
+          color: DarkTheme.divider,
+          width: 1,
+        ),
+        gradient: const LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          colors: [
+            Color(0xFF1F2533), // на 5% светлее DarkTheme.surface
+            DarkTheme.surface,
+          ],
+          stops: [0.0, 0.05],
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.06),
+            blurRadius: 8,
+            offset: const Offset(0, 3),
+          ),
+        ],
+      ),
       child: Row(
         children: [
-          Image(
-            height: screenSize.height / 12,
-            image: const AssetImage(
-              "assets/images/calendar.png",
+          // Иконка вместо PNG (календарь)
+          Container(
+            width: iconSize,
+            height: iconSize,
+            decoration: BoxDecoration(
+              color: DarkTheme.primary.withOpacity(0.08),
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: Icon(
+              Icons.calendar_today_rounded,
+              color: DarkTheme.primary.withOpacity(0.6),
+              size: iconSize * 0.5,
             ),
           ),
-          SizedBox(
-            width: screenSize.width / 30,
+          const SizedBox(width: 14),
+          Expanded(
+            child: Text(
+              truncateText(text, 20),
+              style: const TextStyle(
+                fontFamily: 'Inter',
+                color: DarkTheme.primary,
+                fontSize: 16,
+                fontWeight: FontWeight.w600,
+                letterSpacing: -0.2,
+              ),
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+            ),
           ),
-          Text(
-            truncateText(text, 9),
-            style: DarkTheme.workout_text_style_week_day,
+          // Маленькая стрелка-намёк (опционально, для визуального якоря)
+          Icon(
+            Icons.arrow_forward_rounded,
+            color: DarkTheme.primary.withOpacity(0.2),
+            size: 18,
           ),
         ],
       ),

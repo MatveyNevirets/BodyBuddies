@@ -1,11 +1,13 @@
-import 'package:body_buddies/core/themes/colors.dart';
 import 'package:body_buddies/core/strings/strings.dart';
 import 'package:body_buddies/core/themes/themes.dart';
 import 'package:body_buddies/core/widgets/base_button.dart';
 import 'package:flutter/material.dart';
 
 typedef OnSignUp = Function();
-typedef OnSignIn = Function({required String email, required String password});
+typedef OnSignIn = Function({
+  required String email,
+  required String password,
+});
 
 class LoginIntroScreen extends StatelessWidget {
   OnSignIn onSignIn;
@@ -14,7 +16,11 @@ class LoginIntroScreen extends StatelessWidget {
   TextEditingController loginController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
-  LoginIntroScreen({super.key, required this.onSignUp, required this.onSignIn});
+  LoginIntroScreen({
+    super.key,
+    required this.onSignUp,
+    required this.onSignIn,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -29,17 +35,20 @@ class LoginIntroScreen extends StatelessWidget {
                 const SizedBox(
                   height: 80,
                 ),
-                Center(
-                    child: Text(
-                  Strings.intro_login_title_text,
-                  style: Theme.of(context).textTheme.bodyLarge,
-                )),
+                const Center(
+                  child: Text(
+                    Strings.intro_login_title_text,
+                    style: DarkTheme.title_text_style,
+                  ),
+                ),
                 const SizedBox(
                   height: 70,
                 ),
                 Text(
                   Strings.intro_enter_login_text,
-                  style: Theme.of(context).textTheme.titleLarge,
+                  style: DarkTheme.medium_text_style.copyWith(
+                    fontWeight: FontWeight.w600,
+                  ),
                 ),
                 const SizedBox(
                   height: 10,
@@ -47,43 +56,74 @@ class LoginIntroScreen extends StatelessWidget {
                 TextField(
                   maxLength: 30,
                   controller: loginController,
-                  style: Theme.of(context).textTheme.bodySmall,
-                  cursorColor: Colours.bottom_bar_icons_color.withAlpha(200),
+                  style: DarkTheme.body_text_style,
+                  cursorColor: DarkTheme.primary,
                   decoration: InputDecoration(
                     hintText: Strings.hint_email,
-                    hintStyle: Theme.of(context).textTheme.bodySmall,
-                    focusedBorder: const OutlineInputBorder(
-                      borderSide: BorderSide(
-                        width: 2,
-                        color: Colours.bottom_bar_icons_color,
+                    hintStyle: DarkTheme.hint_text_style,
+                    filled: true,
+                    fillColor: DarkTheme.surface,
+                    contentPadding: const EdgeInsets.all(14),
+                    counterText: "",
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12),
+                      borderSide: const BorderSide(
+                        width: 1,
+                        color: DarkTheme.primary,
                       ),
                     ),
-                    border: const OutlineInputBorder(),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12),
+                      borderSide: const BorderSide(
+                        width: 1,
+                        color: DarkTheme.divider,
+                      ),
+                    ),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
                   ),
                 ),
                 const SizedBox(
                   height: 20,
                 ),
-                Text(Strings.intro_login_enter_password_text,
-                    style: Theme.of(context).textTheme.titleLarge),
+                Text(
+                  Strings.intro_login_enter_password_text,
+                  style: DarkTheme.medium_text_style.copyWith(
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
                 const SizedBox(
                   height: 10,
                 ),
                 TextField(
                   obscureText: true,
                   controller: passwordController,
-                  style: Theme.of(context).textTheme.bodySmall,
-                  cursorColor: Colours.bottom_bar_icons_color.withAlpha(200),
+                  style: DarkTheme.body_text_style,
+                  cursorColor: DarkTheme.primary,
                   decoration: InputDecoration(
                     hintText: Strings.hint_password,
-                    hintStyle: Theme.of(context).textTheme.bodySmall,
-                    focusedBorder: const OutlineInputBorder(
-                      borderSide: BorderSide(
-                        width: 2,
-                        color: Colours.bottom_bar_icons_color,
+                    hintStyle: DarkTheme.hint_text_style,
+                    filled: true,
+                    fillColor: DarkTheme.surface,
+                    contentPadding: const EdgeInsets.all(14),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12),
+                      borderSide: const BorderSide(
+                        width: 1,
+                        color: DarkTheme.primary,
                       ),
                     ),
-                    border: const OutlineInputBorder(),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12),
+                      borderSide: const BorderSide(
+                        width: 1,
+                        color: DarkTheme.divider,
+                      ),
+                    ),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
                   ),
                 ),
                 const SizedBox(
@@ -93,14 +133,16 @@ class LoginIntroScreen extends StatelessWidget {
                   child: SizedBox(
                     width: 250,
                     child: BaseButton(
-                        buttonSize: const Size(double.maxFinite, 50),
-                        radius: 8,
-                        onClick: () => onSignIn(
-                            email: loginController.text,
-                            password: passwordController.text),
-                        buttonText: Strings.button_login_text,
-                        icon: null,
-                        isElevated: true),
+                      buttonSize: const Size(double.maxFinite, 50),
+                      radius: 14,
+                      onClick: () => onSignIn(
+                        email: loginController.text,
+                        password: passwordController.text,
+                      ),
+                      buttonText: Strings.button_login_text,
+                      icon: null,
+                      isElevated: true,
+                    ),
                   ),
                 ),
                 const SizedBox(
@@ -110,12 +152,13 @@ class LoginIntroScreen extends StatelessWidget {
                   child: SizedBox(
                     width: 250,
                     child: BaseButton(
-                        radius: 8,
-                        buttonSize: const Size(double.maxFinite, 50),
-                        onClick: () => onSignUp(),
-                        buttonText: Strings.registration_text,
-                        icon: null,
-                        isElevated: false),
+                      radius: 14,
+                      buttonSize: const Size(double.maxFinite, 50),
+                      onClick: () => onSignUp(),
+                      buttonText: Strings.registration_text,
+                      icon: null,
+                      isElevated: false,
+                    ),
                   ),
                 ),
               ],

@@ -1,6 +1,6 @@
 import 'package:body_buddies/features/useful/domain/useful_repository.dart';
-import 'package:body_buddies/features/useful/presentation/add_exercise/bloc/exercises_bloc.dart';
-import 'package:body_buddies/features/useful/presentation/add_exercise/presentation/add_exercise_screen.dart';
+import 'package:body_buddies/features/workouts/presentation/add_exercise/bloc/exercises_bloc.dart';
+import 'package:body_buddies/features/workouts/presentation/add_exercise/presentation/add_exercise_screen.dart';
 import 'package:body_buddies/services/secure_storage/i_secure_storage.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

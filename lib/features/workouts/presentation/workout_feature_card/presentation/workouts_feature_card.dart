@@ -2,6 +2,7 @@
 import 'dart:convert';
 
 import 'package:body_buddies/core/strings/strings.dart';
+import 'package:body_buddies/core/themes/themes.dart';
 import 'package:body_buddies/features/workouts/domain/Entities/workout_entity.dart';
 import 'package:body_buddies/features/workouts/domain/workouts_repository.dart';
 import 'package:body_buddies/services/secure_storage/i_secure_storage.dart';
@@ -10,10 +11,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class WorkoutFeatureCard extends StatefulWidget {
-  const WorkoutFeatureCard(
-      {super.key,
-      required this.workoutsRepository,
-      required this.secureStorage});
+  const WorkoutFeatureCard({
+    super.key,
+    required this.workoutsRepository,
+    required this.secureStorage,
+  });
 
   final WorkoutsRepository workoutsRepository;
   final SecureStorage secureStorage;
@@ -25,14 +27,6 @@ class WorkoutFeatureCard extends StatefulWidget {
 class _WorkoutFeatureCardState extends State<WorkoutFeatureCard> {
   late Future<WorkoutEntity?> _todayWorkoutFuture;
   bool _initialized = false;
-
-  static const Color _surface = Color(0xFF0E1D2D);
-  static const Color _surface2 = Color(0xFF12263A);
-  static const Color _border = Color(0xFF244055);
-  static const Color _primary = Color(0xFF2F80ED);
-  static const Color _textMain = Color(0xFFF5F8FC);
-  static const Color _textSecondary = Color(0xFF9BB0C5);
-  static const Color _accent = Color(0xFFB8D9FF);
 
   @override
   void didChangeDependencies() {
@@ -105,65 +99,48 @@ class _WorkoutFeatureCardState extends State<WorkoutFeatureCard> {
             color: Colors.transparent,
             child: InkWell(
               onTap: openWorkoutsMenuScreen,
-              borderRadius: BorderRadius.circular(28),
+              borderRadius: BorderRadius.circular(18),
               child: Container(
                 height: 218,
                 decoration: BoxDecoration(
-                  gradient: const LinearGradient(
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
-                    colors: [_surface, _surface2],
+                  color: DarkTheme.surface,
+                  borderRadius: BorderRadius.circular(18),
+                  border: Border.all(
+                    color: DarkTheme.divider,
+                    width: 1,
                   ),
-                  borderRadius: BorderRadius.circular(28),
-                  border: Border.all(color: _border, width: 1),
-                  boxShadow: const [
-                    BoxShadow(
-                      color: Color(0xAA04101A),
-                      blurRadius: 22,
-                      offset: Offset(0, 10),
-                    ),
-                  ],
                 ),
                 child: ClipRRect(
-                  borderRadius: BorderRadius.circular(28),
+                  borderRadius: BorderRadius.circular(18),
                   child: Stack(
+                    fit: StackFit.expand,
                     children: [
-                      Positioned.fill(
-                        child: Image.asset(
-                          "assets/images/WorkoutsCardBackground.png",
-                          fit: BoxFit.cover,
-                        ),
+                      // Фоновое изображение с затемнением
+                      Image.asset(
+                        "assets/images/WorkoutsCardBackground.png",
+                        fit: BoxFit.cover,
                       ),
-                      Positioned.fill(
-                        child: DecoratedBox(
-                          decoration: BoxDecoration(
-                            gradient: LinearGradient(
-                              begin: Alignment.topLeft,
-                              end: Alignment.bottomRight,
-                              colors: [
-                                const Color(0xFF07131F).withOpacity(0.18),
-                                const Color(0xFF07131F).withOpacity(0.64),
-                              ],
+                      // Затемняющий слой для читаемости текста
+                      Container(
+                        color: DarkTheme.background.withOpacity(0.55),
+                      ),
+                      // Геометрическая фигура (асимметричная, приглушённая)
+                      Positioned(
+                        right: -40,
+                        top: -40,
+                        child: Transform.rotate(
+                          angle: 0.4,
+                          child: Container(
+                            width: 160,
+                            height: 160,
+                            decoration: BoxDecoration(
+                              color: DarkTheme.primary.withOpacity(0.06),
+                              borderRadius: BorderRadius.circular(24),
                             ),
                           ),
                         ),
                       ),
-                      Positioned(
-                        right: -26,
-                        top: -18,
-                        child: _CardShape(
-                          size: 128,
-                          color: _primary.withOpacity(0.16),
-                        ),
-                      ),
-                      Positioned(
-                        left: -12,
-                        bottom: -26,
-                        child: _CardShape(
-                          size: 92,
-                          color: _accent.withOpacity(0.08),
-                        ),
-                      ),
+                      // Основной контент
                       Padding(
                         padding: const EdgeInsets.all(18),
                         child: Column(
@@ -177,13 +154,17 @@ class _WorkoutFeatureCardState extends State<WorkoutFeatureCard> {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      _LabelChip(
-                                        label: 'ТРЕНИРОВКА ДНЯ',
-                                        fill: _primary.withOpacity(0.14),
-                                        border: _primary.withOpacity(0.46),
-                                        textColor: _accent,
+                                      // Метка "ТРЕНИРОВКА ДНЯ" – просто текст
+                                      const Text(
+                                        'ТРЕНИРОВКА ДНЯ',
+                                        style: TextStyle(
+                                          color: DarkTheme.secondary,
+                                          fontSize: 11,
+                                          fontWeight: FontWeight.w700,
+                                          letterSpacing: 0.8,
+                                        ),
                                       ),
-                                      const SizedBox(height: 14),
+                                      const SizedBox(height: 12),
                                       if (isLoading)
                                         const _LoadingTitle()
                                       else
@@ -191,19 +172,17 @@ class _WorkoutFeatureCardState extends State<WorkoutFeatureCard> {
                                           title,
                                           maxLines: 2,
                                           overflow: TextOverflow.ellipsis,
-                                          style: const TextStyle(
-                                            color: _textMain,
-                                            fontSize: 25,
-                                            height: 1.06,
-                                            fontWeight: FontWeight.w800,
-                                            letterSpacing: -0.6,
+                                          style: DarkTheme.workout_text_style
+                                              .copyWith(
+                                            fontSize: 24,
+                                            height: 1.1,
                                           ),
                                         ),
-                                      const SizedBox(height: 10),
+                                      const SizedBox(height: 8),
                                       Text(
                                         dayLabel,
                                         style: const TextStyle(
-                                          color: _textSecondary,
+                                          color: DarkTheme.secondary,
                                           fontSize: 14,
                                           fontWeight: FontWeight.w600,
                                         ),
@@ -211,12 +190,50 @@ class _WorkoutFeatureCardState extends State<WorkoutFeatureCard> {
                                     ],
                                   ),
                                 ),
-                                const SizedBox(width: 10),
+                                const SizedBox(width: 12),
                                 Column(
                                   crossAxisAlignment: CrossAxisAlignment.end,
                                   children: [
-                                    _DateBadge(date: dateLabel),
-                                    const SizedBox(height: 22),
+                                    // Дата
+                                    Container(
+                                      width: 48,
+                                      height: 48,
+                                      decoration: BoxDecoration(
+                                        color: DarkTheme.background
+                                            .withOpacity(0.3),
+                                        borderRadius: BorderRadius.circular(12),
+                                        border: Border.all(
+                                          color: DarkTheme.divider,
+                                          width: 1,
+                                        ),
+                                      ),
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          const Text(
+                                            'TODAY',
+                                            style: TextStyle(
+                                              color: DarkTheme.secondary,
+                                              fontSize: 8.5,
+                                              fontWeight: FontWeight.w700,
+                                              letterSpacing: 1.0,
+                                            ),
+                                          ),
+                                          const SizedBox(height: 2),
+                                          Text(
+                                            dateLabel,
+                                            style: const TextStyle(
+                                              color: DarkTheme.primary,
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.w700,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    const SizedBox(height: 20),
+                                    // Кнопка воспроизведения
                                     _PlayButton(
                                       loading: isLoading,
                                       onTap: () {
@@ -230,16 +247,16 @@ class _WorkoutFeatureCardState extends State<WorkoutFeatureCard> {
                               ],
                             ),
                             const Spacer(),
+                            // Нижние метки – теперь без иконок и не вылезают
                             const Row(
                               children: [
-                                _MetaChip(
-                                  icon: Icons.fitness_center_rounded,
-                                  label: 'Открыть план',
+                                Flexible(
+                                  child: _MetaChip(label: 'Открыть план'),
                                 ),
-                                SizedBox(width: 10),
-                                _MetaChip(
-                                  icon: Icons.play_circle_rounded,
-                                  label: 'Старт одним касанием',
+                                SizedBox(width: 8),
+                                Flexible(
+                                  child:
+                                      _MetaChip(label: 'Старт одним касанием'),
                                 ),
                               ],
                             ),
@@ -296,16 +313,16 @@ class _LoadingTitle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 58,
-      width: 180,
+      height: 52,
+      width: 160,
       decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.08),
-        borderRadius: BorderRadius.circular(14),
+        color: DarkTheme.primary.withOpacity(0.08),
+        borderRadius: BorderRadius.circular(12),
       ),
       child: const Center(
         child: CupertinoActivityIndicator(
-          radius: 11,
-          color: Color(0xFFF5F8FC),
+          radius: 10,
+          color: DarkTheme.primary,
         ),
       ),
     );
@@ -324,18 +341,20 @@ class _PlayButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Material(
-      color: const Color(0xFF2F80ED).withOpacity(0.18),
-      borderRadius: BorderRadius.circular(18),
+      color: DarkTheme.primary.withOpacity(0.12),
+      borderRadius: BorderRadius.circular(14),
       child: InkWell(
         onTap: loading ? null : onTap,
-        borderRadius: BorderRadius.circular(18),
+        borderRadius: BorderRadius.circular(14),
         child: Container(
-          width: 58,
-          height: 58,
+          width: 48,
+          height: 48,
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(18),
-            border:
-                Border.all(color: const Color(0xFF4A9BFF).withOpacity(0.35)),
+            borderRadius: BorderRadius.circular(14),
+            border: Border.all(
+              color: DarkTheme.primary.withOpacity(0.3),
+              width: 1.5,
+            ),
           ),
           child: loading
               ? const Center(
@@ -344,14 +363,14 @@ class _PlayButton extends StatelessWidget {
                     height: 20,
                     child: CupertinoActivityIndicator(
                       radius: 10,
-                      color: Color(0xFFF5F8FC),
+                      color: DarkTheme.primary,
                     ),
                   ),
                 )
               : const Icon(
                   Icons.play_arrow_rounded,
-                  color: Color(0xFFF5F8FC),
-                  size: 30,
+                  color: DarkTheme.primary,
+                  size: 28,
                 ),
         ),
       ),
@@ -359,138 +378,35 @@ class _PlayButton extends StatelessWidget {
   }
 }
 
-class _LabelChip extends StatelessWidget {
-  final String label;
-  final Color fill;
-  final Color border;
-  final Color textColor;
-
-  const _LabelChip({
-    required this.label,
-    required this.fill,
-    required this.border,
-    required this.textColor,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-      decoration: BoxDecoration(
-        color: fill,
-        borderRadius: BorderRadius.circular(999),
-        border: Border.all(color: border, width: 1),
-      ),
-      child: Text(
-        label,
-        style: TextStyle(
-          color: textColor,
-          fontSize: 11.5,
-          fontWeight: FontWeight.w800,
-          letterSpacing: 0.9,
-        ),
-      ),
-    );
-  }
-}
-
 class _MetaChip extends StatelessWidget {
-  final IconData icon;
   final String label;
 
   const _MetaChip({
-    required this.icon,
     required this.label,
   });
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 9),
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 7),
       decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.05),
-        borderRadius: BorderRadius.circular(999),
-        border: Border.all(color: Colors.white.withOpacity(0.08)),
+        color: DarkTheme.background.withOpacity(0.4),
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(
+          color: DarkTheme.divider,
+          width: 1,
+        ),
       ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Icon(icon, size: 16, color: const Color(0xFFB8D9FF)),
-          const SizedBox(width: 6),
-          Text(
-            label,
-            style: const TextStyle(
-              color: Color(0xFFF5F8FC),
-              fontSize: 12,
-              fontWeight: FontWeight.w600,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class _DateBadge extends StatelessWidget {
-  final String date;
-
-  const _DateBadge({required this.date});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: 56,
-      height: 56,
-      decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.05),
-        borderRadius: BorderRadius.circular(18),
-        border: Border.all(color: Colors.white.withOpacity(0.10)),
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          const Text(
-            'TODAY',
-            style: TextStyle(
-              color: Color(0xFF7EA8D8),
-              fontSize: 9.5,
-              fontWeight: FontWeight.w800,
-              letterSpacing: 1.2,
-            ),
-          ),
-          const SizedBox(height: 4),
-          Text(
-            date,
-            style: const TextStyle(
-              color: Color(0xFFF5F8FC),
-              fontSize: 13,
-              fontWeight: FontWeight.w800,
-              letterSpacing: 0.4,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class _CardShape extends StatelessWidget {
-  final double size;
-  final Color color;
-
-  const _CardShape({
-    required this.size,
-    required this.color,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: size,
-      height: size,
-      decoration: BoxDecoration(
-        shape: BoxShape.circle,
-        color: color,
+      child: Text(
+        label,
+        overflow: TextOverflow.ellipsis,
+        maxLines: 1,
+        style: const TextStyle(
+          color: DarkTheme.secondary,
+          fontSize: 11,
+          fontWeight: FontWeight.w600,
+          letterSpacing: -0.2,
+        ),
       ),
     );
   }

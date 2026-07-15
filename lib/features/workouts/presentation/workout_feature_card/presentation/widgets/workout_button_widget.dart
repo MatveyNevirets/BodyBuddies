@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../../../../../core/themes/colors.dart';
 import '../../../../../../core/strings/strings.dart';
 import '../../../../../../core/themes/themes.dart';
 
@@ -15,24 +14,24 @@ class WorkoutButtonWidget extends StatelessWidget {
     return ElevatedButton(
       onPressed: onPressed,
       style: ButtonStyle(
-        backgroundColor: const WidgetStatePropertyAll(Colours.white_text_color),
-        foregroundColor: WidgetStatePropertyAll(Colours.workoutTextColor),
-        minimumSize: WidgetStatePropertyAll(
-          buttonSize,
-        ),
+        // Концепт: фон = Primary Accent, тень почти отсутствует
+        backgroundColor: const WidgetStatePropertyAll(DarkTheme.primary),
+        foregroundColor: const WidgetStatePropertyAll(DarkTheme.background),
+        elevation: const WidgetStatePropertyAll(0),
+        minimumSize: WidgetStatePropertyAll(buttonSize),
+        // Концепт: radius 14
         shape: WidgetStatePropertyAll(
           RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(4),
+            borderRadius: BorderRadius.circular(14),
           ),
         ),
       ),
-      child: Column(
-        children: [
-          Text(
-            Strings.start,
-            style: DarkTheme.workouts_button_text_style,
-          ),
-        ],
+      child: Text(
+        Strings.start,
+        // Концепт: текст = цвет фона, соблюдаем типографику кнопок
+        style: DarkTheme.workouts_button_text_style.copyWith(
+          color: DarkTheme.background,
+        ),
       ),
     );
   }

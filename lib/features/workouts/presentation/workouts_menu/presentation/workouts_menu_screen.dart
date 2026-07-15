@@ -1,6 +1,5 @@
 // ignore_for_file: must_be_immutable
 
-import 'package:body_buddies/core/themes/colors.dart';
 import 'package:body_buddies/core/strings/strings.dart';
 import 'package:body_buddies/core/themes/themes.dart';
 
@@ -49,51 +48,131 @@ class _WorkoutsMenuScreenState extends State<WorkoutsMenuScreen> {
     }
 
     return Scaffold(
+      backgroundColor: DarkTheme.background,
       floatingActionButton: Padding(
-        padding: const EdgeInsets.only(right: 8, bottom: 32),
+        padding: const EdgeInsets.only(
+          right: 16,
+          bottom: 24,
+        ),
         child: FloatingActionButton(
-          elevation: 3,
+          elevation: 0,
+          backgroundColor: DarkTheme.primary,
+          foregroundColor: DarkTheme.background,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(14),
+          ),
           onPressed: () => createWorkout(),
-          backgroundColor: Colours.workoutCardForegroundColor,
-          foregroundColor: Colours.workout_card_background_color,
           child: const Icon(
             Icons.add,
-            size: 30,
+            size: 28,
           ),
         ),
       ),
-      body: BlocBuilder<WorkoutsMenuBloc, WorkoutsMenuState>(
-        builder: (context, state) {
-          if (state is UpdateWorkoutState) {
-            if (state.workouts != null) {
-              return Container(
-                margin: DarkTheme.base_margin_size,
-                child: ListView.builder(
-                  itemCount: state.workouts!.length + 1,
-                  itemBuilder: (context, index) {
-                    return index == 0
-                        ? OpenWorkoutsJournal()
-                        : WorkoutCardOnList(
-                            workoutMenuContext: context,
-                            workout: state.workouts!.elementAt(index - 1),
-                            index: index - 1,
-                            isConnection: widget.isConnection,
-                            secureStorage: widget.secureStorage,
-                            workoutsRepository: widget.workoutsRepository,
-                          );
-                  },
-                ),
-              );
-            } else {
-              return const Center(
-                child: Text("OMG NULL!"),
-              );
-            }
-          }
+      body: Stack(
+        children: [
+          Positioned.fill(
+            child: CustomPaint(
+              painter: BackgroundGeometryPainter(),
+            ),
+          ),
+          BlocBuilder<WorkoutsMenuBloc, WorkoutsMenuState>(
+            builder: (context, state) {
+              if (state is UpdateWorkoutState) {
+                if (state.workouts != null) {
+                  return ListView.builder(
+                    physics: const BouncingScrollPhysics(),
+                    padding: const EdgeInsets.fromLTRB(
+                      16,
+                      24,
+                      16,
+                      120,
+                    ),
+                    itemCount: state.workouts!.length + 1,
+                    itemBuilder: (context, index) {
+                      final child = index == 0
+                          ? OpenWorkoutsJournal()
+                          : WorkoutCardOnList(
+                              workoutMenuContext: context,
+                              workout: state.workouts!.elementAt(index - 1),
+                              index: index - 1,
+                              isConnection: widget.isConnection,
+                              secureStorage: widget.secureStorage,
+                              workoutsRepository: widget.workoutsRepository,
+                            );
 
-          return const LoadingScreen();
-        },
+                      return Padding(
+                        padding: const EdgeInsets.only(
+                          bottom: 16,
+                        ),
+                        child: child,
+                      );
+                    },
+                  );
+                }
+
+                return const Center(
+                  child: Text(
+                    "OMG NULL!",
+                    style: TextStyle(
+                      color: DarkTheme.secondary,
+                    ),
+                  ),
+                );
+              }
+
+              return const LoadingScreen();
+            },
+          ),
+        ],
       ),
     );
   }
+}
+
+// Класс для создания фоновой геометрии оставлен для возможности использования в будущем
+class BackgroundGeometryPainter extends CustomPainter {
+  @override
+  void paint(Canvas canvas, Size size) {
+    final paint = Paint()
+      ..color = DarkTheme.primary.withOpacity(0.05) // 3-8% opacity
+      ..strokeWidth = 2.0
+      ..style = PaintingStyle.stroke;
+
+    final fillPaint = Paint()
+      ..color = DarkTheme.secondary.withOpacity(0.04)
+      ..style = PaintingStyle.fill;
+
+    canvas.drawLine(
+      const Offset(0, 0),
+      Offset(size.width * 0.4, size.height * 0.4),
+      paint,
+    );
+    canvas.drawLine(
+      Offset(size.width, size.height * 0.1),
+      Offset(size.width * 0.6, size.height),
+      paint,
+    );
+    canvas.drawLine(
+      Offset(size.width * 0.2, size.height),
+      Offset(size.width, 0),
+      paint,
+    );
+
+    final path = Path();
+    path.moveTo(size.width * 0.85, size.height * 0.05);
+    path.lineTo(size.width * 0.95, size.height * 0.05);
+    path.lineTo(size.width * 0.85, size.height * 0.2);
+    path.close();
+    canvas.drawPath(path, fillPaint);
+
+    final path2 = Path();
+    path2.moveTo(size.width * 0.1, size.height * 0.9);
+    path2.lineTo(size.width * 0.2, size.height * 0.9);
+    path2.lineTo(size.width * 0.1, size.height * 0.75);
+    path2.close();
+    canvas.drawPath(path2, fillPaint);
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
 }

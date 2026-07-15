@@ -1,6 +1,6 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
-import '../../../../../../core/themes/colors.dart';
+import '../../../../../../core/themes/themes.dart';
 
 class CalendarWidget extends StatelessWidget {
   final double height;
@@ -30,10 +30,12 @@ class CalendarWidget extends StatelessWidget {
             child: Text(
               text,
               style: TextStyle(
-                  fontSize: height / 5,
-                  fontWeight: FontWeight.bold,
-                  color: Colours.white_text_color,
-                  fontFamily: "AqumTwo"),
+                fontSize: height / 5,
+                fontWeight: FontWeight.w700, // Концепт: Weight 700
+                color: DarkTheme.primary, // Концепт: металлический акцент
+                fontFamily: "Inter", // Концепт: Inter
+                letterSpacing: -0.5, // Концепт: -0.5 для H1
+              ),
             ),
           ),
         )

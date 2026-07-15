@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:body_buddies/features/useful/domain/entity/advice_entity.dart';
 import 'package:body_buddies/features/useful/domain/entity/exercise_on_list_entity.dart';
 import 'package:body_buddies/features/useful/domain/useful_repository.dart';
@@ -23,7 +25,9 @@ class MockUsefulRepository implements UsefulRepository {
 
   @override
   Future<List<AdviceEntity>> fetchAdvices(String token) async {
+    print("hurry up!");
     if (token != "") {
+      print("try to susss");
       await Future.delayed(const Duration(seconds: 2));
       return [
         AdviceEntity(
@@ -91,5 +95,4 @@ class MockUsefulRepository implements UsefulRepository {
       throw Exception("Invalid token");
     }
   }
-
 }

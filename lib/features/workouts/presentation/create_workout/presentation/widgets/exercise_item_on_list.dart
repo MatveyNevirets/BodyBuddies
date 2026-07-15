@@ -1,9 +1,9 @@
+import 'package:body_buddies/core/themes/themes.dart';
 import 'package:body_buddies/features/workouts/domain/Entities/exercise_entity.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../../../core/themes/colors.dart';
 import '../../../../../../core/strings/strings.dart';
-import '../../../../../../core/themes/themes.dart';
+import '../../../../../../core/themes/colors.dart';
 import '../workout_create_screen.dart';
 
 class ExerciseItemOnList extends StatefulWidget {
@@ -26,19 +26,19 @@ class ExerciseItemOnList extends StatefulWidget {
 
 class _ExerciseItemOnListState extends State<ExerciseItemOnList> {
   late TextEditingController weightController;
-  late TextEditingController setsContorller;
+  late TextEditingController setsController;
   late TextEditingController repsController;
   late TextEditingController restTimeOfMinutesController;
-  late TextEditingController restTimOfSecondsController;
+  late TextEditingController restTimeOfSecondsController;
 
   @override
   void initState() {
     super.initState();
     weightController = TextEditingController();
-    setsContorller = TextEditingController();
+    setsController = TextEditingController();
     repsController = TextEditingController();
     restTimeOfMinutesController = TextEditingController();
-    restTimOfSecondsController = TextEditingController();
+    restTimeOfSecondsController = TextEditingController();
   }
 
   @override
@@ -54,7 +54,7 @@ class _ExerciseItemOnListState extends State<ExerciseItemOnList> {
       var reps = widget.exercises[widget.index].reps;
       var sets = widget.exercises[widget.index].sets;
       var restTimeOfSeconds = widget.exercises[widget.index].restTimeInSeconds;
-      var resTimeOfMinutes = widget.exercises[widget.index].restTimeInMinutes;
+      var restTimeOfMinutes = widget.exercises[widget.index].restTimeInMinutes;
 
       weight == weight.toInt()
           ? weightText = weight.toInt().toString()
@@ -68,353 +68,260 @@ class _ExerciseItemOnListState extends State<ExerciseItemOnList> {
           ? setsText = sets.toInt().toString()
           : setsText = sets.toString();
 
-      resTimeOfMinutes == resTimeOfMinutes.toInt()
-          ? restTimeOfMinutesText = resTimeOfMinutes.toInt().toString()
-          : restTimeOfMinutesText = resTimeOfMinutes.toString();
+      restTimeOfMinutes == restTimeOfMinutes.toInt()
+          ? restTimeOfMinutesText = restTimeOfMinutes.toInt().toString()
+          : restTimeOfMinutesText = restTimeOfMinutes.toString();
 
       restTimeOfSeconds == restTimeOfSeconds.toInt()
           ? restTimeOfSecondsText = restTimeOfSeconds.toInt().toString()
           : restTimeOfSecondsText = restTimeOfSeconds.toString();
 
       weightController.text = widget.isEdited ? weightText.toString() : "";
-      setsContorller.text = widget.isEdited ? setsText.toString() : "";
+      setsController.text = widget.isEdited ? setsText.toString() : "";
       repsController.text = widget.isEdited ? repsText.toString() : "";
       restTimeOfMinutesController.text =
           widget.isEdited ? restTimeOfMinutesText.toString() : "";
-      restTimOfSecondsController.text =
+      restTimeOfSecondsController.text =
           widget.isEdited ? restTimeOfSecondsText.toString() : "";
     }
 
-    return Column(
-      children: [
-        Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(8),
-            color: Colours.workout_card_background_color,
+    final screenWidth = widget.screenSize.width;
+    final double cardPadding =
+        screenWidth * 0.04 > 12 ? 12 : screenWidth * 0.04;
+
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 12),
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(14),
+          color: DarkTheme.surface,
+          border: Border.all(
+            color: DarkTheme.divider,
+            width: 1,
           ),
-          padding: const EdgeInsets.all(8),
+          gradient: const LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [
+              Color(0xFF1F2533),
+              DarkTheme.surface,
+            ],
+            stops: [0.0, 0.05],
+          ),
+        ),
+        child: Padding(
+          padding: EdgeInsets.all(cardPadding),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              buildHeaderCardWidget(
-                  widget.screenSize, widget.exercises, widget.index),
-              buildExerciseTitle(
-                  widget.screenSize, widget.exercises, widget.index),
-              const SizedBox(height: 6),
-              buildExerciseInputFields(
-                  context,
-                  widget.screenSize,
-                  widget.exercises,
-                  widget.index,
-                  weightController,
-                  setsContorller,
-                  repsController),
-              const SizedBox(
-                height: 12,
+              // Шапка: иконка, номер, удаление
+              Row(
+                children: [
+                  Container(
+                    width: 32,
+                    height: 32,
+                    decoration: BoxDecoration(
+                      color: DarkTheme.backgroundSecondary,
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: Center(
+                      child: Text(
+                        (widget.index + 1).toString(),
+                        style: const TextStyle(
+                          fontFamily: 'Inter',
+                          fontSize: 14,
+                          fontWeight: FontWeight.w600,
+                          color: DarkTheme.primary,
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 8, horizontal: 12),
+                      decoration: BoxDecoration(
+                        color: DarkTheme.backgroundSecondary,
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: Text(
+                        textAlign: TextAlign.center,
+                        truncateText(widget.exercises[widget.index].title, 20),
+                        style: const TextStyle(
+                          fontFamily: 'Inter',
+                          fontSize: 14,
+                          fontWeight: FontWeight.w600,
+                          color: DarkTheme.primary,
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 8),
+                  GestureDetector(
+                    onTap: () => removeExercise(),
+                    child: const Icon(
+                      Icons.delete_outline,
+                      size: 26,
+                      color: DarkTheme.secondary,
+                    ),
+                  ),
+                ],
               ),
-              buildRestOfSetsInputFields(
-                  context,
-                  widget.screenSize,
-                  widget.exercises,
-                  widget.index,
-                  restTimeOfMinutesController,
-                  restTimOfSecondsController),
-              const SizedBox(
-                height: 8,
+              const SizedBox(height: 12),
+
+              // Инпуты: вес, подходы, повторения
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  _buildInputField(
+                    screenWidth / 6,
+                    Strings.weight,
+                    weightController,
+                    (value) {
+                      if (value.isNotEmpty) {
+                        widget.exercises[widget.index].kilograms =
+                            double.parse(value);
+                      } else {
+                        widget.exercises[widget.index].kilograms = 0;
+                      }
+                    },
+                  ),
+                  const SizedBox(width: 8),
+                  _buildInputField(
+                    screenWidth / 6,
+                    Strings.sets,
+                    setsController,
+                    (value) {
+                      if (value.isNotEmpty) {
+                        widget.exercises[widget.index].sets = int.parse(value);
+                      } else {
+                        widget.exercises[widget.index].sets = 0;
+                      }
+                    },
+                  ),
+                  const SizedBox(width: 8),
+                  _buildInputField(
+                    screenWidth / 6,
+                    Strings.reps,
+                    repsController,
+                    (value) {
+                      if (value.isNotEmpty) {
+                        widget.exercises[widget.index].reps = int.parse(value);
+                      } else {
+                        widget.exercises[widget.index].reps = 0;
+                      }
+                    },
+                  ),
+                ],
               ),
+              const SizedBox(height: 12),
+
+              // Инпуты отдыха
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    Strings.rest_of_sets,
+                    style: const TextStyle(
+                      fontFamily: 'Inter',
+                      fontSize: 12,
+                      fontWeight: FontWeight.w500,
+                      color: DarkTheme.secondary,
+                    ),
+                  ),
+                  const SizedBox(width: 12),
+                  _buildInputField(
+                    screenWidth / 7,
+                    Strings.minutes,
+                    restTimeOfMinutesController,
+                    (value) {
+                      if (value.isNotEmpty) {
+                        widget.exercises[widget.index].restTimeInMinutes =
+                            int.parse(value);
+                      } else {
+                        widget.exercises[widget.index].restTimeInMinutes = 0;
+                      }
+                    },
+                  ),
+                  const SizedBox(width: 8),
+                  _buildInputField(
+                    screenWidth / 7,
+                    Strings.seconds,
+                    restTimeOfSecondsController,
+                    (value) {
+                      if (value.isNotEmpty) {
+                        widget.exercises[widget.index].restTimeInSeconds =
+                            int.parse(value);
+                      } else {
+                        widget.exercises[widget.index].restTimeInSeconds = 0;
+                      }
+                    },
+                  ),
+                ],
+              ),
+              const SizedBox(height: 4),
             ],
           ),
         ),
-        const SizedBox(
-          height: 12,
-        ),
-      ],
+      ),
     );
   }
 
-  Container buildExerciseTitle(
-      Size screenSize, List<ExerciseEntity> exercises, int index) {
-    return Container(
-        decoration: BoxDecoration(
-            color: Colours.workoutCardForegroundColor,
-            borderRadius: BorderRadius.circular(4)),
-        margin: const EdgeInsets.only(bottom: 8, top: 8),
-        height: screenSize.height / 25,
-        width: double.maxFinite,
-        padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 4),
-        child: Text(
-          textAlign: TextAlign.center,
-          truncateText(exercises[index].title, 15),
-          style: DarkTheme.hint_text_field_fill_workout,
-        ));
-  }
-
-  Column buildRestOfSetsInputFields(
-      BuildContext context,
-      Size screenSize,
-      List<ExerciseEntity> exercises,
-      int index,
-      TextEditingController restMinutesController,
-      restSecondsController) {
-    return Column(
-      children: [
-        Text(
-          Strings.rest_of_sets,
-          style: DarkTheme.workout_exercise_card_style,
+  Widget _buildInputField(double width, String label,
+      TextEditingController controller, Function(String) onChanged) {
+    return SizedBox(
+      width: width,
+      height: 42,
+      child: TextField(
+        controller: controller,
+        onChanged: onChanged,
+        maxLength: 4,
+        buildCounter: null,
+        keyboardType: TextInputType.number,
+        style: const TextStyle(
+          fontFamily: 'Inter',
+          fontSize: 14,
+          fontWeight: FontWeight.w500,
+          color: DarkTheme.primary,
         ),
-        const SizedBox(
-          height: 6,
-        ),
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(
-              width: screenSize.width / 4,
-              height: 40,
-              padding: const EdgeInsets.all(2),
-              decoration: BoxDecoration(
-                  color: Colours.workoutCardForegroundColor,
-                  borderRadius: BorderRadius.circular(4)),
-              child: TextField(
-                controller: restMinutesController,
-                onChanged: (value) {
-                  if (value.isNotEmpty) {
-                    exercises[index].restTimeInMinutes =
-                        int.parse(restMinutesController.text);
-                  } else {
-                    exercises[index].restTimeInMinutes = 0;
-                  }
-                },
-                maxLength: 4,
-                buildCounter: null,
-                keyboardType: TextInputType.number,
-                style: DarkTheme.hint_text_field_fill_workout,
-                cursorColor: Colours.workout_card_background_color,
-                decoration: InputDecoration(
-                  enabledBorder: const UnderlineInputBorder(
-                      borderSide: BorderSide(
-                          width: 2,
-                          color: Colours.workout_card_background_color)),
-                  focusedBorder: const UnderlineInputBorder(
-                      borderSide: BorderSide(
-                          width: 2,
-                          color: Colours.workout_card_background_color)),
-                  labelText: Strings.minutes,
-                  labelStyle: DarkTheme.hint_text_field_fill_workout,
-                  contentPadding: const EdgeInsets.only(bottom: 16),
-                  counterText: '',
-                ),
-              ),
+        cursorColor: DarkTheme.primary,
+        decoration: InputDecoration(
+          filled: true,
+          fillColor: DarkTheme.backgroundSecondary,
+          contentPadding: const EdgeInsets.only(bottom: 14, left: 4, right: 4),
+          labelText: label,
+          labelStyle: const TextStyle(
+            fontFamily: 'Inter',
+            fontSize: 12,
+            fontWeight: FontWeight.w400,
+            color: DarkTheme.secondary,
+          ),
+          counterText: '',
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(12),
+            borderSide: const BorderSide(
+              color: DarkTheme.divider,
+              width: 1,
             ),
-            const Expanded(
-              child: SizedBox(),
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(12),
+            borderSide: const BorderSide(
+              color: DarkTheme.divider,
+              width: 1,
             ),
-            Container(
-              width: screenSize.width / 4,
-              height: 40,
-              padding: const EdgeInsets.all(2),
-              decoration: BoxDecoration(
-                  color: Colours.workoutCardForegroundColor,
-                  borderRadius: BorderRadius.circular(4)),
-              child: TextField(
-                controller: restSecondsController,
-                onChanged: (value) {
-                  if (value.isNotEmpty) {
-                    exercises[index].restTimeInSeconds =
-                        int.parse(restSecondsController.text);
-                  } else {
-                    exercises[index].restTimeInSeconds = 0;
-                  }
-                },
-                maxLength: 4,
-                buildCounter: null,
-                keyboardType: TextInputType.number,
-                style: DarkTheme.hint_text_field_fill_workout,
-                cursorColor: Colours.workout_card_background_color,
-                decoration: InputDecoration(
-                  enabledBorder: const UnderlineInputBorder(
-                      borderSide: BorderSide(
-                          width: 2,
-                          color: Colours.workout_card_background_color)),
-                  focusedBorder: const UnderlineInputBorder(
-                      borderSide: BorderSide(
-                          width: 2,
-                          color: Colours.workout_card_background_color)),
-                  labelText: Strings.seconds,
-                  labelStyle: DarkTheme.hint_text_field_fill_workout,
-                  contentPadding: const EdgeInsets.only(bottom: 16),
-                  counterText: '',
-                ),
-              ),
-            ),
-          ],
-        ),
-      ],
-    );
-  }
-
-  Row buildExerciseInputFields(
-      BuildContext context,
-      Size screenSize,
-      List<ExerciseEntity> exercises,
-      int index,
-      TextEditingController weightController,
-      setsController,
-      repsController) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Container(
-          width: screenSize.width / 7,
-          height: 40,
-          padding: const EdgeInsets.all(2),
-          decoration: BoxDecoration(
-              color: Colours.workoutCardForegroundColor,
-              borderRadius: BorderRadius.circular(4)),
-          child: TextField(
-            controller: weightController,
-            keyboardType: TextInputType.number,
-            maxLength: 4,
-            onChanged: (value) {
-              if (value.isNotEmpty) {
-                exercises[index].kilograms =
-                    double.parse(weightController.text);
-              } else {
-                exercises[index].kilograms = 0;
-              }
-            },
-            buildCounter: null,
-            style: DarkTheme.hint_text_field_fill_workout,
-            cursorColor: Colours.workout_card_background_color,
-            decoration: InputDecoration(
-              enabledBorder: const UnderlineInputBorder(
-                  borderSide: BorderSide(
-                      width: 2, color: Colours.workout_card_background_color)),
-              focusedBorder: const UnderlineInputBorder(
-                  borderSide: BorderSide(
-                      width: 2, color: Colours.workout_card_background_color)),
-              labelText: Strings.weight,
-              labelStyle: DarkTheme.hint_text_field_fill_workout,
-              contentPadding: const EdgeInsets.only(bottom: 14),
-              counterText: '',
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(12),
+            borderSide: const BorderSide(
+              color: DarkTheme.primary,
+              width: 1.5,
             ),
           ),
         ),
-        const Expanded(child: SizedBox()),
-        Container(
-          width: screenSize.width / 7,
-          height: 40,
-          padding: const EdgeInsets.all(2),
-          decoration: BoxDecoration(
-              color: Colours.workoutCardForegroundColor,
-              borderRadius: BorderRadius.circular(4)),
-          child: TextField(
-            controller: setsController,
-            onChanged: (value) {
-              if (value.isNotEmpty) {
-                exercises[index].sets = int.parse(setsController.text);
-              } else {
-                exercises[index].sets = 0;
-              }
-            },
-            maxLength: 4,
-            buildCounter: null,
-            keyboardType: TextInputType.number,
-            style: DarkTheme.hint_text_field_fill_workout,
-            cursorColor: Colours.workout_card_background_color,
-            decoration: InputDecoration(
-              enabledBorder: const UnderlineInputBorder(
-                  borderSide: BorderSide(
-                      width: 2, color: Colours.workout_card_background_color)),
-              focusedBorder: const UnderlineInputBorder(
-                  borderSide: BorderSide(
-                      width: 2, color: Colours.workout_card_background_color)),
-              labelText: Strings.sets,
-              labelStyle: DarkTheme.hint_text_field_fill_workout,
-              contentPadding: const EdgeInsets.only(bottom: 14),
-              counterText: '',
-            ),
-          ),
-        ),
-        const Expanded(child: SizedBox()),
-        Container(
-          width: screenSize.width / 7,
-          height: 40,
-          padding: const EdgeInsets.all(2),
-          decoration: BoxDecoration(
-              color: Colours.workoutCardForegroundColor,
-              borderRadius: BorderRadius.circular(4)),
-          child: TextField(
-            controller: repsController,
-            onChanged: (value) {
-              if (value.isNotEmpty) {
-                exercises[index].reps = int.parse(repsController.text);
-              } else {
-                exercises[index].reps = 0;
-              }
-            },
-            maxLength: 4,
-            buildCounter: null,
-            keyboardType: TextInputType.number,
-            style: DarkTheme.hint_text_field_fill_workout,
-            cursorColor: Colours.workout_card_background_color,
-            decoration: InputDecoration(
-              enabledBorder: const UnderlineInputBorder(
-                  borderSide: BorderSide(
-                      width: 2, color: Colours.workout_card_background_color)),
-              focusedBorder: const UnderlineInputBorder(
-                  borderSide: BorderSide(
-                      width: 2, color: Colours.workout_card_background_color)),
-              labelText: Strings.reps,
-              labelStyle: DarkTheme.hint_text_field_fill_workout,
-              contentPadding: const EdgeInsets.only(bottom: 16),
-              counterText: '',
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-
-  Row buildHeaderCardWidget(
-      Size screenSize, List<ExerciseEntity> exercises, int index) {
-    return Row(
-      children: [
-        Image(
-          image: const AssetImage("assets/images/workout_image.png"),
-          height: screenSize.height / 18,
-        ),
-        Expanded(
-          child: Container(
-            decoration: BoxDecoration(
-                color: Colours.workoutCardForegroundColor,
-                borderRadius: BorderRadius.circular(4)),
-            margin: const EdgeInsets.all(8),
-            padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 4),
-            height: screenSize.height / 25,
-            child: Center(
-              child: Text(
-                textAlign: TextAlign.center,
-                (index + 1).toString(),
-                style: DarkTheme.hint_text_style_create_workout,
-              ),
-            ),
-          ),
-        ),
-        GestureDetector(
-          onTap: () => removeExercise(),
-          child: const Icon(
-            Icons.delete,
-            size: 25,
-            color: Colours.workoutCardForegroundColor,
-          ),
-        ),
-        const SizedBox(
-          width: 5,
-        ),
-      ],
+      ),
     );
   }
 

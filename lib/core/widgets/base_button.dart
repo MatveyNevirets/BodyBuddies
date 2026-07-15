@@ -1,6 +1,6 @@
 // ignore_for_file: must_be_immutable
 
-import 'package:body_buddies/core/themes/colors.dart';
+import 'package:body_buddies/core/themes/themes.dart';
 import 'package:flutter/material.dart';
 
 class BaseButton extends StatelessWidget {
@@ -17,141 +17,88 @@ class BaseButton extends StatelessWidget {
 
   final IconData? icon;
 
-  BaseButton(
-      {super.key,
-      required this.onClick,
-      required this.buttonText,
-      required this.icon,
-      required this.isElevated,
-      this.buttonSize,
-      this.radius,
-      this.backgroundColor,
-      this.color});
+  BaseButton({
+    super.key,
+    required this.onClick,
+    required this.buttonText,
+    required this.icon,
+    required this.isElevated,
+    this.buttonSize,
+    this.radius,
+    this.backgroundColor,
+    this.color,
+  });
 
   @override
   Widget build(BuildContext context) {
+    final borderRadius = BorderRadius.circular(radius ?? 14);
+
+    final textStyle = TextStyle(
+      color: isElevated
+          ? (color ?? DarkTheme.background)
+          : (color ?? DarkTheme.primary),
+      fontSize: isElevated ? 16 : 12,
+      fontWeight: isElevated ? FontWeight.w600 : FontWeight.w500,
+      letterSpacing: -0.2,
+    );
+
+    final content = icon != null
+        ? Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(buttonText, style: textStyle),
+              const SizedBox(width: 12),
+              Icon(
+                icon,
+                color: textStyle.color,
+                size: 20,
+              ),
+            ],
+          )
+        : Text(
+            buttonText,
+            style: textStyle,
+          );
+
+    final baseStyle = ButtonStyle(
+      minimumSize: WidgetStatePropertyAll(buttonSize),
+      padding: const WidgetStatePropertyAll(
+        EdgeInsets.symmetric(vertical: 16, horizontal: 20),
+      ),
+      elevation: const WidgetStatePropertyAll(0),
+      shape: WidgetStatePropertyAll(
+        RoundedRectangleBorder(
+          borderRadius: borderRadius,
+        ),
+      ),
+    );
+
     if (isElevated) {
-      if (icon != null) {
-        return ElevatedButton(
-          onPressed: onClick,
-          style: ButtonStyle(
-            minimumSize: WidgetStatePropertyAll(
-              buttonSize,
-            ),
-            shape: WidgetStatePropertyAll(
-              RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(radius ?? 32),
-              ),
-            ),
-            backgroundColor: WidgetStatePropertyAll(
-                backgroundColor ?? Colours.base_button_color),
+      return ElevatedButton(
+        onPressed: onClick,
+        style: baseStyle.copyWith(
+          backgroundColor: WidgetStatePropertyAll(
+            backgroundColor ?? DarkTheme.primary,
           ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                buttonText,
-                style: TextStyle(
-                  color: color ?? Colours.base_button_text_color,
-                  fontFamily: 'AqumTwo',
-                ),
-              ),
-              const SizedBox(
-                width: 20,
-              ),
-              Icon(
-                icon,
-                color: color ?? Colours.base_button_text_color,
-              ),
-            ],
+          foregroundColor: const WidgetStatePropertyAll(
+            DarkTheme.background,
           ),
-        );
-      } else {
-        return ElevatedButton(
-          onPressed: onClick,
-          style: ButtonStyle(
-              minimumSize: WidgetStatePropertyAll(
-                buttonSize,
-              ),
-              shape: WidgetStatePropertyAll(
-                RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(radius ?? 32),
-                ),
-              ),
-              backgroundColor: WidgetStatePropertyAll(
-                  backgroundColor ?? Colours.base_button_color)),
-          child: Text(
-            buttonText,
-            style: TextStyle(
-                fontFamily: 'AqumTwo',
-                color: color ?? Colours.base_button_text_color),
-          ),
-        );
-      }
+        ),
+        child: content,
+      );
     } else {
-      if (icon != null) {
-        return OutlinedButton(
-          onPressed: onClick,
-          style: ButtonStyle(
-              minimumSize: WidgetStatePropertyAll(
-                buttonSize,
-              ),
-              shape: WidgetStatePropertyAll(
-                RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(radius ?? 32),
-                ),
-              ),
-              side: WidgetStatePropertyAll(BorderSide(
-                  color: backgroundColor ?? Colours.base_button_color,
-                  width: 1.5,
-                  style: BorderStyle.solid))),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                buttonText,
-                style: TextStyle(
-                    fontFamily: 'AqumTwo',
-                    fontSize: 12,
-                    color: color ?? Colours.base_button_color,
-                    fontWeight: FontWeight.w500),
-              ),
-              const SizedBox(
-                width: 20,
-              ),
-              Icon(
-                icon,
-                color: color ?? Colours.base_button_text_color,
-              ),
-            ],
+      return OutlinedButton(
+        onPressed: onClick,
+        style: baseStyle.copyWith(
+          side: WidgetStatePropertyAll(
+            BorderSide(
+              color: backgroundColor ?? DarkTheme.divider,
+              width: 1,
+            ),
           ),
-        );
-      } else {
-        return OutlinedButton(
-          onPressed: onClick,
-          style: ButtonStyle(
-              minimumSize: WidgetStatePropertyAll(
-                buttonSize,
-              ),
-              shape: WidgetStatePropertyAll(
-                RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(radius ?? 32),
-                ),
-              ),
-              side: WidgetStatePropertyAll(BorderSide(
-                  color: backgroundColor ?? Colours.base_button_color,
-                  width: 1.5,
-                  style: BorderStyle.solid))),
-          child: Text(
-            buttonText,
-            style: TextStyle(
-                fontFamily: 'AqumTwo',
-                fontSize: 12,
-                color: color ?? Colours.base_button_color,
-                fontWeight: FontWeight.w500),
-          ),
-        );
-      }
+        ),
+        child: content,
+      );
     }
   }
 }

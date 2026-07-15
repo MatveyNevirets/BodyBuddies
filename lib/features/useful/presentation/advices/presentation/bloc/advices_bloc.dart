@@ -22,11 +22,14 @@ class AdvicesBloc extends Bloc<AdvicesEvent, AdvicesState> {
       FetchAdvicesEvent event, Emitter<AdvicesState> emit) async {
     emit(LoadingState());
     try {
+      print("TRy to fetch");
       final jsonToken = await storage.read(dotenv.env['TOKEN_KEY']!);
+      print("json token is $jsonToken");
       final mapToken = jsonDecode(jsonToken);
       final token = mapToken['access_token'];
 
       final advices = await usefulRepository.fetchAdvices(token);
+      print(advices);
       emit(FetchAdvices(advices));
     } on Object catch (error, stack) {
       throw Exception("Error: $error, StackTrace: $stack");

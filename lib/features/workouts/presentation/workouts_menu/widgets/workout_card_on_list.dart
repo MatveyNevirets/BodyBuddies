@@ -2,172 +2,183 @@
 
 import 'dart:convert';
 
+import 'package:body_buddies/core/strings/strings.dart';
 import 'package:body_buddies/core/themes/themes.dart';
 import 'package:body_buddies/core/widgets/are_you_sure_dialog.dart';
+import 'package:body_buddies/core/widgets/base_button.dart';
 import 'package:body_buddies/core/widgets/snackbar.dart';
 import 'package:body_buddies/features/workouts/domain/workouts_repository.dart';
-import 'package:body_buddies/features/workouts/presentation/workouts_menu/presentation/bloc/workouts_menu_bloc.dart';
-import 'package:body_buddies/features/workouts/presentation/workouts_menu/widgets/new_workout_button.dart';
-import 'package:body_buddies/features/workouts/domain/Entities/workout_entity.dart';
 import 'package:body_buddies/features/workouts/presentation/create_workout/presentation/workout_create_screen.dart';
-import 'package:body_buddies/internal/app_depends.dart';
+import 'package:body_buddies/features/workouts/presentation/workouts_menu/presentation/bloc/workouts_menu_bloc.dart';
+import 'package:body_buddies/features/workouts/domain/Entities/workout_entity.dart';
 import 'package:body_buddies/services/secure_storage/i_secure_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-import '../../../../../core/strings/strings.dart';
-
 class WorkoutCardOnList extends StatelessWidget {
-  WorkoutEntity workout;
-  int index;
-  BuildContext workoutMenuContext;
-
+  final WorkoutEntity workout;
+  final int index;
+  final BuildContext workoutMenuContext;
   final SecureStorage secureStorage;
   final WorkoutsRepository workoutsRepository;
   final bool isConnection;
 
-  WorkoutCardOnList(
-      {super.key,
-      required this.workoutMenuContext,
-      required this.workout,
-      required this.index,
-      required this.isConnection,
-      required this.secureStorage,
-      required this.workoutsRepository});
+  const WorkoutCardOnList({
+    super.key,
+    required this.workoutMenuContext,
+    required this.workout,
+    required this.index,
+    required this.isConnection,
+    required this.secureStorage,
+    required this.workoutsRepository,
+  });
 
   @override
   Widget build(BuildContext context) {
-    openWorkout() {
-      Navigator.of(context)
-          .pushNamed("workouts_menu/current_workout/", arguments: [workout, 0]);
+    void openWorkout() {
+      Navigator.of(context).pushNamed(
+        "workouts_menu/current_workout/",
+        arguments: [workout, 0],
+      );
     }
 
-    void editCurrentWorkout(BuildContext context, WorkoutEntity workout) {
+    void editCurrentWorkout() {
       if (isConnection) {
-        Navigator.of(context).pushNamed("/workouts_menu/create_workout/",
-            arguments: [context, workout, true]);
+        Navigator.of(context).pushNamed(
+          "/workouts_menu/create_workout/",
+          arguments: [context, workout, true],
+        );
       } else {
         showSnackBar(context, Strings.haventInternetConnetion);
       }
     }
 
+    void runCurrentWorkout() {
+      Navigator.of(context).pushNamed(
+        "workouts_menu/run_workout/",
+        arguments: workout,
+      );
+    }
+
     return GestureDetector(
-      onTap: () => openWorkout(),
-      child: Card(
-        elevation: 2,
-        shadowColor: Theme.of(context).cardColor,
-        color: Theme.of(context).cardColor,
-        child: Container(
-          padding: EdgeInsets.only(
-              right: DarkTheme.base_margin_size_double,
-              top: DarkTheme.base_margin_size_double / 2,
-              bottom: DarkTheme.base_margin_size_double / 2),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              const SizedBox(
-                width: 5,
-              ),
-              Image(
-                image: const AssetImage(
-                  "assets/images/workout_image.png",
+      onTap: openWorkout,
+      child: Container(
+        margin: const EdgeInsets.only(bottom: 12),
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+        decoration: BoxDecoration(
+          color: DarkTheme.surface,
+          borderRadius: BorderRadius.circular(18),
+          border: Border.all(color: DarkTheme.divider, width: 1),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            // Верхняя строка: день недели + кнопки редактирования/удаления
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Container(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                  decoration: BoxDecoration(
+                    color: DarkTheme.backgroundSecondary,
+                    borderRadius: BorderRadius.circular(6),
+                  ),
+                  child: Text(
+                    getDayOfWeekOnString(workout),
+                    style: DarkTheme.workout_text_style_week_day.copyWith(
+                      color: DarkTheme.secondary,
+                    ),
+                  ),
                 ),
-                height: MediaQuery.sizeOf(context).height / 7,
-                width: MediaQuery.sizeOf(context).height / 7,
-              ),
-              const Expanded(child: SizedBox()),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Row(
-                        children: [
-                          Container(
-                            padding: EdgeInsets.symmetric(
-                                horizontal:
-                                    DarkTheme.base_margin_size_double / 1.5,
-                                vertical:
-                                    DarkTheme.base_margin_size_double / 10),
-                            decoration: BoxDecoration(
-                                color: Theme.of(context).focusColor,
-                                borderRadius: BorderRadius.circular(4)),
-                            child: Text(
-                              getDayOfWeekOnString(workout),
-                              style: DarkTheme.workout_text_style_week_day,
-                            ),
-                          ),
-                          const SizedBox(
-                            width: 10,
-                          ),
-                          IconButton(
-                            onPressed: () =>
-                                editCurrentWorkout(context, workout),
-                            color: Theme.of(context).focusColor,
-                            icon: const Icon(
-                              Icons.mode_sharp,
-                              size: 25,
-                            ),
-                          ),
-                          IconButton(
-                            onPressed: () => showAdaptiveDialog(
-                                context: context,
-                                builder: (BuildContext newContext) {
-                                  return _AreYouSureMenuWorkoutsDialog(
-                                    index: index,
-                                    secureStorage: secureStorage,
-                                    isConnection: isConnection,
-                                    previousContext: context,
-                                    workoutsRepository: workoutsRepository,
-                                  );
-                                }),
-                            color: Theme.of(context).focusColor,
-                            icon: const Icon(
-                              Icons.delete,
-                              size: 25,
-                            ),
-                          ),
-                        ],
+                Row(
+                  children: [
+                    _IconButton(
+                      icon: Icons.edit_outlined,
+                      onTap: editCurrentWorkout,
+                    ),
+                    const SizedBox(width: 4),
+                    _IconButton(
+                      icon: Icons.delete_outline_rounded,
+                      onTap: () => showAdaptiveDialog(
+                        context: context,
+                        builder: (_) => _AreYouSureMenuWorkoutsDialog(
+                          index: index,
+                          secureStorage: secureStorage,
+                          isConnection: isConnection,
+                          previousContext: context,
+                          workoutsRepository: workoutsRepository,
+                        ),
                       ),
-                    ],
-                  ),
-                  Text(
-                    truncateText(workout.title!, 10),
-                    style: DarkTheme.workout_text_style_dark_theme,
-                  ),
-                  const SizedBox(
-                    height: 6,
-                  ),
-                  NewWorkoutButton(
-                      () => runCurrentWorkout(context),
-                      Size(MediaQuery.sizeOf(context).width / 5,
-                          MediaQuery.sizeOf(context).width / 10))
-                ],
+                    ),
+                  ],
+                ),
+              ],
+            ),
+            const SizedBox(height: 12),
+            // Название тренировки
+            Text(
+              truncateText(workout.title!, 20),
+              style: DarkTheme.workout_text_style_dark_theme.copyWith(
+                fontSize: 20,
+                fontWeight: FontWeight.w700,
+                color: DarkTheme.primary,
               ),
-            ],
-          ),
+              textAlign: TextAlign.left,
+            ),
+            const SizedBox(height: 16),
+            // Кнопка «Старт» с иконкой play
+            BaseButton(
+              onClick: runCurrentWorkout,
+              buttonText:
+                  Strings.start, // предполагается, что есть ключ "start"
+              icon: Icons.play_arrow_rounded,
+              isElevated: true,
+              backgroundColor: DarkTheme.primary,
+              color: DarkTheme.background,
+              radius: 14,
+              buttonSize: const Size(double.infinity, 48),
+            ),
+          ],
         ),
       ),
     );
   }
+}
 
-  void runCurrentWorkout(
-    BuildContext context,
-  ) {
-    Navigator.of(context)
-        .pushNamed("workouts_menu/run_workout/", arguments: workout);
+// Мини‑кнопка (edit / delete) без лишних обводок
+class _IconButton extends StatelessWidget {
+  final IconData icon;
+  final VoidCallback onTap;
+
+  const _IconButton({required this.icon, required this.onTap});
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Icon(
+          icon,
+          size: 20,
+          color: DarkTheme.secondary,
+        ),
+      ),
+    );
   }
 }
 
+// Диалог подтверждения удаления (без изменений логики)
 class _AreYouSureMenuWorkoutsDialog extends StatelessWidget {
-  const _AreYouSureMenuWorkoutsDialog(
-      {required this.isConnection,
-      required this.index,
-      required this.previousContext,
-      required this.secureStorage,
-      required this.workoutsRepository});
+  const _AreYouSureMenuWorkoutsDialog({
+    required this.isConnection,
+    required this.index,
+    required this.previousContext,
+    required this.secureStorage,
+    required this.workoutsRepository,
+  });
 
   final bool isConnection;
   final int index;
@@ -204,6 +215,7 @@ class _AreYouSureMenuWorkoutsDialog extends StatelessWidget {
   }
 }
 
+// Вспомогательная функция дня недели (без изменений)
 String getDayOfWeekOnString(WorkoutEntity workout, {bool isFullText = false}) {
   final List<String> shortNames = [
     Strings.mon,

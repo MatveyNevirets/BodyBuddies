@@ -3,12 +3,13 @@ import 'package:body_buddies/core/widgets/snackbar.dart';
 import 'package:body_buddies/features/useful/domain/entity/exercise_on_list_entity.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../../core/themes/colors.dart';
 import '../../../../../core/strings/strings.dart';
 import '../../../../../core/themes/themes.dart';
 
 class AddYourExerciseScreen extends StatefulWidget {
-  const AddYourExerciseScreen({super.key});
+  const AddYourExerciseScreen({
+    super.key,
+  });
 
   @override
   State<AddYourExerciseScreen> createState() => _AddYourExerciseScreenState();
@@ -16,105 +17,119 @@ class AddYourExerciseScreen extends StatefulWidget {
 
 class _AddYourExerciseScreenState extends State<AddYourExerciseScreen> {
   final titleController = TextEditingController();
+
   bool isTimerExercise = false;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-     
       body: Wrap(
         children: [
           Container(
-            margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 64),
+            margin: const EdgeInsets.symmetric(
+              horizontal: 16,
+              vertical: 64,
+            ),
             padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(8),
-                color: Colours.workout_card_background_color),
-            child: Card(
-              elevation: 8,
-              child: Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(8),
-                    color: Theme.of(context).scaffoldBackgroundColor),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Введите название своего упражнения",
-                      style: DarkTheme.workout_text_style_background_24,
+              borderRadius: BorderRadius.circular(18),
+              color: DarkTheme.surface,
+              border: Border.all(
+                color: DarkTheme.divider,
+              ),
+            ),
+            child: Container(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 16,
+                vertical: 16,
+              ),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(14),
+                color: DarkTheme.backgroundSecondary,
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "Введите название своего упражнения",
+                    style: DarkTheme.workout_text_style_background_24,
+                  ),
+                  const SizedBox(
+                    height: 16,
+                  ),
+                  Container(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 12,
                     ),
-                    const SizedBox(
-                      height: 16,
-                    ),
-                    Container(
-                      padding: const EdgeInsets.all(8),
-                      decoration: BoxDecoration(
-                          color: Colours.workout_card_background_color,
-                          borderRadius: BorderRadius.circular(8)),
-                      child: TextField(
-                        buildCounter: null,
-                        controller: titleController,
-                        cursorColor: Colours.workoutCardForegroundColor,
-                        textAlign: TextAlign.start,
-                        style: DarkTheme.hint_text_style_create_exercise,
-                        decoration: InputDecoration(
-                          isDense: true,
-                          hintStyle: DarkTheme.hint_text_style_create_exercise,
-                          hintText: Strings.title,
-                          focusedBorder: const UnderlineInputBorder(
-                            borderSide: BorderSide(
-                                color: Colours.workoutCardForegroundColor,
-                                width: 3),
-                          ),
-                          enabledBorder: const UnderlineInputBorder(
-                            borderSide: BorderSide(
-                                color: Colours.workoutCardForegroundColor,
-                                width: 3),
-                          ),
-                        ),
+                    decoration: BoxDecoration(
+                      color: DarkTheme.surface,
+                      borderRadius: BorderRadius.circular(12),
+                      border: Border.all(
+                        color: DarkTheme.divider,
                       ),
                     ),
-                    const SizedBox(
-                      height: 32,
+                    child: TextField(
+                      buildCounter: null,
+                      controller: titleController,
+                      cursorColor: DarkTheme.primary,
+                      textAlign: TextAlign.start,
+                      style: DarkTheme.body_text_style,
+                      decoration: InputDecoration(
+                        isDense: true,
+                        hintStyle: DarkTheme.hint_text_style_create_exercise,
+                        hintText: Strings.title,
+                        border: InputBorder.none,
+                      ),
                     ),
-                    Row(
-                      children: [
-                        Text(
-                          "По таймеру",
-                          style: DarkTheme.workout_text_style_background_24,
+                  ),
+                  const SizedBox(
+                    height: 32,
+                  ),
+                  Row(
+                    children: [
+                      Text(
+                        "По таймеру",
+                        style: DarkTheme.workout_text_style_background_24,
+                      ),
+                      const Expanded(
+                        child: SizedBox(),
+                      ),
+                      Checkbox(
+                        checkColor: DarkTheme.background,
+                        activeColor: DarkTheme.primary,
+                        side: const BorderSide(
+                          color: DarkTheme.divider,
+                          width: 2,
                         ),
-                        const Expanded(child: SizedBox()),
-                        Checkbox(
-                          checkColor: Colours.workoutCardForegroundColor,
-                          activeColor: Colours.workout_card_background_color,
-                          side: const BorderSide(
-                              color: Colours.workout_card_background_color,
-                              width: 2.5),
-                          value: isTimerExercise,
-                          onChanged: (newValue) => setState(() {
-                            isTimerExercise = newValue!;
-                          }),
-                        ),
-                      ],
+                        value: isTimerExercise,
+                        onChanged: (newValue) => setState(() {
+                          isTimerExercise = newValue!;
+                        }),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 32,
+                  ),
+                  BaseButton(
+                    onClick: () => tryToAddExercise(
+                      context,
+                      titleController.text.toString(),
+                      isTimerExercise,
                     ),
-                    const SizedBox(
-                      height: 32,
+                    buttonText: Strings.add,
+                    backgroundColor: DarkTheme.primary,
+                    color: DarkTheme.background,
+                    buttonSize: const Size(
+                      double.maxFinite,
+                      45,
                     ),
-                    BaseButton(
-                        onClick: () => tryToAddExercise(context,
-                            titleController.text.toString(), isTimerExercise),
-                        buttonText: Strings.add,
-                        backgroundColor: Colours.workout_card_background_color,
-                        color: Colours.workoutCardForegroundColor,
-                        buttonSize: const Size(double.maxFinite, 45),
-                        radius: 8,
-                        icon: null,
-                        isElevated: true),
-                  ],
-                ),
+                    radius: 14,
+                    icon: null,
+                    isElevated: true,
+                  ),
+                ],
               ),
             ),
           ),
@@ -129,9 +144,16 @@ class _AddYourExerciseScreenState extends State<AddYourExerciseScreen> {
     bool isTimerExercise,
   ) {
     if (titleController.text.isNotEmpty) {
-      hasBeenAdd(context, title, isTimerExercise);
+      hasBeenAdd(
+        context,
+        title,
+        isTimerExercise,
+      );
     } else {
-      showSnackBar(context, Strings.not_full_field_error);
+      showSnackBar(
+        context,
+        Strings.not_full_field_error,
+      );
     }
   }
 
@@ -144,6 +166,7 @@ class _AddYourExerciseScreenState extends State<AddYourExerciseScreen> {
       title: title,
       isExercise: !isTimerExercise,
     );
+
     Navigator.of(context).pop(newExercise);
   }
 }

@@ -1,20 +1,20 @@
-// lib/internal/home/presentation/home_screen.dart
+// lib/features/home/presentation/home_screen.dart
 import 'package:body_buddies/core/themes/themes.dart';
 import 'package:body_buddies/features/workouts/domain/workouts_repository.dart';
 import 'package:body_buddies/services/secure_storage/i_secure_storage.dart';
 import 'package:flutter/material.dart';
 
-import '../../../core/strings/strings.dart';
 import '../../useful/useful_feature_card/presentation/useful_feature_card.dart';
 import '../../water_indicator/water_indicator.dart';
 import '../../workouts/presentation/workout_feature_card/presentation/workouts_feature_card.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen(
-      {super.key,
-      required this.workoutsRepository,
-      required this.secureStorage,
-      required this.isConnection});
+  const HomeScreen({
+    super.key,
+    required this.workoutsRepository,
+    required this.secureStorage,
+    required this.isConnection,
+  });
 
   final WorkoutsRepository workoutsRepository;
   final SecureStorage secureStorage;
@@ -24,396 +24,363 @@ class HomeScreen extends StatefulWidget {
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
-  static const Color _bg = Color(0xFF07131F);
+class _HomeScreenState extends State<HomeScreen>
+    with SingleTickerProviderStateMixin {
+  late final AnimationController _fadeController;
+  late final Animation<double> _fadeAnimation;
+
+  @override
+  void initState() {
+    super.initState();
+    _fadeController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 800),
+    );
+    _fadeAnimation = CurvedAnimation(
+      parent: _fadeController,
+      curve: Curves.easeOutCubic,
+    );
+    _fadeController.forward();
+  }
+
+  @override
+  void dispose() {
+    _fadeController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
+    final now = DateTime.now();
+    final greeting = _greeting(now.hour);
+
     return Scaffold(
-      backgroundColor: _bg,
+      backgroundColor: DarkTheme.background,
       body: Stack(
         children: [
-          const Positioned.fill(child: _HomeBackground()),
+          // Геометрический фон (асимметричные фигуры)
+          const Positioned.fill(
+            child: _GeometricBackground(),
+          ),
           SafeArea(
-            child: ListView(
-              padding: const EdgeInsets.fromLTRB(16, 16, 16, 24),
-              children: [
-                const _SectionHeader(
-                  title: 'Тренировки',
-                  subtitle:
-                      'Быстрый доступ к программе и запуску текущего плана',
-                ),
-                const SizedBox(height: 12),
-                WorkoutFeatureCard(
-                  workoutsRepository: widget.workoutsRepository,
-                  secureStorage: widget.secureStorage,
-                ),
-                const SizedBox(height: 22),
-                const _SectionHeader(
-                  title: 'Вода',
-                  subtitle: 'Отслеживание привычки без лишнего шума',
-                ),
-                const SizedBox(height: 12),
-                Center(
-                  child: WaterIndicator(),
-                ),
-                const SizedBox(height: 22),
-                const _SectionHeader(
-                  title: 'Полезное',
-                  subtitle:
-                      'Инструменты и материалы, которые помогают двигаться быстрее',
-                ),
-                const SizedBox(height: 12),
-                UsefulFeatureCard(
-                  isConnection: widget.isConnection,
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class _HeroCard extends StatelessWidget {
-  final String title;
-  final String subtitle;
-  final String primaryLabel;
-  final String secondaryLabel;
-
-  const _HeroCard({
-    required this.title,
-    required this.subtitle,
-    required this.primaryLabel,
-    required this.secondaryLabel,
-  });
-
-  static const Color _surface = Color(0xFF0E1D2D);
-  static const Color _surface2 = Color(0xFF12263A);
-  static const Color _border = Color(0xFF22405A);
-  static const Color _primary = Color(0xFF2F80ED);
-  static const Color _accent = Color(0xFFB8D9FF);
-  static const Color _textMain = Color(0xFFF5F8FC);
-  static const Color _textSecondary = Color(0xFF9BB0C5);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        gradient: const LinearGradient(
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-          colors: [_surface, _surface2],
-        ),
-        borderRadius: BorderRadius.circular(28),
-        border: Border.all(color: _border.withOpacity(0.9), width: 1),
-        boxShadow: const [
-          BoxShadow(
-            color: Color(0xAA04101A),
-            blurRadius: 24,
-            offset: Offset(0, 12),
-          ),
-        ],
-      ),
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(28),
-        child: Stack(
-          children: [
-            Positioned(
-              right: -24,
-              top: -18,
-              child: _GeoCircle(
-                size: 110,
-                color: _primary.withOpacity(0.16),
-              ),
-            ),
-            Positioned(
-              left: -18,
-              bottom: -28,
-              child: _GeoCircle(
-                size: 96,
-                color: _accent.withOpacity(0.08),
-              ),
-            ),
-            Positioned(
-              right: 26,
-              bottom: 18,
-              child: Container(
-                width: 110,
-                height: 3,
-                decoration: BoxDecoration(
-                  color: _primary.withOpacity(0.35),
-                  borderRadius: BorderRadius.circular(999),
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(20),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+            child: FadeTransition(
+              opacity: _fadeAnimation,
+              child: ListView(
+                physics: const BouncingScrollPhysics(),
+                padding: const EdgeInsets.fromLTRB(20, 12, 20, 32),
                 children: [
-                  Row(
-                    children: [
-                      _HeroBadge(
-                        label: primaryLabel,
-                        borderColor: _primary.withOpacity(0.45),
-                        textColor: _accent,
-                        fillColor: _primary.withOpacity(0.14),
-                      ),
-                      const SizedBox(width: 10),
-                      _HeroBadge(
-                        label: secondaryLabel,
-                        borderColor: _border,
-                        textColor: _textSecondary,
-                        fillColor: Colors.white.withOpacity(0.03),
-                      ),
-                    ],
+                  _buildHeader(greeting),
+                  const SizedBox(height: 28),
+                  const _SectionHeader(
+                    title: 'Тренировки',
+                    subtitle: 'Быстрый доступ к плану',
+                    icon: Icons.fitness_center_rounded,
                   ),
-                  const SizedBox(height: 22),
-                  Text(
-                    title,
-                    style: const TextStyle(
-                      color: _textMain,
-                      fontSize: 30,
-                      height: 1.0,
-                      fontWeight: FontWeight.w800,
-                      letterSpacing: -0.8,
+                  const SizedBox(height: 14),
+                  WorkoutFeatureCard(
+                    workoutsRepository: widget.workoutsRepository,
+                    secureStorage: widget.secureStorage,
+                  ),
+                  const SizedBox(height: 28),
+                  const _SectionHeader(
+                    title: 'Вода',
+                    subtitle: 'Контроль привычки каждый день',
+                    icon: Icons.water_drop_rounded,
+                  ),
+                  const SizedBox(height: 14),
+                  _SurfaceContainer(
+                    child: Center(
+                      child: WaterIndicator(),
                     ),
                   ),
-                  const SizedBox(height: 10),
-                  ConstrainedBox(
-                    constraints: const BoxConstraints(maxWidth: 280),
-                    child: Text(
-                      subtitle,
-                      style: const TextStyle(
-                        color: _textSecondary,
-                        fontSize: 14.5,
-                        height: 1.45,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
+                  const SizedBox(height: 28),
+                  const _SectionHeader(
+                    title: 'Полезное',
+                    subtitle: 'Инструменты для прогресса',
+                    icon: Icons.auto_awesome_rounded,
+                  ),
+                  const SizedBox(height: 14),
+                  UsefulFeatureCard(
+                    isConnection: widget.isConnection,
                   ),
                 ],
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
-}
 
-class _HeroBadge extends StatelessWidget {
-  final String label;
-  final Color borderColor;
-  final Color textColor;
-  final Color fillColor;
-
-  const _HeroBadge({
-    required this.label,
-    required this.borderColor,
-    required this.textColor,
-    required this.fillColor,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-      decoration: BoxDecoration(
-        color: fillColor,
-        borderRadius: BorderRadius.circular(999),
-        border: Border.all(color: borderColor, width: 1),
-      ),
-      child: Text(
-        label,
-        style: TextStyle(
-          color: textColor,
-          fontSize: 12,
-          fontWeight: FontWeight.w700,
-          letterSpacing: 0.2,
-        ),
+  Widget _buildHeader(String greeting) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 8),
+      child: Row(
+        children: [
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  greeting,
+                  style: const TextStyle(
+                    color: DarkTheme.secondary,
+                    fontSize: 13,
+                    fontWeight: FontWeight.w500,
+                    letterSpacing: 0.2,
+                  ),
+                ),
+                const SizedBox(height: 4),
+                const Text(
+                  'Body Buddies',
+                  style: DarkTheme.title_text_style,
+                ),
+              ],
+            ),
+          ),
+          Container(
+            width: 46,
+            height: 46,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              border: Border.all(
+                color: DarkTheme.divider,
+                width: 1.5,
+              ),
+              gradient: LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: [
+                  DarkTheme.primary.withOpacity(0.18),
+                  DarkTheme.secondary.withOpacity(0.12),
+                ],
+              ),
+            ),
+            child: const Center(
+              child: Icon(
+                Icons.person_rounded,
+                color: DarkTheme.primary,
+                size: 22,
+              ),
+            ),
+          ),
+        ],
       ),
     );
+  }
+
+  String _greeting(int hour) {
+    if (hour >= 5 && hour < 12) return 'Доброе утро';
+    if (hour >= 12 && hour < 17) return 'Добрый день';
+    if (hour >= 17 && hour < 21) return 'Добрый вечер';
+    return 'Доброй ночи';
   }
 }
 
 class _SectionHeader extends StatelessWidget {
   final String title;
   final String subtitle;
+  final IconData icon;
 
   const _SectionHeader({
     required this.title,
     required this.subtitle,
+    required this.icon,
   });
-
-  static const Color _textMain = Color(0xFFF5F8FC);
-  static const Color _textSecondary = Color(0xFF9BB0C5);
-  static const Color _accent = Color(0xFF7EA8D8);
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(left: 2, right: 2),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            title.toUpperCase(),
-            style: const TextStyle(
-              color: _accent,
-              fontSize: 12,
-              fontWeight: FontWeight.w800,
-              letterSpacing: 1.3,
-            ),
+    return Row(
+      children: [
+        Container(
+          width: 32,
+          height: 32,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10),
+            color: DarkTheme.surface,
+            border: Border.all(color: DarkTheme.divider, width: 1),
           ),
-          const SizedBox(height: 6),
-          Text(
-            subtitle,
-            style: const TextStyle(
-              color: _textMain,
-              fontSize: 19,
-              fontWeight: FontWeight.w800,
-              height: 1.08,
-              letterSpacing: -0.4,
-            ),
+          child: Icon(
+            icon,
+            size: 17,
+            color: DarkTheme.secondary,
           ),
-          const SizedBox(height: 6),
-          Container(
-            width: 58,
-            height: 3,
-            decoration: BoxDecoration(
-              color: _textSecondary.withOpacity(0.25),
-              borderRadius: BorderRadius.circular(999),
-            ),
+        ),
+        const SizedBox(width: 12),
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                title,
+                style: const TextStyle(
+                  color: DarkTheme.primary,
+                  fontSize: 18,
+                  height: 1.1,
+                  fontWeight: FontWeight.w700,
+                  letterSpacing: -0.3,
+                ),
+              ),
+              const SizedBox(height: 3),
+              Text(
+                subtitle,
+                style: const TextStyle(
+                  color: DarkTheme.secondary,
+                  fontSize: 13,
+                  height: 1.3,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ],
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }
 
-class _GeoCircle extends StatelessWidget {
-  final double size;
-  final Color color;
+class _SurfaceContainer extends StatelessWidget {
+  final Widget child;
 
-  const _GeoCircle({
-    required this.size,
-    required this.color,
+  const _SurfaceContainer({
+    required this.child,
   });
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: size,
-      height: size,
+      padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        shape: BoxShape.circle,
-        color: color,
+        color: DarkTheme.surface.withAlpha(100),
+        borderRadius: BorderRadius.circular(18),
+        border: Border.all(
+          color: DarkTheme.divider,
+          width: 1,
+        ),
       ),
+      child: child,
     );
   }
 }
 
-class _HomeBackground extends StatelessWidget {
-  const _HomeBackground();
+class _GeometricBackground extends StatelessWidget {
+  const _GeometricBackground();
 
   @override
   Widget build(BuildContext context) {
-    return const IgnorePointer(
-      child: CustomPaint(
-        painter: _HomeBackgroundPainter(),
-        child: SizedBox.expand(),
+    return const Stack(
+      children: [
+        // Треугольник в правом верхнем углу
+        Positioned(
+          top: -60,
+          right: -30,
+          child: _GeoShape(
+            width: 220,
+            height: 220,
+            rotation: 0.4,
+            color: _geoColor,
+            shape: _GeoShapeType.triangle,
+          ),
+        ),
+        // Диагональная полоса слева
+        Positioned(
+          top: 120,
+          left: -40,
+          child: _GeoShape(
+            width: 280,
+            height: 48,
+            rotation: -0.15,
+            color: _geoColor,
+            shape: _GeoShapeType.rectangle,
+          ),
+        ),
+        // Вытянутый прямоугольник внизу справа
+        Positioned(
+          bottom: 40,
+          right: -20,
+          child: _GeoShape(
+            width: 180,
+            height: 70,
+            rotation: -0.35,
+            color: _geoColor,
+            shape: _GeoShapeType.rectangle,
+          ),
+        ),
+        // Второй треугольник внизу слева
+        Positioned(
+          bottom: -40,
+          left: -20,
+          child: _GeoShape(
+            width: 200,
+            height: 200,
+            rotation: -0.6,
+            color: _geoColor,
+            shape: _GeoShapeType.triangle,
+          ),
+        ),
+      ],
+    );
+  }
+
+  static const Color _geoColor = DarkTheme.primary;
+}
+
+enum _GeoShapeType { triangle, rectangle }
+
+class _GeoShape extends StatelessWidget {
+  final double width;
+  final double height;
+  final double rotation;
+  final Color color;
+  final _GeoShapeType shape;
+
+  const _GeoShape({
+    required this.width,
+    required this.height,
+    required this.rotation,
+    required this.color,
+    required this.shape,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Transform.rotate(
+      angle: rotation,
+      child: Opacity(
+        opacity: 0.05,
+        child: shape == _GeoShapeType.triangle
+            ? CustomPaint(
+                size: Size(width, height),
+                painter: _TrianglePainter(color),
+              )
+            : Container(
+                width: width,
+                height: height,
+                decoration: BoxDecoration(
+                  color: color,
+                  borderRadius: BorderRadius.circular(4),
+                ),
+              ),
       ),
     );
   }
 }
 
-class _HomeBackgroundPainter extends CustomPainter {
-  const _HomeBackgroundPainter();
+class _TrianglePainter extends CustomPainter {
+  final Color color;
+  _TrianglePainter(this.color);
 
   @override
   void paint(Canvas canvas, Size size) {
-    final bgPaint = Paint()..color = const Color(0xFF07131F);
-    canvas.drawRect(Offset.zero & size, bgPaint);
-
-    final circles = <_PainterCircle>[
-      _PainterCircle(
-        offset: Offset(size.width * 0.88, size.height * 0.08),
-        radius: size.width * 0.26,
-        color: const Color(0xFF2F80ED).withOpacity(0.10),
-      ),
-      _PainterCircle(
-        offset: Offset(size.width * 0.08, size.height * 0.18),
-        radius: size.width * 0.20,
-        color: const Color(0xFFB8D9FF).withOpacity(0.05),
-      ),
-      _PainterCircle(
-        offset: Offset(size.width * 0.72, size.height * 0.48),
-        radius: size.width * 0.18,
-        color: const Color(0xFF1F5FBF).withOpacity(0.08),
-      ),
-    ];
-
-    for (final circle in circles) {
-      final paint = Paint()..color = circle.color;
-      canvas.drawCircle(circle.offset, circle.radius, paint);
-    }
-
-    final linePaint = Paint()
-      ..color = const Color(0xFF4A9BFF).withOpacity(0.10)
-      ..strokeWidth = 1.2;
-
-    for (double y = 110; y < size.height; y += 130) {
-      canvas.drawLine(
-          Offset(0, y), Offset(size.width * 0.92, y + 16), linePaint);
-    }
-
-    final bandPaint = Paint()
-      ..color = const Color(0xFF12263A).withOpacity(0.65);
-    final bandPath = Path()
-      ..moveTo(size.width * 0.58, 0)
-      ..lineTo(size.width, 0)
-      ..lineTo(size.width, size.height * 0.34)
-      ..close();
-    canvas.drawPath(bandPath, bandPaint);
-
-    final band2Paint = Paint()
-      ..color = const Color(0xFF0E1D2D).withOpacity(0.65);
-    final band2Path = Path()
-      ..moveTo(0, size.height * 0.76)
-      ..lineTo(size.width * 0.55, size.height * 0.62)
-      ..lineTo(size.width * 0.74, size.height)
+    final paint = Paint()..color = color;
+    final path = Path()
+      ..moveTo(size.width / 2, 0)
+      ..lineTo(size.width, size.height)
       ..lineTo(0, size.height)
       ..close();
-    canvas.drawPath(band2Path, band2Paint);
-
-    final gridPaint = Paint()
-      ..color = const Color(0xFF244055).withOpacity(0.16)
-      ..strokeWidth = 0.8;
-
-    const step = 42.0;
-    for (double x = 0; x <= size.width; x += step) {
-      canvas.drawLine(Offset(x, 0), Offset(x, size.height), gridPaint);
-    }
-    for (double y = 0; y <= size.height; y += step) {
-      canvas.drawLine(Offset(0, y), Offset(size.width, y), gridPaint);
-    }
+    canvas.drawPath(path, paint);
   }
 
   @override
   bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
-}
-
-class _PainterCircle {
-  final Offset offset;
-  final double radius;
-  final Color color;
-
-  const _PainterCircle({
-    required this.offset,
-    required this.radius,
-    required this.color,
-  });
 }

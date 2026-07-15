@@ -1,24 +1,27 @@
 // ignore_for_file: must_be_immutable
 
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
-import '../../../../../../core/themes/colors.dart';
 import '../../../../../../core/themes/themes.dart';
 
 class WorkoutContainerText extends StatelessWidget {
-  late String title;
-  late double? padding;
+  final String title;
+  final double? padding;
 
-  WorkoutContainerText(this.title, this.padding, {super.key});
+  const WorkoutContainerText(this.title, this.padding, {super.key});
 
   @override
   Widget build(BuildContext context) {
     return Container(
       height: 40,
       decoration: BoxDecoration(
-          border: Border.all(width: 3, color: Colours.white_text_color),
-          borderRadius: BorderRadius.circular(4)),
-      padding: EdgeInsets.all(padding ?? 4),
+        border: Border.all(
+          width: 1, // Концепт: тонкая граница 1px
+          color: DarkTheme.primary, // Концепт: металлический акцент
+        ),
+        borderRadius: BorderRadius.circular(12), // Концепт: radius 12
+      ),
+      padding: EdgeInsets.all(padding ?? 8), // Концепт: базовый шаг 8px
       child: Center(
         child: Text(
           title,

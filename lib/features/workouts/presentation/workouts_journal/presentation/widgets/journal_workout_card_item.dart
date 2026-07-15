@@ -3,13 +3,12 @@ import 'package:body_buddies/features/workouts/domain/Entities/workout_entity.da
 import 'package:body_buddies/features/workouts/presentation/create_workout/presentation/workout_create_screen.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../../../core/themes/colors.dart';
-
 class JournalWorkoutCardItem extends StatelessWidget {
-  WorkoutEntity workout;
+  final WorkoutEntity workout;
   final VoidCallback removeItem;
 
-  JournalWorkoutCardItem(this.workout, {super.key, required this.removeItem});
+  const JournalWorkoutCardItem(this.workout,
+      {super.key, required this.removeItem});
 
   @override
   Widget build(BuildContext context) {
@@ -19,14 +18,18 @@ class JournalWorkoutCardItem extends StatelessWidget {
     }
 
     return Padding(
-      padding: const EdgeInsets.all(4),
+      padding: const EdgeInsets.all(8), // Концепт: базовый шаг 8px
       child: GestureDetector(
         onTap: () => openCurrentWorkout(),
         child: Card(
-          color: Theme.of(context).scaffoldBackgroundColor,
-          elevation: 4,
+          color: DarkTheme.surface, // Концепт: Surface для карточек
+          elevation: 0, // Концепт: теней почти нет
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(18), // Концепт: radius 18
+          ),
           child: Padding(
-            padding: const EdgeInsets.all(16),
+            padding:
+                const EdgeInsets.all(16), // Концепт: внутри карточек 16-20px
             child: Row(
               children: [
                 Column(
@@ -34,17 +37,25 @@ class JournalWorkoutCardItem extends StatelessWidget {
                   children: [
                     Text(
                       truncateText(workout.title.toString(), 14),
-                      style: DarkTheme.mini_journal_card_text,
+                      style: DarkTheme.mini_journal_card_text.copyWith(
+                        color: DarkTheme.primary, // Основной текст = Primary
+                        fontWeight: FontWeight.w700,
+                      ),
                     ),
+                    const SizedBox(height: 4), // Внутренний отступ
                     Text(
                       "Длительность:",
-                      style: DarkTheme.mini_journal_card_text,
+                      style: DarkTheme.mini_journal_card_text.copyWith(
+                        color: DarkTheme.secondary, // Лейбл = Secondary
+                      ),
                     ),
                     Text(
                       workout.duration.isNotEmpty
                           ? workout.duration.toString()
                           : "00:00:00",
-                      style: DarkTheme.mini_journal_card_text,
+                      style: DarkTheme.mini_journal_card_text.copyWith(
+                        color: DarkTheme.primary, // Данные = Primary
+                      ),
                     ),
                   ],
                 ),
@@ -54,16 +65,18 @@ class JournalWorkoutCardItem extends StatelessWidget {
                   children: [
                     Text(
                       workout.date,
-                      style: DarkTheme.mini_journal_card_text,
+                      style: DarkTheme.mini_journal_card_text.copyWith(
+                        color: DarkTheme.primary, // Данные = Primary
+                      ),
                     ),
                     const SizedBox(
-                      height: 15,
+                      height: 12, // Концепт: внутри карточек 12-16px
                     ),
                     GestureDetector(
                       onTap: () => removeItem.call(),
                       child: const Icon(
-                        Icons.delete,
-                        color: Colours.workout_card_background_color,
+                        Icons.delete_outline, // Концепт: outline стиль
+                        color: DarkTheme.secondary, // Вторичный акцент
                       ),
                     )
                   ],
